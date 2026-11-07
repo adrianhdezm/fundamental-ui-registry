@@ -41,19 +41,21 @@ the hidden native input (fundamental-react forwarded `ref` to its `<input>`).
 
 ### Stories vs. sources
 
-| Source            | Example                       | React story        | Status     | Notes                                                                     |
-| ----------------- | ----------------------------- | ------------------ | ---------- | ------------------------------------------------------------------------- |
-| fundamental-react | primary                       | `Default`          | ✅ covered | With fundamental-styles' texts: option 1 selected, option 3 disabled.     |
-| fundamental-react | inline                        | `Inline`           | ✅ covered |                                                                           |
-| fundamental-react | compact                       | `Compact`          | ✅ covered | `data-density="compact"`.                                                 |
-| fundamental-react | disabled                      | `Disabled`         | ✅ covered | Disabled radios with one selected, and a disabled group.                  |
-| fundamental-react | validationStates              | `ValidationStates` | ✅ covered | fundamental-styles' "interaction states": rest, checked, hover per state. |
-| fundamental-react | dev                           | `Playground`       | ✅ covered | Knobs are the Playground controls (`inline`, `disabled`, `state`, ...).   |
-| fundamental-react | noStyles                      | —                  | ➖ n/a     | No `cssNamespace`.                                                        |
-| Angular           | Examples                      | `Examples`         | ✅ covered | Controlled groups; plain fieldsets until the form component is ported.    |
-| Angular           | States                        | `States`           | ✅ covered | Cozy, compact, disabled and read-only groups.                             |
-| Angular           | Reactive form                 | `Forms`            | ✅ covered | A native form with `FormData`, a required group and a disabled group.     |
-| Angular           | Label wrapping and truncation | `LabelWrapping`    | ✅ covered | fundamental-styles' text and 400px width, so it is compared by pixels.    |
+| Source            | Example                       | React story             | Status     | Notes                                                                        |
+| ----------------- | ----------------------------- | ----------------------- | ---------- | ---------------------------------------------------------------------------- |
+| fundamental-react | primary                       | `Default`               | ✅ covered | With fundamental-styles' texts: option 1 selected, option 3 disabled.        |
+| fundamental-react | inline                        | `Inline`                | ✅ covered |                                                                              |
+| fundamental-react | compact                       | `Compact`               | ✅ covered | `data-density="compact"`.                                                    |
+| fundamental-react | disabled                      | `Disabled`              | ✅ covered | Disabled radios with one selected, and a disabled group.                     |
+| fundamental-react | validationStates              | `ValidationStates`      | ✅ covered | fundamental-styles' "interaction states": rest, checked, hover per state.    |
+| fundamental-react | dev                           | `Playground`            | ✅ covered | Knobs are the Playground controls (`inline`, `disabled`, `state`, ...).      |
+| fundamental-react | noStyles                      | —                       | ➖ n/a     | No `cssNamespace`.                                                           |
+| Angular           | Examples                      | `Examples`              | ✅ covered | Controlled groups in form fieldsets; the legend names each group.            |
+| Angular           | States                        | `States`                | ✅ covered | Cozy, compact, disabled and read-only groups.                                |
+| Angular           | Reactive form                 | `Forms`                 | ✅ covered | A native form with `FormData`, a required group and a disabled group.        |
+| Angular           | Label wrapping and truncation | `LabelWrapping`         | ✅ covered | fundamental-styles' text and 400px width, so it is compared by pixels.       |
+| —                 | Value state messages          | `ValueStateMessages`    | ➕ extra   | A message per group in a form input message group; it describes every radio. |
+| —                 | Open: value state message     | `OpenValueStateMessage` | ➕ extra   | The open error message (with a link), checked by axe.                        |
 
 ### Tests vs. sources
 

@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useId, useState, type ComponentType, type FormEvent, type ReactNode } from 'react';
+import { useState, type ComponentType, type FormEvent, type ReactNode } from 'react';
+import { expect, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
+import { FormFieldset, FormLegend } from '@/ui/form/form';
+import { FormInputMessageGroup } from '@/ui/form/form-input-message-group';
+import { FormMessage } from '@/ui/form/form-message';
+import { Link } from '@/ui/link/link';
 import { Radio, RadioGroup, type RadioGroupProps, type RadioState } from './radio';
 
 type PlaygroundArgs = Omit<RadioGroupProps<string>, 'children'> & {
@@ -53,23 +58,18 @@ type Story = StoryObj<typeof meta>;
 
 const valueText = 'text-sap-font-small-size text-sap-content-label-color';
 
-/** A fieldset whose legend names the radio group inside it. */
+/** A form fieldset whose legend names the radio group inside it. */
 function Group<V>({
     legend,
     children,
     className,
     ...props
 }: Omit<RadioGroupProps<V>, 'children'> & { legend: string; children: ReactNode }) {
-    const id = useId();
     return (
-        <fieldset className={`m-0 mb-4 min-w-0 border-0 p-0 ${className ?? ''}`}>
-            <legend id={id} className="p-0 font-sap-font-family text-sap-font-size text-sap-content-label-color">
-                {legend}
-            </legend>
-            <RadioGroup<V> aria-labelledby={id} {...props}>
-                {children}
-            </RadioGroup>
-        </fieldset>
+        <FormFieldset className={`mb-4 min-w-0 ${className ?? ''}`}>
+            <FormLegend>{legend}</FormLegend>
+            <RadioGroup<V> {...props}>{children}</RadioGroup>
+        </FormFieldset>
     );
 }
 
@@ -192,6 +192,75 @@ export const ValidationStates: Story = {
             </Group>
         </div>
     )
+};
+
+const MESSAGES: [Exclude<RadioState, 'default'>, string, ReactNode][] = [
+    [
+        'error',
+        'Delivery',
+        <>
+            Express delivery is not available for this address. See <Link href="#">delivery options</Link>.
+        </>
+    ],
+    ['warning', 'Payment', 'Invoices are paid within 30 days; your order ships after payment.'],
+    ['success', 'Size', 'All sizes are in stock.'],
+    ['information', 'Color', 'Colors may look slightly different on screen.']
+];
+
+/** A value state message for each group: it opens under the group while one of its radios has focus. */
+function ValueStateMessagesDemo() {
+    return (
+        <div className="flex max-w-md flex-col gap-6">
+            {MESSAGES.map(([state, legend, message]) => (
+                <FormFieldset key={state}>
+                    <FormLegend>{legend}</FormLegend>
+                    <FormInputMessageGroup>
+                        <RadioGroup defaultValue="1" inline>
+                            <Radio value="1" state={state}>
+                                Option 1
+                            </Radio>
+                            <Radio value="2" state={state}>
+                                Option 2
+                            </Radio>
+                        </RadioGroup>
+                        <FormMessage type={state}>{message}</FormMessage>
+                    </FormInputMessageGroup>
+                </FormFieldset>
+            ))}
+        </div>
+    );
+}
+
+export const ValueStateMessages: Story = {
+    name: 'Value state messages',
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    'A form input message group around a radio group shows its message under the group while a radio ' +
+                    'has focus and describes every radio with it (`aria-describedby`); an error message also sets ' +
+                    '`aria-invalid`.'
+            }
+        }
+    },
+    render: () => <ValueStateMessagesDemo />
+};
+
+/** Focuses the checked radio of the error group so axe checks its open message (with a link). */
+export const OpenValueStateMessage: Story = {
+    name: 'Open: value state message',
+    tags: ['!autodocs'],
+    render: () => <ValueStateMessagesDemo />,
+    play: async ({ canvasElement }) => {
+        canvasElement.querySelector<HTMLElement>('[role=radio][aria-checked=true]')!.focus();
+        await waitFor(() =>
+            expect(
+                [...document.querySelectorAll<HTMLElement>('[data-slot="form-message"]')].some(
+                    (m) => m.checkVisibility() && m.textContent!.includes('delivery options')
+                )
+            ).toBe(true)
+        );
+    }
 };
 
 function ExamplesDemo() {

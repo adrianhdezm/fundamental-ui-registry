@@ -33,30 +33,32 @@ modifier) is not ported; `inputClassName` is `inputProps.className`.
   of its accessible name.
 - The root is a `<span>` without Angular's host `tabindex="-1"`.
 - `standalone` (Angular, only `m-0` on the label, which it already has) is not ported.
-- `validationState.text` and `validationOverlayProps` (fundamental-react's validation popover) are not ported:
-  `state` colours the box; the form message waits for the form-message/popover components.
+- `validationState.text` and `validationOverlayProps` (fundamental-react's validation popover) are the form
+  component's `FormInputMessageGroup` with a `FormMessage` around the checkbox: the message opens under it on focus
+  and describes the focusable `role="checkbox"` element.
 
 ### Stories vs. sources
 
-| Source            | Example           | React story        | Status     | Notes                                                         |
-| ----------------- | ----------------- | ------------------ | ---------- | ------------------------------------------------------------- |
-| fundamental-react | primary           | `Default`          | ✅ covered | "Default Checkbox" row.                                       |
-| fundamental-react | indeterminate     | `Indeterminate`    | ✅ covered |                                                               |
-| fundamental-react | controlledChecked | `Controlled`       | ✅ covered | A button toggles `checked` instead of the knob.               |
-| fundamental-react | defaultChecked    | `DefaultChecked`   | ✅ covered |                                                               |
-| fundamental-react | disabled          | `Disabled`         | ✅ covered | Plus checked and mixed, with fundamental-styles' texts.       |
-| fundamental-react | compact           | `Compact`          | ✅ covered | `data-density="compact"`.                                     |
-| fundamental-react | validationStates  | `ValidationStates` | ✅ covered | Unchecked, checked and mixed per state; no message popover.   |
-| fundamental-react | dev               | `Playground`       | ✅ covered | Knobs are the Playground controls.                            |
-| fundamental-react | noStyles          | —                  | ➖ n/a     | No `cssNamespace`.                                            |
-| Angular           | Playground        | `Playground`       | ✅ covered |                                                               |
-| Angular           | Default           | `Default`          | ✅ covered | External label through `id`.                                  |
-| Angular           | Tristate          | `Tristate`         | ✅ covered |                                                               |
-| Angular           | Custom values     | `CustomValues`     | ✅ covered |                                                               |
-| Angular           | Custom label      | `CustomLabel`      | ✅ covered | With `Link`.                                                  |
-| Angular           | Label wrapping    | `LabelWrapping`    | ✅ covered | Plus a truncated label.                                       |
-| Angular           | States            | `States`           | ✅ covered |                                                               |
-| Angular           | Reactive forms    | `Forms`            | ✅ covered | "Accept all" from React state; a native form with `FormData`. |
+| Source            | Example                   | React story                              | Status     | Notes                                                                              |
+| ----------------- | ------------------------- | ---------------------------------------- | ---------- | ---------------------------------------------------------------------------------- |
+| fundamental-react | primary                   | `Default`                                | ✅ covered | "Default Checkbox" row.                                                            |
+| fundamental-react | indeterminate             | `Indeterminate`                          | ✅ covered |                                                                                    |
+| fundamental-react | controlledChecked         | `Controlled`                             | ✅ covered | A button toggles `checked` instead of the knob.                                    |
+| fundamental-react | defaultChecked            | `DefaultChecked`                         | ✅ covered |                                                                                    |
+| fundamental-react | disabled                  | `Disabled`                               | ✅ covered | Plus checked and mixed, with fundamental-styles' texts.                            |
+| fundamental-react | compact                   | `Compact`                                | ✅ covered | `data-density="compact"`.                                                          |
+| fundamental-react | validationStates          | `ValidationStates`, `ValueStateMessages` | ✅ covered | Unchecked, checked and mixed per state; the messages in form input message groups. |
+| fundamental-react | dev                       | `Playground`                             | ✅ covered | Knobs are the Playground controls.                                                 |
+| fundamental-react | noStyles                  | —                                        | ➖ n/a     | No `cssNamespace`.                                                                 |
+| Angular           | Playground                | `Playground`                             | ✅ covered |                                                                                    |
+| Angular           | Default                   | `Default`                                | ✅ covered | External form label through `id`.                                                  |
+| Angular           | Tristate                  | `Tristate`                               | ✅ covered |                                                                                    |
+| Angular           | Custom values             | `CustomValues`                           | ✅ covered |                                                                                    |
+| Angular           | Custom label              | `CustomLabel`                            | ✅ covered | With `Link`.                                                                       |
+| Angular           | Label wrapping            | `LabelWrapping`                          | ✅ covered | Plus a truncated label.                                                            |
+| Angular           | States                    | `States`                                 | ✅ covered |                                                                                    |
+| Angular           | Reactive forms            | `Forms`                                  | ✅ covered | "Accept all" from React state; a native form with `FormData`.                      |
+| —                 | Open: value state message | `OpenValueStateMessage`                  | ➕ extra   | The open error message (with a link), checked by axe.                              |
 
 ### Tests vs. sources
 
@@ -87,7 +89,7 @@ modifier) is not ported; `inputClassName` is `inputProps.className`.
 | fundamental-react | Spreading to root, input, label; class props; ref      | passes className, native props and the ref to the root; labelProps, inputProps and the class props | ✅ covered |
 | fundamental-react | id on the input                                        | uses the given id for the input, so an external label works                                        | ✅ covered |
 | fundamental-react | inline class                                           | —                                                                                                  | ➖ n/a     |
-| fundamental-react | validationOverlayProps (popover, form message)         | —                                                                                                  | ➖ n/a     |
+| fundamental-react | validationOverlayProps (popover, form message)         | — (form: describes a checkbox and the radios of a group)                                           | ➖ n/a     |
 
 ### Visual comparison
 

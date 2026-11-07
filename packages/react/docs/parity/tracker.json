@@ -85,8 +85,7 @@
       "source": ["src/Forms/__stories__/Checkbox.stories.js"],
       "sourceStories": 9,
       "status": "done",
-      "visual": "512/512",
-      "notes": "validation message popover (fundamental-react validationState.text): after form message and popover"
+      "visual": "512/512"
     },
     {
       "name": "combobox",
@@ -237,8 +236,7 @@
       "source": ["src/Forms/__stories__/FormInput.stories.js", "src/Forms/__stories__/FormTextarea.stories.js"],
       "sourceStories": 15,
       "status": "done",
-      "visual": "352/352",
-      "notes": "value state message, inline help stories and their tests: after form"
+      "visual": "352/352"
     },
     {
       "name": "input-group",
@@ -422,8 +420,7 @@
       "source": ["src/Forms/__stories__/FormRadioGroup.stories.js"],
       "sourceStories": 7,
       "status": "done",
-      "visual": "512/512",
-      "notes": "stories use plain fieldsets until form"
+      "visual": "512/512"
     },
     {
       "name": "rating-indicator",

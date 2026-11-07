@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type FormEvent } from 'react';
+import { expect, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
+import { FormFieldset, FormLabel, FormLegend } from '@/ui/form/form';
+import { FormInputMessageGroup } from '@/ui/form/form-input-message-group';
+import { FormMessage } from '@/ui/form/form-message';
 import { Link } from '@/ui/link/link';
 import { Checkbox, type FormState } from './checkbox';
 
@@ -46,9 +50,9 @@ function DefaultDemo() {
     const [value, setValue] = useState(false);
     return (
         <div>
-            <label htmlFor="defaultCheckbox" className="block text-sap-content-label-color">
+            <FormLabel htmlFor="defaultCheckbox" required>
                 Default checkbox
-            </label>
+            </FormLabel>
             <Checkbox label="Option 1" required id="defaultCheckbox" checked={value} onCheckedChange={setValue} />
             <span className={valueText}>Value: {String(value)}</span>
             <div>
@@ -167,6 +171,60 @@ export const ValidationStates: Story = {
             ))}
         </div>
     )
+};
+
+/** fundamental-react's validation states with their messages: each one opens under its checkbox on focus. */
+function ValueStateMessagesDemo() {
+    return (
+        <div className="flex max-w-md flex-col gap-6">
+            {STATE_NAMES.map(([state, name]) => (
+                <FormInputMessageGroup key={state}>
+                    <Checkbox state={state}>{`${name} State`}</Checkbox>
+                    <FormMessage type={state}>
+                        {state === 'error' ? (
+                            <>
+                                Accept the <Link href="#">terms and conditions</Link> to continue.
+                            </>
+                        ) : (
+                            `Test validation state: ${name.toLowerCase()}.`
+                        )}
+                    </FormMessage>
+                </FormInputMessageGroup>
+            ))}
+        </div>
+    );
+}
+
+export const ValueStateMessages: Story = {
+    name: 'Value state messages',
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    'A form input message group shows the message of a value state under the checkbox while it has ' +
+                    'focus and describes the checkbox with it (`aria-describedby`); an error message also sets ' +
+                    '`aria-invalid`.'
+            }
+        }
+    },
+    render: () => <ValueStateMessagesDemo />
+};
+
+/** Focuses the error checkbox so axe checks its open message (with a link). */
+export const OpenValueStateMessage: Story = {
+    name: 'Open: value state message',
+    tags: ['!autodocs'],
+    render: () => <ValueStateMessagesDemo />,
+    play: async ({ canvasElement }) => {
+        canvasElement.querySelector<HTMLElement>('[role=checkbox]')!.focus();
+        await waitFor(() =>
+            expect(
+                [...document.querySelectorAll<HTMLElement>('[data-slot="form-message"]')].some(
+                    (m) => m.checkVisibility() && m.textContent!.includes('terms and conditions')
+                )
+            ).toBe(true)
+        );
+    }
 };
 
 function TristateDemo() {
@@ -347,8 +405,8 @@ function AcceptAll() {
                     value={acceptAll}
                     onValueChange={(v) => setAgreements({ termsAndConditions: !!v, marketing: !!v, newsletter: !!v })}
                 />
-                <fieldset className="m-0 flex flex-col border-0 p-0 ps-6">
-                    <legend className="sr-only-sap">Agreements</legend>
+                <FormFieldset className="flex flex-col ps-6">
+                    <FormLegend className="sr-only-sap">Agreements</FormLegend>
                     <Checkbox
                         label="I accept Terms and Conditions"
                         checked={agreements.termsAndConditions}
@@ -364,7 +422,7 @@ function AcceptAll() {
                         checked={agreements.newsletter}
                         onCheckedChange={set('newsletter')}
                     />
-                </fieldset>
+                </FormFieldset>
             </div>
             <small className="mt-2 block text-sap-font-small-size text-sap-content-label-color">
                 Value: {JSON.stringify({ acceptAll, agreements })}

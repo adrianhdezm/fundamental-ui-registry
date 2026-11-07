@@ -3,6 +3,8 @@ import { createRef, useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { FormInputMessageGroup } from '@/ui/form/form-input-message-group';
+import { FormMessage, type FormMessageType } from '@/ui/form/form-message';
 import { Input, Textarea, type FormState, type InputProps, type TextareaProps } from './input';
 
 const opacity = (el: Element) => Number(getComputedStyle(el).opacity);
@@ -162,6 +164,42 @@ describe('Input', () => {
         await userEvent.type(input, 'not-an-email');
         expect(input.getAttribute('aria-invalid')).toBe('true');
         expect(input.hasAttribute('data-invalid')).toBe(true);
+    });
+
+    it('the state message is shown while the field has focus and linked with aria-describedby', async () => {
+        const ui = (type: FormMessageType) => (
+            <div>
+                <FormInputMessageGroup>
+                    <Input id="vat" aria-label="VAT" state={type} />
+                    <FormMessage type={type}>Enter a valid VAT number.</FormMessage>
+                </FormInputMessageGroup>
+                <button id="after">After</button>
+            </div>
+        );
+        const screen = await render(ui('error'));
+        const input = screen.container.querySelector<HTMLInputElement>('#vat')!;
+        await expect.poll(() => input.getAttribute('aria-describedby')).toBeTruthy();
+        const describedBy = input.getAttribute('aria-describedby')!;
+        expect(input.getAttribute('aria-invalid')).toBe('true');
+        const message = () => document.getElementById(describedBy)!;
+        // hidden until the field has focus
+        expect(message().checkVisibility()).toBe(false);
+        await userEvent.click(input);
+        await expect.poll(() => message().checkVisibility()).toBe(true);
+        expect(message().getBoundingClientRect().top).toBeGreaterThanOrEqual(input.getBoundingClientRect().bottom - 1);
+        expect(message().getAttribute('aria-live')).toBe('assertive');
+        expect(message().textContent).toContain('Invalid Entry');
+        expect(message().textContent).toContain('Enter a valid VAT number.');
+        expect(document.activeElement).toBe(input);
+        await userEvent.tab();
+        expect(document.activeElement).toBe(screen.container.querySelector('#after'));
+        await expect.poll(() => message().checkVisibility()).toBe(false);
+        await screen.rerender(ui('warning'));
+        await expect.poll(() => input.hasAttribute('aria-invalid')).toBe(false);
+        expect(input.getAttribute('aria-describedby')).toBe(describedBy);
+        input.focus();
+        await expect.poll(() => message().checkVisibility()).toBe(true);
+        expect(message().textContent).toContain('Warning');
     });
 });
 
