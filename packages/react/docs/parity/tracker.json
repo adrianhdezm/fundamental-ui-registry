@@ -515,7 +515,9 @@
       "phase": 1,
       "source": ["src/StepInput/__stories__/StepInput.stories.js"],
       "sourceStories": 7,
-      "status": "todo"
+      "status": "done",
+      "visual": "380/528",
+      "notes": "kept: fundamental-styles' cozy button width in compact for semantic fields (120), its HC buttons paint over the focus frame (28)"
     },
     {
       "name": "switch",

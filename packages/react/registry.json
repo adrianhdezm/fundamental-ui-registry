@@ -601,6 +601,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "step-input",
+      "type": "registry:ui",
+      "title": "Step Input",
+      "description": "A number field with decrement and increment buttons that repeat while pressed, formatted for the locale as a decimal or a currency.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "input", "input-group"],
+      "files": [
+        {
+          "path": "registry/ui/step-input/step-input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/step-input/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
