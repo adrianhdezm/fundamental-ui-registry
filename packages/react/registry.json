@@ -415,6 +415,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal window with a header, body and footer that can be draggable, resizable, full screen and mobile, opened from a trigger or from code, on Base UI's Dialog.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "busy-indicator", "button", "icon", "title"],
+      "files": [
+        {
+          "path": "registry/ui/dialog/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

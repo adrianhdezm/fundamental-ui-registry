@@ -126,7 +126,9 @@
       "phase": 1,
       "source": ["src/Dialog/__stories__/Dialog.stories.js"],
       "sourceStories": 10,
-      "status": "todo"
+      "status": "done",
+      "visual": "224/224",
+      "notes": "Form and Inner popovers stories: stand-ins until form and multi-input"
     },
     {
       "name": "dynamic-page",
