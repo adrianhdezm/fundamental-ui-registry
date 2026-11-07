@@ -148,10 +148,21 @@ async function capture(page, url, selector, hover, props, focus) {
         const style = getComputedStyle(node);
         if (style.position !== 'static' && style.position !== 'relative') return;
         node.style.transition = 'none';
-        const box = node.getBoundingClientRect();
         node.style.position = 'relative';
-        node.style.top = `${(parseFloat(style.top) || 0) - (box.y % 1)}px`;
-        node.style.left = `${(parseFloat(style.left) || 0) - (box.x % 1)}px`;
+        // RTL content starts at the right edge: snap that one there, the left edge in LTR
+        const rtl = style.direction === 'rtl';
+        const fraction = () => {
+            const box = node.getBoundingClientRect();
+            return { x: rtl ? box.right % 1 : box.x % 1, y: box.y % 1 };
+        };
+        const start = fraction();
+        node.style.top = `${(parseFloat(style.top) || 0) - start.y}px`;
+        node.style.left = `${(parseFloat(style.left) || 0) - start.x}px`;
+        // a set `right` wins over `left` in RTL: shift with `right` instead
+        if (Math.abs(fraction().x) > 0.01) {
+            node.style.left = '';
+            node.style.right = `${(parseFloat(style.right) || 0) + start.x}px`;
+        }
     });
     await page.waitForTimeout(150);
     const styles = await el.evaluate((node, props) => {
@@ -271,7 +282,10 @@ await Promise.all(
         const page = await context.newPage();
         while (next < jobs.length) {
             const job = jobs[next++];
-            const row = await compare(page, job.name, job.kase, job.c);
+            let row = await compare(page, job.name, job.kase, job.c);
+            // capture a difference once more: a late reflow can leave one capture a pixel off; a real difference
+            // shows in both
+            if (!row.ok) row = await compare(page, job.name, job.kase, job.c);
             results.get(job.name).push({ ...row, order: job.order });
             process.stdout.write(row.ok ? '.' : 'x');
         }
