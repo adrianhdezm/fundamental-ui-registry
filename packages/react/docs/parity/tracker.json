@@ -551,7 +551,9 @@
       "phase": 1,
       "source": ["src/Time/__stories__/Time.stories.js"],
       "sourceStories": 11,
-      "status": "todo"
+      "status": "done",
+      "visual": "208/224",
+      "notes": "kept: tablet keeps touch-sized values in compact (16, as Angular's spec); fundamental-react's carrying between columns not ported"
     },
     {
       "name": "time-picker",

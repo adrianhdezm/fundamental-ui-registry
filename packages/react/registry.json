@@ -583,6 +583,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "time",
+      "type": "registry:ui",
+      "title": "Time",
+      "description": "Time picking hours, minutes, seconds and the period in spinbutton columns, changed with the arrow keys, the mouse wheel, dragging, typing and spinner buttons.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "datetime", "button"],
+      "files": [
+        {
+          "path": "registry/ui/time/time.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/time/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
