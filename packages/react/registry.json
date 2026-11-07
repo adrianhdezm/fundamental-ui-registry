@@ -249,6 +249,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "radio",
+      "type": "registry:ui",
+      "title": "Radio",
+      "description": "Radio buttons in a radio group, with value states, read-only and disabled modes, and an inline layout.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/radio/radio.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -404,7 +404,9 @@
       "phase": 1,
       "source": ["src/Forms/__stories__/FormRadioGroup.stories.js"],
       "sourceStories": 7,
-      "status": "todo"
+      "status": "done",
+      "visual": "512/512",
+      "notes": "stories use plain fieldsets until form"
     },
     {
       "name": "rating-indicator",
