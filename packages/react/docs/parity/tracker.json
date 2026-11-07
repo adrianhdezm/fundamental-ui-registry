@@ -278,7 +278,7 @@
       "sourceStories": 14,
       "status": "done",
       "visual": "520/544",
-      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-ins until ported: skeleton, toolbar, input group, infinite scroll"
+      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-ins until ported: toolbar, input group, infinite scroll"
     },
     {
       "name": "menu",
@@ -586,7 +586,7 @@
       "sourceStories": 13,
       "status": "done",
       "visual": "296/336",
-      "notes": "kept: hover on navigatable rows (16), pointer cursor on selectable rows (16), mirrored account icon in RTL (8); skeleton stand-in until ported"
+      "notes": "kept: hover on navigatable rows (16), pointer cursor on selectable rows (16), mirrored account icon in RTL (8)"
     },
     {
       "name": "upload-collection",

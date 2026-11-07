@@ -340,7 +340,7 @@
       "title": "Tree",
       "description": "A hierarchy of items that expand and collapse, with keyboard navigation, highlights, navigatable items, single and multiple selection and lazily loaded data.",
       "dependencies": ["@base-ui/react"],
-      "registryDependencies": ["utils", "theme", "icon", "button", "checkbox", "radio"],
+      "registryDependencies": ["utils", "theme", "icon", "button", "checkbox", "radio", "skeleton"],
       "files": [
         {
           "path": "registry/ui/tree/tree.tsx",

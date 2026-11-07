@@ -304,6 +304,11 @@ describe('Tree', () => {
         const busy = () => rows().filter((r) => r.getAttribute('aria-busy') === 'true');
         expect(busy()).toHaveLength(5);
         expect(busy()[0].getAttribute('aria-level')).toBe('1');
+        // each loading row shows a one-line text skeleton, 6.25rem wide
+        const line = () => busy()[0].querySelector<HTMLElement>('[class*=cursor-wait]')!;
+        expect(line().querySelectorAll('mask rect')).toHaveLength(1);
+        expect(line().getBoundingClientRect().width).toBe(100);
+        expect(line().getBoundingClientRect().height).toBe(8);
         resolveRoot([{ data: { title: 'Folder', value: 1 }, children: lazy }]);
         await frame();
         expect(texts()).toEqual(['Folder']);
@@ -315,6 +320,7 @@ describe('Tree', () => {
         expect(busy()).toHaveLength(5);
         expect(busy()[0].getAttribute('aria-label')).toBe('Loading');
         expect(busy()[0].getAttribute('aria-level')).toBe('2');
+        expect(line().querySelectorAll('mask rect')).toHaveLength(1);
         resolveChildren([{ data: { title: 'File', value: 2 } }]);
         await frame();
         expect(texts()).toEqual(['Folder', 'File']);
@@ -328,6 +334,10 @@ describe('Tree', () => {
         const expander = row('Folder').querySelector<HTMLElement>('[data-slot=tree-expander]')!;
         expect(expander.getAttribute('aria-hidden')).toBe('true');
         expect(expander.querySelector('[data-glyph]')).toBeNull();
+        // a 1rem rectangle skeleton stands in for the arrow
+        const skeleton = expander.querySelector<HTMLElement>('[class*=cursor-wait]')!;
+        expect(skeleton.querySelector('mask rect')!.getAttribute('rx')).toBe('4');
+        expect([skeleton.getBoundingClientRect().width, skeleton.getBoundingClientRect().height]).toEqual([16, 16]);
         expect(row('Folder').hasAttribute('aria-expanded')).toBe(false);
         expect(texts()).toEqual(['Folder']);
     });

@@ -68,8 +68,7 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
 - Angular's `value` input of `ListItem` (for components built on the list) is not ported: `value` is a native `<li>`
   attribute. Its deprecated `truncate` inputs are gone.
 - Not ported until their components are:
-  the skeleton of the Loading story (a busy indicator covers the lists instead), the toolbar and input group of the
-  filter story (a toolbar `div` with an `Input`), and Angular's `fdInfiniteScroll` (the story listens to `onScroll`).
+  the toolbar and input group of the filter story (a toolbar `div` with an `Input`), and Angular's `fdInfiniteScroll` (the story listens to `onScroll`).
 
 ### Stories vs. sources
 
@@ -98,7 +97,7 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
 | Angular           | Complex (borderless, groups and footer) | `Complex`           | ✅ covered |                                                                                                                               |
 | Angular           | Keyboard support                        | `KeyboardSupport`   | ✅ covered | `actionsRef.setItemActive(0)`.                                                                                                |
 | Angular           | Infinite scroll                         | `InfiniteScroll`    | ✅ covered | `onScroll` instead of `fdInfiniteScroll` (not ported).                                                                        |
-| Angular           | Loading                                 | `Loading`           | 🟡 partial | A busy indicator instead of skeletons: after skeleton.                                                                        |
+| Angular           | Loading                                 | `Loading`           | ✅ covered | Text and custom-shape skeletons in the items, as Angular.                                                                     |
 | Angular           | Byline: borderless                      | `BylineBorderless`  | ✅ covered |                                                                                                                               |
 | Angular           | Byline: selection                       | `BylineSelection`   | ✅ covered |                                                                                                                               |
 | Angular           | Byline: buttons and counter             | `BylineButtons`     | ✅ covered |                                                                                                                               |

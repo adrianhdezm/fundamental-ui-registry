@@ -7,6 +7,7 @@ import { Avatar } from '@/ui/avatar/avatar';
 import { Icon } from '@/ui/icon/icon';
 import { Input } from '@/ui/input/input';
 import { Radio, RadioGroup } from '@/ui/radio/radio';
+import { Skeleton } from '@/ui/skeleton/skeleton';
 import { Title } from '@/ui/title/title';
 import {
     List,
@@ -750,31 +751,41 @@ function LoadingList() {
                 label={loading ? 'Show items' : 'Show loading'}
                 onClick={() => setLoading(!loading)}
             />
-            <div className={stack}>
-                <BusyIndicator loading={loading} block aria-label="Loading list">
-                    <List aria-label="Loading list" aria-busy={loading || undefined}>
-                        {[1, 2, 3].map((i) => (
-                            <ListItem key={i}>
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <List aria-label="Loading list" aria-busy={loading || undefined}>
+                    {[1, 2, 3].map((i) => (
+                        <ListItem key={i}>
+                            {loading ? (
+                                <Skeleton type="text" width="40%" textLines={1} className="my-auto" />
+                            ) : (
                                 <ListTitle>List item {i}</ListTitle>
-                            </ListItem>
-                        ))}
-                    </List>
-                </BusyIndicator>
-                <BusyIndicator loading={loading} block aria-label="Loading byline list">
-                    <List byline aria-label="Loading byline list" aria-busy={loading || undefined}>
-                        {[1, 2, 3].map((i) => (
-                            <ListItem key={i}>
-                                <ListThumbnail>
-                                    <Icon glyph="activate" />
-                                </ListThumbnail>
-                                <ListContent>
-                                    <ListTitle render={<div />}>Title {i}</ListTitle>
-                                    <ListByline>Byline text</ListByline>
-                                </ListContent>
-                            </ListItem>
-                        ))}
-                    </List>
-                </BusyIndicator>
+                            )}
+                        </ListItem>
+                    ))}
+                </List>
+                <List byline aria-label="Loading byline list" aria-busy={loading || undefined}>
+                    {[1, 2, 3].map((i) => (
+                        <ListItem key={i}>
+                            {loading ? (
+                                <Skeleton width="100%" height="48px" className="my-auto">
+                                    <rect x="0" y="0" width="48" height="48" rx="4" />
+                                    <rect x="60" y="0" width="40%" height="12" rx="4" />
+                                    <rect x="60" y="20" width="30%" height="8" rx="4" />
+                                </Skeleton>
+                            ) : (
+                                <>
+                                    <ListThumbnail>
+                                        <Icon glyph="activate" />
+                                    </ListThumbnail>
+                                    <ListContent>
+                                        <ListTitle render={<div />}>Title {i}</ListTitle>
+                                        <ListByline>Byline text</ListByline>
+                                    </ListContent>
+                                </>
+                            )}
+                        </ListItem>
+                    ))}
+                </List>
             </div>
         </div>
     );
@@ -784,7 +795,7 @@ export const Loading: Story = {
     parameters: {
         docs: {
             description: {
-                story: 'While loading, a busy indicator covers the lists (Angular shows skeletons; the skeleton is not ported yet).'
+                story: 'While loading, skeletons shaped like the items stand in for them and the lists are `aria-busy`.'
             }
         }
     },

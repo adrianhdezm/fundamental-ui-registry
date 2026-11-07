@@ -31,6 +31,7 @@ import { Button, type ButtonProps } from '@/ui/button/button';
 import { Checkbox } from '@/ui/checkbox/checkbox';
 import { Icon, type IconProps } from '@/ui/icon/icon';
 import { Radio, RadioGroup } from '@/ui/radio/radio';
+import { Skeleton } from '@/ui/skeleton/skeleton';
 
 export type TreeItemState = 'default' | 'error' | 'success' | 'warning';
 export type TreeSelectionType = 'none' | 'single' | 'multiple';
@@ -123,9 +124,6 @@ const ROOT_ROW =
     'm-0 box-border flex min-h-(--tree-h) w-full items-center border-0 border-b border-solid border-sap-list-border-color bg-sap-list-background p-0 pe-4';
 const CHILD_LOADING_ROW =
     'm-0 box-border flex min-h-(--tree-h) w-full items-center border-0 border-b border-solid border-transparent bg-sap-list-alternating-background p-0 pe-4';
-/** A line of text that is still loading (fundamental-styles' text skeleton, 6.25rem wide). */
-const TEXT_PLACEHOLDER =
-    'block h-2 w-[6.25rem] shrink-0 cursor-wait rounded-sm bg-sap-content-placeholderloading-background';
 const LOADING_ROWS = [0, 1, 2, 3, 4];
 
 /** What the tree keeps of each rendered item, for the keyboard. */
@@ -481,7 +479,7 @@ export function TreeItem<T = unknown>({
                             className="flex min-h-(--tree-exp) min-w-(--tree-exp) shrink-0 items-center justify-center"
                             style={{ marginInlineStart: indent }}
                         >
-                            <span className="block size-4 cursor-wait rounded-sm bg-sap-content-placeholderloading-background" />
+                            <Skeleton type="rectangle" width="1rem" height="1rem" />
                         </span>
                     )
                 )}
@@ -520,7 +518,7 @@ export function TreeItem<T = unknown>({
                                     aria-label={tree?.loadingLabel}
                                     className={CHILD_LOADING_ROW}
                                 >
-                                    <span className={TEXT_PLACEHOLDER} />
+                                    <Skeleton type="text" width="6.25rem" textLines={1} />
                                 </div>
                             ))}
                         {tree?.renderItem && (
@@ -763,7 +761,7 @@ export function Tree<T = unknown>({
                     aria-label={loadingLabel}
                     className={ROOT_ROW}
                 >
-                    <span className={cn(TEXT_PLACEHOLDER, 'ms-4')} />
+                    <Skeleton type="text" width="6.25rem" textLines={1} className="ms-4" />
                 </div>
             ));
         } else if (items.length) {
