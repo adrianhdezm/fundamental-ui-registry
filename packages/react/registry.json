@@ -569,6 +569,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "message-page",
+      "type": "registry:ui",
+      "title": "Message Page",
+      "description": "A full-page message when there is nothing to show, such as no items, no search or filter results or an error, with an icon, a title, a subtitle and actions announced as a polite status.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/message-page/message-page.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
