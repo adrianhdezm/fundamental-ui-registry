@@ -291,6 +291,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "An image, initials or an icon for a person or object, with accent colours, zoom and value state badges, and image fallbacks. On Base UI's Avatar.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/avatar/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

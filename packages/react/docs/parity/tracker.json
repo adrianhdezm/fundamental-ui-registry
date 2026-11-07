@@ -19,7 +19,9 @@
       "phase": 1,
       "source": ["src/Avatar/__stories__/Avatar.stories.js"],
       "sourceStories": 12,
-      "status": "todo"
+      "status": "done",
+      "visual": "2128/2128",
+      "notes": "fundamental-styles' avatars in the shell header: after shellbar"
     },
     {
       "name": "avatar-group",
