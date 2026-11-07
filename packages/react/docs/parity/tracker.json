@@ -294,7 +294,8 @@
       "phase": 1,
       "source": ["src/MessageBox/__stories__/MessageBox.stories.js"],
       "sourceStories": 3,
-      "status": "todo"
+      "status": "done",
+      "visual": "416/416"
     },
     {
       "name": "message-page",

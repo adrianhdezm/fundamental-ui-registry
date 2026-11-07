@@ -475,6 +475,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "message-box",
+      "type": "registry:ui",
+      "title": "Message Box",
+      "description": "A modal alert dialog for errors, warnings, successes, information and confirmations, with a semantic header line and icon, declared in a Dialog or opened from code.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "dialog", "icon", "title"],
+      "files": [
+        {
+          "path": "registry/ui/message-box/message-box.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
