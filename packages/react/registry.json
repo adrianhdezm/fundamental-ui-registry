@@ -511,6 +511,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "search-input",
+      "type": "registry:ui",
+      "title": "Search Input",
+      "description": "A search field with clear and search buttons that suggests matching entries while typing, with value states, on Base UI's Autocomplete.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "input", "input-group", "list", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/search-input/search-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

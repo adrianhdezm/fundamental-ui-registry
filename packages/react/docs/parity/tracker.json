@@ -447,7 +447,9 @@
       "phase": 1,
       "source": ["src/SearchInput/__stories__/SearchInput.stories.js"],
       "sourceStories": 7,
-      "status": "todo"
+      "status": "done",
+      "visual": "352/352",
+      "notes": "fundamental-react's inShellbar: after shellbar; Base UI's Autocomplete hides the rest of the page (aria-hidden) while the list is open"
     },
     {
       "name": "segmented-button",
