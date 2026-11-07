@@ -181,7 +181,9 @@
         "src/Forms/__stories__/FormLegend.stories.js"
       ],
       "sourceStories": 18,
-      "status": "todo"
+      "status": "done",
+      "visual": "272/272",
+      "notes": "label inline help: after inline-help; Message group story uses inputs with a button until multi-input"
     },
     {
       "name": "formatted-text",
