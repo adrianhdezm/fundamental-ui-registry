@@ -33,7 +33,9 @@
       "phase": 1,
       "source": ["src/Bar/__stories__/Bar.stories.js"],
       "sourceStories": 7,
-      "status": "todo"
+      "status": "done",
+      "visual": "368/368",
+      "notes": "custom shellbar story: search input until combobox; middle button group until segmented-button"
     },
     {
       "name": "breadcrumb",

@@ -347,6 +347,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "bar",
+      "type": "registry:ui",
+      "title": "Bar",
+      "description": "A horizontal container for titles and actions in left, middle and right areas, used as the header, subheader or footer of pages, dialogs and popovers.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button"],
+      "files": [
+        {
+          "path": "registry/ui/bar/bar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/bar/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
