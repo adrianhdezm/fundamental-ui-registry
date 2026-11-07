@@ -383,6 +383,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "tile",
+      "type": "registry:ui",
+      "title": "Tile",
+      "description": "Launch, KPI, feed, slide and line (link) tiles of the SAP Fiori launchpad, in regular and small sizes and double width, with numeric content and an action mode.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/tile/tile.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/tile/numeric-content.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -531,7 +531,8 @@
       "phase": 1,
       "source": ["src/Tile/__stories__/Tile.stories.js"],
       "sourceStories": 5,
-      "status": "todo"
+      "status": "done",
+      "visual": "1136/1136"
     },
     {
       "name": "time",
