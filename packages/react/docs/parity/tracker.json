@@ -287,7 +287,9 @@
       "phase": 1,
       "source": ["src/Menu/__stories__/Menu.stories.js"],
       "sourceStories": 5,
-      "status": "todo"
+      "status": "done",
+      "visual": "432/432",
+      "notes": "Placement story uses radio groups until select"
     },
     {
       "name": "message-box",

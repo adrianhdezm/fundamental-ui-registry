@@ -525,6 +525,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "Menu",
+      "description": "A list of actions in a popover opened by a trigger, with submenus, icons, shortcuts, toggles, single-choice groups, inputs and a mobile mode in a dialog, on Base UI's Menu.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "icon", "input", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/menu/menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
