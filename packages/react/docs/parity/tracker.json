@@ -243,7 +243,9 @@
       "phase": 1,
       "source": ["src/InputGroup/__stories__/InputGroup.stories.js"],
       "sourceStories": 10,
-      "status": "todo"
+      "status": "done",
+      "visual": "528/528",
+      "notes": "Open: states story and fundamental-react's validationOverlayProps tests: after form"
     },
     {
       "name": "layout-grid",
