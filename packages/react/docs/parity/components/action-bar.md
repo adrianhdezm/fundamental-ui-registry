@@ -32,45 +32,43 @@ fundamental-react's props map to the parts: `title` is `ActionBarTitle`'s childr
 
 ### Stories vs. sources
 
-| Source            | Example                            | React story      | Status     | Notes                                                          |
-| ----------------- | ---------------------------------- | ---------------- | ---------- | -------------------------------------------------------------- |
-| fundamental-react | primary                            | `Default`        | ✅ covered | "With back button" row.                                        |
-| fundamental-react | noBackButton                       | `Default`        | ✅ covered | "Without back button" row.                                     |
-| fundamental-react | contextualMenu                     | `ContextualMenu` | 🟡 partial | The overflow button only; its menu after menu.                 |
-| fundamental-react | noDescription                      | `Default`        | ✅ covered | "Without description" row.                                     |
-| fundamental-react | noActions                          | `Default`        | ✅ covered | "Without actions" row.                                         |
-| fundamental-react | dev                                | `Playground`     | ✅ covered | Title, description, back button, level and size args.          |
-| fundamental-react | noStyles                           | —                | ➖ n/a     | No `cssNamespace`.                                             |
-| Angular           | Back button, title and description | `Default`        | ✅ covered | Texts as fundamental-styles' (Save, Submit, Go back).          |
-| Angular           | Responsive paddings                | `Sizes`          | ✅ covered |                                                                |
-| Angular           | Contextual menu                    | `ContextualMenu` | 🟡 partial | The overflow button only; its menu after menu.                 |
-| Angular           | Small screen                       | `Mobile`         | 🟡 partial | Size `s` with the overflow button; its mobile menu after menu. |
-| Angular           | Open: contextual menu              | —                | ⬜ missing | After menu.                                                    |
-| Angular           | Open: mobile actions               | —                | ⬜ missing | After menu.                                                    |
+| Source            | Example                            | React story          | Status     | Notes                                                 |
+| ----------------- | ---------------------------------- | -------------------- | ---------- | ----------------------------------------------------- |
+| fundamental-react | primary                            | `Default`            | ✅ covered | "With back button" row.                               |
+| fundamental-react | noBackButton                       | `Default`            | ✅ covered | "Without back button" row.                            |
+| fundamental-react | contextualMenu                     | `ContextualMenu`     | ✅ covered | The overflow button opens the page actions in a menu. |
+| fundamental-react | noDescription                      | `Default`            | ✅ covered | "Without description" row.                            |
+| fundamental-react | noActions                          | `Default`            | ✅ covered | "Without actions" row.                                |
+| fundamental-react | dev                                | `Playground`         | ✅ covered | Title, description, back button, level and size args. |
+| fundamental-react | noStyles                           | —                    | ➖ n/a     | No `cssNamespace`.                                    |
+| Angular           | Back button, title and description | `Default`            | ✅ covered | Texts as fundamental-styles' (Save, Submit, Go back). |
+| Angular           | Responsive paddings                | `Sizes`              | ✅ covered |                                                       |
+| Angular           | Contextual menu                    | `ContextualMenu`     | ✅ covered | The menu is placed `bottom-end`, as in Angular.       |
+| Angular           | Small screen                       | `Mobile`             | ✅ covered | Size `s`; the overflow button opens a mobile menu.    |
+| Angular           | Open: contextual menu              | `OpenContextualMenu` | ✅ covered |                                                       |
+| Angular           | Open: mobile actions               | `OpenMobile`         | ✅ covered | The actions in the mobile menu dialog.                |
 
 ### Tests vs. sources
 
-| Source            | Behaviour                                              | React test                                                               | Status     |
-| ----------------- | ------------------------------------------------------ | ------------------------------------------------------------------------ | ---------- |
-| Angular           | Back button name, type, click and Enter                | back button has an accessible name and is clickable                      | ✅ covered |
-| Angular           | Back button before the title                           | back button comes first in the header, before the title                  | ✅ covered |
-| Angular           | Title is an `<h2>`                                     | renders the title as a level 2 heading in the header 3 size              | ✅ covered |
-| Angular           | Title tall enough for descenders                       | the title is tall enough for its descenders                              | ✅ covered |
-| Angular           | Long title truncates on one line                       | a long title truncates on one line                                       | ✅ covered |
-| Angular           | Long title keeps the actions in the bar                | the long title never pushes the actions out of the bar                   | ✅ covered |
-| Angular           | Description below the title                            | description is rendered below the title                                  | ✅ covered |
-| Angular           | `withBackBtn` indent                                   | withBackBtn indents the description to the title next to the back button | ✅ covered |
-| Angular           | Actions at the end in LTR and RTL                      | actions area aligns to the end in LTR and RTL                            | ✅ covered |
-| Angular           | `size` paddings                                        | size sets the horizontal padding                                         | ✅ covered |
-| Angular           | `hidden` hides the actions                             | the hidden attribute hides the actions                                   | ✅ covered |
-| Angular           | Back button and description hidden on small screens    | hides the back button and description on small screens                   | ✅ covered |
-| Angular           | Overflow menu opens, focus back on Escape              | —                                                                        | ⬜ missing |
-| fundamental-react | headingLevel / headingStyle                            | level and headerSize change the heading level and size                   | ✅ covered |
-| fundamental-react | Prop spreading to the bar, back button, title, actions | passes className, native props and the ref to every part                 | ✅ covered |
-| fundamental-react | Forwards the ref                                       | passes className, native props and the ref to every part                 | ✅ covered |
-| —                 | `render` for another root element                      | render renders another root element                                      | ✅ covered |
-
-The overflow menu test and the two "Open: …" stories wait for the menu component.
+| Source            | Behaviour                                              | React test                                                                          | Status     |
+| ----------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------- | ---------- |
+| Angular           | Back button name, type, click and Enter                | back button has an accessible name and is clickable                                 | ✅ covered |
+| Angular           | Back button before the title                           | back button comes first in the header, before the title                             | ✅ covered |
+| Angular           | Title is an `<h2>`                                     | renders the title as a level 2 heading in the header 3 size                         | ✅ covered |
+| Angular           | Title tall enough for descenders                       | the title is tall enough for its descenders                                         | ✅ covered |
+| Angular           | Long title truncates on one line                       | a long title truncates on one line                                                  | ✅ covered |
+| Angular           | Long title keeps the actions in the bar                | the long title never pushes the actions out of the bar                              | ✅ covered |
+| Angular           | Description below the title                            | description is rendered below the title                                             | ✅ covered |
+| Angular           | `withBackBtn` indent                                   | withBackBtn indents the description to the title next to the back button            | ✅ covered |
+| Angular           | Actions at the end in LTR and RTL                      | actions area aligns to the end in LTR and RTL                                       | ✅ covered |
+| Angular           | `size` paddings                                        | size sets the horizontal padding                                                    | ✅ covered |
+| Angular           | `hidden` hides the actions                             | the hidden attribute hides the actions                                              | ✅ covered |
+| Angular           | Back button and description hidden on small screens    | hides the back button and description on small screens                              | ✅ covered |
+| Angular           | Overflow menu opens, focus back on Escape              | the overflow button in the actions opens its menu and gets the focus back on Escape | ✅ covered |
+| fundamental-react | headingLevel / headingStyle                            | level and headerSize change the heading level and size                              | ✅ covered |
+| fundamental-react | Prop spreading to the bar, back button, title, actions | passes className, native props and the ref to every part                            | ✅ covered |
+| fundamental-react | Forwards the ref                                       | passes className, native props and the ref to every part                            | ✅ covered |
+| —                 | `render` for another root element                      | render renders another root element                                                 | ✅ covered |
 
 ### Visual comparison
 

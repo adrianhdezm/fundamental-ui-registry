@@ -2,6 +2,7 @@ import { createRef, useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { Menu, MenuItem, MenuPopup, MenuTrigger } from '@/ui/menu/menu';
 import { Button, ButtonBadge, type ButtonProps } from './button';
 
 const BUTTON_DEFAULTS: ButtonProps = { label: 'Save' };
@@ -210,11 +211,16 @@ describe('Button', () => {
         expect(getComputedStyle(button()).backgroundColor).toBe(resolve('--sapButton_Background'));
     });
 
-    it('menu adds the menu arrow at the end', async () => {
+    it('menu adds the menu arrow at the end; a menu trigger announces and opens its menu', async () => {
         const screen = await render(
             <div>
                 <Button id="plain" label="Plain" />
-                <Button id="menu" menu label="Actions" />
+                <Menu>
+                    <MenuTrigger render={<Button id="menu" menu label="Actions" />} />
+                    <MenuPopup aria-label="Actions">
+                        <MenuItem href="#">Edit</MenuItem>
+                    </MenuPopup>
+                </Menu>
             </div>
         );
         const plain = screen.container.querySelector<HTMLElement>('#plain')!;
@@ -225,6 +231,14 @@ describe('Button', () => {
         expect(arrow.getBoundingClientRect().left).toBeGreaterThanOrEqual(
             trigger.querySelector('span')!.getBoundingClientRect().right
         );
+        expect(plain.hasAttribute('aria-haspopup')).toBe(false);
+        expect(trigger.getAttribute('aria-haspopup')).toBe('menu');
+        expect(trigger.getAttribute('aria-expanded')).toBe('false');
+
+        await userEvent.click(trigger);
+        await expect.poll(() => trigger.getAttribute('aria-expanded')).toBe('true');
+        await userEvent.keyboard('{Escape}');
+        await expect.poll(() => trigger.getAttribute('aria-expanded')).toBe('false');
     });
 
     it('type defaults to "button" inside forms', async () => {

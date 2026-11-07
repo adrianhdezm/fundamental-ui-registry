@@ -53,7 +53,7 @@ axe rejects `aria-selected` on a plain button. Angular sets it always; its segme
 | Angular           | Glyph before/after, icon-only name, glyph-name fallback | glyph-only button requires aria-label; glyph before/after label                                            | ✅ covered |
 | Angular           | disabled vs aria-disabled, disabled anchors             | disabled vs focusableWhenDisabled: focusable disabled buttons stay in the tab order but swallow clicks     | ✅ covered |
 | Angular           | toggled and selected                                    | toggled sets aria-pressed; selected shows the selected styles and aria-selected where the role allows it   | ✅ covered |
-| Angular           | fdMenu arrow, aria-haspopup and expanded with a menu    | menu adds the menu arrow at the end                                                                        | 🟡 partial |
+| Angular           | fdMenu arrow, aria-haspopup and expanded with a menu    | menu adds the menu arrow at the end; a menu trigger announces and opens its menu                           | ✅ covered |
 | Angular           | type "button" by default in forms                       | type defaults to "button" inside forms                                                                     | ✅ covered |
 | Angular           | Generated and custom ids                                | generates a unique id with the fd-button prefix and accepts a custom id                                    | ✅ covered |
 | Angular           | Semantic descriptions, custom and external descriptions | semantic variants announce their meaning through the hidden description                                    | ✅ covered |
@@ -65,8 +65,8 @@ axe rejects `aria-selected` on a plain button. Angular sets it always; its segme
 | fundamental-react | Icon before/after the text                              | glyph-only button requires aria-label; glyph before/after label                                            | ✅ covered |
 | fundamental-react | Disabled message: aria-describedby and matching ids     | disabledMessage describes a focusable disabled button; enabledMessage is announced when it becomes enabled | ✅ covered |
 
-The menu row is partial until the menu is ported: the `aria-haspopup`/`aria-expanded` part of the Angular test needs
-a menu trigger. `textClassName` and `iconProps` (fundamental-react) are not ported: the label and icon take no extra
+The menu row renders the button as a `MenuTrigger` (`render={<Button menu … />}`): it gets `aria-haspopup="menu"`
+and `aria-expanded`, opens on click and closes on Escape. `textClassName` and `iconProps` (fundamental-react) are not ported: the label and icon take no extra
 props; pass children instead.
 
 ### Visual comparison

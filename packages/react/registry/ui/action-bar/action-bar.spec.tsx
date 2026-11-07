@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Button } from '@/ui/button/button';
+import { Menu, MenuItem, MenuPopup, MenuTrigger } from '@/ui/menu/menu';
 import {
     ActionBar,
     ActionBarActions,
@@ -286,5 +287,42 @@ describe('ActionBar', () => {
         const bar = screen.container.querySelector('[data-testid="bar"]')!;
         expect(bar.tagName).toBe('HEADER');
         expect(getComputedStyle(bar).paddingLeft).toBe('32px');
+    });
+    it('the overflow button in the actions opens its menu and gets the focus back on Escape', async () => {
+        const screen = await render(
+            <ActionBar>
+                <ActionBarHeader>
+                    <ActionBarTitle>Page Title</ActionBarTitle>
+                    <ActionBarActions>
+                        <Menu placement="bottom-end">
+                            <MenuTrigger render={<Button variant="transparent" glyph="overflow" aria-label="More" />} />
+                            <MenuPopup aria-label="Page actions">
+                                {['Edit', 'Delete', 'Assign', 'Expire', 'Archive'].map((action) => (
+                                    <MenuItem key={action}>{action}</MenuItem>
+                                ))}
+                            </MenuPopup>
+                        </Menu>
+                    </ActionBarActions>
+                </ActionBarHeader>
+            </ActionBar>
+        );
+        const more = screen.container.querySelector<HTMLElement>('button[aria-label=More]')!;
+        await userEvent.click(more);
+        await expect.poll(() => more.getAttribute('aria-expanded')).toBe('true');
+        const menu = document.getElementById(more.getAttribute('aria-controls')!)!;
+        expect(menu.getAttribute('role')).toBe('menu');
+        // placement bottom-end: the menu ends under the end of the button
+        await expect
+            .poll(() =>
+                Math.abs(
+                    menu.closest('[role=presentation]')!.getBoundingClientRect().right -
+                        more.getBoundingClientRect().right
+                )
+            )
+            .toBeLessThan(2);
+        await expect.poll(() => document.activeElement!.textContent!.trim()).toBe('Edit');
+        await userEvent.keyboard('{Escape}');
+        await expect.poll(() => more.getAttribute('aria-expanded')).toBe('false');
+        expect(document.activeElement).toBe(more);
     });
 });

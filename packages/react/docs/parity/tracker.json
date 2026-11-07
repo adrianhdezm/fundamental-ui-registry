@@ -7,7 +7,7 @@
       "sourceStories": 7,
       "status": "done",
       "visual": "204/208",
-      "notes": "overflow menu, Open: contextual menu / mobile stories and the menu test: after menu; 4 RTL compact diffs kept (back arrow mirrors, as Fiori)"
+      "notes": "4 RTL compact diffs kept (back arrow mirrors, as Fiori)"
     },
     {
       "name": "action-sheet",
@@ -59,8 +59,7 @@
       "source": ["src/Button/__stories__/Button.stories.js"],
       "sourceStories": 9,
       "status": "done",
-      "visual": "256/256",
-      "notes": "aria-haspopup/expanded with a menu trigger: after menu"
+      "visual": "256/256"
     },
     {
       "name": "calendar",
@@ -399,7 +398,7 @@
       "sourceStories": 8,
       "status": "done",
       "visual": "120/128",
-      "notes": "8 LTR resize-handle cases 0.7px off (reference at a fractional position, not visible); In a dialog stories: after dialog; fundamental-react maxTarget, preventSpaceKeyScroll not ported"
+      "notes": "8 LTR resize-handle cases 0.7px off (reference at a fractional position, not visible); fundamental-react maxTarget, preventSpaceKeyScroll not ported"
     },
     {
       "name": "product-switch",

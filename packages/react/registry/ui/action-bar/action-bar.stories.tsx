@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
+import { Menu, MenuItem, MenuPopup, MenuTrigger, type MenuProps } from '@/ui/menu/menu';
 import type { HeaderSize } from '@/ui/title/title';
 import {
     ActionBar,
@@ -31,8 +33,28 @@ const SAVE_SUBMIT = (
     </>
 );
 
-/** An overflow button for the page actions; its menu comes with the menu component. */
-const OVERFLOW = <Button variant="transparent" glyph="overflow" aria-label="More actions" title="More actions" />;
+const PAGE_ACTIONS = ['Edit', 'Delete', 'Assign', 'Expire', 'Archive'];
+
+/** An overflow button with the page actions in a menu that ends under it. */
+function ActionsMenu(props: MenuProps) {
+    return (
+        <Menu placement="bottom-end" {...props}>
+            <MenuTrigger
+                render={
+                    <Button variant="transparent" glyph="overflow" aria-label="More actions" title="More actions" />
+                }
+            />
+            <MenuPopup aria-label="Page actions">
+                {PAGE_ACTIONS.map((action) => (
+                    <MenuItem key={action}>{action}</MenuItem>
+                ))}
+            </MenuPopup>
+        </Menu>
+    );
+}
+
+const OVERFLOW = <ActionsMenu />;
+const MOBILE_OVERFLOW = <ActionsMenu mobile mobileConfig={{ title: 'Actions', hasCloseButton: true }} />;
 
 function Bar({
     back = true,
@@ -161,9 +183,32 @@ export const Mobile: Story = {
     render: () => (
         <>
             <p className={LABEL}>
-                Below a 600px wide viewport the back button and description are hidden; resize the window to see it.
+                Below a 600px wide viewport the back button and description are hidden; resize the window to see it. The
+                overflow button opens the actions in a mobile menu.
             </p>
-            <Bar size="s" actions={OVERFLOW} />
+            <Bar size="s" actions={MOBILE_OVERFLOW} />
         </>
     )
+};
+
+/** Clicks the overflow button and waits until its menu shows the actions. */
+async function openActions(canvasElement: HTMLElement): Promise<void> {
+    const more = canvasElement.querySelector<HTMLElement>('button[aria-label="More actions"]')!;
+    await userEvent.click(more);
+    await waitFor(() => expect(more.getAttribute('aria-expanded')).toBe('true'));
+    await waitFor(() => expect(document.querySelector('[role=menuitem]')).not.toBeNull());
+}
+
+export const OpenContextualMenu: Story = {
+    ...ContextualMenu,
+    name: 'Open: contextual menu',
+    tags: ['!autodocs'],
+    play: ({ canvasElement }) => openActions(canvasElement)
+};
+
+export const OpenMobile: Story = {
+    ...Mobile,
+    name: 'Open: mobile actions',
+    tags: ['!autodocs'],
+    play: ({ canvasElement }) => openActions(canvasElement)
 };
