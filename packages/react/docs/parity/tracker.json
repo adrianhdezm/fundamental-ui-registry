@@ -450,7 +450,9 @@
       "phase": 1,
       "source": ["src/Button/__stories__/ButtonSegmented.stories.js"],
       "sourceStories": 3,
-      "status": "todo"
+      "status": "done",
+      "visual": "176/176",
+      "notes": "tab stop does not follow a value changed by the app (Base UI ToggleGroup); disabled and text groups checked by eye (no fundamental-styles story)"
     },
     {
       "name": "select",

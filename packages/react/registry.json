@@ -401,6 +401,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "segmented-button",
+      "type": "registry:ui",
+      "title": "Segmented Button",
+      "description": "A group of buttons of which one, or several with toggle, is selected, on Base UI's ToggleGroup, with roving focus and a vertical layout.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button"],
+      "files": [
+        {
+          "path": "registry/ui/segmented-button/segmented-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
