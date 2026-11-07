@@ -263,6 +263,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "On/off switch on Base UI's Switch, with semantic accept/decline colours, short on/off texts and a clickable label.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/switch/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -500,7 +500,9 @@
       "phase": 1,
       "source": ["src/Switch/__stories__/Switch.stories.js"],
       "sourceStories": 9,
-      "status": "todo"
+      "status": "done",
+      "visual": "272/272",
+      "notes": "checked standard and semantic switches have no fundamental-styles story: compared with a one-off script that clicks them (64/64)"
     },
     {
       "name": "tabs",
