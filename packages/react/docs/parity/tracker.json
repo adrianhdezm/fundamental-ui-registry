@@ -573,7 +573,9 @@
       "phase": 1,
       "source": ["src/Tree/__stories__/Tree.stories.js"],
       "sourceStories": 13,
-      "status": "todo"
+      "status": "done",
+      "visual": "296/336",
+      "notes": "kept: hover on navigatable rows (16), pointer cursor on selectable rows (16), mirrored account icon in RTL (8); skeleton and segmented-button stand-ins until ported"
     },
     {
       "name": "upload-collection",
