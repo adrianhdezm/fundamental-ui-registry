@@ -485,7 +485,9 @@
     {
       "name": "skeleton",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "64/128",
+      "notes": "kept: fundamental-styles' mask inherits the gradient fill and turns translucent in Dark/HC (62-64 cases); theme shimmer colour instead of fundamental-styles' fixed #999. All Horizon combinations match"
     },
     {
       "name": "slider",

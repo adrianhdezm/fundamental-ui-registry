@@ -429,6 +429,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "A shimmering placeholder shaped like content that is still loading: a rectangle, a circle, text lines or custom SVG shapes.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/skeleton/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
