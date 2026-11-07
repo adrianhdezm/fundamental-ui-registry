@@ -78,7 +78,12 @@ const preview: Preview = {
             matchers: { color: /(background|color)$/i }
         },
         backgrounds: { disable: true },
-        a11y: { test: 'todo' },
+        a11y: {
+            test: 'todo',
+            // Base UI surrounds its popups and triggers with visually hidden, aria-hidden focus guards (tabindex 0)
+            // that pass focus on at once; they are not content, so axe does not check them
+            context: { include: ['body'], exclude: ['[data-base-ui-focus-guard]'] }
+        },
         options: {
             storySort: {
                 order: ['Introduction', 'Foundations', 'Components']
