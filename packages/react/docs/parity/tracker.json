@@ -304,7 +304,9 @@
       "phase": 1,
       "source": ["src/MessageStrip/__stories__/MessageStrip.stories.js"],
       "sourceStories": 7,
-      "status": "todo"
+      "status": "done",
+      "visual": "464/512",
+      "notes": "48 kept: filled type icons as UI5 Web Components 2.28.1 (alert, sys-enter-2, error, information), fundamental-styles uses outlined message-* glyphs"
     },
     {
       "name": "message-toast",

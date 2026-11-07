@@ -365,6 +365,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "message-strip",
+      "type": "registry:ui",
+      "title": "Message Strip",
+      "description": "Inline messages coloured by type or indication colour, dismissible or dismissing themselves after a delay, and alerts at the edges of the screen.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/message-strip/message-strip.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/message-strip/message-strip-alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
