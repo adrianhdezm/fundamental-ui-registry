@@ -278,9 +278,10 @@ describe('MessageStrip', () => {
                 root,
                 onDismiss,
                 strip: () => root.querySelector<HTMLElement>('#auto')!,
+                // waits for the strip to show: the render after setOpen can take longer than a frame on a busy machine
                 open: async () => {
                     setOpen(true);
-                    await frame();
+                    await expect.poll(() => visible(root.querySelector<HTMLElement>('#auto')!)).toBe(true);
                 }
             };
         }

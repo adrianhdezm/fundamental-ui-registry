@@ -62,6 +62,8 @@ describe('Button', () => {
     it('variants (standard, emphasized, positive, negative, attention, transparent, ghost) use their token classes in all states', async () => {
         const { root, button, resolve, update } = await setup();
         const after = root.querySelector<HTMLElement>('#after')!;
+        // keep the pointer of an earlier test file off the button: its rest colour is checked first
+        await userEvent.hover(after);
         const variants: [ButtonProps['variant'], string, string, string][] = [
             ['standard', 'Button', 'Button_Hover', 'Button_Selected'],
             ['emphasized', 'Button_Emphasized', 'Button_Emphasized_Hover', 'Button_Selected'],
