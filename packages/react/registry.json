@@ -551,6 +551,24 @@
           "type": "registry:lib"
         }
       ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Calendar picking a date, several dates, a range or several ranges, with month, year and years range views, week numbers, special days with a legend, and keyboard navigation across months.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "datetime", "button"],
+      "files": [
+        {
+          "path": "registry/ui/calendar/calendar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/calendar/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
