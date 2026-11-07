@@ -215,7 +215,8 @@
       "phase": 1,
       "source": ["src/InfoLabel/__stories__/InfoLabel.stories.js"],
       "sourceStories": 6,
-      "status": "todo"
+      "status": "done",
+      "visual": "688/688"
     },
     {
       "name": "inline-help",

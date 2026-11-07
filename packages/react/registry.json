@@ -277,6 +277,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "info-label",
+      "type": "registry:ui",
+      "title": "Info Label",
+      "description": "A small non-interactive coloured label for a status, category or count, with an optional icon, ten accent colours and a display size.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/info-label/info-label.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
