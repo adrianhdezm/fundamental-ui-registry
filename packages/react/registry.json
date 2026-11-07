@@ -539,6 +539,18 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "datetime",
+      "type": "registry:lib",
+      "title": "Datetime",
+      "description": "Date and time adapter (FdDate and an Intl based default), display and parse formats, React contexts and hooks for them, and format functions for the calendar, time and the pickers.",
+      "files": [
+        {
+          "path": "registry/lib/datetime.ts",
+          "type": "registry:lib"
+        }
+      ]
     }
   ]
 }
