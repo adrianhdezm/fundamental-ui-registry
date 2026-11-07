@@ -67,7 +67,7 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
   `Icon` inside `ListThumbnail` (Angular can put both directives on one `<i>`). The thumbnail sizes its icon to 2rem.
 - Angular's `value` input of `ListItem` (for components built on the list) is not ported: `value` is a native `<li>`
   attribute. Its deprecated `truncate` inputs are gone.
-- Not ported until their components are: avatars in items (`[data-slot=avatar]` keeps Angular's spacing for them),
+- Not ported until their components are:
   the skeleton of the Loading story (a busy indicator covers the lists instead), the toolbar and input group of the
   filter story (a toolbar `div` with an `Input`), and Angular's `fdInfiniteScroll` (the story listens to `onScroll`).
 
@@ -93,7 +93,7 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
 | Angular           | Interactive, groups, actions and footer | `Interactive`       | ✅ covered | Texts of the interactive items, group header, footer and action as fundamental-styles'.                                       |
 | Angular           | Selection                               | `Selection`         | ✅ covered | Item texts as fundamental-styles' ("List item n").                                                                            |
 | Angular           | Navigation (links)                      | `Navigation`        | ✅ covered | Plus a navigated item with an indicator.                                                                                      |
-| Angular           | Byline and subline                      | `Byline`            | ✅ covered | Icons stand in for the avatars (after avatar); first item as fundamental-styles'.                                             |
+| Angular           | Byline and subline                      | `Byline`            | ✅ covered | Subline items with `Avatar`; first item as fundamental-styles'.                                                               |
 | Angular           | Filter and sort                         | `FilterSort`        | ✅ covered | A toolbar `div` with `Input` (toolbar, input group: after those).                                                             |
 | Angular           | Complex (borderless, groups and footer) | `Complex`           | ✅ covered |                                                                                                                               |
 | Angular           | Keyboard support                        | `KeyboardSupport`   | ✅ covered | `actionsRef.setItemActive(0)`.                                                                                                |

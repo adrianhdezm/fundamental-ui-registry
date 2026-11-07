@@ -3,6 +3,7 @@ import { useId, useMemo, useRef, useState, type ComponentType, type ReactNode, t
 import { BusyIndicator } from '@/ui/busy-indicator/busy-indicator';
 import { Button } from '@/ui/button/button';
 import { Checkbox } from '@/ui/checkbox/checkbox';
+import { Avatar } from '@/ui/avatar/avatar';
 import { Icon } from '@/ui/icon/icon';
 import { Input } from '@/ui/input/input';
 import { Radio, RadioGroup } from '@/ui/radio/radio';
@@ -486,15 +487,6 @@ export const Navigation: Story = {
     )
 };
 
-/** Stand-in for an avatar (not ported yet): an icon in a round frame. */
-function AvatarIcon({ glyph }: { glyph: string }) {
-    return (
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-sap-accent-background-color10 text-sap-content-non-interactive-icon-color">
-            <Icon glyph={glyph} size="md" />
-        </span>
-    );
-}
-
 export const Byline: Story = {
     name: 'Byline and subline',
     render: () => (
@@ -557,7 +549,7 @@ export const Byline: Story = {
                         ['Max Mustermann', 'Product Owner', 'customer']
                     ].map(([name, role, glyph]) => (
                         <ListItem key={name} interactive>
-                            <AvatarIcon glyph={glyph!} />
+                            <Avatar size="s" circle glyph={glyph!} aria-label={name} />
                             <ListContent>
                                 <ListTitle render={<div />}>{name}</ListTitle>
                                 <ListSubline>{role}</ListSubline>
@@ -565,7 +557,7 @@ export const Byline: Story = {
                         </ListItem>
                     ))}
                     <ListItem interactive active>
-                        <AvatarIcon glyph="manager" />
+                        <Avatar size="s" circle glyph="manager" aria-label="Current user" />
                         <ListContent>
                             <ListTitle render={<div />}>Current user</ListTitle>
                             <ListSubline>Team lead</ListSubline>

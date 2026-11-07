@@ -272,9 +272,9 @@
       "phase": 1,
       "source": ["src/List/__stories__/List.stories.js"],
       "sourceStories": 14,
-      "status": "in progress",
+      "status": "done",
       "visual": "520/544",
-      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-ins: avatar (now ported), skeleton, toolbar, input group, infinite scroll"
+      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-ins until ported: skeleton, toolbar, input group, infinite scroll"
     },
     {
       "name": "menu",
