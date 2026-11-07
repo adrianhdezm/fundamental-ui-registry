@@ -443,6 +443,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "token",
+      "type": "registry:ui",
+      "title": "Token",
+      "description": "Removable tokens for chosen values, and a tokenizer that shares one field with an input, with keyboard selection and removal and an overflow popover.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "button", "input", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/token/token.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
