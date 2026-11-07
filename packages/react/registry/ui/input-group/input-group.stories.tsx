@@ -1,41 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
+import { FormItem, FormLabel } from '@/ui/form/form';
+import { FormInputMessageGroup } from '@/ui/form/form-input-message-group';
+import { FormMessage } from '@/ui/form/form-message';
 import { Icon } from '@/ui/icon/icon';
 import type { FormState } from '@/ui/input/input';
+import { Link } from '@/ui/link/link';
 import { InputGroup, InputGroupAddon, InputGroupInput, type InputGroupValue } from './input-group';
 
-/** Plain label until the form component is ported (form label with colon, required and inline help). */
-function Label({
-    htmlFor,
-    id,
-    required,
-    children
-}: {
-    htmlFor: string;
-    id?: string;
-    required?: boolean;
-    children: ReactNode;
-}) {
-    return (
-        <label
-            htmlFor={htmlFor}
-            id={id}
-            className="font-sap-font-family text-sap-font-size leading-[normal] text-sap-content-label-color"
-        >
-            {children}
-            {required && (
-                <span aria-hidden="true" className="ms-0.5 text-sap-field-required-color">
-                    *
-                </span>
-            )}
-        </label>
-    );
-}
-
 const COLUMN = 'flex flex-col gap-4';
-const ITEM = 'flex flex-col';
 const TEXT = 'm-0 font-sap-font-family text-sap-font-small-size text-sap-content-label-color';
 
 const meta = {
@@ -102,10 +77,10 @@ export const TextAddon: Story = {
     },
     render: () => (
         <div className={COLUMN}>
-            <div className={ITEM}>
-                <Label htmlFor="ig-text-1" required>
+            <FormItem>
+                <FormLabel htmlFor="ig-text-1" required>
                     Left Aligned Text Add-on
-                </Label>
+                </FormLabel>
                 <InputGroup
                     inputId="ig-text-1"
                     addOnText="$"
@@ -114,13 +89,13 @@ export const TextAddon: Story = {
                     placeholder="Placeholder"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-text-2">Right Aligned Text Add-on</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-text-2">Right Aligned Text Add-on</FormLabel>
                 <InputGroup inputId="ig-text-2" addOnText="€" placeholder="Placeholder" defaultValue="100" />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-text-3">Left and Right Aligned Text Add-ons</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-text-3">Left and Right Aligned Text Add-ons</FormLabel>
                 <InputGroup>
                     <InputGroupAddon id="ig-text-3-before">$</InputGroupAddon>
                     <InputGroupInput
@@ -131,10 +106,10 @@ export const TextAddon: Story = {
                     />
                     <InputGroupAddon id="ig-text-3-after">.00</InputGroupAddon>
                 </InputGroup>
-            </div>
-            <div className={ITEM}>
+            </FormItem>
+            <FormItem>
                 <InputGroup addOnText="$" placeholder="Amount" aria-label="Right Aligned Text Add-on (aria-label)" />
-            </div>
+            </FormItem>
         </div>
     )
 };
@@ -146,8 +121,8 @@ export const IconAddon: Story = {
     },
     render: () => (
         <div className={COLUMN}>
-            <div className={ITEM}>
-                <Label htmlFor="ig-icon-1">Input with icon on the left</Label>
+            <FormItem>
+                <FormLabel htmlFor="ig-icon-1">Input with icon on the left</FormLabel>
                 <InputGroup
                     inputId="ig-icon-1"
                     placement="before"
@@ -155,20 +130,20 @@ export const IconAddon: Story = {
                     glyphAriaLabel="Employee"
                     placeholder="Name"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-icon-2">Input with icon on the right</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-icon-2">Input with icon on the right</FormLabel>
                 <InputGroup inputId="ig-icon-2" glyph="hide" glyphAriaLabel="Hide" placeholder="Enter content" />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-icon-3">Icon addon from parts</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-icon-3">Icon addon from parts</FormLabel>
                 <InputGroup>
                     <InputGroupAddon>
                         <Icon glyph="globe" aria-label="Globe" />
                     </InputGroupAddon>
                     <InputGroupInput id="ig-icon-3" placeholder="Type text here" />
                 </InputGroup>
-            </div>
+            </FormItem>
         </div>
     )
 };
@@ -186,8 +161,8 @@ export const ButtonAddon: Story = {
     },
     render: () => (
         <div className={COLUMN}>
-            <div className={ITEM}>
-                <Label htmlFor="ig-button-1">Input with text add-on</Label>
+            <FormItem>
+                <FormLabel htmlFor="ig-button-1">Input with text add-on</FormLabel>
                 <InputGroup
                     inputId="ig-button-1"
                     addOnText="Submit"
@@ -195,9 +170,9 @@ export const ButtonAddon: Story = {
                     placeholder="Placeholder"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-button-2">Input with icon action</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-button-2">Input with icon action</FormLabel>
                 <InputGroup
                     inputId="ig-button-2"
                     glyph="navigation-down-arrow"
@@ -206,9 +181,9 @@ export const ButtonAddon: Story = {
                     placeholder="Placeholder"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-button-3">Input with 2 icon actions</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-button-3">Input with 2 icon actions</FormLabel>
                 <InputGroup>
                     <InputGroupInput id="ig-button-3" placeholder="Placeholder" defaultValue="100" />
                     <InputGroupAddon button>
@@ -218,9 +193,9 @@ export const ButtonAddon: Story = {
                         <Button variant="transparent" glyph="search" aria-label="Search value" />
                     </InputGroupAddon>
                 </InputGroup>
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-button-4">Input with text action on left</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-button-4">Input with text action on left</FormLabel>
                 <InputGroup
                     inputId="ig-button-4"
                     addOnText="Action"
@@ -229,9 +204,9 @@ export const ButtonAddon: Story = {
                     placeholder="Placeholder"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-button-5">Left Aligned Icon Button Add-on</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-button-5">Left Aligned Icon Button Add-on</FormLabel>
                 <InputGroup
                     inputId="ig-button-5"
                     placement="before"
@@ -240,9 +215,9 @@ export const ButtonAddon: Story = {
                     placeholder="Amount"
                     button
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-button-6">Button that keeps the focus in the input</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-button-6">Button that keeps the focus in the input</FormLabel>
                 <InputGroup
                     inputId="ig-button-6"
                     glyph="value-help"
@@ -251,7 +226,7 @@ export const ButtonAddon: Story = {
                     button
                     buttonFocusable={false}
                 />
-            </div>
+            </FormItem>
         </div>
     )
 };
@@ -270,26 +245,26 @@ export const ProjectedParts: Story = {
     },
     render: () => (
         <div className={COLUMN}>
-            <div className={ITEM}>
-                <Label htmlFor="ig-complex-1" id="ig-complex-label-1">
+            <FormItem>
+                <FormLabel htmlFor="ig-complex-1" id="ig-complex-label-1">
                     Input Group with complex button addon
-                </Label>
+                </FormLabel>
                 <InputGroup>
                     <InputGroupInput id="ig-complex-1" />
                     <InputGroupAddon button>
                         <Button variant="transparent" glyph="calendar" aria-label="Calendar" title="Calendar" />
                     </InputGroupAddon>
                 </InputGroup>
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-complex-2">Input Group with complex span addon</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-complex-2">Input Group with complex span addon</FormLabel>
                 <InputGroup>
                     <InputGroupInput id="ig-complex-2" aria-describedby="ig-complex-addon-2" />
                     <InputGroupAddon id="ig-complex-addon-2">Addon</InputGroupAddon>
                 </InputGroup>
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-complex-3">Addons on both sides</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-complex-3">Addons on both sides</FormLabel>
                 <InputGroup>
                     <InputGroupAddon id="ig-complex-addon-3a">https://</InputGroupAddon>
                     <InputGroupInput
@@ -302,16 +277,18 @@ export const ProjectedParts: Story = {
                         <Button variant="transparent" glyph="decline" aria-label="Clear" />
                     </InputGroupAddon>
                 </InputGroup>
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-complex-4">Disabled</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel disabled htmlFor="ig-complex-4">
+                    Disabled
+                </FormLabel>
                 <InputGroup disabled>
                     <InputGroupAddon button>
                         <Button variant="transparent" glyph="navigation-down-arrow" aria-label="Open menu" disabled />
                     </InputGroupAddon>
                     <InputGroupInput id="ig-complex-4" />
                 </InputGroup>
-            </div>
+            </FormItem>
         </div>
     )
 };
@@ -327,33 +304,72 @@ export const TextArea: Story = {
     },
     render: () => (
         <div className={COLUMN}>
-            <div className={ITEM}>
-                <Label htmlFor="ig-textarea">Notes</Label>
+            <FormItem>
+                <FormLabel htmlFor="ig-textarea">Notes</FormLabel>
                 <InputGroup>
                     <InputGroupInput id="ig-textarea" render={<textarea rows={3} />} defaultValue="Default" />
                     <InputGroupAddon>
                         <Icon glyph="hide" aria-label="Hide" />
                     </InputGroupAddon>
                 </InputGroup>
-            </div>
+            </FormItem>
         </div>
     )
 };
 
-export const States: Story = {
-    parameters: {
-        docs: {
-            description: {
-                story:
-                    'Value states colour the whole group and its button; only `error` sets `aria-invalid`. Read-only ' +
-                    'groups show a dotted line; disabled groups are dimmed. The state messages follow with the form component.'
-            }
-        }
+/** Angular's value state groups with buttons, and their messages. */
+const STATE_GROUPS: {
+    state: Exclude<FormState, 'default'>;
+    label: string;
+    addOnText: string;
+    placeholder: string;
+    message: ReactNode;
+}[] = [
+    {
+        state: 'information',
+        label: 'Discount Code',
+        addOnText: 'Apply',
+        placeholder: 'Enter promo code',
+        message: (
+            <>
+                Use code <code>WELCOME20</code> for 20% off your first order. Valid until end of month.
+            </>
+        )
     },
-    render: () => (
+    {
+        state: 'success',
+        label: 'Invitation Code',
+        addOnText: 'Verify',
+        placeholder: '8-digit code',
+        message: 'Code verified successfully. You can now access the conference portal.'
+    },
+    {
+        state: 'warning',
+        label: 'Account Number',
+        addOnText: 'Check',
+        placeholder: '10-digit account number',
+        message: (
+            <>
+                This account number matches a <b>closed account</b>. Verify the number or contact{' '}
+                <Link href="#">support</Link>.
+            </>
+        )
+    },
+    {
+        state: 'error',
+        label: 'License Key',
+        addOnText: 'Activate',
+        placeholder: 'XXXX-XXXX-XXXX-XXXX',
+        message: 'Invalid license key format. Keys must be 16 characters (letters and numbers) separated by dashes.'
+    }
+];
+
+/** The States story, shared with its open variant. */
+function StatesDemo() {
+    return (
         <div className={COLUMN}>
-            <div className={ITEM}>
-                <Label htmlFor="ig-state-success">Success</Label>
+            <FormItem>
+                <FormLabel htmlFor="ig-state-success">Success</FormLabel>
                 <InputGroup
                     inputId="ig-state-success"
                     state="success"
@@ -362,9 +378,9 @@ export const States: Story = {
                     placeholder="Enter amount"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-state-error">Error</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-state-error">Error</FormLabel>
                 <InputGroup
                     inputId="ig-state-error"
                     state="error"
@@ -373,9 +389,9 @@ export const States: Story = {
                     placeholder="Enter value"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-state-warning">Warning</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-state-warning">Warning</FormLabel>
                 <InputGroup
                     inputId="ig-state-warning"
                     state="warning"
@@ -384,9 +400,9 @@ export const States: Story = {
                     placeholder="Enter value"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-state-information">Information</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-state-information">Information</FormLabel>
                 <InputGroup
                     inputId="ig-state-information"
                     state="information"
@@ -395,9 +411,11 @@ export const States: Story = {
                     placeholder="Enter info"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-state-disabled">Disabled</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel disabled htmlFor="ig-state-disabled">
+                    Disabled
+                </FormLabel>
                 <InputGroup
                     inputId="ig-state-disabled"
                     disabled
@@ -406,9 +424,9 @@ export const States: Story = {
                     placeholder="Disabled input"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-state-readonly">Read-Only</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-state-readonly">Read-Only</FormLabel>
                 <InputGroup
                     inputId="ig-state-readonly"
                     readOnly
@@ -417,9 +435,11 @@ export const States: Story = {
                     placeholder="Read-only value"
                     defaultValue="100"
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-state-disabled-button">Disabled with button</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel disabled htmlFor="ig-state-disabled-button">
+                    Disabled with button
+                </FormLabel>
                 <InputGroup
                     inputId="ig-state-disabled-button"
                     glyph="search"
@@ -428,25 +448,55 @@ export const States: Story = {
                     disabled
                     placeholder="Search"
                 />
-            </div>
-            {(['information', 'success', 'warning', 'error'] as const).map((state, i) => (
-                <div key={state} className={ITEM}>
-                    <Label htmlFor={`ig-state-button-${state}`}>
-                        {['Discount Code', 'Invitation Code', 'Account Number', 'License Key'][i]}
-                    </Label>
-                    <InputGroup
-                        inputId={`ig-state-button-${state}`}
-                        state={state}
-                        addOnText={['Apply', 'Verify', 'Check', 'Activate'][i]}
-                        button
-                        placeholder={
-                            ['Enter promo code', '8-digit code', '10-digit account number', 'XXXX-XXXX-XXXX-XXXX'][i]
-                        }
-                    />
-                </div>
+            </FormItem>
+            {STATE_GROUPS.map(({ state, label, addOnText, placeholder, message }) => (
+                <FormItem key={state}>
+                    <FormLabel htmlFor={`ig-state-button-${state}`}>{label}</FormLabel>
+                    <FormInputMessageGroup>
+                        <InputGroup
+                            inputId={`ig-state-button-${state}`}
+                            state={state}
+                            addOnText={addOnText}
+                            button
+                            placeholder={placeholder}
+                        />
+                        <FormMessage type={state}>{message}</FormMessage>
+                    </FormInputMessageGroup>
+                </FormItem>
             ))}
         </div>
-    )
+    );
+}
+
+export const States: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    'Value states colour the whole group and its button; only `error` sets `aria-invalid`. Read-only ' +
+                    'groups show a dotted line; disabled groups are dimmed. In a `FormInputMessageGroup` with a ' +
+                    '`FormMessage`, the groups with buttons show their value state message while the focus is in them.'
+            }
+        }
+    },
+    render: () => <StatesDemo />
+};
+
+/** Focuses the error group so its value state message opens and axe checks it. */
+export const OpenStates: Story = {
+    name: 'Open: states',
+    tags: ['!autodocs'],
+    render: () => <StatesDemo />,
+    play: async ({ canvasElement }) => {
+        await userEvent.click(canvasElement.querySelector<HTMLInputElement>('#ig-state-button-error')!);
+        await waitFor(() =>
+            expect(
+                [...document.querySelectorAll<HTMLElement>('[data-slot="form-message"]')].some(
+                    (m) => m.checkVisibility() && m.textContent!.includes('license key')
+                )
+            ).toBe(true)
+        );
+    }
 };
 
 /** A group with the focus in its input, as fundamental-styles' Focus story; one story per value state. */
@@ -454,8 +504,8 @@ const focusStory = (state: FormState): Story => ({
     name: `Focus: ${state}`,
     tags: ['!autodocs'],
     render: () => (
-        <div className={ITEM}>
-            <Label htmlFor="ig-focus">Focus</Label>
+        <FormItem>
+            <FormLabel htmlFor="ig-focus">Focus</FormLabel>
             <InputGroup
                 inputId="ig-focus"
                 state={state}
@@ -465,7 +515,7 @@ const focusStory = (state: FormState): Story => ({
                     ? { addOnText: '$', placement: 'before' as const }
                     : { glyph: 'hide', glyphAriaLabel: 'Hide' })}
             />
-        </div>
+        </FormItem>
     ),
     play: async ({ canvasElement }) => {
         const input = canvasElement.querySelector<HTMLInputElement>('#ig-focus')!;
@@ -483,12 +533,12 @@ export const FocusInformation = focusStory('information');
 export const Compact: Story = {
     render: () => (
         <div className={COLUMN} data-density="compact">
-            <div className={ITEM}>
-                <Label htmlFor="ig-compact-1">Compact size</Label>
+            <FormItem>
+                <FormLabel htmlFor="ig-compact-1">Compact size</FormLabel>
                 <InputGroup inputId="ig-compact-1" addOnText="$" placement="before" placeholder="Amount" />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-compact-2">Compact size button</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-compact-2">Compact size button</FormLabel>
                 <InputGroup
                     inputId="ig-compact-2"
                     glyph="cart"
@@ -496,16 +546,16 @@ export const Compact: Story = {
                     placeholder="Amount"
                     button
                 />
-            </div>
-            <div className={ITEM}>
-                <Label htmlFor="ig-compact-3">Select</Label>
+            </FormItem>
+            <FormItem>
+                <FormLabel htmlFor="ig-compact-3">Select</FormLabel>
                 <InputGroup>
                     <InputGroupAddon button>
                         <Button variant="transparent" glyph="navigation-down-arrow" aria-label="Open menu" />
                     </InputGroupAddon>
                     <InputGroupInput id="ig-compact-3" />
                 </InputGroup>
-            </div>
+            </FormItem>
         </div>
     )
 };
@@ -534,8 +584,10 @@ export const Controlled: Story = {
         const [dirty, setDirty] = useState({ text: false, number: false });
         return (
             <div className={COLUMN}>
-                <div className={ITEM}>
-                    <Label htmlFor="ig-form-1">Disabled Input</Label>
+                <FormItem>
+                    <FormLabel disabled htmlFor="ig-form-1">
+                        Disabled Input
+                    </FormLabel>
                     <InputGroup
                         inputId="ig-form-1"
                         glyph="decline"
@@ -545,10 +597,10 @@ export const Controlled: Story = {
                         disabled
                         value="Disabled"
                     />
-                </div>
+                </FormItem>
                 <p className={TEXT}>Disabled Input Value: Disabled</p>
-                <div className={ITEM}>
-                    <Label htmlFor="ig-form-2">Enabled Input (Type Text)</Label>
+                <FormItem>
+                    <FormLabel htmlFor="ig-form-2">Enabled Input (Type Text)</FormLabel>
                     <InputGroup
                         inputId="ig-form-2"
                         placeholder="Enter text"
@@ -559,12 +611,12 @@ export const Controlled: Story = {
                         }}
                         onBlur={() => setTouched((t) => ({ ...t, text: true }))}
                     />
-                </div>
+                </FormItem>
                 <p className={TEXT}>
                     Value: {String(text)} ({typeof text}), touched: {String(touched.text)}, dirty: {String(dirty.text)}
                 </p>
-                <div className={ITEM}>
-                    <Label htmlFor="ig-form-3">Enabled Input (Type Number)</Label>
+                <FormItem>
+                    <FormLabel htmlFor="ig-form-3">Enabled Input (Type Number)</FormLabel>
                     <InputGroup
                         inputId="ig-form-3"
                         type="number"
@@ -576,7 +628,7 @@ export const Controlled: Story = {
                         }}
                         onBlur={() => setTouched((t) => ({ ...t, number: true }))}
                     />
-                </div>
+                </FormItem>
                 <p className={TEXT}>
                     Value: {String(number)} ({typeof number}), touched: {String(touched.number)}, dirty:{' '}
                     {String(dirty.number)}
@@ -600,8 +652,8 @@ export const Search: Story = {
         const [searched, setSearched] = useState<InputGroupValue>('');
         return (
             <div className="flex max-w-96 flex-col gap-2">
-                <div className={ITEM}>
-                    <Label htmlFor="ig-search-1">Search input</Label>
+                <FormItem>
+                    <FormLabel htmlFor="ig-search-1">Search input</FormLabel>
                     <InputGroup
                         inputId="ig-search-1"
                         glyph="decline"
@@ -612,10 +664,10 @@ export const Search: Story = {
                         onValueChange={setTerm}
                         onAddOnButtonClick={() => setTerm('')}
                     />
-                </div>
+                </FormItem>
                 <p className={TEXT}>Search term: {term}</p>
-                <div className={`${ITEM} mt-4`}>
-                    <Label htmlFor="ig-search-2">Search input with search type</Label>
+                <FormItem className="mt-4">
+                    <FormLabel htmlFor="ig-search-2">Search input with search type</FormLabel>
                     <InputGroup
                         inputId="ig-search-2"
                         type="search"
@@ -628,7 +680,7 @@ export const Search: Story = {
                         onSearch={() => setSearched(second)}
                         onAddOnButtonClick={() => setSearched(second)}
                     />
-                </div>
+                </FormItem>
                 <p className={TEXT}>
                     Search term: {second}, searched for: {searched}
                 </p>

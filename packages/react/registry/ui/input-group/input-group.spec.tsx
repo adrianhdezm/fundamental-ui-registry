@@ -3,6 +3,8 @@ import { createRef, useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { FormInputMessageGroup } from '@/ui/form/form-input-message-group';
+import { FormMessage } from '@/ui/form/form-message';
 import {
     InputGroup,
     InputGroupAddon,
@@ -13,6 +15,17 @@ import {
 } from './input-group';
 
 const opacity = (el: Element) => Number(getComputedStyle(el).opacity);
+const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+const settle = async () => {
+    await frame();
+    await new Promise((r) => setTimeout(r, 50));
+    await frame();
+};
+/** Value state messages whose popover is shown. */
+const openMessages = () =>
+    [...document.querySelectorAll<HTMLElement>('[data-slot="form-message"]')].filter(
+        (m) => m.checkVisibility() && m.getBoundingClientRect().height > 0
+    );
 
 describe('InputGroup', () => {
     afterEach(() => document.documentElement.removeAttribute('data-density'));
@@ -398,6 +411,86 @@ describe('InputGroup', () => {
             expect(button!.getAttribute('aria-label') ?? button!.textContent?.trim()).toBe('USD');
             expect(button!.textContent?.trim()).toBe('USD');
             expect(button!.querySelector('[data-glyph]')).toBeNull();
+        });
+    });
+
+    // fundamental-react's validationState and validationOverlayProps: a FormInputMessageGroup with a FormMessage
+    describe('value state message (fundamental-react validationOverlayProps)', () => {
+        it('spreads className and native props on the message group (className, wrapperProps)', async () => {
+            const ref = createRef<HTMLDivElement>();
+            const screen = await render(
+                <FormInputMessageGroup ref={ref} className="wonderful-styles" data-sample="Sample">
+                    <InputGroup aria-label="Amount" addOnText="$" state="error" />
+                    <FormMessage type="error">Test validation state</FormMessage>
+                </FormInputMessageGroup>
+            );
+            expect(ref.current!.classList).toContain('wonderful-styles');
+            expect(ref.current!.getAttribute('data-sample')).toBe('Sample');
+            expect(ref.current!.contains(screen.container.querySelector('input'))).toBe(true);
+            // hidden until the input has the focus
+            await settle();
+            expect(openMessages()).toEqual([]);
+        });
+
+        it('spreads props on the form message (formMessageProps) and shows it initially (show)', async () => {
+            await render(
+                <FormInputMessageGroup defaultOpen>
+                    <InputGroup aria-label="Amount" addOnText="$" state="error" />
+                    <FormMessage type="error" data-sample="Sample" className="wonderful-styles">
+                        Test validation state
+                    </FormMessage>
+                </FormInputMessageGroup>
+            );
+            await settle();
+            const [message] = openMessages();
+            expect(message.textContent).toContain('Test validation state');
+            expect(message.getAttribute('data-sample')).toBe('Sample');
+            expect(message.classList).toContain('wonderful-styles');
+        });
+
+        it('describes the group input after its addon and opens under the group while the focus is in it', async () => {
+            const screen = await render(
+                <div>
+                    <FormInputMessageGroup>
+                        <InputGroup inputId="key" aria-label="License Key" addOnText="Activate" button state="error" />
+                        <FormMessage type="error">Invalid license key format.</FormMessage>
+                    </FormInputMessageGroup>
+                    <InputGroup inputId="text" aria-label="Amount" addOnText="$" state="warning" />
+                    <FormInputMessageGroup>
+                        <InputGroup inputId="next" aria-label="Next" addOnText="$" state="warning" />
+                        <FormMessage type="warning">Check the amount.</FormMessage>
+                    </FormInputMessageGroup>
+                </div>
+            );
+            const $ = (id: string) => screen.container.querySelector<HTMLElement>(`#${id}`)!;
+            const input = $('key');
+            const message = document.querySelector<HTMLElement>('[data-slot="form-message"]')!;
+            // a button addon does not describe the input: only the message does
+            expect(input.getAttribute('aria-describedby')).toBe(message.id);
+            expect(input.getAttribute('aria-invalid')).toBe('true');
+            // a text addon keeps its description first
+            const next = $('next');
+            const [addon, nextMessage] = next.getAttribute('aria-describedby')!.split(' ');
+            expect(document.getElementById(addon)!.textContent!.trim()).toBe('$');
+            expect(document.getElementById(nextMessage)!.textContent).toContain('Check the amount.');
+            expect(next.hasAttribute('aria-invalid')).toBe(false);
+
+            await userEvent.click(input);
+            await settle();
+            expect(openMessages()).toEqual([message]);
+            const group = input.parentElement!.getBoundingClientRect();
+            expect(message.getBoundingClientRect().top).toBeGreaterThanOrEqual(group.bottom - 1);
+            expect(document.activeElement).toBe(input);
+            // Tab to the addon button stays in the field: the message stays open
+            await userEvent.tab();
+            expect(document.activeElement).toBe(screen.container.querySelector('button'));
+            await settle();
+            expect(openMessages()).toEqual([message]);
+            // out of the group: the message closes
+            await userEvent.tab();
+            expect(document.activeElement).toBe($('text'));
+            await settle();
+            expect(openMessages()).toEqual([]);
         });
     });
 });
