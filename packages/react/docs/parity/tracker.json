@@ -582,7 +582,7 @@
       "sourceStories": 13,
       "status": "done",
       "visual": "296/336",
-      "notes": "kept: hover on navigatable rows (16), pointer cursor on selectable rows (16), mirrored account icon in RTL (8); skeleton and segmented-button stand-ins until ported"
+      "notes": "kept: hover on navigatable rows (16), pointer cursor on selectable rows (16), mirrored account icon in RTL (8); skeleton stand-in until ported"
     },
     {
       "name": "upload-collection",

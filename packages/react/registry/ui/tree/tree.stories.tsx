@@ -3,7 +3,7 @@ import { useState, type ComponentType, type ReactNode } from 'react';
 import { Avatar } from '@/ui/avatar/avatar';
 import { Button } from '@/ui/button/button';
 import { Checkbox } from '@/ui/checkbox/checkbox';
-import { Radio, RadioGroup } from '@/ui/radio/radio';
+import { SegmentedButton, SegmentedButtonItem } from '@/ui/segmented-button/segmented-button';
 import { Title } from '@/ui/title/title';
 import {
     Tree,
@@ -338,18 +338,15 @@ function SelectionExample() {
     return (
         <>
             <div className="mb-4 flex flex-wrap items-center gap-4">
-                <RadioGroup
-                    inline
+                <SegmentedButton
                     aria-label="Selection placement"
                     value={placement}
                     onValueChange={(v) => setPlacement(v as TreeSelectionPlacement)}
                 >
                     {PLACEMENTS.map(([value, label]) => (
-                        <Radio key={value} value={value}>
-                            {label}
-                        </Radio>
+                        <SegmentedButtonItem key={value} value={value} label={label} />
                     ))}
-                </RadioGroup>
+                </SegmentedButton>
                 <Checkbox label="Independent sections" checked={independent} onCheckedChange={setIndependent} />
             </div>
 

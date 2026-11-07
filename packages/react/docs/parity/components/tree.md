@@ -69,26 +69,26 @@ expander toggles the item and focuses its row. Loading rows are `role="treeitem"
 
 ### Stories vs. sources
 
-| Source            | Example                            | React story                      | Status     | Notes                                                                                                           |
-| ----------------- | ---------------------------------- | -------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------- |
-| fundamental-react | wrappingAndNonWrappingContents     | `WrappingAndNonWrappingContents` | ✅ covered | Level 1 expanded and fundamental-styles' long texts, as its Primary story, to compare by pixels.                |
-| fundamental-react | compact                            | `Compact`                        | ✅ covered | `data-density="compact"`.                                                                                       |
-| fundamental-react | nodeActionsAndNoBorder             | `NodeActionsAndNoBorder`         | ✅ covered | Icons before and after the text, edit and decline buttons, `noBorder`; the first two levels expanded.           |
-| fundamental-react | highlightIndicators                | `HighlightIndicators`            | ✅ covered | Expanded to level 3, as fundamental-styles' story.                                                              |
-| fundamental-react | navigationLinks                    | `NavigationLinks`                | ✅ covered | `navigatable` items with `onTreeItemClick`, the navigation indicator, `navigated`.                              |
-| fundamental-react | activeTree                         | `ActiveTree`                     | ✅ covered | Every item `navigatable`, no indicator.                                                                         |
-| fundamental-react | multiSelectionLeft                 | `MultiSelectionLeft`             | ✅ covered | The value shown under the tree instead of `alert`; the first item selected, as fundamental-styles' story.       |
-| fundamental-react | multiSelectionRight                | `MultiSelectionRight`            | ✅ covered |                                                                                                                 |
-| fundamental-react | singleSelectionLeft                | `SingleSelectionLeft`            | ✅ covered |                                                                                                                 |
-| fundamental-react | singleSelectionRight               | `SingleSelectionRight`           | ✅ covered |                                                                                                                 |
-| fundamental-react | emptyTree                          | `EmptyTree`                      | ✅ covered |                                                                                                                 |
-| fundamental-react | dev                                | `Playground`                     | ✅ covered | The tree props as controls.                                                                                     |
-| fundamental-react | noStyles                           | —                                | ➖ n/a     | No `cssNamespace`.                                                                                              |
-| Angular           | Basic                              | `Basic`                          | ✅ covered | Nested items, data items without borders, no data.                                                              |
-| Angular           | Customization                      | `Customization`                  | ✅ covered | `style` for `backgroundColor` and `customStyles`, `className`, avatars and a button in the text.                |
-| Angular           | Navigation, highlights and buttons | `States`                         | ✅ covered |                                                                                                                 |
-| Angular           | Selection                          | `Selection`                      | ✅ covered | Our `RadioGroup` (inline) for the placement instead of a segmented button (not ported yet), and our `Checkbox`. |
-| Angular           | Lazy loading                       | `LazyLoading`                    | ✅ covered | A `TreeDataSource` whose `fetch` resolves after 1.5s.                                                           |
+| Source            | Example                            | React story                      | Status     | Notes                                                                                                     |
+| ----------------- | ---------------------------------- | -------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------- |
+| fundamental-react | wrappingAndNonWrappingContents     | `WrappingAndNonWrappingContents` | ✅ covered | Level 1 expanded and fundamental-styles' long texts, as its Primary story, to compare by pixels.          |
+| fundamental-react | compact                            | `Compact`                        | ✅ covered | `data-density="compact"`.                                                                                 |
+| fundamental-react | nodeActionsAndNoBorder             | `NodeActionsAndNoBorder`         | ✅ covered | Icons before and after the text, edit and decline buttons, `noBorder`; the first two levels expanded.     |
+| fundamental-react | highlightIndicators                | `HighlightIndicators`            | ✅ covered | Expanded to level 3, as fundamental-styles' story.                                                        |
+| fundamental-react | navigationLinks                    | `NavigationLinks`                | ✅ covered | `navigatable` items with `onTreeItemClick`, the navigation indicator, `navigated`.                        |
+| fundamental-react | activeTree                         | `ActiveTree`                     | ✅ covered | Every item `navigatable`, no indicator.                                                                   |
+| fundamental-react | multiSelectionLeft                 | `MultiSelectionLeft`             | ✅ covered | The value shown under the tree instead of `alert`; the first item selected, as fundamental-styles' story. |
+| fundamental-react | multiSelectionRight                | `MultiSelectionRight`            | ✅ covered |                                                                                                           |
+| fundamental-react | singleSelectionLeft                | `SingleSelectionLeft`            | ✅ covered |                                                                                                           |
+| fundamental-react | singleSelectionRight               | `SingleSelectionRight`           | ✅ covered |                                                                                                           |
+| fundamental-react | emptyTree                          | `EmptyTree`                      | ✅ covered |                                                                                                           |
+| fundamental-react | dev                                | `Playground`                     | ✅ covered | The tree props as controls.                                                                               |
+| fundamental-react | noStyles                           | —                                | ➖ n/a     | No `cssNamespace`.                                                                                        |
+| Angular           | Basic                              | `Basic`                          | ✅ covered | Nested items, data items without borders, no data.                                                        |
+| Angular           | Customization                      | `Customization`                  | ✅ covered | `style` for `backgroundColor` and `customStyles`, `className`, avatars and a button in the text.          |
+| Angular           | Navigation, highlights and buttons | `States`                         | ✅ covered |                                                                                                           |
+| Angular           | Selection                          | `Selection`                      | ✅ covered | Our `SegmentedButton` for the placement and our `Checkbox`, as Angular.                                   |
+| Angular           | Lazy loading                       | `LazyLoading`                    | ✅ covered | A `TreeDataSource` whose `fetch` resolves after 1.5s.                                                     |
 
 ### Tests vs. sources
 
