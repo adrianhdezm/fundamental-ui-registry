@@ -231,6 +231,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Content in an overlay next to its trigger, with placements, an optional arrow, header and footer, on Base UI's Popover.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/popover/popover.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/popover/popover-position.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -380,7 +380,9 @@
       "phase": 1,
       "source": ["src/Popover/__stories__/Popover.stories.js"],
       "sourceStories": 8,
-      "status": "todo"
+      "status": "done",
+      "visual": "120/128",
+      "notes": "8 LTR resize-handle cases 0.7px off (reference at a fractional position, not visible); In a dialog stories: after dialog; fundamental-react maxTarget, preventSpaceKeyScroll not ported"
     },
     {
       "name": "product-switch",
