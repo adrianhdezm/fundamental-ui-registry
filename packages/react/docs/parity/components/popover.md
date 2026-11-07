@@ -110,7 +110,7 @@ fundamental-react: `body` and `control` are children (`PopoverBody`, `PopoverTri
 | Angular           | Inside a scroll container    | `ScrollContainer`     | ✅ covered | No `PopoverContainer` needed.                                             |
 | Angular           | Dynamic content              | `Dynamic`             | ✅ covered |                                                                           |
 | Angular           | Text only                    | `Text`                | ✅ covered | Text as the body's children.                                              |
-| Angular           | In a dialog                  | —                     | ⬜ missing | After dialog (the behaviour is tested with Base UI's Dialog in the spec). |
+| Angular           | In a dialog                  | `InDialog`            | ✅ covered | In the `dialog` component; Escape closes the popover first.               |
 | Angular           | Append to                    | `AppendTo` ("Anchor") | ✅ covered | `anchor`.                                                                 |
 | Angular           | CDK positions                | `Offsets`             | ✅ covered | The four presets as `placement` + `sideOffset`/`alignOffset`.             |
 | Angular           | Scroll strategies            | —                     | ➖ n/a     | CDK scroll strategies; Base UI always repositions.                        |
@@ -120,7 +120,7 @@ fundamental-react: `body` and `control` are children (`PopoverBody`, `PopoverTri
 | Angular           | Open: header and footer      | `OpenHeaderFooter`    | ✅ covered |                                                                           |
 | Angular           | Open: body roles             | `OpenNonDialog`       | ✅ covered | A region body; Base UI's focus guards are out of the axe run (see above). |
 | Angular           | Open: popover inside popover | `OpenNested`          | ✅ covered |                                                                           |
-| Angular           | Open: in a dialog            | —                     | ⬜ missing | After dialog.                                                             |
+| Angular           | Open: in a dialog            | `OpenInDialog`        | ✅ covered |                                                                           |
 | Angular           | Open: resizable              | `OpenResizable`       | ✅ covered |                                                                           |
 | Angular           | Open: dropdown               | `OpenDropdown`        | ✅ covered |                                                                           |
 | —                 | Body variants                | `BodyVariants`        | ➕ extra   | Open bodies in the page, the visual reference cases.                      |

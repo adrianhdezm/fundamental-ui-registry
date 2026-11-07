@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
 import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
+import { Dialog, DialogBody, DialogHeader, DialogPopup, DialogTitle, DialogTrigger } from '@/ui/dialog/dialog';
 import { Icon } from '@/ui/icon/icon';
 import { Title } from '@/ui/title/title';
 import {
@@ -746,6 +747,35 @@ export const Text: Story = {
     )
 };
 
+export const InDialog: Story = {
+    name: 'In a dialog',
+    parameters: {
+        docs: {
+            story: { inline: false, iframeHeight: 400 },
+            description: { story: 'A popover inside a dialog: Escape closes the popover first, then the dialog.' }
+        }
+    },
+    render: () => (
+        <Dialog>
+            <DialogTrigger render={<Button label="Open Dialog" />} />
+            <DialogPopup width="25rem">
+                <DialogHeader>
+                    <DialogTitle level={1}>Popover Example</DialogTitle>
+                </DialogHeader>
+                <DialogBody>
+                    <Popover noArrow={false}>
+                        <PopoverTrigger render={<Button label="Click me!" />} />
+                        <PopoverBody aria-label="Button details">
+                            <div className="p-3">This is the button&apos;s popover!</div>
+                        </PopoverBody>
+                    </Popover>
+                    <p className="mt-4 mb-0">Escape closes the popover first, and the dialog only on a second press.</p>
+                </DialogBody>
+            </DialogPopup>
+        </Dialog>
+    )
+};
+
 function AnchorExample() {
     const [target, setTarget] = useState<HTMLDivElement | null>(null);
     return (
@@ -956,6 +986,17 @@ export const OpenNested: Story = {
         await openPopover(first);
         const body = document.getElementById(first.getAttribute('aria-controls')!)!;
         await openPopover(triggers(body)[0]!);
+    }
+};
+export const OpenInDialog: Story = {
+    name: 'Open: in a dialog',
+    tags: ['!autodocs'],
+    render: InDialog.render,
+    play: async ({ canvasElement }) => {
+        await userEvent.click(canvasElement.querySelector<HTMLElement>('button')!);
+        const trigger = () => document.querySelector<HTMLElement>('[role=dialog] [aria-haspopup]');
+        await waitFor(() => expect(trigger()).not.toBeNull());
+        await openPopover(trigger()!);
     }
 };
 export const OpenResizable: Story = {
