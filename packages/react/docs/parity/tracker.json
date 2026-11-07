@@ -361,7 +361,8 @@
       "phase": 1,
       "source": ["src/ObjectStatus/__stories__/ObjectStatus.stories.js"],
       "sourceStories": 10,
-      "status": "todo"
+      "status": "done",
+      "visual": "560/560"
     },
     {
       "name": "overflow-layout",

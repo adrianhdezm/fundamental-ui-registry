@@ -319,6 +319,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "object-status",
+      "type": "registry:ui",
+      "title": "Object Status",
+      "description": "The status of an object in semantic or generic indication colours, with an optional icon, as text, an inverted badge or a clickable button, in regular and large sizes.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/object-status/object-status.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
