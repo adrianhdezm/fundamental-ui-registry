@@ -305,6 +305,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "list",
+      "type": "registry:ui",
+      "title": "List",
+      "description": "List with standard, byline and subline items, secondary texts, icons, links, checkbox and radio selection, group headers, footers and arrow-key navigation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "checkbox", "radio"],
+      "files": [
+        {
+          "path": "registry/ui/list/list.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
