@@ -3,18 +3,10 @@ import { useState, type ComponentType } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from '@/ui/button/button';
 import { Icon } from '@/ui/icon/icon';
-import {
-    Menu,
-    MenuAddon,
-    MenuContent,
-    MenuItem,
-    MenuPopup,
-    MenuSubtitle,
-    MenuTitle,
-    MenuTrigger
-} from '@/ui/menu/menu';
+import { Menu, MenuItem, MenuPopup, MenuTrigger } from '@/ui/menu/menu';
 import { ObjectStatus } from '@/ui/object-status/object-status';
 import { Popover, PopoverBody, PopoverTrigger } from '@/ui/popover/popover';
+import { ProductSwitch, ProductSwitchBody, type ProductSwitchItem } from '@/ui/product-switch/product-switch';
 import { Switch } from '@/ui/switch/switch';
 import {
     ProductMenu,
@@ -47,7 +39,7 @@ const PHOTO =
 
 const NOTE = 'm-0 font-sap-font-family text-sap-font-small-size text-sap-content-label-color';
 
-const PRODUCTS = [
+const PRODUCTS: ProductSwitchItem[] = [
     { title: 'Home', subtitle: 'Central Home', icon: 'home' },
     { title: 'Analytics Cloud', icon: 'business-objects-experience' },
     { title: 'Catalog', subtitle: 'Ariba', icon: 'contacts' },
@@ -56,27 +48,12 @@ const PRODUCTS = [
     { title: 'Human Capital Management', icon: 'customer' }
 ];
 
-/** Stand-in for the product switch, which is not ported yet: a grid button opening a menu of the products. */
-function ProductSwitchStandIn() {
+/** The product switch of Angular's stories: its products, as a list when `list` (small shellbars). */
+function StoryProductSwitch({ list = false }: { list?: boolean }) {
     return (
-        <Menu placement="bottom-end">
-            <MenuTrigger
-                render={
-                    <Button variant="transparent" glyph="grid" aria-label="Product switch" title="Product switch" />
-                }
-            />
-            <MenuPopup aria-label="Products">
-                {PRODUCTS.map((product) => (
-                    <MenuItem key={product.title}>
-                        <MenuAddon glyph={product.icon} />
-                        <MenuContent>
-                            <MenuTitle>{product.title}</MenuTitle>
-                            {product.subtitle && <MenuSubtitle>{product.subtitle}</MenuSubtitle>}
-                        </MenuContent>
-                    </MenuItem>
-                ))}
-            </MenuPopup>
-        </Menu>
+        <ProductSwitch>
+            <ProductSwitchBody defaultProducts={PRODUCTS} forceListMode={list} />
+        </ProductSwitch>
     );
 }
 
@@ -133,7 +110,7 @@ function Example({ width, search = true, navigation = true, ...props }: ExampleP
                         onSearchSubmit={(text) => setLast(`Search: ${text}`)}
                     />
                 )}
-                <ShellbarActions productSwitch={<ProductSwitchStandIn />}>
+                <ShellbarActions productSwitch={<StoryProductSwitch />}>
                     {ACTIONS.map((action) => (
                         <ShellbarAction
                             key={action.label}
@@ -328,7 +305,7 @@ function GrowingExample() {
                 </ShellbarLogo>
                 <ShellbarTitle>Product Identifier</ShellbarTitle>
             </ShellbarBranding>
-            <ShellbarActions productSwitch={<ProductSwitchStandIn />}>
+            <ShellbarActions productSwitch={<StoryProductSwitch />}>
                 <ShellbarAction glyph="bell" label="Notifications" notificationCount={12} />
                 <ShellbarAction glyph="sys-help" label="Help" />
                 {USER_MENU_STAND_IN}
@@ -358,7 +335,7 @@ function CollapsibleExample() {
                             user={SIMPLE_USER}
                             userMenu={SIMPLE_USER_MENU}
                             closePopoverOnSelect
-                            productSwitch={<ProductSwitchStandIn />}
+                            productSwitch={<StoryProductSwitch list={s.size === 's'} />}
                         >
                             <ShellbarAction glyph="bell" label="Notifications" notificationCount={5} />
                             <ShellbarAction glyph="feedback" label="Feedback" />
@@ -420,7 +397,7 @@ function CoPilotExample() {
             <ProductMenu control="Corporate Portal" items={FR_PRODUCT_MENU} closePopoverOnSelect />
             <ShellbarSubtitle>Subtitle</ShellbarSubtitle>
             <ShellbarSearch placeholder="Search" />
-            <ShellbarActions user={PROFILE} userMenu={PROFILE_MENU} productSwitch={<ProductSwitchStandIn />}>
+            <ShellbarActions user={PROFILE} userMenu={PROFILE_MENU} productSwitch={<StoryProductSwitch />}>
                 <Menu placement="bottom-end">
                     <MenuTrigger
                         render={
@@ -475,7 +452,7 @@ const meta = {
                     'do not fit collapse into an overflow menu, context area items hide by `data-hide-priority`, and ' +
                     'the search moves from the middle (xl) behind a search button; on small sizes it opens in place of ' +
                     'everything else. Transparent buttons inside the shellbar take the shell colours.\n\n' +
-                    'The product switch and the full user menu are not ported yet: the stories use a menu as stand-in.\n\n' +
+                    'The full user menu is not ported yet: the stories use the simple user menu as stand-in.\n\n' +
                     '```tsx\n' +
                     '<Shellbar>\n' +
                     '    <ShellbarBranding interactiveBranding aria-label="Product home" onClick={home}>\n' +
@@ -558,7 +535,7 @@ export const CollapsibleLinks: Story = {
         docs: {
             story: { iframeHeight: 520 },
             description: {
-                story: 'A product menu, actions, a simple user menu (`user` and `userMenu`) and the product switch at each size: actions collapse into the overflow menu.'
+                story: 'A product menu, actions, a simple user menu (`user` and `userMenu`) and the product switch at each size: actions collapse into the overflow menu and, on small screens, the product switch shows a list.'
             }
         }
     },

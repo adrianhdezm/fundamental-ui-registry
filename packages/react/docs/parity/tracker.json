@@ -497,7 +497,7 @@
       "sourceStories": 6,
       "status": "done",
       "visual": "240/368",
-      "notes": "kept: cozy-only shellbar in compact pages (96, as Angular; fundamental-styles compacts it), fundamental-styles' Arial search input, stand-in product switch; product switch and full user menu: stand-ins until ported"
+      "notes": "kept: cozy-only shellbar in compact pages (96, as Angular; fundamental-styles compacts it), fundamental-styles' Arial search input, product switch button stays a bordered action in HC; full user menu: stand-in until user-menu"
     },
     {
       "name": "side-navigation",

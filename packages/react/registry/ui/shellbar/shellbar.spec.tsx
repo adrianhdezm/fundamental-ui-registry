@@ -4,6 +4,7 @@ import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Button } from '@/ui/button/button';
 import { MenuItem } from '@/ui/menu/menu';
+import { ProductSwitch, ProductSwitchBody } from '@/ui/product-switch/product-switch';
 import {
     ProductMenu,
     Shellbar,
@@ -29,6 +30,7 @@ interface HostProps {
     onSearched?: (text: string) => void;
     onHidden?: (items: HTMLElement[]) => void;
     onToggle?: () => void;
+    productSwitch?: boolean;
 }
 
 /** Mirrors the Angular test host. */
@@ -40,7 +42,8 @@ function Host({
     onClicked,
     onSearched,
     onHidden,
-    onToggle
+    onToggle,
+    productSwitch = false
 }: HostProps) {
     return (
         <div style={{ width }}>
@@ -65,7 +68,21 @@ function Host({
                     </ShellbarContextArea>
                 )}
                 <ShellbarSearch onSearchSubmit={onSearched} />
-                <ShellbarActions>
+                <ShellbarActions
+                    productSwitch={
+                        productSwitch && (
+                            <ProductSwitch>
+                                <ProductSwitchBody
+                                    forceListMode
+                                    defaultProducts={[
+                                        { title: 'Fiori Home', icon: 'home', callback: () => onClicked?.('home') },
+                                        { title: 'S/4 HANA Cloud', icon: 'cloud' }
+                                    ]}
+                                />
+                            </ProductSwitch>
+                        )
+                    }
+                >
                     <ShellbarAction
                         glyph="bell"
                         label="Notifications"
@@ -237,6 +254,32 @@ describe('Shellbar', () => {
         await userEvent.click(menuItems()[1]!);
         await wait();
         expect(onClicked).toHaveBeenCalledWith('notifications');
+        expect(menuItems()).toHaveLength(0);
+    });
+
+    it('keeps the product switch out of the overflow menu, and returns from its products to the bar', async () => {
+        const onClicked = vi.fn();
+        const { button } = await setup({ width: 340, productSwitch: true, onClicked });
+        await userEvent.click(button(/^Collapsed Item Menu/)!);
+        await wait();
+        expect(menuItems().map((i) => i.textContent?.trim())).toEqual(['Search', 'Notifications3', 'Feedback', 'Help']);
+        await userEvent.keyboard('{Escape}');
+        await wait();
+        const switcher = button(/^Product switch$/)!;
+        await userEvent.click(switcher);
+        await wait();
+        expect(menuItems().map((i) => i.getAttribute('aria-label'))).toEqual(['Fiori Home', 'S/4 HANA Cloud']);
+        // back from the products: Escape closes them and the focus returns to the switch in the bar
+        await userEvent.keyboard('{Escape}');
+        await wait();
+        expect(menuItems()).toHaveLength(0);
+        expect(document.activeElement).toBe(switcher);
+        // choosing a product closes them too
+        await userEvent.click(switcher);
+        await wait();
+        await userEvent.click(menuItems()[0]!);
+        await wait();
+        expect(onClicked).toHaveBeenCalledWith('home');
         expect(menuItems()).toHaveLength(0);
     });
 
