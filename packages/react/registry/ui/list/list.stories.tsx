@@ -5,7 +5,7 @@ import { Button } from '@/ui/button/button';
 import { Checkbox } from '@/ui/checkbox/checkbox';
 import { Avatar } from '@/ui/avatar/avatar';
 import { Icon } from '@/ui/icon/icon';
-import { Input } from '@/ui/input/input';
+import { InputGroup } from '@/ui/input-group/input-group';
 import { Radio, RadioGroup } from '@/ui/radio/radio';
 import { Skeleton } from '@/ui/skeleton/skeleton';
 import { Title } from '@/ui/title/title';
@@ -590,12 +590,16 @@ function FilterSortList() {
             <Toolbar aria-label="Filter and sort">
                 <ToolbarLabel render={<label htmlFor="list-filter-search" />}>Filter for list elements</ToolbarLabel>
                 <ToolbarSpacer />
-                <Input
-                    id="list-filter-search"
+                <InputGroup
+                    inputId="list-filter-search"
+                    glyph="decline"
+                    glyphAriaLabel="Clear"
                     placeholder="Search"
+                    button
                     className="w-48"
                     value={term}
-                    onChange={(event) => setTerm(event.target.value)}
+                    onValueChange={(value) => setTerm(String(value ?? ''))}
+                    onAddOnButtonClick={() => setTerm('')}
                 />
                 <Button
                     glyph="sort-ascending"
