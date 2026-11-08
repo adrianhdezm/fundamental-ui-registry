@@ -374,6 +374,52 @@ describe('Toolbar', () => {
         expect(document.querySelector('[role=menu] [role=menuitem]')).not.toBeNull();
     });
 
+    it('a long overflow popover scrolls instead of shrinking its items', async () => {
+        const screen = await render(
+            <div>
+                <Button menu label="Reference" data-testid="reference" />
+                <Toolbar shouldOverflow forceOverflow aria-label="Long">
+                    {Array.from({ length: 30 }, (_, i) => (
+                        <ToolbarOverflowButton key={i} label={`Button ${i + 1}`} />
+                    ))}
+                    <ToolbarItem>
+                        <Menu>
+                            <MenuTrigger render={<Button menu label="Menu button" />} />
+                            <MenuPopup aria-label="Menu button">
+                                <MenuItem>Option 1</MenuItem>
+                            </MenuPopup>
+                        </Menu>
+                    </ToolbarItem>
+                    <ToolbarItem>
+                        <ToolbarSeparator />
+                    </ToolbarItem>
+                    <ToolbarLabel>Label</ToolbarLabel>
+                </Toolbar>
+            </div>
+        );
+        await stable();
+        const reference = screen.container.querySelector<HTMLElement>('[data-testid="reference"]')!;
+        const toolbar = screen.container.querySelector<HTMLElement>('[role="toolbar"]')!;
+        await userEvent.click(toolbar.querySelector<HTMLElement>('button[aria-label="More"]')!);
+        await stable();
+        const panel = document.querySelector<HTMLElement>('[role="dialog"] [data-toolbar-overflow]')!;
+        // capped at 50vh, the panel scrolls
+        expect(panel.scrollHeight).toBeGreaterThan(panel.clientHeight);
+        const height = reference.getBoundingClientRect().height;
+        const menuButton = [...panel.querySelectorAll<HTMLElement>('button')].find(
+            (b) => b.textContent!.trim() === 'Menu button'
+        )!;
+        expect(menuButton.getBoundingClientRect().height).toBe(height);
+        for (const button of panel.querySelectorAll<HTMLElement>('button')) {
+            expect(button.getBoundingClientRect().height).toBe(height);
+        }
+        expect(panel.querySelector<HTMLElement>('[role="separator"]')!.getBoundingClientRect().height).toBe(1);
+        // a truncated label would shrink to nothing
+        expect(
+            panel.querySelector<HTMLElement>('[data-toolbar-label]')!.getBoundingClientRect().height
+        ).toBeGreaterThan(10);
+    });
+
     it('Tab wraps inside the overflow popover', async () => {
         const { open } = await setupOverflow({ width: 500 });
         await open();

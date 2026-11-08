@@ -621,7 +621,7 @@
       "phase": 2,
       "status": "done",
       "visual": "360/384",
-      "notes": "kept: active info cursor, label colour and title font (reference story lacks those styles), RTL-mirrored undo glyph (16), reference popover / first-item focus pixels (8); follow-up: cozy overflow panel items shrink instead of the panel scrolling"
+      "notes": "kept: active info cursor, label colour and title font (reference story lacks those styles), RTL-mirrored undo glyph (16), reference popover / first-item focus pixels (8)"
     },
     {
       "name": "tree",

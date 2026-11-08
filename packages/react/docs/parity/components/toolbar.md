@@ -37,7 +37,8 @@ paint in the row, and remembered while an item is in the popover. A `ResizeObser
 the items recomputes the overflow (also when a hidden toolbar becomes visible). With items in the overflow the
 toolbar adds a flexible spacer (when it has none), a separator and the "More" button (transparent, `overflow` glyph,
 `aria-haspopup`, named and titled by `moreLabel`) that opens a `Popover` (`bottom-end`) whose body is a dialog named
-like the button; the first tabbable item takes the focus when it opens, and Tab wraps inside it. The popover closes
+like the button; the first tabbable item takes the focus when it opens, and Tab wraps inside it. The panel is capped
+at 50vh and scrolls; its items keep their height (`shrink-0` on each item's element). The popover closes
 when nothing overflows any more. A title renders a `Title` as `<span role="heading" aria-level={headingLevel}>` with
 the full text in `title`, truncated with an ellipsis; a `Title` child gives the toolbar the title look too. An
 active info toolbar is focusable (`tabIndex=0`) and Enter and Space click it.
@@ -103,6 +104,7 @@ container of their own, and the toolbar moves that container between the item's 
 | —       | Popover closes when nothing overflows                                                        | the popover closes when nothing overflows any more                                              | ✅ covered |
 | —       | Items keep their state (moved, not re-rendered)                                              | items keep their state while they move into the popover and back                                | ✅ covered |
 | —       | Tab wraps in the popover                                                                     | Tab wraps inside the overflow popover                                                           | ✅ covered |
+| —       | A long panel scrolls; its items keep their height                                            | a long overflow popover scrolls instead of shrinking its items                                  | ➕ extra   |
 | —       | Projected `Title`                                                                            | a Title child gives the toolbar the title look                                                  | ✅ covered |
 | —       | Prop spreading, ref (registry convention)                                                    | passes className, native props and the ref to the root; items outside a toolbar render in place | ✅ covered |
 
@@ -118,6 +120,13 @@ story), the panel, an overflow button at rest and on hover, a separator and a la
 Horizon were also checked by eye (Types, Title variants, the open overflow popovers). Re-run when the split button
 replaced the menu button stand-in of `Overflow with overlays`: unchanged, 360/384 (no case uses that story; its open
 popover was checked by eye: the split button stretches to the panel width with the arrow at the end).
+
+Fixed after the comparison: in a cozy overflow panel taller than 50vh (`Open: overflow with overlays` in a low
+window) the items shrank in height (the "Menu button" to 18px) instead of the panel scrolling: as flex items of the
+column panel they could shrink, and buttons and labels (`overflow: hidden`) have no content minimum. Each item's
+element is now `shrink-0` (`*:*:shrink-0` on the panel, through the item's `display: contents` container). Re-run:
+unchanged, 360/384; `Open: overflow with overlays` in a 420px-high window checked by eye: the panel scrolls and its
+items keep their height.
 
 Fixed while comparing: the label of an info toolbar takes the bar's text colour, the icons of an active info toolbar
 keep `--sapList_TextColor`, and the focus frame of an active info toolbar is inset by 1px (see the differences from
@@ -135,4 +144,5 @@ Angular above).
 
 Angular issues found: the label of an active info toolbar keeps the grey label colour on the teal bar; the icons of an
 active info toolbar take `--sapInfobar_TextColor` (fundamental-styles keeps `--sapList_TextColor`); the active info
-toolbar's focus frame is inset by 2px (fundamental-styles: 1px).
+toolbar's focus frame is inset by 2px (fundamental-styles: 1px); its overflow panel has the same classes and its
+items no `shrink-0`, so it likely shrinks them past 50vh as well (not checked in its Storybook).

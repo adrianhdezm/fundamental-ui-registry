@@ -137,8 +137,12 @@ const useClient = () =>
         () => false
     );
 
+/**
+ * The overflow panel. Its items (the elements in each item's `contents` container) keep their height (`shrink-0`):
+ * past 50vh the panel scrolls instead of squeezing them.
+ */
 const PANEL_CLASS =
-    'scrollbar-sap box-border flex max-h-[50vh] max-w-full flex-col overflow-auto px-2 py-1 [--tb-sep-h:1px] compact:max-w-80 compact:px-1.5 compact:py-[0.1875rem]';
+    'scrollbar-sap box-border flex max-h-[50vh] max-w-full flex-col overflow-auto px-2 py-1 [--tb-sep-h:1px] *:*:shrink-0 compact:max-w-80 compact:px-1.5 compact:py-[0.1875rem]';
 
 /** The element of an item that is measured: the first element its content renders. */
 const itemElement = (record: ItemRecord) => record.container.firstElementChild as HTMLElement | null;
