@@ -386,7 +386,9 @@
     {
       "name": "notification",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "240/336",
+      "notes": "kept: HC (96): fundamental-styles defines its notification variables for Horizon and Dark only; ours stay on the SAP tokens"
     },
     {
       "name": "object-attribute",

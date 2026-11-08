@@ -1506,6 +1506,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "notification",
+      "type": "registry:ui",
+      "title": "Notification",
+      "description": "Notifications with title, description, footnotes, actions and More/Less, in lists, collapsible groups with arrow-key navigation and a popover, or as banners opened by a service.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "link"],
+      "files": [
+        {
+          "path": "registry/ui/notification/notification.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
