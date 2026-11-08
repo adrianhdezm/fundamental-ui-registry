@@ -1137,6 +1137,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "status-indicator",
+      "type": "registry:ui",
+      "title": "Status Indicator",
+      "description": "An SVG shape, or a set of shapes, filled to a percentage linearly, at an angle or radially and coloured by status, announced as a progress bar.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/status-indicator/status-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

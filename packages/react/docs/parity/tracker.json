@@ -546,7 +546,8 @@
     {
       "name": "status-indicator",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "320/320"
     },
     {
       "name": "step-input",
