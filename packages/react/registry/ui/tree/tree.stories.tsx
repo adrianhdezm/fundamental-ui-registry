@@ -394,7 +394,11 @@ export const Selection: Story = {
 
 /** Children fetched on expansion, as from a server. */
 class LazyChildren implements TreeDataSource<Partial<TreeItemData<Product>>> {
-    constructor(private readonly level: number) {}
+    private readonly level: number;
+
+    constructor(level: number) {
+        this.level = level;
+    }
 
     fetch(): Promise<Partial<TreeItemData<Product>>[]> {
         return new Promise((resolve) =>

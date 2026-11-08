@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
     "esModuleInterop": true,
     "moduleResolution": "bundler",
     "target": "ES2022",

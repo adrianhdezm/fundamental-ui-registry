@@ -79,7 +79,11 @@ export class CarouselEngine<T extends CarouselItemRef = CarouselItemRef> {
     private dragStarted = false;
     private removeGestures: (() => void) | null = null;
 
-    constructor(readonly element: HTMLElement) {}
+    readonly element: HTMLElement;
+
+    constructor(element: HTMLElement) {
+        this.element = element;
+    }
 
     get currentTransitionPx(): number {
         return this.transitionPx;

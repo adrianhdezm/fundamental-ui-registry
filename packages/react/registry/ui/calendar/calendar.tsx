@@ -39,10 +39,13 @@ export interface CalendarCurrent {
 
 /** A range of dates; either end may still be missing while it is picked. */
 export class DateRange<D> {
-    constructor(
-        readonly start: D | null,
-        readonly end: D | null
-    ) {}
+    readonly start: D | null;
+    readonly end: D | null;
+
+    constructor(start: D | null, end: D | null) {
+        this.start = start;
+        this.end = end;
+    }
 }
 
 /** Marks days with a legend colour (1 to 20) and lists them in the legend. */
