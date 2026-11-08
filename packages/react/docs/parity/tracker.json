@@ -34,8 +34,7 @@
       "source": ["src/Bar/__stories__/Bar.stories.js"],
       "sourceStories": 7,
       "status": "done",
-      "visual": "368/368",
-      "notes": "middle button group: segmented-button follow-up"
+      "visual": "384/384"
     },
     {
       "name": "breadcrumb",
@@ -129,8 +128,7 @@
       "source": ["src/Dialog/__stories__/Dialog.stories.js"],
       "sourceStories": 10,
       "status": "done",
-      "visual": "224/224",
-      "notes": "Form story: plain labels stand in for the form label (follow-up)"
+      "visual": "224/224"
     },
     {
       "name": "dynamic-page",
@@ -282,7 +280,7 @@
       "sourceStories": 14,
       "status": "done",
       "visual": "520/544",
-      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-ins: input group (follow-up), infinite scroll (until ported)"
+      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-in: infinite scroll (until ported)"
     },
     {
       "name": "menu",
