@@ -146,7 +146,9 @@
     {
       "name": "dynamic-side-content",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "176/176",
+      "notes": "styles and box sizes only (fundamental-styles' examples use their own docs boxes)"
     },
     {
       "name": "facets",

@@ -1436,6 +1436,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "dynamic-side-content",
+      "type": "registry:ui",
+      "title": "Dynamic Side Content",
+      "description": "Main content with supplementary side content to the left, to the right, below or in an equal split, with sizes that hide the side content or set the share of the main content.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/dynamic-side-content/dynamic-side-content.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
