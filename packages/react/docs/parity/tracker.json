@@ -361,7 +361,8 @@
     {
       "name": "object-identifier",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "272/272"
     },
     {
       "name": "object-marker",

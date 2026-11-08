@@ -973,6 +973,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "object-identifier",
+      "type": "registry:ui",
+      "title": "Object Identifier",
+      "description": "The key identifier of an object as a title, optionally bold or a link, with a description below, in large or medium size.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/object-identifier/object-identifier.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
