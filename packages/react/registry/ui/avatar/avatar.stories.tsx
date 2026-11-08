@@ -232,6 +232,8 @@ export const Border: Story = {
             <Row border transparent glyph="product" aria-label="Product" />
             <Row border transparent circle label="Wendy Wallace" />
             <Row border transparent glyph="money-bills" aria-label="Money" />
+            {/* a bordered image keeps the border colour, as fundamental-styles' avatar group thumbnails */}
+            <Row border circle image="assets/person.svg" aria-label="John Doe" />
         </div>
     )
 };

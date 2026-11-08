@@ -325,9 +325,6 @@ export function Avatar({
                         '[--av-bg:var(--sapTile_Background)] [--av-border:var(--sapAvatar_Lite_BorderColor)] [--av-color:var(--sapTile_IconColor)] [--av-hover-border:var(--sapTile_IconColor)] [--av-hover-bg:var(--sapTile_Background)]',
                     placeholder &&
                         '[--av-bg:var(--sapContent_ImagePlaceholderBackground)] [--av-border:var(--sapAvatar_Lite_BorderColor)] [--av-color:var(--sapContent_ImagePlaceholderForegroundColor)] [--av-hover-border:var(--sapContent_ImagePlaceholderForegroundColor)] [--av-hover-bg:var(--sapContent_ImagePlaceholderBackground)]',
-                    // after the backgrounds: a border also on transparent, tile and placeholder avatars
-                    border &&
-                        '[--av-border:var(--sapGroup_ContentBorderColor)] [--av-hover-border:var(--sapAvatar_Hover_BorderColor)]',
                     isInteractive && [
                         'cursor-pointer hover:bg-(--av-hover-bg) hover:border-(--av-hover-border)',
                         'active:bg-(--av-active-bg) active:border-(--av-active-border) active:text-(--av-active-color)',
@@ -339,6 +336,10 @@ export function Avatar({
                     source &&
                         rootState.imageLoadingStatus === 'loaded' &&
                         '[--av-bg:var(--sapAvatar_Lite_Background)] [--av-border:var(--sapAvatar_Lite_BorderColor)]',
+                    // last: a border wins over the transparent, tile, placeholder and loaded-image borders, as
+                    // fundamental-styles' `fd-avatar--border` (also on thumbnails, e.g. in avatar groups)
+                    border &&
+                        '[--av-border:var(--sapGroup_ContentBorderColor)] [--av-hover-border:var(--sapAvatar_Hover_BorderColor)]',
                     className
                 )
             }

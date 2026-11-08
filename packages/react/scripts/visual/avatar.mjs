@@ -46,6 +46,19 @@ export default [
     pair('border xl', 'border', 4, 'borders'),
     pair('border circle initials xs', 'border', 5, 'borders'),
     pair('border circle initials xl', 'border', 9, 'borders'),
+    // fundamental-styles has bordered images only in its avatar groups (thumbnails xs to xl from the 2nd group on);
+    // the photos differ
+    ...[
+        ['border image circle xs', 15, 1],
+        ['border image circle xl', 19, 5]
+    ].map(([label, nth, refNth]) => ({
+        label,
+        pixels: false,
+        // the group avatars are clickable (pointer), ours are images
+        ignore: ['background-image', 'cursor'],
+        ours: { story: 'components-avatar--border', selector: `[id^="fd-avatar-"] >> nth=${nth}` },
+        ref: { story: `${FS}avatar-group--overflow`, selector: `.fd-avatar--thumbnail >> nth=${refNth}` }
+    })),
     // the images differ (fundamental-styles' portraits and landscapes)
     ...[
         ['image circle xs', 0, 0],

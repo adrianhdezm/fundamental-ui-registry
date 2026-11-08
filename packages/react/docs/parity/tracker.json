@@ -21,7 +21,7 @@
       "source": ["src/Avatar/__stories__/Avatar.stories.js"],
       "sourceStories": 12,
       "status": "done",
-      "visual": "2128/2128",
+      "visual": "2160/2160",
       "notes": "fundamental-styles' avatars in the shell header: after shellbar"
     },
     {
@@ -387,8 +387,8 @@
       "name": "overflow-layout",
       "phase": 2,
       "status": "done",
-      "visual": "120/128",
-      "notes": "8 diffs from the avatar (bordered image avatar border colour); avatar group story uses a stand-in business card until quick-view"
+      "visual": "128/128",
+      "notes": "avatar group story uses a stand-in business card until quick-view"
     },
     {
       "name": "pagination",

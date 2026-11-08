@@ -267,6 +267,21 @@ describe('Avatar', () => {
         expect(getComputedStyle(avatar).backgroundSize).toBe('contain');
     });
 
+    it('border wins over the loaded-image border, as fundamental-styles bordered thumbnails', async () => {
+        const { avatar, resolve, update } = await setup({ circle: true, border: true });
+        // the two tokens differ in Horizon (transparent against grey), so the test tells them apart
+        expect(resolve('--sapGroup_ContentBorderColor')).not.toBe(resolve('--sapAvatar_Lite_BorderColor'));
+        expect(getComputedStyle(avatar).borderColor).toBe(resolve('--sapGroup_ContentBorderColor'));
+        await update({ image: IMAGE });
+        await until(() => avatar.style.backgroundImage !== '');
+        // the image still takes the lite background, but keeps the bordered colour
+        expect(getComputedStyle(avatar).backgroundColor).toBe(resolveBackground('--sapAvatar_Lite_Background'));
+        expect(getComputedStyle(avatar).borderColor).toBe(resolve('--sapGroup_ContentBorderColor'));
+        // without border, the loaded image has the lite border again
+        await update({ border: false });
+        expect(getComputedStyle(avatar).borderColor).toBe(resolve('--sapAvatar_Lite_BorderColor'));
+    });
+
     it('placeholder uses the image placeholder background and foreground tokens', async () => {
         const { avatar, resolve, update } = await setup();
         await update({ placeholder: true });
