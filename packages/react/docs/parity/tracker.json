@@ -572,7 +572,9 @@
     {
       "name": "text",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "208/208",
+      "notes": "fundamental-styles' AI highlight n/a (not in Angular)"
     },
     {
       "name": "tile",

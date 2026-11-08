@@ -1067,6 +1067,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "text",
+      "type": "registry:ui",
+      "title": "Text",
+      "description": "A paragraph of text with an optional line limit, a More/Less toggle, preserved whitespace and hyphenation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "link"],
+      "files": [
+        {
+          "path": "registry/ui/text/text.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
