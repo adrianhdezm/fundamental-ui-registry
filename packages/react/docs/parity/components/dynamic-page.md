@@ -87,7 +87,9 @@ gets a `navigation` named `breadcrumbsLabel` around it.
 key-value facets in the subheader, and an image `Facet` with a small `Avatar` as the header's `facet` (its 2rem end
 margin, Angular's; fundamental-styles' header facet has none). The header's `facet` takes any node.
 
-**Waiting for other components:** the flexible column layout is not ported yet; a two-column grid stands in for it.
+**Flexible column layout:** `InFlexibleColumnLayout` puts the page in the mid column of the `flexible-column-layout`
+component (TwoColumnsMidExpanded), as Angular's; its layout actions switch to OneColumnMidFullScreen and close the
+column, and the separator expands or collapses the list.
 
 ### Stories vs. sources
 
@@ -101,7 +103,7 @@ margin, Angular's; fundamental-styles' header facet has none). The header's `fac
 | Angular | Stacked tabs                                     | `StackedTabs`                        | ✅ covered |                                                                                         |
 | Angular | Responsive                                       | `Responsive`                         | ✅ covered | Width switcher; the size comes from `onSizeChange`.                                     |
 | Angular | Dynamic height of the parent                     | `ContainerHeight`                    | ✅ covered | `actionsRef.current.refreshSize()` after the spaces render.                             |
-| Angular | Inside a flexible column layout                  | `InColumnLayout`                     | ✅ covered | A two-column grid stands in for the flexible column layout (not ported).                |
+| Angular | Inside a flexible column layout                  | `InFlexibleColumnLayout`             | ✅ covered | The page in the mid column of a `FlexibleColumnLayout`.                                 |
 | Angular | With wizard                                      | `WithWizard`                         | ✅ covered |                                                                                         |
 | —       | fundamental-styles Desktop, Collapsed Header     | `OtherNavigation`, `CollapsedHeader` | ✅ added   | fundamental-styles' texts, extra large; `DynamicPageTabs` with a navigation of links.   |
 
@@ -167,4 +169,5 @@ keeps them next to the title, its Tablet example shows the moved row. The global
 (Angular's stories); fundamental-styles' are a transparent toolbar with a separator. The facets are compared in their
 own report ([facets](facets.md)).
 
-Reviewed by eye in Horizon, cozy and compact, LTR and RTL: `Default`, `Tabs`, `Collapsed` and `Small` (also at 600px).
+Reviewed by eye in Horizon, cozy and compact, LTR and RTL: `Default`, `Tabs`, `Collapsed`, `Small` (also at 600px)
+and `InFlexibleColumnLayout`.

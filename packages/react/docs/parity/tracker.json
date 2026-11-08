@@ -141,7 +141,7 @@
       "phase": 2,
       "status": "done",
       "visual": "336/336",
-      "notes": "stand-in until ported: flexible column layout; title row with layout actions above 1280px not compared (both Storybooks render at 1248px)"
+      "notes": "title row with layout actions above 1280px not compared (both Storybooks render at 1248px)"
     },
     {
       "name": "dynamic-side-content",

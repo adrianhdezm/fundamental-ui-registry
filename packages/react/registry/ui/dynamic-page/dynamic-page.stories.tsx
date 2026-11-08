@@ -5,6 +5,10 @@ import { Bar, BarElement, BarLeft, BarRight } from '@/ui/bar/bar';
 import { Breadcrumb, BreadcrumbItem } from '@/ui/breadcrumb/breadcrumb';
 import { Button } from '@/ui/button/button';
 import { Facet, FacetContent, FacetGroup } from '@/ui/facets/facets';
+import {
+    FlexibleColumnLayout,
+    type FlexibleColumnLayout as FlexibleColumnLayoutType
+} from '@/ui/flexible-column-layout/flexible-column-layout';
 import { FormLabel } from '@/ui/form/form';
 import { Link } from '@/ui/link/link';
 import { List, ListItem, ListLink, ListTitle } from '@/ui/list/list';
@@ -530,54 +534,48 @@ export const ContainerHeight: Story = {
     render: () => <ContainerHeightPage />
 };
 
-type ColumnLayout = 'OneColumnStartFullScreen' | 'TwoColumnsMidExpanded' | 'OneColumnMidFullScreen';
-
 const PRODUCTS = ['Balenciaga Triple S Trainers', 'Running shoes', 'Trail shoes'];
 
-/** A page in the mid column of a two-column layout (a stand-in for the flexible column layout, not ported yet). */
+/** A page in the mid column of a flexible column layout. */
 function ColumnLayoutPage() {
     const [selected, setSelected] = useState(PRODUCTS[0]);
-    const [layout, setLayout] = useState<ColumnLayout>('TwoColumnsMidExpanded');
-    const columns =
-        layout === 'TwoColumnsMidExpanded'
-            ? 'grid-cols-[1fr_2fr]'
-            : layout === 'OneColumnMidFullScreen'
-              ? 'grid-cols-[0_1fr]'
-              : 'grid-cols-[1fr_0]';
+    const [layout, setLayout] = useState<FlexibleColumnLayoutType>('TwoColumnsMidExpanded');
     return (
-        <div className={`grid h-[40rem] overflow-hidden ${columns}`}>
-            <div
-                className="h-full min-w-0 overflow-hidden bg-sap-group-content-background"
-                hidden={layout === 'OneColumnMidFullScreen'}
-            >
-                <Bar>
-                    <BarLeft>
-                        <BarElement>
-                            <Title level={2} headerSize={5}>
-                                Products
-                            </Title>
-                        </BarElement>
-                    </BarLeft>
-                </Bar>
-                <List navigationIndicator aria-label="Products">
-                    {PRODUCTS.map((product) => (
-                        <ListItem key={product}>
-                            <ListLink
-                                href="#"
-                                navigated={product === selected}
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    setSelected(product);
-                                    if (layout === 'OneColumnStartFullScreen') setLayout('TwoColumnsMidExpanded');
-                                }}
-                            >
-                                <ListTitle>{product}</ListTitle>
-                            </ListLink>
-                        </ListItem>
-                    ))}
-                </List>
-            </div>
-            <div className="min-w-0 overflow-hidden" hidden={layout === 'OneColumnStartFullScreen'}>
+        <FlexibleColumnLayout
+            className="h-[40rem]"
+            layout={layout}
+            onLayoutChange={setLayout}
+            startColumn={
+                <div className="h-full bg-sap-group-content-background">
+                    <Bar>
+                        <BarLeft>
+                            <BarElement>
+                                <Title level={2} headerSize={5}>
+                                    Products
+                                </Title>
+                            </BarElement>
+                        </BarLeft>
+                    </Bar>
+                    <List navigationIndicator aria-label="Products">
+                        {PRODUCTS.map((product) => (
+                            <ListItem key={product}>
+                                <ListLink
+                                    href="#"
+                                    navigated={product === selected}
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        setSelected(product);
+                                        if (layout === 'OneColumnStartFullScreen') setLayout('TwoColumnsMidExpanded');
+                                    }}
+                                >
+                                    <ListTitle>{product}</ListTitle>
+                                </ListLink>
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
+            }
+            midColumn={
                 <DynamicPage aria-label="Product details" expandContent={false} positionRelative>
                     <DynamicPageHeader title={selected} subtitle={SUBTITLE}>
                         {BREADCRUMB}
@@ -612,17 +610,17 @@ function ColumnLayoutPage() {
                     <DynamicPageSubheader pinnable>{FACETS}</DynamicPageSubheader>
                     {CONTENT}
                 </DynamicPage>
-            </div>
-        </div>
+            }
+        />
     );
 }
 
-export const InColumnLayout: Story = {
-    name: 'Inside a column layout',
+export const InFlexibleColumnLayout: Story = {
+    name: 'Inside a flexible column layout',
     parameters: {
         docs: {
             description: {
-                story: 'The page in the second column of a two-column layout, with full screen and close layout actions. A plain grid stands in for the flexible column layout, which is not ported yet.'
+                story: 'The page in the mid column of a flexible column layout, with full screen and close layout actions.'
             }
         }
     },
