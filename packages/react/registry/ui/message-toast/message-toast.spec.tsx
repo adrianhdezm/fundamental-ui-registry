@@ -244,11 +244,12 @@ describe('MessageToast API', () => {
     it('without mousePersist the toast closes while hovered', async () => {
         const unpark = await parkPointer();
         const toastService = await setup();
-        toastService.open('Not persistent', { duration: 300, mousePersist: false });
+        // long enough for the hover to land on a busy machine before the toast closes
+        toastService.open('Not persistent', { duration: 1500, mousePersist: false });
         await wait();
         await userEvent.hover(toasts()[0]!);
-        await wait(500);
-        expect(toasts()).toHaveLength(0);
+        expect(toasts()).toHaveLength(1);
+        await expect.poll(() => toasts().length, { timeout: 4000 }).toBe(0);
         unpark();
     });
 
