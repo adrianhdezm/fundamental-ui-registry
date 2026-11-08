@@ -80,7 +80,9 @@
     {
       "name": "carousel",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "352/352",
+      "notes": "fundamental-styles' vertical bar compared without its height (its one example uses ol/li dots)"
     },
     {
       "name": "checkbox",

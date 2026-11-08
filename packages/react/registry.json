@@ -1464,6 +1464,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Shows one or more slides at a time with navigation buttons, page indicators (dots or numbers), arrow keys, looping and swiping.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "busy-indicator", "button"],
+      "files": [
+        {
+          "path": "registry/ui/carousel/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
