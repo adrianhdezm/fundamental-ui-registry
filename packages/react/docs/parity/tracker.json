@@ -231,7 +231,8 @@
     {
       "name": "inline-help",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "80/80"
     },
     {
       "name": "input",

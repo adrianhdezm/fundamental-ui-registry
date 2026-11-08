@@ -917,6 +917,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "inline-help",
+      "type": "registry:ui",
+      "title": "Inline Help",
+      "description": "Help text in a small popover with an arrow that opens on hover and focus of its trigger (a question-mark icon by default) and describes the trigger for screen readers, on Base UI's Tooltip.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/inline-help/inline-help.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
