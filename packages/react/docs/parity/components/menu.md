@@ -36,7 +36,8 @@ API: composed parts, as the popover:
 - `MenuPopup` is the menu: the popover surface in a portal, a scrolling wrapper, the menu element (`<nav role="menu">`,
   Base UI List) and its `<ul>`. Native props, `id`, `aria-label`/`aria-labelledby`, `className` and `ref` go to the
   menu element (Angular's `id`, `ariaLabel`, `ariaLabelledby`, `role`); `bodyClassName` is Angular's
-  `additionalBodyClass`, `listClassName` goes to the `<ul>`, `container` renders the menu and its submenus elsewhere.
+  `additionalBodyClass`, `listClassName` goes to the `<ul>`, `container` renders the menu and its submenus elsewhere,
+  `anchor` places it against another element than the trigger (the split button's group).
 - `MenuItem` is Angular's `li[fd-menu-item]` and `[fd-menu-interactive]` in one: an `<li role="none">` with the item
   element (`role="menuitem"`, a `<div>` by default, `<a>` with `href`, any element with `render`). Native props,
   `className`, `ref` and `onClick` (Angular's `onSelect`) go to the item element, `listItemProps` to the `<li>`.

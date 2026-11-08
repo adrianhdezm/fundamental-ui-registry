@@ -632,6 +632,11 @@ export interface MenuPopupProps extends Omit<ComponentProps<'nav'>, 'role'> {
     container?: BaseMenu.Portal.Props['container'];
     /** Keeps the menu in the DOM while closed (hidden). */
     keepMounted?: boolean;
+    /**
+     * Element the menu is placed against instead of the trigger, e.g. the whole split button group (Angular's
+     * `trigger` set to another element). Desktop mode only.
+     */
+    anchor?: BaseMenu.Positioner.Props['anchor'];
 }
 
 /**
@@ -639,7 +644,7 @@ export interface MenuPopupProps extends Omit<ComponentProps<'nav'>, 'role'> {
  * `aria-label`/`aria-labelledby`, `className` and `ref` go to the menu element (`<nav role="menu">`), whose
  * `<ul>` holds the items. In mobile mode it is a full-screen dialog instead.
  */
-export function MenuPopup({ bodyClassName, container, keepMounted, ...props }: MenuPopupProps) {
+export function MenuPopup({ bodyClassName, container, keepMounted, anchor, ...props }: MenuPopupProps) {
     const context = useContext(MenuContext);
     const { setListId } = context ?? {};
     useEffect(() => {
@@ -656,6 +661,7 @@ export function MenuPopup({ bodyClassName, container, keepMounted, ...props }: M
     return (
         <BaseMenu.Portal container={container} keepMounted={keepMounted}>
             <BaseMenu.Positioner
+                anchor={anchor}
                 side={side}
                 align={align}
                 sideOffset={options.sideOffset}
@@ -767,7 +773,7 @@ function MenuList({
     ref,
     children,
     ...props
-}: Omit<MenuListProps, 'bodyClassName' | 'container' | 'keepMounted'>) {
+}: Omit<MenuListProps, 'bodyClassName' | 'container' | 'keepMounted' | 'anchor'>) {
     const parent = useContext(MenuLevelContext);
     const submenu = useContext(SubmenuContext);
     const [icons, registerIcon] = useRegistry();

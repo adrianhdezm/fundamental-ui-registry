@@ -523,7 +523,8 @@
     {
       "name": "split-button",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "336/336"
     },
     {
       "name": "status-indicator",

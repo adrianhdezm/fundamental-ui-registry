@@ -945,6 +945,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "split-button",
+      "type": "registry:ui",
+      "title": "Split Button",
+      "description": "A main action and an arrow that opens a menu of alternative actions, where the chosen action becomes the main one, on the registry's Button and Menu (Base UI's Menu).",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "icon", "menu"],
+      "files": [
+        {
+          "path": "registry/ui/split-button/split-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
