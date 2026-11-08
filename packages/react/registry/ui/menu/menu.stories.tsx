@@ -934,6 +934,8 @@ async function openMenu(trigger: HTMLElement): Promise<void> {
     await userEvent.click(trigger);
     await waitFor(() => expect(trigger.getAttribute('aria-expanded')).toBe('true'));
     await waitFor(() => expect(document.querySelector('[role=menuitem]')).not.toBeNull());
+    // keys sent before the menu has moved the focus to its first item would be lost
+    await waitFor(() => expect(document.activeElement?.closest('[role=menu]')).not.toBeNull());
 }
 const triggers = (root: ParentNode) => [...root.querySelectorAll<HTMLElement>('[aria-haspopup=menu]')];
 
