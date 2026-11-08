@@ -157,7 +157,9 @@
     {
       "name": "feed-input",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "202/208",
+      "notes": "kept: RTL send glyph mirrored (6, as Angular and UI5)"
     },
     {
       "name": "feed-list",
