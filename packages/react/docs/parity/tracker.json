@@ -12,7 +12,8 @@
     {
       "name": "action-sheet",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "224/224"
     },
     {
       "name": "avatar",

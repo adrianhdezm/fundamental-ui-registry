@@ -765,6 +765,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "action-sheet",
+      "type": "registry:ui",
+      "title": "Action Sheet",
+      "description": "A menu of actions for the control that opens it, in a popover or, on phones, in a sheet at the bottom of the screen with a title bar.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/action-sheet/action-sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
