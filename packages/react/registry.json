@@ -1123,6 +1123,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "infinite-scroll",
+      "type": "registry:ui",
+      "title": "Infinite Scroll",
+      "description": "A scroll container and a hook that call back when the content is scrolled near its end, e.g. to load more list items.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ui/infinite-scroll/infinite-scroll.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
