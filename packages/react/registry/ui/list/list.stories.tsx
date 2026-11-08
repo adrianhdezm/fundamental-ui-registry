@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useId, useMemo, useRef, useState, type ComponentType, type ReactNode, type UIEvent } from 'react';
+import { useId, useMemo, useRef, useState, type ComponentType, type ReactNode } from 'react';
 import { BusyIndicator } from '@/ui/busy-indicator/busy-indicator';
 import { Button } from '@/ui/button/button';
 import { Checkbox } from '@/ui/checkbox/checkbox';
 import { Avatar } from '@/ui/avatar/avatar';
 import { Icon } from '@/ui/icon/icon';
+import { useInfiniteScroll } from '@/ui/infinite-scroll/infinite-scroll';
 import { InputGroup } from '@/ui/input-group/input-group';
 import { Radio, RadioGroup } from '@/ui/radio/radio';
 import { Skeleton } from '@/ui/skeleton/skeleton';
@@ -709,21 +710,22 @@ export const KeyboardSupport: Story = {
 function InfiniteList() {
     const [items, setItems] = useState<string[]>(() => Array.from({ length: 10 }, () => 'Initially shown item'));
     const [loading, setLoading] = useState(false);
-    const onScroll = (event: UIEvent<HTMLElement>) => {
-        const el = event.currentTarget;
-        if (loading || el.scrollHeight - el.scrollTop - el.clientHeight > 40) return;
+    const more = () => {
+        if (loading) return;
         setLoading(true);
         setTimeout(() => {
             setItems((all) => [...all, ...Array.from({ length: 5 }, (_, i) => `Element ${all.length + i}`)]);
             setLoading(false);
         }, 1000);
     };
+    // Angular's fdInfiniteScroll with [scrollOffset]="40" on the list
+    const infiniteScroll = useInfiniteScroll<HTMLUListElement>({ scrollOffset: 40, onScrollAction: more });
     return (
         <BusyIndicator loading={loading} size="l" block aria-label="Loading" className="max-w-md">
             <List
+                ref={infiniteScroll}
                 aria-label="Infinite scroll"
                 className="scrollbar-sap block max-h-[15.625rem] overflow-y-scroll"
-                onScroll={onScroll}
             >
                 {items.map((item, i) => (
                     <ListItem key={i}>

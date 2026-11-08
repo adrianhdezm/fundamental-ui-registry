@@ -287,7 +287,7 @@
       "sourceStories": 14,
       "status": "done",
       "visual": "520/544",
-      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-in: infinite scroll (until ported)"
+      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8)"
     },
     {
       "name": "menu",

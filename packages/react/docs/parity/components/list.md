@@ -67,7 +67,8 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
   `Icon` inside `ListThumbnail` (Angular can put both directives on one `<i>`). The thumbnail sizes its icon to 2rem.
 - Angular's `value` input of `ListItem` (for components built on the list) is not ported: `value` is a native `<li>`
   attribute. Its deprecated `truncate` inputs are gone.
-- Not ported until its component is: Angular's `fdInfiniteScroll` (the story listens to `onScroll`).
+- Angular's `fdInfiniteScroll` on the list is the `infinite-scroll` component: the Infinite scroll story puts
+  `useInfiniteScroll`'s ref on the `List` (`<InfiniteScroll render={<List />}>` does the same).
 
 ### Stories vs. sources
 
@@ -95,7 +96,7 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
 | Angular           | Filter and sort                         | `FilterSort`        | ✅ covered | A `Toolbar` with a `ToolbarLabel`, a spacer and an `InputGroup` with a clear button, as Angular.                              |
 | Angular           | Complex (borderless, groups and footer) | `Complex`           | ✅ covered |                                                                                                                               |
 | Angular           | Keyboard support                        | `KeyboardSupport`   | ✅ covered | `actionsRef.setItemActive(0)`.                                                                                                |
-| Angular           | Infinite scroll                         | `InfiniteScroll`    | ✅ covered | `onScroll` instead of `fdInfiniteScroll` (not ported).                                                                        |
+| Angular           | Infinite scroll                         | `InfiniteScroll`    | ✅ covered | `useInfiniteScroll` with `scrollOffset: 40`, as Angular's `fdInfiniteScroll` with `[scrollOffset]="40"`.                      |
 | Angular           | Loading                                 | `Loading`           | ✅ covered | Text and custom-shape skeletons in the items, as Angular.                                                                     |
 | Angular           | Byline: borderless                      | `BylineBorderless`  | ✅ covered |                                                                                                                               |
 | Angular           | Byline: selection                       | `BylineSelection`   | ✅ covered |                                                                                                                               |
@@ -155,9 +156,9 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
 
 ### Visual comparison
 
-`pnpm visual list`: 34 cases × 16 combinations, 519/544 in the full run; one more ("secondary positive" in HC
-White compact LTR, 10.7% of pixels, no style difference) passes when its combination is run again, and the other 24 are
-kept below. Stories use fundamental-styles' texts where that is harmless, and the compared lists are full width, so
+`pnpm visual list`: 34 cases × 16 combinations, 520/544 (also after the Infinite scroll story moved to the
+`infinite-scroll` component); "secondary positive" in HC White compact LTR has failed once (10.7% of pixels, no style
+difference) and passes when run again, and the other 24 are kept below. Stories use fundamental-styles' texts where that is harmless, and the compared lists are full width, so
 most cases are compared by pixels: the standard item and title, the borderless item; the interactive item at rest, on
 hover, with keyboard focus, selected and selected on hover; the positive, critical and negative secondary texts; the
 icon before and after the title; the group header, the footer, the action item and its button at rest and on hover;
