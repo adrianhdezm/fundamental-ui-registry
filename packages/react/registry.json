@@ -1109,6 +1109,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "scrollbar",
+      "type": "registry:ui",
+      "title": "Scrollbar",
+      "description": "A scroll container with SAP-themed scrollbars, either direction of which can be turned off or kept always visible.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/scrollbar/scrollbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

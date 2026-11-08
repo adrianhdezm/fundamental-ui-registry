@@ -469,7 +469,9 @@
     {
       "name": "scrollbar",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "16/16",
+      "notes": "headless Chromium hides scrollbars: the bars themselves checked by eye"
     },
     {
       "name": "search-input",
