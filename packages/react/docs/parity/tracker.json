@@ -220,7 +220,9 @@
     {
       "name": "grid-list",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "344/368",
+      "notes": "kept: RTL highlight bar corners (24, fundamental-styles rounds the left ones); fundamental-styles hard-codes compact title bars and item toolbars (compared without height)"
     },
     {
       "name": "icon",

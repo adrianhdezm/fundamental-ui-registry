@@ -1450,6 +1450,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "grid-list",
+      "type": "registry:ui",
+      "title": "Grid List",
+      "description": "Cards in a responsive grid with multiple, single (item or radio) and delete selection modes, item types and states, highlights, title bar, group headers, filter bar, more button, footer and grid keyboard navigation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "checkbox", "icon", "object-status", "radio", "toolbar"],
+      "files": [
+        {
+          "path": "registry/ui/grid-list/grid-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
