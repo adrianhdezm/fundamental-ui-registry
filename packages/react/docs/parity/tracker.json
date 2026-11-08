@@ -43,7 +43,8 @@
       "phase": 1,
       "source": ["src/Breadcrumb/__stories__/Breadcrumb.stories.js"],
       "sourceStories": 3,
-      "status": "todo"
+      "status": "done",
+      "visual": "288/288"
     },
     {
       "name": "busy-indicator",

@@ -857,6 +857,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Navigation trail from the root to the current page, with the items that do not fit collapsed into a menu at the start.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "icon", "link", "menu", "overflow-layout"],
+      "files": [
+        {
+          "path": "registry/ui/breadcrumb/breadcrumb.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/breadcrumb/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
