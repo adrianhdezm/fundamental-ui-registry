@@ -1520,6 +1520,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "settings",
+      "type": "registry:ui",
+      "title": "Settings",
+      "description": "A list of settings next to the view of the selected one, responsive to the window width, with pushed detail views, profile card, spacing and a settings dialog size.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "list", "title"],
+      "files": [
+        {
+          "path": "registry/ui/settings/settings.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

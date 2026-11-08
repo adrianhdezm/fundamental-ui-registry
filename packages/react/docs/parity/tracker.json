@@ -540,7 +540,9 @@
     {
       "name": "settings",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "176/176",
+      "notes": "md/sm view modes follow the window width: tested in the spec, not compared visually"
     },
     {
       "name": "shellbar",
