@@ -98,7 +98,7 @@ fundamental-react: `Menu` is the `<nav>` (now `MenuPopup`), `Menu.List` its `<ul
 | Angular           | Programmatic control                  | `Programmatic`         | ✅ covered | Controlled `open` instead of `open()`/`close()`/`toggle()`.  |
 | Angular           | Scrollbar                             | `Scrollbar`            | ✅ covered |                                                              |
 | Angular           | Disabled states                       | `Disabled`             | ✅ covered |                                                              |
-| Angular           | Placement and triggers                | `PlacementAndTriggers` | ✅ covered | Radio groups instead of selects (select is not ported yet).  |
+| Angular           | Placement and triggers                | `PlacementAndTriggers` | ✅ covered | Selects for the placement and the fill mode, as Angular.     |
 | Angular           | Open: menu                            | `OpenBasic`            | ✅ covered |                                                              |
 | Angular           | Open: icons                           | `OpenIcons`            | ✅ covered |                                                              |
 | Angular           | Open: shortcuts                       | `OpenShortcuts`        | ✅ covered |                                                              |

@@ -3,8 +3,9 @@ import { useState, type ComponentType, type ReactNode } from 'react';
 import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
 import { Checkbox } from '@/ui/checkbox/checkbox';
+import { FormItem, FormLabel } from '@/ui/form/form';
 import { PLACEMENTS, type Placement, type PopoverFillMode } from '@/ui/popover/popover';
-import { Radio, RadioGroup } from '@/ui/radio/radio';
+import { Select, SelectOption } from '@/ui/select/select';
 import { Title } from '@/ui/title/title';
 import {
     Menu,
@@ -518,31 +519,35 @@ function PlacementExample() {
             <Title level={4} headerSize={5} className="mb-2">
                 Placement options
             </Title>
-            <div className="mb-6 flex flex-col gap-2">
-                <RadioGroup
-                    aria-label="Placement"
-                    value={placement}
-                    onValueChange={(value) => setPlacement(value as Placement)}
-                    className="flex flex-wrap"
-                >
-                    {PLACEMENTS.map((option) => (
-                        <Radio key={option} value={option}>
-                            {option}
-                        </Radio>
-                    ))}
-                </RadioGroup>
-                <RadioGroup
-                    aria-label="Fill mode"
-                    value={fill}
-                    onValueChange={(value) => setFill(value as string)}
-                    className="flex flex-wrap"
-                >
-                    {['none', 'at-least', 'equal'].map((option) => (
-                        <Radio key={option} value={option}>
-                            {option}
-                        </Radio>
-                    ))}
-                </RadioGroup>
+            <div className="mb-6 flex flex-wrap items-end gap-4">
+                <FormItem className="w-40 flex-none">
+                    <FormLabel id="menu-placement-label">Placement</FormLabel>
+                    <Select<Placement>
+                        aria-labelledby="menu-placement-label"
+                        value={placement}
+                        onValueChange={(value) => value && setPlacement(value)}
+                    >
+                        {PLACEMENTS.map((option) => (
+                            <SelectOption key={option} value={option}>
+                                {option}
+                            </SelectOption>
+                        ))}
+                    </Select>
+                </FormItem>
+                <FormItem className="w-40 flex-none">
+                    <FormLabel id="menu-fill-label">Fill mode</FormLabel>
+                    <Select<string>
+                        aria-labelledby="menu-fill-label"
+                        value={fill}
+                        onValueChange={(value) => value && setFill(value)}
+                    >
+                        {['none', 'at-least', 'equal'].map((option) => (
+                            <SelectOption key={option} value={option}>
+                                {option}
+                            </SelectOption>
+                        ))}
+                    </Select>
+                </FormItem>
                 <Checkbox label="fixedPosition" checked={fixed} onCheckedChange={setFixed} />
             </div>
             <div className="mb-6 flex justify-center px-12 py-8">
