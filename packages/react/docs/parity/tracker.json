@@ -322,7 +322,8 @@
     {
       "name": "message-toast",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "32/32"
     },
     {
       "name": "micro-process-flow",

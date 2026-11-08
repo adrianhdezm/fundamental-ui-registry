@@ -903,6 +903,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "message-toast",
+      "type": "registry:ui",
+      "title": "Message Toast",
+      "description": "A short message that disappears by itself, opened from code with a service and stacked at a screen edge or next to an element.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/message-toast/message-toast.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
