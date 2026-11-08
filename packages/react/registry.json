@@ -1284,6 +1284,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "dynamic-page",
+      "type": "registry:ui",
+      "title": "Dynamic Page",
+      "description": "A page with a title area, a header that collapses on click or scroll and can be pinned, optional tabs, scrolling content and a footer, with paddings that follow its width.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button", "tabs", "toolbar"],
+      "files": [
+        {
+          "path": "registry/ui/dynamic-page/dynamic-page.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/dynamic-page/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

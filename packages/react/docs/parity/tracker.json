@@ -139,7 +139,9 @@
     {
       "name": "dynamic-page",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "336/336",
+      "notes": "stand-ins until ported: facets, flexible column layout; title row with layout actions above 1280px not compared (both Storybooks render at 1248px)"
     },
     {
       "name": "dynamic-side-content",
