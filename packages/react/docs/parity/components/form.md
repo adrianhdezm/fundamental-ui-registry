@@ -102,7 +102,7 @@ same; `FormGroup`, `FormFieldset` and `FormLegend` spread their props as before.
 | Angular                        | Labels                | `Labels`                 | 🟡 partial | All but inline help (waits for inline-help); fundamental-styles' texts.               |
 | Angular                        | Fieldset and groups   | `FieldsetAndGroups`      | ✅ covered | Plus a disabled fieldset and fundamental-styles' three group headers.                 |
 | Angular                        | Messages              | `Messages`               | ✅ covered | fundamental-styles' texts for the four types.                                         |
-| Angular                        | Message group         | `MessageGroup`           | 🟡 partial | Input-group and multi-input fields are inputs with a button (not ported yet).         |
+| Angular                        | Message group         | `MessageGroup`           | ✅ covered | Input groups with buttons and a multi input, as Angular.                              |
 | Angular                        | Message states        | `MessageStates`          | ✅ covered |                                                                                       |
 | Angular                        | Open: message group   | `OpenMessageGroup`       | ✅ covered |                                                                                       |
 | Angular                        | Open: rich message    | `OpenRichMessage`        | ✅ covered | Opened from its button.                                                               |

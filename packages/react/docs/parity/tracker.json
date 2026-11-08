@@ -131,7 +131,7 @@
       "sourceStories": 10,
       "status": "done",
       "visual": "224/224",
-      "notes": "Form and Inner popovers stories: stand-ins until form and multi-input"
+      "notes": "Form story: plain labels stand in for the form label (follow-up)"
     },
     {
       "name": "dynamic-page",
@@ -186,7 +186,7 @@
       "sourceStories": 18,
       "status": "done",
       "visual": "272/272",
-      "notes": "label inline help: after inline-help; Message group story uses inputs with a button until multi-input"
+      "notes": "label inline help: after inline-help"
     },
     {
       "name": "formatted-text",

@@ -4,10 +4,11 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import { BarElement, BarLeft, BarMiddle, BarRight, ButtonBar } from '@/ui/bar/bar';
 import { Button } from '@/ui/button/button';
 import { Checkbox } from '@/ui/checkbox/checkbox';
+import { FormItem, FormLabel } from '@/ui/form/form';
 import { Input, Textarea } from '@/ui/input/input';
 import { LayoutGrid, LayoutGridCol } from '@/ui/layout-grid/layout-grid';
 import { List, ListItem, ListSecondary, ListTitle } from '@/ui/list/list';
-import { Popover, PopoverBody, PopoverTrigger } from '@/ui/popover/popover';
+import { MultiInput } from '@/ui/multi-input/multi-input';
 import {
     Dialog,
     DialogBody,
@@ -947,25 +948,32 @@ export const Form: Story = {
     render: () => <FormExample />
 };
 
-function OptionsPopover({ id, label: text, options }: { id: string; label: string; options: string[] }) {
+interface StoryOption {
+    name: string;
+}
+
+const names = (list: string): StoryOption[] => list.split(', ').map((name) => ({ name }));
+const FIRST_OPTIONS = names(
+    'Photo Voltaic, Settings, Heating Cooling, Competitor, Chalkboard, Database, Passenger Train, World, Shield, Journey Change'
+);
+const SECOND_OPTIONS = names('Apple, Tomato, Banana, Grapes, Pumpkin, Kiwi, Mango, Cucumber, Garlic, Pear');
+const optionName = (option: StoryOption) => option?.name ?? '';
+
+/** A multi input whose list opens in a popover above the dialog. */
+function OptionsMultiInput({ id, label: text, options }: { id: string; label: string; options: StoryOption[] }) {
+    const [selected, setSelected] = useState<StoryOption[]>([]);
     return (
-        <div>
-            <span className={label} id={id}>
-                {text}
-            </span>
-            <Popover fillControlMode="at-least">
-                <PopoverTrigger aria-describedby={id} render={<Button menu label="Select options" />} />
-                <PopoverBody aria-labelledby={id}>
-                    <List aria-labelledby={id} className="min-w-60">
-                        {options.map((option) => (
-                            <ListItem key={option} interactive>
-                                <ListTitle>{option}</ListTitle>
-                            </ListItem>
-                        ))}
-                    </List>
-                </PopoverBody>
-            </Popover>
-        </div>
+        <FormItem>
+            <FormLabel htmlFor={id}>{text}</FormLabel>
+            <MultiInput<StoryOption, StoryOption>
+                inputId={id}
+                placeholder="Search here..."
+                dropdownValues={options}
+                displayFn={optionName}
+                selected={selected}
+                onSelectedChange={setSelected}
+            />
+        </FormItem>
     );
 }
 
@@ -979,22 +987,15 @@ function InnerPopoversExample() {
                 </DialogHeader>
                 <DialogBody>
                     <div className="flex flex-col gap-4">
-                        <OptionsPopover
+                        <OptionsMultiInput
                             id="story-dialog-first-list"
                             label="The first list of options"
-                            options={[
-                                'Photo Voltaic',
-                                'Settings',
-                                'Heating Cooling',
-                                'Competitor',
-                                'Chalkboard',
-                                'Database'
-                            ]}
+                            options={FIRST_OPTIONS}
                         />
-                        <OptionsPopover
+                        <OptionsMultiInput
                             id="story-dialog-second-list"
                             label="The second list of options"
-                            options={['Apple', 'Tomato', 'Banana', 'Grapes', 'Pumpkin', 'Kiwi', 'Mango', 'Pear']}
+                            options={SECOND_OPTIONS}
                         />
                     </div>
                 </DialogBody>
@@ -1013,8 +1014,8 @@ export const InnerPopovers: Story = {
         docs: {
             description: {
                 story:
-                    'Popovers in the dialog open above it, and Escape closes the popover first. Popovers with lists ' +
-                    'stand in for the multi inputs until multi-input is ported.'
+                    'Two multi inputs in a dialog: their lists open in popovers above the dialog, and Escape closes ' +
+                    'the list first.'
             }
         }
     },
@@ -1206,9 +1207,10 @@ export const OpenInnerPopover: Story = {
     render: InnerPopovers.render,
     play: async ({ canvasElement }) => {
         await openDialog(canvasElement, 'Open from component');
-        const trigger = document.querySelector<HTMLElement>('[role=dialog] [aria-haspopup]')!;
-        await userEvent.click(trigger);
-        const body = () => document.getElementById(trigger.getAttribute('aria-controls') ?? '');
+        // the addon button of the first multi input opens its list
+        await userEvent.click(document.querySelector<HTMLElement>('[role=dialog] button[aria-haspopup]')!);
+        const input = document.querySelector<HTMLElement>('[role=dialog] input[role=combobox]')!;
+        const body = () => document.getElementById(input.getAttribute('aria-controls') ?? '');
         await waitFor(() => expect(body()?.querySelector('li')).toBeTruthy());
         // the list is above the dialog
         const list = body()!;

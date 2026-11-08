@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { expect, userEvent, waitFor } from 'storybook/test';
-import { Button } from '@/ui/button/button';
 import { Input, Textarea } from '@/ui/input/input';
+import { InputGroup } from '@/ui/input-group/input-group';
 import { Link } from '@/ui/link/link';
+import { MultiInput } from '@/ui/multi-input/multi-input';
 import { Radio, RadioGroup } from '@/ui/radio/radio';
 import { FormFieldset, FormGroup, FormGroupHeader, FormHeader, FormItem, FormLabel, FormLegend } from './form';
 import { FormInputMessageGroup } from './form-input-message-group';
@@ -360,12 +361,22 @@ export const Messages: Story = {
     )
 };
 
-const DIETS = 'Vegetarian, Vegan, Gluten-Free, Dairy-Free, Nut Allergy, Shellfish Allergy, Kosher, Halal';
+const DIETS = [
+    'Vegetarian',
+    'Vegan',
+    'Gluten-Free',
+    'Dairy-Free',
+    'Nut Allergy',
+    'Shellfish Allergy',
+    'Kosher',
+    'Halal'
+];
 
 /** Angular's "Form Message Input Group" example: a message group around each kind of field. */
 function MessageGroupDemo() {
     const [open, setOpen] = useState(false);
     const [openRich, setOpenRich] = useState(false);
+    const [diets, setDiets] = useState(['Vegan']);
     return (
         <div className="flex max-w-md flex-col gap-10">
             <FormItem>
@@ -381,10 +392,13 @@ function MessageGroupDemo() {
             <FormItem>
                 <FormLabel htmlFor="mg-2">Password Requirements</FormLabel>
                 <FormInputMessageGroup placement="bottom" triggers={[]} open={open} onOpenChange={setOpen}>
-                    <div className="flex items-center gap-2">
-                        <Input id="mg-2" type="password" state="information" />
-                        <Button label="Show Requirements" aria-expanded={open} onClick={() => setOpen(!open)} />
-                    </div>
+                    <InputGroup
+                        inputId="mg-2"
+                        state="information"
+                        button
+                        addOnText="Show Requirements"
+                        onAddOnButtonClick={() => setOpen(!open)}
+                    />
                     <FormMessage type="information">
                         Password must contain at least 8 characters, including one uppercase letter, one lowercase
                         letter, one number, and one special character.
@@ -397,7 +411,13 @@ function MessageGroupDemo() {
                     placement="bottom"
                     triggers={['mouseenter', 'mouseleave', 'focusin', 'focusout']}
                 >
-                    <Input id="mg-3" state="information" placeholder="e.g., DE" />
+                    <InputGroup
+                        inputId="mg-3"
+                        glyph="world"
+                        glyphAriaLabel="Select country code"
+                        state="information"
+                        button
+                    />
                     <FormMessage type="information">
                         Select your country code from the list. This determines your tax jurisdiction and available
                         payment methods.
@@ -421,19 +441,30 @@ function MessageGroupDemo() {
             <FormItem>
                 <FormLabel htmlFor="mg-5">Dietary Restrictions</FormLabel>
                 <FormInputMessageGroup triggers={['mouseover', 'mouseout']}>
-                    <Input id="mg-5" placeholder="Select all that apply" state="information" defaultValue="Vegan" />
+                    <MultiInput
+                        inputId="mg-5"
+                        placeholder="Select all that apply"
+                        state="information"
+                        dropdownValues={DIETS}
+                        selected={diets}
+                        onSelectedChange={setDiets}
+                    />
                     <FormMessage type="information">
-                        {`Select all dietary restrictions that apply (${DIETS}). This information will be shared with catering for company events.`}
+                        Select all dietary restrictions that apply. This information will be shared with catering for
+                        company events.
                     </FormMessage>
                 </FormInputMessageGroup>
             </FormItem>
             <FormItem>
                 <FormLabel htmlFor="mg-6">Budget Approval Code</FormLabel>
                 <FormInputMessageGroup placement="bottom" triggers={[]} open={openRich} onOpenChange={setOpenRich}>
-                    <div className="flex items-center gap-2">
-                        <Input id="mg-6" state="information" />
-                        <Button label="Where to Find" aria-expanded={openRich} onClick={() => setOpenRich(!openRich)} />
-                    </div>
+                    <InputGroup
+                        inputId="mg-6"
+                        state="information"
+                        button
+                        addOnText="Where to Find"
+                        onAddOnButtonClick={() => setOpenRich(!openRich)}
+                    />
                     <FormMessage type="information">
                         <div>
                             Your approval code is sent via email when your budget request is approved. Check your inbox
@@ -453,8 +484,8 @@ export const MessageGroup: Story = {
             description: {
                 story:
                     'A form input message group shows the message of a field in a popover: on focus by default, on ' +
-                    'hover, or controlled with `open` and no triggers (here from a button). It works with inputs, ' +
-                    'textareas and other fields, and the message can hold rich content.'
+                    'hover, or controlled with `open` and no triggers (here from an input group button). It works ' +
+                    'with inputs, input groups, textareas and multi inputs, and the message can hold rich content.'
             }
         }
     },

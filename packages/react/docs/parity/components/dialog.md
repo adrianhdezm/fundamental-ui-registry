@@ -123,7 +123,7 @@ popovers, are part of its focus trap.
 | Angular           | Closing, dismissing, hiding and loading | `States`                        | ✅ covered |                                                                             |
 | Angular           | Backdrop and container                  | `Backdrop`                      | ✅ covered |                                                                             |
 | Angular           | Form                                    | `Form`                          | 🟡 partial | Plain labels stand in for the form label until form is ported.              |
-| Angular           | Inner popovers                          | `InnerPopovers`                 | 🟡 partial | Popovers with lists stand in for the multi inputs until multi-input.        |
+| Angular           | Inner popovers                          | `InnerPopovers`                 | ✅ covered | Two multi inputs; their lists open above the dialog.                        |
 | Angular           | Playground                              | `Playground`                    | ✅ covered |                                                                             |
 | Angular           | Open: template                          | `OpenTemplate`                  | ✅ covered |                                                                             |
 | Angular           | Open: component                         | `OpenComponent`                 | ✅ covered |                                                                             |
