@@ -1039,6 +1039,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "object-attribute",
+      "type": "registry:ui",
+      "title": "Object Attribute",
+      "description": "A single-line property of an object, its label and value truncated with an ellipsis, optionally with an action link.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/object-attribute/object-attribute.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

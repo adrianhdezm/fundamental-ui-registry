@@ -358,7 +358,9 @@
     {
       "name": "object-attribute",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "96/96",
+      "notes": "fundamental-styles' Storybook renders this dev component unstyled: styles subset; 80/96 against the published CSS injected (disabled link height auto vs 16px, not visible)"
     },
     {
       "name": "object-identifier",
