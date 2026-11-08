@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
 import { expect, userEvent, waitFor } from 'storybook/test';
 import { Avatar } from '@/ui/avatar/avatar';
 import { BusyIndicator } from '@/ui/busy-indicator/busy-indicator';
@@ -26,7 +26,20 @@ import {
 } from '@/ui/list/list';
 import { Menu, MenuAddon, MenuItem, MenuPopup, MenuTitle, MenuTrigger } from '@/ui/menu/menu';
 import { ObjectStatus } from '@/ui/object-status/object-status';
+import {
+    QuickView,
+    QuickViewGroup,
+    QuickViewGroupItem,
+    QuickViewGroupItemContent,
+    QuickViewGroupItemContentElement,
+    QuickViewGroupItemLabel,
+    QuickViewGroupTitle,
+    QuickViewSubheader,
+    QuickViewSubheaderSubtitle,
+    QuickViewSubheaderTitle
+} from '@/ui/quick-view/quick-view';
 import { Skeleton } from '@/ui/skeleton/skeleton';
+import { Text } from '@/ui/text/text';
 import { UNABLE_TO_LOAD } from '../../../docs/assets/illustrations';
 import {
     Card,
@@ -120,11 +133,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const row = 'flex flex-wrap items-start gap-8';
-
-/** Stand-in for fundamental-styles' `fd-text` (the Text component is not ported yet). */
-function Text({ children }: { children: ReactNode }) {
-    return <span className="text-sap-font-size leading-[normal] text-sap-text-color">{children}</span>;
-}
 
 function Items({ n = 3 }: { n?: number }) {
     return (
@@ -874,13 +882,6 @@ const CONTACT = [
 
 export const QuickViewCard: Story = {
     name: 'Quick view card',
-    parameters: {
-        docs: {
-            description: {
-                story: 'The quick view content is plain markup (subheader, groups of label and value) until the Quick View component is ported.'
-            }
-        }
-    },
     render: () => (
         <Card className="w-96" cardType="quickView">
             <CardHeader>
@@ -889,28 +890,30 @@ export const QuickViewCard: Story = {
                 </CardMainHeader>
             </CardHeader>
             <CardContent>
-                <div className="flex flex-col gap-4 px-4 pb-4 text-sap-font-size text-sap-text-color">
-                    <div className="flex items-center gap-3">
+                <QuickView>
+                    <QuickViewSubheader>
                         <Avatar size="s" image="assets/person.svg" aria-label="Photo of Ann Smith" />
-                        <div>
-                            <h3 className="m-0 font-sap-font-header-family text-sap-font-header5-size">Ann Smith</h3>
-                            <div className="text-sap-content-label-color">Senior sales manager</div>
-                        </div>
-                    </div>
+                        <QuickViewSubheaderTitle headerSize={3}>Ann Smith</QuickViewSubheaderTitle>
+                        <QuickViewSubheaderSubtitle>Senior sales manager</QuickViewSubheaderSubtitle>
+                    </QuickViewSubheader>
                     {CONTACT.map((group) => (
-                        <section key={group.title} className="flex flex-col gap-2">
-                            <h4 className="m-0 font-sap-font-header-family text-sap-font-header6-size">
-                                {group.title}
-                            </h4>
+                        <QuickViewGroup key={group.title}>
+                            <QuickViewGroupTitle headingLevel={4}>{group.title}</QuickViewGroupTitle>
                             {group.items.map((item) => (
-                                <div key={item.label} className="flex flex-col">
-                                    <span className="text-sap-content-label-color">{item.label}</span>
-                                    {item.href ? <Link href={item.href}>{item.value}</Link> : <span>{item.value}</span>}
-                                </div>
+                                <QuickViewGroupItem key={item.label}>
+                                    <QuickViewGroupItemLabel>{item.label}</QuickViewGroupItemLabel>
+                                    <QuickViewGroupItemContent>
+                                        <QuickViewGroupItemContentElement
+                                            render={item.href ? <Link href={item.href} /> : undefined}
+                                        >
+                                            {item.value}
+                                        </QuickViewGroupItemContentElement>
+                                    </QuickViewGroupItemContent>
+                                </QuickViewGroupItem>
                             ))}
-                        </section>
+                        </QuickViewGroup>
                     ))}
-                </div>
+                </QuickView>
             </CardContent>
             <CardFooter>
                 <CardFooterActions>

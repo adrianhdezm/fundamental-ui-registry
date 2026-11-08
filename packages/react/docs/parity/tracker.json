@@ -73,7 +73,7 @@
       "phase": 2,
       "status": "done",
       "visual": "704/704",
-      "notes": "stand-ins until ported: text, quick view; press state not compared"
+      "notes": "press state not compared"
     },
     {
       "name": "carousel",
@@ -401,8 +401,7 @@
       "name": "overflow-layout",
       "phase": 2,
       "status": "done",
-      "visual": "128/128",
-      "notes": "avatar group story uses a stand-in business card until quick-view"
+      "visual": "128/128"
     },
     {
       "name": "pagination",

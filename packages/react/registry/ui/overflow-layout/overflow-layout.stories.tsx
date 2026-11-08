@@ -7,6 +7,19 @@ import { Button } from '@/ui/button/button';
 import { InfoLabel, type InfoLabelColor } from '@/ui/info-label/info-label';
 import { Link } from '@/ui/link/link';
 import { Popover, PopoverBody, PopoverBodyHeader, PopoverTrigger } from '@/ui/popover/popover';
+import {
+    QuickView,
+    QuickViewGroup,
+    QuickViewGroupItem,
+    QuickViewGroupItemContent,
+    QuickViewGroupItemContentElement,
+    QuickViewGroupItemLabel,
+    QuickViewGroupTitle,
+    QuickViewSubheader,
+    QuickViewSubheaderSubtitle,
+    QuickViewSubheaderTitle,
+    QuickViewTitle
+} from '@/ui/quick-view/quick-view';
 import { Title } from '@/ui/title/title';
 import { OverflowItem, OverflowLayout } from './overflow-layout';
 
@@ -267,39 +280,31 @@ function PersonAvatar({ person: p, ...props }: { person: Person } & Omit<Paramet
     );
 }
 
-/** Stand-in for the quick view until it is ported: a title, the person and the contact details. */
+/** The business card of a person: a quick view with a header (and a back button), the person and an email. */
 function BusinessCard({ person: p, onBack }: { person: Person; onBack?: () => void }) {
     return (
-        <div className="flex w-[20rem] flex-col whitespace-normal">
-            <PopoverBodyHeader>
-                <Bar barDesign="header">
-                    <BarLeft>
-                        {onBack && (
-                            <ButtonBar glyph="navigation-left-arrow" aria-label="Back" title="Back" onClick={onBack} />
-                        )}
-                        <BarElement>
-                            <Title level={5}>Business card</Title>
-                        </BarElement>
-                    </BarLeft>
-                </Bar>
-            </PopoverBodyHeader>
-            <div className="flex items-center gap-3 p-4">
+        <QuickView>
+            <QuickViewTitle align="left">
+                {onBack && <ButtonBar glyph="navigation-left-arrow" aria-label="Back" title="Back" onClick={onBack} />}
+                Business card
+            </QuickViewTitle>
+            <QuickViewSubheader>
                 <PersonAvatar person={p} />
-                <div className="flex flex-col gap-1">
-                    <Title level={6}>{p.name}</Title>
-                    <span className="text-sap-font-small-size text-sap-content-label-color">{p.position}</span>
-                </div>
-            </div>
-            <section className="flex flex-col gap-2 px-4 pb-4" aria-labelledby={`${p.id}-contact`}>
-                <Title level={6} id={`${p.id}-contact`}>
-                    Contact details
-                </Title>
-                <div className="flex flex-col gap-1">
-                    <span className="text-sap-font-small-size text-sap-content-label-color">Email</span>
-                    <Link href={`mailto:${p.email}`}>{p.email}</Link>
-                </div>
-            </section>
-        </div>
+                <QuickViewSubheaderTitle>{p.name}</QuickViewSubheaderTitle>
+                <QuickViewSubheaderSubtitle>{p.position}</QuickViewSubheaderSubtitle>
+            </QuickViewSubheader>
+            <QuickViewGroup>
+                <QuickViewGroupTitle id={`${p.id}-contact`}>Contact details</QuickViewGroupTitle>
+                <QuickViewGroupItem>
+                    <QuickViewGroupItemLabel>Email</QuickViewGroupItemLabel>
+                    <QuickViewGroupItemContent>
+                        <QuickViewGroupItemContentElement render={<Link href={`mailto:${p.email}`} />}>
+                            {p.email}
+                        </QuickViewGroupItemContentElement>
+                    </QuickViewGroupItemContent>
+                </QuickViewGroupItem>
+            </QuickViewGroup>
+        </QuickView>
     );
 }
 

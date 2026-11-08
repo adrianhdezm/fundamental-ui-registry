@@ -44,22 +44,22 @@ computed direction), and stop at the ends (they never move to the "more" button)
   already narrowed, or a "more" label that grows ("9 more" → "10 more"), re-measures without `triggerRecalculation`.
 - `onHiddenItemsChange` reports `OverflowItemRef` objects (key, item, index, forced), not directive instances.
 
-Tabs and breadcrumb (not ported yet) build on it: Angular's tabs use `ariaRole="tablist"`, `enableKeyboardNavigation
+Tabs and breadcrumb build on it: Angular's tabs use `ariaRole="tablist"`, `enableKeyboardNavigation
 false`, `showMoreButton` (`renderShowMoreButton`) and a menu in `renderMore`; the breadcrumb uses
 `showMorePosition="left"` with a link and a menu in `renderMore`.
 
 ### Stories vs. sources
 
-| Source  | Example                                             | React story             | Status     | Notes                                                                                                                                  |
-| ------- | --------------------------------------------------- | ----------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Angular | Resizable                                           | `Default` ("Resizable") | ✅ covered | Resizable frame, add/remove, max 3 visible, hidden count.                                                                              |
-| Angular | Forced visibility, start position and custom "more" | `AlwaysVisible`         | ✅ covered | `renderMore` for `fdOverflowExpand`.                                                                                                   |
-| Angular | Click to show                                       | `ClickToShow`           | ✅ covered |                                                                                                                                        |
-| Angular | Avatar group                                        | `AvatarGroup`           | ✅ covered | The business card is a stand-in (bar header, title, link) until the quick view is ported; avatars show a photo or an icon, as Angular. |
-| Angular | Open: more popover                                  | `OpenMore`              | ✅ covered |                                                                                                                                        |
-| Angular | Open: click to show                                 | `OpenClickToShow`       | ✅ covered |                                                                                                                                        |
-| Angular | Open: avatar group                                  | `OpenAvatarGroup`       | ✅ covered |                                                                                                                                        |
-| —       | —                                                   | `Playground`            | ➕ added   | The props as controls, on twelve info labels.                                                                                          |
+| Source  | Example                                             | React story             | Status     | Notes                                                                                                                                                                                    |
+| ------- | --------------------------------------------------- | ----------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Angular | Resizable                                           | `Default` ("Resizable") | ✅ covered | Resizable frame, add/remove, max 3 visible, hidden count.                                                                                                                                |
+| Angular | Forced visibility, start position and custom "more" | `AlwaysVisible`         | ✅ covered | `renderMore` for `fdOverflowExpand`.                                                                                                                                                     |
+| Angular | Click to show                                       | `ClickToShow`           | ✅ covered |                                                                                                                                                                                          |
+| Angular | Avatar group                                        | `AvatarGroup`           | ✅ covered | The business card is the registry's `QuickView` (header with a back button in the "+N" popover, subheader with the avatar, an email group); avatars show a photo or an icon, as Angular. |
+| Angular | Open: more popover                                  | `OpenMore`              | ✅ covered |                                                                                                                                                                                          |
+| Angular | Open: click to show                                 | `OpenClickToShow`       | ✅ covered |                                                                                                                                                                                          |
+| Angular | Open: avatar group                                  | `OpenAvatarGroup`       | ✅ covered |                                                                                                                                                                                          |
+| —       | —                                                   | `Playground`            | ➕ added   | The props as controls, on twelve info labels.                                                                                                                                            |
 
 ### Tests vs. sources
 
