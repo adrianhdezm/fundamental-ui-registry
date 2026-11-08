@@ -4,6 +4,7 @@ import { Avatar } from '@/ui/avatar/avatar';
 import { Bar, BarElement, BarLeft, BarRight } from '@/ui/bar/bar';
 import { Breadcrumb, BreadcrumbItem } from '@/ui/breadcrumb/breadcrumb';
 import { Button } from '@/ui/button/button';
+import { Facet, FacetContent, FacetGroup } from '@/ui/facets/facets';
 import { FormLabel } from '@/ui/form/form';
 import { Link } from '@/ui/link/link';
 import { List, ListItem, ListLink, ListTitle } from '@/ui/list/list';
@@ -116,47 +117,36 @@ const LAYOUT_ACTIONS = (
     </DynamicPageLayoutActions>
 );
 
-/** A label and its value, as a form facet entry. */
-const FacetValue = ({ id, label, value }: { id: string; label: string; value: string }) => (
-    <div className="flex items-baseline gap-1">
-        <FormLabel colon htmlFor={id}>
-            {label}
-        </FormLabel>
-        <Text id={id}>{value}</Text>
-    </div>
-);
-
-/** A facet with a title (a stand-in for Angular's `fd-facet`: facets are not ported yet). */
-const Facet = ({ title, children }: { title?: string; children: ReactNode }) => (
-    <div className="flex flex-col gap-2">
-        {title && (
-            <Title level={3} headerSize={6}>
-                {title}
-            </Title>
-        )}
-        {children}
-    </div>
-);
-
-/** The facets of the Angular stories, in a plain wrapping row (a stand-in for `fd-facet-group`). */
+/** The facets of the Angular stories. */
 const FACETS = (
-    <div role="group" aria-label="Product facets" className="flex flex-wrap items-start gap-x-12 gap-y-4">
-        <Avatar size="l" glyph="money-bills" aria-label="Product" />
-        <Facet title="Technical data">
-            <FacetValue id="dp-unit" label="Base unit" value="Each" />
-            <FacetValue id="dp-length" label="Length" value="23.24 Centimeter" />
-            <FacetValue id="dp-width" label="Width" value="86.1 Centimeter" />
+    <FacetGroup aria-label="Product facets">
+        <Facet type="image">
+            <Avatar size="l" glyph="money-bills" aria-label="Product" />
         </Facet>
-        <Facet title="Status">
+        <Facet type="form" facetTitle="Technical data">
+            {[
+                ['dp-unit', 'Base unit', 'Each'],
+                ['dp-length', 'Length', '23.24 Centimeter'],
+                ['dp-width', 'Width', '86.1 Centimeter']
+            ].map(([id, label, value]) => (
+                <FacetContent key={id}>
+                    <FormLabel colon htmlFor={id}>
+                        {label}
+                    </FormLabel>
+                    <Text id={id}>{value}</Text>
+                </FacetContent>
+            ))}
+        </Facet>
+        <Facet type="key-value" facetTitle="Status">
             <ObjectStatus status="positive" label="Delivery" large />
         </Facet>
-        <Facet title="Delivery time">
+        <Facet type="key-value" facetTitle="Delivery time">
             <ObjectStatus status="critical" glyph="shipping-status" label="12 days" large />
         </Facet>
-        <Facet title="Pricing">
+        <Facet type="key-value" facetTitle="Pricing">
             <ObjectNumber number={579} unit="EUR" status="informative" large />
         </Facet>
-    </div>
+    </FacetGroup>
 );
 
 const CONTENT = (
@@ -201,7 +191,11 @@ export const Default: Story = {
                 <DynamicPageHeader
                     title={TITLE}
                     subtitle={SUBTITLE}
-                    facet={<Avatar size="s" glyph="money-bills" aria-label="Product" className="me-4" />}
+                    facet={
+                        <Facet type="image">
+                            <Avatar size="s" glyph="money-bills" aria-label="Product" />
+                        </Facet>
+                    }
                 >
                     {BREADCRUMB}
                     <DynamicPageTitleContent>Some RANDOM things</DynamicPageTitleContent>

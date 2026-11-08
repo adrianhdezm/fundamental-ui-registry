@@ -83,25 +83,27 @@ gets a `navigation` named `breadcrumbsLabel` around it.
 - The shadows are `[box-shadow:var(--sapContent_HeaderShadow)]`, not Angular's `shadow-sap-content-header-shadow`,
   which prepends Tailwind's transparent ring and inset layers.
 
-**Waiting for other components:** facets (`fd-facet`, `fd-facet-group`) and the flexible column layout are not ported
-yet. The stories use a plain wrapping row of `Avatar`, `FormLabel` + `Text`, `ObjectStatus` and `ObjectNumber` for the
-facets and a two-column grid for the flexible column layout; the header's `facet` takes any node.
+**Facets:** the stories use the `facets` component, as Angular's: a `FacetGroup` of an image, a form and three
+key-value facets in the subheader, and an image `Facet` with a small `Avatar` as the header's `facet` (its 2rem end
+margin, Angular's; fundamental-styles' header facet has none). The header's `facet` takes any node.
+
+**Waiting for other components:** the flexible column layout is not ported yet; a two-column grid stands in for it.
 
 ### Stories vs. sources
 
-| Source  | Example                                          | React story                          | Status     | Notes                                                                                 |
-| ------- | ------------------------------------------------ | ------------------------------------ | ---------- | ------------------------------------------------------------------------------------- |
-| Angular | Facets, pinnable header and footer               | `Default`                            | ✅ covered | Facets stand-in (see above); the small avatar is the header's `facet`.                |
-| Angular | Not collapsible, list background                 | `NotCollapsible`                     | ✅ covered |                                                                                       |
-| Angular | Collapsed header, custom title and message strip | `Collapsed`                          | ✅ covered | `renderTitle`, `defaultCollapsed`, a `TabList`, transparent background.               |
-| Angular | Small width                                      | `Small`                              | ✅ covered |                                                                                       |
-| Angular | Tabs                                             | `Tabs`                               | ✅ covered |                                                                                       |
-| Angular | Stacked tabs                                     | `StackedTabs`                        | ✅ covered |                                                                                       |
-| Angular | Responsive                                       | `Responsive`                         | ✅ covered | Width switcher; the size comes from `onSizeChange`.                                   |
-| Angular | Dynamic height of the parent                     | `ContainerHeight`                    | ✅ covered | `actionsRef.current.refreshSize()` after the spaces render.                           |
-| Angular | Inside a flexible column layout                  | `InColumnLayout`                     | ✅ covered | A two-column grid stands in for the flexible column layout (not ported).              |
-| Angular | With wizard                                      | `WithWizard`                         | ✅ covered |                                                                                       |
-| —       | fundamental-styles Desktop, Collapsed Header     | `OtherNavigation`, `CollapsedHeader` | ✅ added   | fundamental-styles' texts, extra large; `DynamicPageTabs` with a navigation of links. |
+| Source  | Example                                          | React story                          | Status     | Notes                                                                                   |
+| ------- | ------------------------------------------------ | ------------------------------------ | ---------- | --------------------------------------------------------------------------------------- |
+| Angular | Facets, pinnable header and footer               | `Default`                            | ✅ covered | `FacetGroup` in the subheader; an image `Facet` (small avatar) is the header's `facet`. |
+| Angular | Not collapsible, list background                 | `NotCollapsible`                     | ✅ covered |                                                                                         |
+| Angular | Collapsed header, custom title and message strip | `Collapsed`                          | ✅ covered | `renderTitle`, `defaultCollapsed`, a `TabList`, transparent background.                 |
+| Angular | Small width                                      | `Small`                              | ✅ covered |                                                                                         |
+| Angular | Tabs                                             | `Tabs`                               | ✅ covered |                                                                                         |
+| Angular | Stacked tabs                                     | `StackedTabs`                        | ✅ covered |                                                                                         |
+| Angular | Responsive                                       | `Responsive`                         | ✅ covered | Width switcher; the size comes from `onSizeChange`.                                     |
+| Angular | Dynamic height of the parent                     | `ContainerHeight`                    | ✅ covered | `actionsRef.current.refreshSize()` after the spaces render.                             |
+| Angular | Inside a flexible column layout                  | `InColumnLayout`                     | ✅ covered | A two-column grid stands in for the flexible column layout (not ported).                |
+| Angular | With wizard                                      | `WithWizard`                         | ✅ covered |                                                                                         |
+| —       | fundamental-styles Desktop, Collapsed Header     | `OtherNavigation`, `CollapsedHeader` | ✅ added   | fundamental-styles' texts, extra large; `DynamicPageTabs` with a navigation of links.   |
 
 The page is not an overlay, so there is no "Open: …" story.
 
@@ -162,7 +164,7 @@ pixels.
 Not compared: the title row with the layout actions. Below 1280px of page width (the 1248px of both Storybooks) the
 layout actions move up next to the breadcrumb, Angular's (and fundamental-ngx's) behaviour; fundamental-styles' Desktop
 keeps them next to the title, its Tablet example shows the moved row. The global actions are plain buttons here
-(Angular's stories); fundamental-styles' are a transparent toolbar with a separator. The facets are a stand-in (see
-above) and not compared.
+(Angular's stories); fundamental-styles' are a transparent toolbar with a separator. The facets are compared in their
+own report ([facets](facets.md)).
 
 Reviewed by eye in Horizon, cozy and compact, LTR and RTL: `Default`, `Tabs`, `Collapsed` and `Small` (also at 600px).
