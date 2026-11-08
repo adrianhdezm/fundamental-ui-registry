@@ -59,6 +59,9 @@ hour/minute/second object of the columns) is the shown time (now) or `defaultTim
   `static` is `w-auto`, which fills the body; our `static` is `w-fit`).
 - fundamental-react's text field accepted any text and cleared invalid times on blur; ours keeps the typed text and
   shows the error state (Angular).
+- In RTL the field text keeps the browser's bidi order, as fundamental-styles, UI5 and Angular: `4:25:10 PM` shows as
+  `PM 4:25:10`, the order a right-to-left reader reads it in. Forcing the
+  value left to right (`unicode-bidi: plaintext`) was tried and dropped: it reverses that order.
 - fundamental-styles' pattern has an OK/Cancel footer bar; neither Angular nor we have it (changes apply at once).
 
 ### Stories vs. sources

@@ -77,6 +77,9 @@ the `disable…` props are `disableFunction` (and the range start/end functions)
 - The mobile dialog title is a `DialogTitle` (`<h2>`, as fundamental-styles' dialogs); Angular uses `<h1>`.
 - The today button shows with ranges too (Angular's `showTodayButton` selects a range of today); fundamental-react
   hides it with range selection.
+- In RTL the field text keeps the browser's bidi order, as fundamental-styles, UI5 and Angular: a numeric range
+  such as `4.3.2024 - 8.3.2024` shows its start at the right, where a right-to-left reader starts. Forcing the
+  value left to right (`unicode-bidi: plaintext`) was tried and dropped: it puts the start where an RTL reader ends.
 - The today footer has the popover's bottom corners and a decisive (4rem) button, as fundamental-styles' date picker
   (see the visual comparison).
 
