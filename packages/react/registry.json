@@ -889,6 +889,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "toolbar",
+      "type": "registry:ui",
+      "title": "Toolbar",
+      "description": "A row of actions with an optional title that moves the items that do not fit into an overflow popover, by priority and group.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "popover", "title"],
+      "files": [
+        {
+          "path": "registry/ui/toolbar/toolbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

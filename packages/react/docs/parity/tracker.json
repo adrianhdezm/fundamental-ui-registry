@@ -613,7 +613,9 @@
     {
       "name": "toolbar",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "360/384",
+      "notes": "kept: active info cursor, label colour and title font (reference story lacks those styles), RTL-mirrored undo glyph (16), reference popover / first-item focus pixels (8); split button stand-in until ported"
     },
     {
       "name": "tree",
