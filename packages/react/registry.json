@@ -1211,6 +1211,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Slider on Base UI's Slider for a number, a range or custom values, with ticks, labels, a vertical layout and read-only or editable tooltips.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/slider/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

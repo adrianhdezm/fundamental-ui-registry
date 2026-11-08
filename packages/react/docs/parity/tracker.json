@@ -540,7 +540,9 @@
     {
       "name": "slider",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "292/304",
+      "notes": "kept: fundamental-styles' RTL Range story does not mirror (8), sub-pixel anti-aliasing on off-grid handles and HC RTL labels (4); keys follow Angular, a range stays sorted (values swap, focus follows)"
     },
     {
       "name": "split-button",
