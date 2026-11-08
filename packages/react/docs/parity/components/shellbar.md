@@ -3,8 +3,9 @@
 Sources: fundamental-react [Shellbar](https://github.com/SAP/fundamental-react/tree/main/src/Shellbar) (`Shellbar.js`,
 its stories and tests) · Angular [`registry/ui/shellbar`](../../../../angular/registry/ui/shellbar/) ·
 fundamental-styles [Shellbar](https://sap.github.io/fundamental-styles/?path=/docs/sap-design-components-shellbar--docs)
-Registry: `registry/ui/shellbar/`, with the `action-sheet` (overflow menu), `avatar`, `button` and `menu` (user menu,
-product menu) components; React's `createPortal` places the search field.
+Registry: `registry/ui/shellbar/`, with the `action-sheet` (overflow menu), `avatar`, `button`, `menu` (simple user
+menu, product menu) and `user-menu` (the full user menu's slot) components; React's `createPortal` places the search
+field.
 
 API: the Angular parts as components, composed as direct children:
 
@@ -41,7 +42,9 @@ API: the Angular parts as components, composed as direct children:
   names the input, as in Angular, and `inputRef` reaches it; other native props go to the field.
 - `ShellbarActions`: `user`, `userMenu`, `closePopoverOnSelect`, `assistiveTools`, `assistiveToolsLabel`,
   `overflowLabel`, `searchLabel`; `assistiveToolsCallback` is `onAssistiveToolsClick`. Angular's projected
-  `fd-product-switch` is the `productSwitch` prop (a node, after the user menu, with Angular's `ms-2`).
+  `fd-user-menu` is a `UserMenu` child (from `user-menu`), placed after the simple user menu and before the product
+  switch, as Angular's `ng-content` order, and kept from shrinking (`shrink-0`); it never collapses. Angular's
+  projected `fd-product-switch` is the `productSwitch` prop (a node, after the user menu, with Angular's `ms-2`).
 - `ShellbarAction`: `glyph`, `glyphFont`, `label`, `notificationLabel`, `notificationCount`, `toggled`, `title`;
   `fdType` is `variant`, `callback` is `onClick`. Native props and `ref` go to the button (the collapsible wrapper
   has no props).
@@ -84,7 +87,7 @@ labels; `copilot` is gone (CoPilot was retired; fundamental-styles shows a Joule
 
 - React has no content projection: `Shellbar` and `ShellbarActions` sort their direct children by type
   (`ShellbarBranding`, `ShellbarLogo`, `ShellbarTitle`/`ProductMenu`/`ShellbarSubtitle`/`ShellbarSeparator`,
-  `ShellbarContextArea`, `ShellbarSearch`, `ShellbarActions`; `ShellbarAction`, `ShellbarUserMenu`), so the parts must
+  `ShellbarContextArea`, `ShellbarSearch`, `ShellbarActions`; `ShellbarAction`, `ShellbarUserMenu`, `UserMenu`), so the parts must
   be direct children, not wrapped in your own components or fragments. Other children of `Shellbar` go into the
   product group after the branding (Angular's `fdShellbarSidenav` slot; Angular hid any other content); other
   children of `ShellbarActions` go first, as Angular's default slot.
@@ -100,9 +103,7 @@ labels; `copilot` is gone (CoPilot was retired; fundamental-styles shows a Joule
 - fundamental-react collapses the product switch into the overflow menu (a list of the products with a back item);
   as Angular, the product switch stays in the bar after the user menu and never collapses, and the stories show its
   list layout on small shellbars (`forceListMode`, Collapsible links at s).
-- The full user menu (`fd-user-menu`) is not ported yet: the stories use a `ShellbarUserMenu` with Angular's items as
-  stand-in; the object marker of the context area story is an icon and text.
-- No message toasts (not ported): the stories report the last action in a live region.
+- The object marker of the context area story is an icon and text (object marker is not ported yet).
 
 ### Stories vs. sources
 
@@ -114,14 +115,14 @@ labels; `copilot` is gone (CoPilot was retired; fundamental-styles shows a Joule
 | fundamental-react | coPilot                           | `CoPilot` ("Actions with menus") | ✅ covered | An action with a menu, Joule in place of the retired CoPilot image, the product switch.                                                                                                                            |
 | fundamental-react | dev                               | `Playground`                     | ✅ covered | `size` and `showSearchFieldOnSizeSmall` controls.                                                                                                                                                                  |
 | fundamental-react | noStyles                          | —                                | ➖ n/a     | No `cssNamespace`.                                                                                                                                                                                                 |
-| Angular           | Basic                             | `Basic`                          | ✅ covered | User menu stand-in; a live region instead of toasts.                                                                                                                                                               |
+| Angular           | Basic                             | `Basic`                          | ✅ covered | Angular's `StoryShellbarUserMenu` as a `UserMenu`; actions report themselves in message toasts.                                                                                                                    |
 | Angular           | Responsive sizes                  | `Responsive`                     | ✅ covered |                                                                                                                                                                                                                    |
 | Angular           | Context area                      | `ContextArea`                    | ✅ covered | Object marker stand-in (icon and text).                                                                                                                                                                            |
 | Angular           | Context area overflow             | `ContextAreaOverflow`            | ✅ covered |                                                                                                                                                                                                                    |
 | Angular           | Product menu and simple user menu | `ProductMenuAndSimpleUserMenu`   | ✅ covered |                                                                                                                                                                                                                    |
 | Angular           | Growing groups                    | `GrowingGroups`                  | ✅ covered |                                                                                                                                                                                                                    |
 | Angular           | Collapsible links                 | `CollapsibleLinks`               | ✅ covered | The product switch shows its list at s (`forceListMode`), as Angular. At s (319px) the product menu keeps its width and the product switch runs past the bar's end, as in Angular (only the branding title hides). |
-| Angular           | Open: user menu                   | `OpenUserMenu`                   | ✅ covered |                                                                                                                                                                                                                    |
+| Angular           | Open: user menu                   | `OpenUserMenu`                   | ✅ covered | Opens the `UserMenu` dialog; its first item takes the focus.                                                                                                                                                       |
 | Angular           | Open: product switch              | `OpenProductSwitch`              | ✅ covered |                                                                                                                                                                                                                    |
 | Angular           | Open: product menu                | `OpenProductMenu`                | ✅ covered |                                                                                                                                                                                                                    |
 | Angular           | Open: simple user menu            | `OpenSimpleUserMenu`             | ✅ covered |                                                                                                                                                                                                                    |
@@ -129,30 +130,31 @@ labels; `copilot` is gone (CoPilot was retired; fundamental-styles shows a Joule
 
 ### Tests vs. sources
 
-| Source            | Behaviour                                                      | React test                                                                                      | Status     |
-| ----------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------- |
-| Angular           | Size from the width, search in the middle at xl                | takes its size from its width and shows the search in the middle when extra large               | ✅ covered |
-| Angular           | Action names with notifications, callbacks                     | names actions with their notifications and runs their callbacks                                 | ✅ covered |
-| Angular           | Interactive branding: link, Enter                              | makes the interactive branding a link reachable with the keyboard                               | ✅ covered |
-| Angular           | Search from a button below xl, focus, submit                   | opens the search from a button below extra large and submits it                                 | ✅ covered |
-| Angular           | Overflow menu: name with the sum, items                        | collapses actions that do not fit into an overflow menu                                         | ✅ covered |
-| Angular           | Search in place of everything at s, Cancel                     | opens the search in place of everything else on small screens                                   | ✅ covered |
-| Angular           | Context items hide by priority                                 | hides context area items by priority when space runs out                                        | ✅ covered |
-| Angular           | Hidden items reported and restored                             | onContentItemVisibilityChange reports the hidden items and restores them when space returns     | ✅ covered |
-| Angular           | Toggled action `aria-pressed`                                  | a toggled action exposes aria-pressed (`rerender`)                                              | ✅ covered |
-| Angular           | Navigation and back buttons                                    | the navigation and back buttons call their handlers                                             | ✅ covered |
-| Angular           | Product menu items and callbacks, closes                       | the product menu opens and runs the callback of a selected item                                 | ✅ covered |
-| Angular           | Simple user menu from `user`/`userMenu`                        | the user menu built from user and userMenu opens and runs callbacks                             | ✅ covered |
-| Angular           | `groupFlex`                                                    | groupFlex lets a group shrink to its content so the others grow (`rerender`)                    | ✅ covered |
-| fundamental-react | Back button on a shellbar with `backAction`                    | the navigation and back buttons call their handlers                                             | ✅ covered |
-| fundamental-react | Back from the collapsed product switch                         | keeps the product switch out of the overflow menu, and returns from its products to the bar     | ✅ covered |
-| fundamental-react | Prop spreading (an `xtest`)                                    | passes native props, className and ref to the bar (fundamental-react prop spreading)            | ✅ covered |
-| —                 | Width changes and custom breakpoints                           | follows width changes and custom breakpoints                                                    | ➕ extra   |
-| —                 | Escape, empty submit and clear on the opened search            | closes the search opened from its button with Escape or an empty search, and clears the text    | ➕ extra   |
-| —                 | Overflow item runs the action and closes; actions come back    | runs an action from the overflow menu and closes it; shows the actions again when space returns | ➕ extra   |
-| —                 | Product menu heading and links; user menu extras               | a product menu without items is a heading…; a user menu takes extra items, a custom button…     | ➕ extra   |
-| —                 | Assistive tools, product switch slot, custom navigation button | shows the assistive tools button and the product switch, and a custom navigation button         | ➕ extra   |
-| —                 | Shell colours on transparent buttons, cozy density             | applies the shell colours to transparent buttons and keeps cozy density                         | ➕ extra   |
+| Source            | Behaviour                                                      | React test                                                                                        | Status     |
+| ----------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------- |
+| Angular           | Size from the width, search in the middle at xl                | takes its size from its width and shows the search in the middle when extra large                 | ✅ covered |
+| Angular           | Action names with notifications, callbacks                     | names actions with their notifications and runs their callbacks                                   | ✅ covered |
+| Angular           | Interactive branding: link, Enter                              | makes the interactive branding a link reachable with the keyboard                                 | ✅ covered |
+| Angular           | Search from a button below xl, focus, submit                   | opens the search from a button below extra large and submits it                                   | ✅ covered |
+| Angular           | Overflow menu: name with the sum, items                        | collapses actions that do not fit into an overflow menu                                           | ✅ covered |
+| Angular           | Search in place of everything at s, Cancel                     | opens the search in place of everything else on small screens                                     | ✅ covered |
+| Angular           | Context items hide by priority                                 | hides context area items by priority when space runs out                                          | ✅ covered |
+| Angular           | Hidden items reported and restored                             | onContentItemVisibilityChange reports the hidden items and restores them when space returns       | ✅ covered |
+| Angular           | Toggled action `aria-pressed`                                  | a toggled action exposes aria-pressed (`rerender`)                                                | ✅ covered |
+| Angular           | Navigation and back buttons                                    | the navigation and back buttons call their handlers                                               | ✅ covered |
+| Angular           | Product menu items and callbacks, closes                       | the product menu opens and runs the callback of a selected item                                   | ✅ covered |
+| Angular           | Simple user menu from `user`/`userMenu`                        | the user menu built from user and userMenu opens and runs callbacks                               | ✅ covered |
+| Angular           | `groupFlex`                                                    | groupFlex lets a group shrink to its content so the others grow (`rerender`)                      | ✅ covered |
+| fundamental-react | Back button on a shellbar with `backAction`                    | the navigation and back buttons call their handlers                                               | ✅ covered |
+| fundamental-react | Back from the collapsed product switch                         | keeps the product switch out of the overflow menu, and returns from its products to the bar       | ✅ covered |
+| fundamental-react | Prop spreading (an `xtest`)                                    | passes native props, className and ref to the bar (fundamental-react prop spreading)              | ✅ covered |
+| —                 | Width changes and custom breakpoints                           | follows width changes and custom breakpoints                                                      | ➕ extra   |
+| —                 | Escape, empty submit and clear on the opened search            | closes the search opened from its button with Escape or an empty search, and clears the text      | ➕ extra   |
+| —                 | Overflow item runs the action and closes; actions come back    | runs an action from the overflow menu and closes it; shows the actions again when space returns   | ➕ extra   |
+| —                 | Product menu heading and links; user menu extras               | a product menu without items is a heading…; a user menu takes extra items, a custom button…       | ➕ extra   |
+| —                 | Assistive tools, product switch slot, custom navigation button | shows the assistive tools button and the product switch, and a custom navigation button           | ➕ extra   |
+| —                 | `fd-user-menu` slot: after the simple menu, before the switch  | puts a UserMenu child after the simple user menu and before the product switch, without shrinking | ➕ extra   |
+| —                 | Shell colours on transparent buttons, cozy density             | applies the shell colours to transparent buttons and keeps cozy density                           | ➕ extra   |
 
 fundamental-react's collapsed product switch (a product list with a back item inside its overflow menu) is adapted to
 Angular's shellbar, where the product switch never collapses: at a width where the actions collapse, the overflow menu
@@ -187,6 +189,12 @@ avatars there; a data SVG logo and initials here).
 Reviewed by eye in Horizon, cozy and compact, LTR and RTL: Basic, Responsive sizes, Context area, Collapsible links
 and Open: overflow menu. In RTL the groups, the search and the overflow menu mirror and the back arrow points right;
 in compact pages the shellbar keeps its cozy size.
+
+Re-run when the stories took the ported `UserMenu` (in place of the simple user menu stand-in) and message toasts
+(in place of the live region): unchanged, 240/368 (the user menu cases compare the simple user menu of
+`MandatoryElements`). Open: user menu checked by eye in Horizon cozy LTR and compact RTL: the avatar control sits
+between the actions and the product switch, the menu opens below it with the header, Settings (focused), About and
+the Sign Out footer, mirrored in RTL.
 
 Angular issues: the simple user menu (`order-1`) lands after the product switch; the RTL back button
 (`slim-arrow-right`, mirrored) points left; the search field has no bottom border line (`--sapField_BackgroundStyle`)

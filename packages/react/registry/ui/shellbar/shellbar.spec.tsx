@@ -6,6 +6,18 @@ import { Button } from '@/ui/button/button';
 import { MenuItem } from '@/ui/menu/menu';
 import { ProductSwitch, ProductSwitchBody } from '@/ui/product-switch/product-switch';
 import {
+    UserMenu,
+    UserMenuBody,
+    UserMenuContentContainer,
+    UserMenuControl,
+    UserMenuHeader,
+    UserMenuHeaderContainer,
+    UserMenuList,
+    UserMenuListItem,
+    UserMenuUserName,
+    useUserMenu
+} from '@/ui/user-menu/user-menu';
+import {
     ProductMenu,
     Shellbar,
     ShellbarAction,
@@ -434,6 +446,76 @@ describe('Shellbar', () => {
         expect(menuItems().map((i) => i.textContent?.trim())).toEqual(['Settings', 'About']);
         await userEvent.click(menuItems()[0]!);
         expect(onItemClick).toHaveBeenCalledWith({ text: 'Settings' });
+    });
+
+    it('puts a UserMenu child after the simple user menu and before the product switch, without shrinking', async () => {
+        const onSettings = vi.fn();
+        function SettingsItem() {
+            const menu = useUserMenu();
+            return (
+                <UserMenuListItem
+                    text="Settings"
+                    onClick={() => {
+                        onSettings();
+                        menu?.close();
+                    }}
+                />
+            );
+        }
+        const screen = await render(
+            <div style={{ width: 1300 }}>
+                <Shellbar>
+                    <ShellbarActions
+                        user={{ fullName: 'Simple User' }}
+                        userMenu={[{ text: 'Sign Out' }]}
+                        productSwitch={<Button aria-label="Product switch" glyph="grid" />}
+                    >
+                        <UserMenu data-testid="full" className="custom">
+                            <UserMenuControl>Lisa Miller</UserMenuControl>
+                            <UserMenuBody>
+                                <UserMenuHeader>
+                                    <UserMenuHeaderContainer>
+                                        <UserMenuUserName>Lisa Miller</UserMenuUserName>
+                                    </UserMenuHeaderContainer>
+                                </UserMenuHeader>
+                                <UserMenuContentContainer>
+                                    <UserMenuList aria-label="User actions">
+                                        <SettingsItem />
+                                    </UserMenuList>
+                                </UserMenuContentContainer>
+                            </UserMenuBody>
+                        </UserMenu>
+                        <ShellbarAction glyph="bell" label="Notifications" />
+                    </ShellbarActions>
+                </Shellbar>
+            </div>
+        );
+        await wait(150);
+        const root = screen.container;
+        const full = root.querySelector<HTMLElement>('[data-testid=full]')!;
+        expect(full.className).toContain('shrink-0');
+        expect(full.className).toContain('custom');
+        expect(getComputedStyle(full).flexShrink).toBe('0');
+        // in the actions group, in Angular's ng-content order
+        const group = full.parentElement!;
+        const children = [...group.children];
+        const action = root
+            .querySelector('button[aria-label^="Notifications"]')!
+            .closest('[data-shellbar-collapsible]')!;
+        const simple = root.querySelector('[aria-label="Simple User"]')!.closest('button')!.parentElement!;
+        const productSwitch = root.querySelector('button[aria-label="Product switch"]')!.parentElement!;
+        expect(children.indexOf(simple)).toBeGreaterThan(children.indexOf(action));
+        expect(children.indexOf(full)).toBe(children.indexOf(simple) + 1);
+        expect(children.indexOf(productSwitch)).toBe(children.indexOf(full) + 1);
+
+        const control = full.querySelector<HTMLElement>('[role=button]')!;
+        await userEvent.click(control);
+        await wait();
+        expect(control.getAttribute('aria-expanded')).toBe('true');
+        await userEvent.click(menuItems().find((i) => i.textContent?.includes('Settings'))!);
+        await wait();
+        expect(onSettings).toHaveBeenCalled();
+        expect(control.getAttribute('aria-expanded')).toBe('false');
     });
 
     it('shows the assistive tools button and the product switch, and a custom navigation button', async () => {

@@ -6,6 +6,7 @@
  */
 import {
     Children,
+    cloneElement,
     createContext,
     isValidElement,
     useCallback,
@@ -31,6 +32,7 @@ import { Button, ButtonBadge, type ButtonProps, type ButtonVariant } from '@/ui/
 import type { IconFont } from '@/ui/icon/icon';
 import { Menu, MenuAddon, MenuItem, MenuPopup, MenuTitle, MenuTrigger, type MenuProps } from '@/ui/menu/menu';
 import type { Placement, PopoverFillMode } from '@/ui/popover/popover';
+import { UserMenu } from '@/ui/user-menu/user-menu';
 
 export type ShellbarSize = 's' | 'm' | 'l' | 'xl';
 /** Minimum widths in px from which each size applies. */
@@ -783,9 +785,10 @@ export interface ShellbarActionsProps extends ComponentProps<'div'> {
 }
 
 /**
- * The actions of the shellbar: `ShellbarAction`s, the search button, the user menu (`user` and `userMenu`, or a
- * `ShellbarUserMenu` child) and the product switch. Actions that do not fit collapse into an overflow menu (an action
- * sheet), whose button shows the sum of their notifications. Other children go first.
+ * The actions of the shellbar: `ShellbarAction`s, the search button, the simple user menu (`user` and `userMenu`, or
+ * a `ShellbarUserMenu` child), the full user menu (a `UserMenu` child) and the product switch, in this order. Actions
+ * that do not fit collapse into an overflow menu (an action sheet), whose button shows the sum of their
+ * notifications. Other children go first.
  */
 export function ShellbarActions({
     user,
@@ -810,6 +813,7 @@ export function ShellbarActions({
     const parts = partition(children);
     const actions = parts.take(ShellbarAction) as ReactElement<ShellbarActionProps>[];
     const userMenus = parts.take(ShellbarUserMenu);
+    const fullUserMenus = parts.take(UserMenu) as ReactElement<ComponentProps<typeof UserMenu>>[];
     const others = parts.rest();
 
     const totalNotifications = actions.reduce((sum, a) => sum + (Number(a.props.notificationCount) || 0), 0);
@@ -927,6 +931,7 @@ export function ShellbarActions({
                 <ShellbarUserMenu user={user} userMenu={userMenu} closeOnSelect={closePopoverOnSelect} />
             )}
             {userMenus}
+            {fullUserMenus.map((menu) => cloneElement(menu, { className: cn('shrink-0', menu.props.className) }))}
             {productSwitch != null && productSwitch !== false && (
                 <div className="ms-2 flex shrink-0">{productSwitch}</div>
             )}

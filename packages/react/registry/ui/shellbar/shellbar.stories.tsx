@@ -1,13 +1,31 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type ComponentType } from 'react';
-import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { useState, type ComponentProps, type ComponentType } from 'react';
+import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
+import { Avatar } from '@/ui/avatar/avatar';
+import { Bar, BarRight } from '@/ui/bar/bar';
 import { Button } from '@/ui/button/button';
 import { Icon } from '@/ui/icon/icon';
 import { Menu, MenuItem, MenuPopup, MenuTrigger } from '@/ui/menu/menu';
+import { MessageToastProvider, useMessageToastService } from '@/ui/message-toast/message-toast';
 import { ObjectStatus } from '@/ui/object-status/object-status';
 import { Popover, PopoverBody, PopoverTrigger } from '@/ui/popover/popover';
 import { ProductSwitch, ProductSwitchBody, type ProductSwitchItem } from '@/ui/product-switch/product-switch';
 import { Switch } from '@/ui/switch/switch';
+import {
+    UserMenu,
+    UserMenuBody,
+    UserMenuContentContainer,
+    UserMenuControl,
+    UserMenuControlElement,
+    UserMenuFooter,
+    UserMenuHeader,
+    UserMenuHeaderContainer,
+    UserMenuList,
+    UserMenuListItem,
+    UserMenuSubline,
+    UserMenuUserName,
+    useUserMenu
+} from '@/ui/user-menu/user-menu';
 import {
     ProductMenu,
     Shellbar,
@@ -57,16 +75,46 @@ function StoryProductSwitch({ list = false }: { list?: boolean }) {
     );
 }
 
+/** A user menu item that closes the menu when chosen (Angular's `(click)="menu.close()"`). */
+function ClosingItem(props: Omit<ComponentProps<typeof UserMenuListItem>, 'onClick'>) {
+    const menu = useUserMenu();
+    return <UserMenuListItem {...props} onClick={() => menu?.close()} />;
+}
+
 /**
- * Stand-in for the user menu, which is not ported yet: the simple user menu with Angular's example items. An element,
- * not a component, so that `ShellbarActions` sees a `ShellbarUserMenu` child and puts it after the actions.
+ * The user menu of Angular's shellbar stories (`StoryShellbarUserMenu`). An element, not a component, so that
+ * `ShellbarActions` sees a `UserMenu` child and puts it after the actions, before the product switch.
  */
-const USER_MENU_STAND_IN = (
-    <ShellbarUserMenu user={{ fullName: 'Lisa Miller' }}>
-        <MenuItem addonBefore="action-settings">Settings</MenuItem>
-        <MenuItem addonBefore="message-information">About</MenuItem>
-        <MenuItem addonBefore="log">Sign Out</MenuItem>
-    </ShellbarUserMenu>
+const USER_MENU = (
+    <UserMenu>
+        <UserMenuControl>
+            <UserMenuControlElement render={<Avatar size="xs" circle interactive label="Lisa Miller" />} />
+        </UserMenuControl>
+        <UserMenuBody>
+            <UserMenuHeader>
+                <Avatar circle size="l" label="Lisa Miller" />
+                <UserMenuHeaderContainer>
+                    <UserMenuUserName>Lisa Miller</UserMenuUserName>
+                    <UserMenuSubline>lisa.miller@test.com</UserMenuSubline>
+                    <UserMenuSubline>User Experience Designer</UserMenuSubline>
+                </UserMenuHeaderContainer>
+                <Button label="Manage Account" glyph="user-settings" />
+            </UserMenuHeader>
+            <UserMenuContentContainer>
+                <UserMenuList aria-label="User actions">
+                    <ClosingItem icon="action-settings" text="Settings" />
+                    <ClosingItem icon="message-information" text="About" />
+                </UserMenuList>
+            </UserMenuContentContainer>
+        </UserMenuBody>
+        <UserMenuFooter>
+            <Bar barDesign="footer">
+                <BarRight>
+                    <Button variant="transparent" label="Sign Out" glyph="log" />
+                </BarRight>
+            </Bar>
+        </UserMenuFooter>
+    </UserMenu>
 );
 
 const ACTIONS = [
@@ -82,22 +130,26 @@ interface ExampleProps extends Pick<ShellbarProps, 'size' | 'showSearchFieldOnSi
     navigation?: boolean;
 }
 
-/** Angular's story shellbar: navigation and back buttons, branding, search, four actions, user menu, product switch. */
+/**
+ * Angular's story shellbar: navigation and back buttons, branding, search, four actions, user menu, product switch.
+ * Each action reports itself in a message toast, as Angular's.
+ */
 function Example({ width, search = true, navigation = true, ...props }: ExampleProps) {
-    const [last, setLast] = useState('');
+    const toasts = useMessageToastService();
+    const toast = (text: string) => toasts.open(text, { duration: 2000 });
     return (
         <div style={{ maxWidth: width }}>
             <Shellbar
                 {...props}
                 showNavigationButton={navigation}
                 showBackButton={navigation}
-                onNavigationButtonClick={() => setLast('Navigation')}
-                onBackButtonClick={() => setLast('Back')}
+                onNavigationButtonClick={() => toast('Navigation')}
+                onBackButtonClick={() => toast('Back')}
             >
                 <ShellbarBranding
                     interactiveBranding
                     aria-label="ACME Corporate Portal home"
-                    onClick={() => setLast('Home')}
+                    onClick={() => toast('Home')}
                 >
                     <ShellbarLogo>
                         <img src={LOGO} alt="ACME" />
@@ -107,7 +159,7 @@ function Example({ width, search = true, navigation = true, ...props }: ExampleP
                 {search && (
                     <ShellbarSearch
                         placeholder="Search everything"
-                        onSearchSubmit={(text) => setLast(`Search: ${text}`)}
+                        onSearchSubmit={(text) => toast(`Search: ${text}`)}
                     />
                 )}
                 <ShellbarActions productSwitch={<StoryProductSwitch />}>
@@ -118,15 +170,12 @@ function Example({ width, search = true, navigation = true, ...props }: ExampleP
                             label={action.label}
                             notificationCount={action.count}
                             notificationLabel={action.count ? `${action.count} new` : null}
-                            onClick={() => setLast(action.label)}
+                            onClick={() => toast(action.label)}
                         />
                     ))}
-                    {USER_MENU_STAND_IN}
+                    {USER_MENU}
                 </ShellbarActions>
             </Shellbar>
-            <p className={`${NOTE} mt-2`} aria-live="polite">
-                {last && `Last action: ${last}`}
-            </p>
         </div>
     );
 }
@@ -256,7 +305,7 @@ function ContextExample({ width, overflow = false }: { width?: number; overflow?
                         />
                     ))}
                     <ShellbarAction glyph="bell" label="Notifications" notificationCount={3} />
-                    {USER_MENU_STAND_IN}
+                    {USER_MENU}
                 </ShellbarActions>
             </Shellbar>
             <p className={`${NOTE} mt-2`} aria-live="polite">
@@ -308,7 +357,7 @@ function GrowingExample() {
             <ShellbarActions productSwitch={<StoryProductSwitch />}>
                 <ShellbarAction glyph="bell" label="Notifications" notificationCount={12} />
                 <ShellbarAction glyph="sys-help" label="Help" />
-                {USER_MENU_STAND_IN}
+                {USER_MENU}
             </ShellbarActions>
         </Shellbar>
     );
@@ -452,7 +501,7 @@ const meta = {
                     'do not fit collapse into an overflow menu, context area items hide by `data-hide-priority`, and ' +
                     'the search moves from the middle (xl) behind a search button; on small sizes it opens in place of ' +
                     'everything else. Transparent buttons inside the shellbar take the shell colours.\n\n' +
-                    'The full user menu is not ported yet: the stories use the simple user menu as stand-in.\n\n' +
+                    'A `UserMenu` child of `ShellbarActions` goes after the simple user menu and before the product switch.\n\n' +
                     '```tsx\n' +
                     '<Shellbar>\n' +
                     '    <ShellbarBranding interactiveBranding aria-label="Product home" onClick={home}>\n' +
@@ -468,6 +517,14 @@ const meta = {
             }
         }
     },
+    // the stories report their actions in message toasts, as Angular's (its service is app-wide)
+    decorators: [
+        (Story) => (
+            <MessageToastProvider>
+                <Story />
+            </MessageToastProvider>
+        )
+    ],
     argTypes: {
         size: { control: 'inline-radio', options: [undefined, 's', 'm', 'l', 'xl'] }
     }
@@ -587,7 +644,12 @@ export const OpenUserMenu: Story = {
     name: 'Open: user menu',
     tags: ['!autodocs'],
     render: () => <Example />,
-    play: openFrom('Lisa Miller')
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'Lisa Miller' }));
+        const menu = await screen.findByRole('dialog', { name: 'Lisa Miller' });
+        await waitFor(() => expect(within(menu).getByRole('menuitem', { name: 'Settings' })).toHaveFocus());
+        await expect(within(menu).getByRole('button', { name: 'Sign Out' })).toBeVisible();
+    }
 };
 
 export const OpenProductSwitch: Story = {
