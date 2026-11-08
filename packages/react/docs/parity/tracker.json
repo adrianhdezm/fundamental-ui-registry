@@ -175,7 +175,9 @@
     {
       "name": "file-uploader",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "240/240",
+      "notes": "fundamental-styles' File Uploader With Files list has no Angular counterpart (not ported)"
     },
     {
       "name": "fixed-card-layout",

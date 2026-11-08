@@ -1478,6 +1478,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "file-uploader",
+      "type": "registry:ui",
+      "title": "File Uploader",
+      "description": "A field with the chosen file names and a Browse button that opens the file dialog and accepts dropped files, split by accepted extensions, size limits and a file limit.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "input"],
+      "files": [
+        {
+          "path": "registry/ui/file-uploader/file-uploader.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
