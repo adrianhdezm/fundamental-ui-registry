@@ -194,7 +194,9 @@
     {
       "name": "generic-tag",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "208/208",
+      "notes": "active state compared by hand (the script cannot press)"
     },
     {
       "name": "grid-list",

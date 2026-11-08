@@ -1053,6 +1053,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "generic-tag",
+      "type": "registry:ui",
+      "title": "Generic Tag",
+      "description": "A key figure of an object, a name and a value with an optional status, shown as a focusable button in object page headers.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/generic-tag/generic-tag.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
