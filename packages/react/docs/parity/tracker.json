@@ -448,7 +448,9 @@
     {
       "name": "scroll-spy",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "64/64",
+      "notes": "no visual design of its own: style cases check the table of contents' link and title"
     },
     {
       "name": "scrollbar",

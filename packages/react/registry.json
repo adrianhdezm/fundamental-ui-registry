@@ -779,6 +779,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "scroll-spy",
+      "type": "registry:ui",
+      "title": "Scroll Spy",
+      "description": "A scroll container and a hook that report which tracked child is at the top, e.g. to highlight the current entry of a table of contents.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ui/scroll-spy/scroll-spy.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
