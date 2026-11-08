@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import { BarElement, BarLeft, BarMiddle, BarRight, ButtonBar } from '@/ui/bar/bar';
 import { Button } from '@/ui/button/button';
 import { Checkbox } from '@/ui/checkbox/checkbox';
-import { FormItem, FormLabel } from '@/ui/form/form';
+import { FormGroup, FormItem, FormLabel } from '@/ui/form/form';
 import { Input, Textarea } from '@/ui/input/input';
 import { LayoutGrid, LayoutGridCol } from '@/ui/layout-grid/layout-grid';
 import { List, ListItem, ListSecondary, ListTitle } from '@/ui/list/list';
@@ -832,8 +832,6 @@ export const Backdrop: Story = {
     render: () => <BackdropExample />
 };
 
-const label = 'block pb-1 font-sap-font-family text-sap-font-small-size text-sap-content-label-color';
-
 function FormExample() {
     const [responsivePadding, setResponsivePadding] = useState(false);
     const [verticalPadding, setVerticalPadding] = useState(true);
@@ -854,21 +852,21 @@ function FormExample() {
                         <DialogTitle>The History of Pineapple</DialogTitle>
                     </DialogHeader>
                     <DialogBody>
-                        <div className="flex flex-col gap-2">
-                            <div>
-                                <label className={label} htmlFor="story-dialog-form-name">
-                                    Name:
-                                </label>
+                        <FormGroup>
+                            <FormItem>
+                                <FormLabel htmlFor="story-dialog-form-name" colon>
+                                    Name
+                                </FormLabel>
                                 <Input
                                     id="story-dialog-form-name"
                                     placeholder="Enter first and last name"
                                     defaultValue="Amelia Perry"
                                 />
-                            </div>
-                            <div>
-                                <label className={label} htmlFor="story-dialog-form-street">
-                                    Street/No.:
-                                </label>
+                            </FormItem>
+                            <FormItem>
+                                <FormLabel htmlFor="story-dialog-form-street" required colon>
+                                    Street/No.
+                                </FormLabel>
                                 <LayoutGrid noGap>
                                     <LayoutGridCol span={8} className="pe-2">
                                         <Input
@@ -887,11 +885,11 @@ function FormExample() {
                                         />
                                     </LayoutGridCol>
                                 </LayoutGrid>
-                            </div>
-                            <div>
-                                <label className={label} htmlFor="story-dialog-form-zip">
-                                    ZIP Code/City:
-                                </label>
+                            </FormItem>
+                            <FormItem>
+                                <FormLabel htmlFor="story-dialog-form-zip" required colon>
+                                    ZIP Code/City
+                                </FormLabel>
                                 <LayoutGrid noGap>
                                     <LayoutGridCol span={4} className="pe-2">
                                         <Input
@@ -910,18 +908,18 @@ function FormExample() {
                                         />
                                     </LayoutGridCol>
                                 </LayoutGrid>
-                            </div>
-                            <div>
-                                <label className={label} htmlFor="story-dialog-form-bio">
-                                    Bio:
-                                </label>
+                            </FormItem>
+                            <FormItem>
+                                <FormLabel htmlFor="story-dialog-form-bio" colon>
+                                    Bio
+                                </FormLabel>
                                 <Textarea
                                     id="story-dialog-form-bio"
                                     rows={3}
                                     defaultValue="Grows pineapples on the balcony."
                                 />
-                            </div>
-                        </div>
+                            </FormItem>
+                        </FormGroup>
                     </DialogBody>
                     <DialogFooter>
                         <ButtonBar variant="emphasized" label="Save" onClick={() => close('Save')} />
@@ -940,8 +938,8 @@ export const Form: Story = {
         docs: {
             description: {
                 story:
-                    'A form in a dialog: fields in a layout grid, with the paddings as options. Plain labels stand in ' +
-                    'for the form label until form is ported.'
+                    'A form in a dialog: a form group of labelled fields (form labels with required and colon ' +
+                    'markers), some in a layout grid, with the paddings as options.'
             }
         }
     },

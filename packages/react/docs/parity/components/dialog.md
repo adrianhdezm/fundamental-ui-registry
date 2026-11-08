@@ -122,7 +122,7 @@ popovers, are part of its focus trap.
 | Angular           | Mobile                                  | `Mobile`                        | ✅ covered | Plus `mobileOuterSpacing`.                                                  |
 | Angular           | Closing, dismissing, hiding and loading | `States`                        | ✅ covered |                                                                             |
 | Angular           | Backdrop and container                  | `Backdrop`                      | ✅ covered |                                                                             |
-| Angular           | Form                                    | `Form`                          | 🟡 partial | Plain labels stand in for the form label until form is ported.              |
+| Angular           | Form                                    | `Form`                          | ✅ covered | `FormGroup`, `FormItem` and `FormLabel` (required, colon), as Angular.      |
 | Angular           | Inner popovers                          | `InnerPopovers`                 | ✅ covered | Two multi inputs; their lists open above the dialog.                        |
 | Angular           | Playground                              | `Playground`                    | ✅ covered |                                                                             |
 | Angular           | Open: template                          | `OpenTemplate`                  | ✅ covered |                                                                             |
