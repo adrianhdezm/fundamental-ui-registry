@@ -387,7 +387,9 @@
     {
       "name": "overflow-layout",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "120/128",
+      "notes": "8 diffs from the avatar (bordered image avatar border colour); avatar group story uses a stand-in business card until quick-view"
     },
     {
       "name": "pagination",

@@ -793,6 +793,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "overflow-layout",
+      "type": "registry:ui",
+      "title": "Overflow Layout",
+      "description": "Single-row layout that moves the items that do not fit into a \"N more\" popover.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/overflow-layout/overflow-layout.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/overflow-layout/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
