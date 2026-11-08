@@ -21,8 +21,7 @@
       "source": ["src/Avatar/__stories__/Avatar.stories.js"],
       "sourceStories": 12,
       "status": "done",
-      "visual": "2160/2160",
-      "notes": "fundamental-styles' avatars in the shell header: after shellbar"
+      "visual": "2160/2160"
     },
     {
       "name": "avatar-group",
@@ -36,7 +35,7 @@
       "sourceStories": 7,
       "status": "done",
       "visual": "368/368",
-      "notes": "custom shellbar story: search input until combobox; middle button group until segmented-button"
+      "notes": "middle button group: segmented-button follow-up"
     },
     {
       "name": "breadcrumb",
@@ -466,7 +465,7 @@
       "sourceStories": 7,
       "status": "done",
       "visual": "352/352",
-      "notes": "fundamental-react's inShellbar: after shellbar; Base UI's Autocomplete hides the rest of the page (aria-hidden) while the list is open"
+      "notes": "Base UI's Autocomplete hides the rest of the page (aria-hidden) while the list is open"
     },
     {
       "name": "segmented-button",

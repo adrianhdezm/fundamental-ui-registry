@@ -2,6 +2,7 @@ import { createRef, useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { Shellbar, ShellbarActions } from '@/ui/shellbar/shellbar';
 import { SearchInput, type SearchInputItem, type SearchInputProps } from './search-input';
 
 const fruitNames = [
@@ -399,6 +400,24 @@ describe('SearchInput', () => {
         await userEvent.click(button);
         expect(onClick).toHaveBeenCalledTimes(1);
         expect(onSearch).toHaveBeenCalledWith('');
+    });
+
+    it('spreads inputProps and searchButtonProps in a shellbar (fundamental-react inShellbar)', async () => {
+        const screen = await render(
+            <Shellbar>
+                <ShellbarActions>
+                    <SearchInput
+                        aria-label="Fruit"
+                        inputProps={{ 'data-sample': 'Sample1' } as SearchInputProps['inputProps']}
+                        searchButtonProps={{ 'data-sample': 'Sample2' } as SearchInputProps['searchButtonProps']}
+                    />
+                </ShellbarActions>
+            </Shellbar>
+        );
+        const input = screen.container.querySelector<HTMLInputElement>('input[aria-label="Fruit"]')!;
+        expect(input.dataset['sample']).toBe('Sample1');
+        expect(input.closest('[data-size]')).not.toBeNull();
+        expect(screen.container.querySelector<HTMLElement>('button[data-sample]')!.dataset['sample']).toBe('Sample2');
     });
 
     it('spreads listProps on the list and popoverProps on the popup', async () => {

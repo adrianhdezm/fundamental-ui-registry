@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { Avatar } from '@/ui/avatar/avatar';
 import { Button } from '@/ui/button/button';
+import { Combobox } from '@/ui/combobox/combobox';
 import { Input } from '@/ui/input/input';
 import { Title } from '@/ui/title/title';
 import { Bar, BarElement, BarLeft, BarMiddle, BarRight, ButtonBar, type BarDesign, type BarProps } from './bar';
@@ -331,13 +332,15 @@ export const Density: Story = {
 const LOGO =
     "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'><rect width='60' height='30' rx='4' fill='%230070f2'/><text x='30' y='20' font-family='Arial' font-size='13' font-weight='bold' fill='white' text-anchor='middle'>ACME</text></svg>";
 
+const SEARCH_TERMS = ['Apple', 'Banana', 'Kiwi', 'Strawberry'];
+
 export const CustomShellbar: Story = {
     name: 'Custom shellbar',
     parameters: {
         docs: {
             description: {
                 story:
-                    'A plain bar on the shell colour, composed like a shellbar: a search field on the left, a logo ' +
+                    'A plain bar on the shell colour, composed like a shellbar: a search combobox on the left, a logo ' +
                     'link in the middle, and a cart button and an avatar on the right.'
             }
         }
@@ -346,7 +349,14 @@ export const CustomShellbar: Story = {
         <Bar className="[--bar-bg:var(--sapShellColor)] [--bar-px:2rem]" aria-label="Custom Shellbar">
             <BarLeft>
                 <BarElement>
-                    <Input data-density="compact" type="search" aria-label="Search" placeholder="Type some text..." />
+                    <Combobox
+                        data-density="compact"
+                        isSearch
+                        aria-label="Search"
+                        placeholder="Type some text..."
+                        maxHeight="250px"
+                        dropdownValues={SEARCH_TERMS}
+                    />
                 </BarElement>
             </BarLeft>
             <BarMiddle>

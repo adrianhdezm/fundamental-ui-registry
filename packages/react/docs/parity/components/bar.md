@@ -41,20 +41,20 @@ type are `render={<header />}` or `render={<footer />}`.
 
 ### Stories vs. sources
 
-| Source            | Example                      | React story           | Status     | Notes                                                                 |
-| ----------------- | ---------------------------- | --------------------- | ---------- | --------------------------------------------------------------------- |
-| fundamental-react | primary                      | `Default`             | ✅ covered | First bar; as fundamental-styles' Default.                            |
-| fundamental-react | cozy                         | `Density`             | ✅ covered | Cozy and compact bars.                                                |
-| fundamental-react | header                       | `Header`              | ✅ covered |                                                                       |
-| fundamental-react | subheader                    | `Subheader`           | ✅ covered | With compact buttons, and a subheader with a full width field.        |
-| fundamental-react | headerWithSubheader          | `HeaderWithSubheader` | ✅ covered |                                                                       |
-| fundamental-react | footer                       | `Footer`              | ✅ covered | Compact buttons, as fundamental-react and fundamental-styles.         |
-| fundamental-react | floatingFooter               | `FloatingFooter`      | ✅ covered |                                                                       |
-| Angular           | Playground                   | `Playground`          | ✅ covered | Design, page, home page, size and clear args.                         |
-| Angular           | Designs                      | `Designs`             | ✅ covered | Default, title, header, header with subheader, footer.                |
-| Angular           | Floating footer              | `FloatingFooter`      | ✅ covered | Plus a floating footer in a home page, size xl (fundamental-styles'). |
-| Angular           | In page, responsive paddings | `PageSizes`           | ✅ covered | Plus the home page size `s`.                                          |
-| Angular           | Custom shellbar              | `CustomShellbar`      | 🟡 partial | A search `Input` stands in for the combobox until combobox is ported. |
+| Source            | Example                      | React story           | Status     | Notes                                                                                                              |
+| ----------------- | ---------------------------- | --------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| fundamental-react | primary                      | `Default`             | ✅ covered | First bar; as fundamental-styles' Default.                                                                         |
+| fundamental-react | cozy                         | `Density`             | ✅ covered | Cozy and compact bars.                                                                                             |
+| fundamental-react | header                       | `Header`              | ✅ covered |                                                                                                                    |
+| fundamental-react | subheader                    | `Subheader`           | ✅ covered | With compact buttons, and a subheader with a full width field.                                                     |
+| fundamental-react | headerWithSubheader          | `HeaderWithSubheader` | ✅ covered |                                                                                                                    |
+| fundamental-react | footer                       | `Footer`              | ✅ covered | Compact buttons, as fundamental-react and fundamental-styles.                                                      |
+| fundamental-react | floatingFooter               | `FloatingFooter`      | ✅ covered |                                                                                                                    |
+| Angular           | Playground                   | `Playground`          | ✅ covered | Design, page, home page, size and clear args.                                                                      |
+| Angular           | Designs                      | `Designs`             | ✅ covered | Default, title, header, header with subheader, footer.                                                             |
+| Angular           | Floating footer              | `FloatingFooter`      | ✅ covered | Plus a floating footer in a home page, size xl (fundamental-styles').                                              |
+| Angular           | In page, responsive paddings | `PageSizes`           | ✅ covered | Plus the home page size `s`.                                                                                       |
+| Angular           | Custom shellbar              | `CustomShellbar`      | ✅ covered | A compact search `Combobox` (`isSearch`), as Angular; a plain bar, not a `Shellbar` (see [shellbar](shellbar.md)). |
 
 The middle group of buttons of fundamental-react's and fundamental-styles' examples is a `role="group"` of
 `Button`s until segmented-button is ported.

@@ -1,4 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import {
+    Shellbar,
+    ShellbarActions,
+    ShellbarBranding,
+    ShellbarContextArea,
+    ShellbarTitle
+} from '@/ui/shellbar/shellbar';
 import { Avatar, type AvatarProps, type ColorAccent } from './avatar';
 
 const SIZES = ['xs', 's', 'm', 'l', 'xl'] as const;
@@ -312,6 +319,58 @@ export const InteractiveStates: Story = {
             <Interactive clickable aria-pressed="true" />
             <p className="font-sap-font-bold-family">Disabled</p>
             <Interactive interactive role="button" aria-disabled="true" />
+        </div>
+    )
+};
+
+/** fundamental-styles' shell avatars: the shell's interactive border colour instead of the accent's. */
+const SHELL_AVATAR = '[--av-border:var(--sapShell_InteractiveBorderColor)]';
+
+export const ShellHeaderColors: Story = {
+    name: 'Color variations in shell header context',
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    'Accent avatars on the shell colour, as fundamental-styles’ shell header example, take the ' +
+                    'shell’s interactive border colour (`[--av-border:var(--sapShell_InteractiveBorderColor)]`): ' +
+                    'first on a plain shell-coloured surface, then in a `Shellbar`, in its context area and as the ' +
+                    'user menu.'
+            }
+        }
+    },
+    render: () => (
+        <div className="flex flex-col gap-6">
+            <div className="flex flex-wrap items-center gap-[1.4rem] bg-sap-shell-color p-4">
+                {COLORS.map((c) => (
+                    <Avatar
+                        key={c}
+                        size="m"
+                        colorAccent={c}
+                        glyph="product"
+                        aria-label={`Accent ${c}`}
+                        className={SHELL_AVATAR}
+                    />
+                ))}
+            </div>
+            <Shellbar>
+                <ShellbarBranding>
+                    <ShellbarTitle>Products</ShellbarTitle>
+                </ShellbarBranding>
+                <ShellbarContextArea aria-label="Product avatars">
+                    {COLORS.map((c) => (
+                        <Avatar
+                            key={c}
+                            size="xs"
+                            colorAccent={c}
+                            glyph="product"
+                            aria-label={`Accent ${c}`}
+                            className={SHELL_AVATAR}
+                        />
+                    ))}
+                </ShellbarContextArea>
+                <ShellbarActions user={{ fullName: 'Jane Doe', colorAccent: 3 }} userMenu={[{ text: 'Sign Out' }]} />
+            </Shellbar>
         </div>
     )
 };

@@ -22,8 +22,10 @@ Enter and on the search button. `onSelect(event, item)` is `onItemSelect(item, e
 prop of the root). `noSearchBtn` is `noSearchButton`, `searchBtnProps` is `searchButtonProps`,
 `localizedText.searchBtnLabel` is `searchButtonLabel`. `validationState: { state, text }` is `state` and
 `stateMessage`, as the other ported fields. `compact` is `data-density="compact"` on the field or an ancestor.
-`formMessageProps` and `inShellbar` are gone: the message is a list message (see below) and the shellbar is not ported
-(its search will compose this component). New: `open`/`onOpenChange` (controlled suggestions), `inputId`, `name`,
+`formMessageProps` and `inShellbar` are gone: the message is a list message (see below), and a search input needs no
+prop of its own in a [shellbar](shellbar.md): it is a child of `ShellbarActions` (before the actions) and its
+transparent buttons take the shell colours (see the In a shellbar story). The shellbar's own search field is
+`ShellbarSearch`, Angular's, without suggestions. New: `open`/`onOpenChange` (controlled suggestions), `inputId`, `name`,
 `inputRef`, `showClearButton` (default true), `clearButtonLabel`, `noResultsText` ("No result", fundamental-react's
 text), `resultsLabel` (the announced count, Angular combobox's `'{count} result list items'`), `maxHeight` (50vh) and
 `container` (where the popup renders, as `PopoverBody`'s). Native props, `className` and `ref` go to the root `<div>`;
@@ -76,6 +78,7 @@ no buttons and no suggestions (fundamental-react), disabled fields disable both 
 | fundamental-styles | Input Group Focus            | `Focus`                                             | ✅ covered | "Focus: default" (not in docs) focuses the input in `play`, for the visual focus case.    |
 | —                  | (Angular input-group Search) | `WithoutSuggestions`                                | ✅ covered | A plain search field with `onSearch`, as Angular input-group's Search story.              |
 | —                  | (fundamental-react test)     | `Controlled`                                        | ✅ covered | `value`/`onValueChange`, a list changed while typing, a suggestion `callback`.            |
+| fundamental-react  | `inShellbar` (prop)          | `InShellbar`                                        | ✅ covered | A search input with suggestions among the `ShellbarActions` of a `Shellbar`.              |
 
 There is no Angular `search-input`, so no Angular stories to cover.
 
@@ -93,7 +96,8 @@ There is no Angular `search-input`, so no Angular stories to cover.
 | fundamental-react | onChange handler (2 tests)                                   | calls onSearch from the search button …; calls onSearch on Enter without suggestions …                                  | ✅ covered |
 | fundamental-react | subString search                                             | matches anywhere in the suggestions with subStringSearch                                                                | ✅ covered |
 | fundamental-react | popoverProps, formMessageProps spreading                     | spreads listProps on the list and popoverProps on the popup; shows the value state, with its message …                  | ✅ covered |
-| fundamental-react | Prop spreading: root, input, button, `ul` (and `inShellbar`) | passes className, native props and ref to the root; spreads inputProps, inputRef, inputGroupProps and searchButtonProps | ✅ covered |
+| fundamental-react | Prop spreading: root, input, button, `ul`                    | passes className, native props and ref to the root; spreads inputProps, inputRef, inputGroupProps and searchButtonProps | ✅ covered |
+| fundamental-react | Prop spreading with `inShellbar`: input, search button       | spreads inputProps and searchButtonProps in a shellbar (fundamental-react inShellbar)                                   | ✅ covered |
 | fundamental-react | List changed after creation                                  | updates the suggestions when the list changes                                                                           | ✅ covered |
 | —                 | Combobox ARIA, filtering by the start, bold text, focus kept | is a combobox that opens its suggestions while typing and filters them by the start of the text                         | ✅ covered |
 | —                 | Arrow keys, aria-activedescendant, Enter chooses             | highlights suggestions with the arrow keys and chooses with Enter (aria-activedescendant)                               | ✅ covered |
@@ -102,8 +106,6 @@ There is no Angular `search-input`, so no Angular stories to cover.
 | —                 | "No result", announced count                                 | shows "No result" when no suggestion matches; announces the number of suggestions                                       | ✅ covered |
 | —                 | Controlled value and open state                              | works controlled with value and onValueChange; opens and closes controlled with open …                                  | ✅ covered |
 | —                 | Disabled, read-only, labels, popup width, compact            | is disabled …; is read-only …; labels the input …; makes the suggestions at least as wide …; uses compact sizes …       | ✅ covered |
-
-fundamental-react's `inShellbar` variants of the spreading tests are n/a (no shellbar yet).
 
 ### Visual comparison
 
@@ -126,5 +128,5 @@ search text, the "No result" row (styles, against an item) and the success messa
 
 Angular issues: none (there is no Angular search-input).
 
-Reviewed by eye in Horizon, cozy and compact, LTR and RTL: Default, Validation states, Open: filtered, Open: error and
-Open: compact.
+Reviewed by eye in Horizon, cozy and compact, LTR and RTL: Default, Validation states, Open: filtered, Open: error,
+Open: compact and In a shellbar (not a visual case: fundamental-styles' shellbar search is the shellbar's own field).

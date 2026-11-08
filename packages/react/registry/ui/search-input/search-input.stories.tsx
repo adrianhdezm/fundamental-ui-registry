@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
 import { expect, userEvent, waitFor } from 'storybook/test';
+import {
+    Shellbar,
+    ShellbarAction,
+    ShellbarActions,
+    ShellbarBranding,
+    ShellbarLogo,
+    ShellbarTitle
+} from '@/ui/shellbar/shellbar';
 import { SearchInput, type SearchInputItem, type SearchInputProps } from './search-input';
 
 /** Plain label until the form component is ported. */
@@ -283,6 +291,52 @@ export const WithoutSuggestions: Story = {
         }
     },
     render: () => <WithoutSuggestionsExample />
+};
+
+/** A neutral placeholder logo. */
+const LOGO =
+    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'><rect width='60' height='30' rx='4' fill='%230070f2'/><text x='30' y='20' font-family='Arial' font-size='13' font-weight='bold' fill='white' text-anchor='middle'>ACME</text></svg>";
+
+/** fundamental-react's `inShellbar`: a search input with suggestions among the actions of a shellbar. */
+function InShellbarExample() {
+    const [searched, setSearched] = useState('');
+    return (
+        <div className={COLUMN}>
+            <Shellbar>
+                <ShellbarBranding>
+                    <ShellbarLogo>
+                        <img src={LOGO} alt="ACME" />
+                    </ShellbarLogo>
+                    <ShellbarTitle>Corporate Portal</ShellbarTitle>
+                </ShellbarBranding>
+                <ShellbarActions user={{ fullName: 'John Snow', colorAccent: 8 }} userMenu={[{ text: 'Sign Out' }]}>
+                    <SearchInput
+                        aria-label="Fruit"
+                        placeholder="Enter a fruit"
+                        searchList={SEARCH_DATA}
+                        onSearch={setSearched}
+                    />
+                    <ShellbarAction glyph="bell" label="Notifications" notificationCount={2} />
+                </ShellbarActions>
+            </Shellbar>
+            <p className={TEXT}>Searched: {searched}</p>
+        </div>
+    );
+}
+
+export const InShellbar: Story = {
+    name: 'In a shellbar',
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    'fundamental-react’s `inShellbar`: the search input needs no prop of its own in a shellbar; it is ' +
+                    'one of the `ShellbarActions` (before the actions), and its transparent buttons take the shell ' +
+                    'colours. The shellbar’s own search field is `ShellbarSearch`, which has no suggestions.'
+            }
+        }
+    },
+    render: () => <InShellbarExample />
 };
 
 /** Suggestions that follow the text, as fundamental-react's "list changed after creation" test. */
