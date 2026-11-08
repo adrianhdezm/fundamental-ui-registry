@@ -119,8 +119,8 @@ hour/minute/second object of the columns) is the shown time (now) or `defaultTim
 
 ### Visual comparison
 
-`pnpm visual time-picker`: 11 cases × 16 combinations, 160/176 matching; the 16 others are the tablet compact heights,
-kept on purpose (below). The reference is fundamental-styles' time picker pattern in tablet mode (4:25:10 PM with
+`pnpm visual time-picker`: 11 cases × 16 combinations, 128/176 matching (160/176 before `fix(input-group)`); the 48 others are the tablet compact
+heights and the compact input padding, kept on purpose (below). The reference is fundamental-styles' time picker pattern in tablet mode (4:25:10 PM with
 seconds, its body open under the field); our `Reference` story shows the same picker open, with the body rendered in
 the story. Cases: the field at rest and on hover, the input at rest and focused, the button at rest and on hover, the
 expanded button against fundamental-styles' current time picker, the popover body, the time in it, a column label and
@@ -134,6 +134,7 @@ a collapsed value. The body's position matches (under the field, 232px wide, the
 | Focused input: text selected in fundamental-styles                             | Tabbing into fundamental-styles' story selects its input text                                                                          | Compared by styles.                                                                                                                       |
 | Popover body height (442px vs 486px)                                           | fundamental-styles' OK/Cancel footer                                                                                                   | Kept: no footer in Angular; height not compared.                                                                                          |
 | Time: top corner radius 8px in fundamental-styles                              | fundamental-styles rounds the time above its footer; the time has no background                                                        | Not visible; not compared.                                                                                                                |
+| Compact field and input 2px narrower (input start padding 8px vs 10px; 32)     | fundamental-styles' time picker loads the input-group rule (0.625rem) last; its date picker loads the compact field rule (0.5rem) last | Kept, as [input-group](input-group.md): 8px, as fundamental-styles' date picker and UI5's compact input.                                  |
 | Tablet in compact: values 46px high instead of 32px (time 422px vs 324px)      | Angular keeps touch-sized values on tablets in compact; fundamental-styles' compact rule wins over `--tablet`                          | Kept, on purpose, as in [time](time.md): tablets are touch devices.                                                                       |
 
 Reviewed by eye in Horizon, cozy and compact, LTR and RTL: `Basic` and `Open: Time columns`. In RTL the field shows

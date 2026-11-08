@@ -583,8 +583,8 @@
       "source": ["src/TimePicker/__stories__/TimePicker.stories.js"],
       "sourceStories": 6,
       "status": "done",
-      "visual": "160/176",
-      "notes": "kept: tablet keeps touch-sized values in compact (16, as time); Locale story uses a segmented button; no OK/Cancel footer (as Angular)"
+      "visual": "128/176",
+      "notes": "kept: tablet keeps touch-sized values in compact (16, as time); compact input padding 8px (32, as input-group); Locale story uses a segmented button; no OK/Cancel footer (as Angular)"
     },
     {
       "name": "timeline",
