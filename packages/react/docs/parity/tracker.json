@@ -214,7 +214,8 @@
     {
       "name": "illustrated-message",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "544/544"
     },
     {
       "name": "infinite-scroll",

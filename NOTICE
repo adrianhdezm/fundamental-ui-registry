@@ -35,8 +35,9 @@ licensed under the Apache License, Version 2.0:
 
 - UI5 Web Components for Fiori (@ui5/webcomponents-fiori), https://github.com/UI5/webcomponents
   Copyright (c) SAP SE or an SAP affiliate company.
-  The SAP illustrations in packages/angular/docs/assets/illustrations are copied unmodified
-  from this package; they are used by the Storybook stories only.
+  The SAP illustrations in packages/angular/docs/assets/illustrations and
+  packages/react/docs/assets/illustrations are copied unmodified from this package; they
+  are used by the Storybook stories only.
 
 SAP, SAP Fiori and other SAP products and services mentioned herein are trademarks or
 registered trademarks of SAP SE in Germany and other countries. This project is not
