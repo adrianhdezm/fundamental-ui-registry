@@ -7,7 +7,7 @@ import { Button } from '@/ui/button/button';
 import { List, ListContent, ListItem, ListSubline, ListTitle } from '@/ui/list/list';
 import { MessageStrip } from '@/ui/message-strip/message-strip';
 import { MessageToastProvider, useMessageToastService } from '@/ui/message-toast/message-toast';
-import { Title } from '@/ui/title/title';
+import { Panel, PanelContent, PanelTitle } from '@/ui/panel/panel';
 import {
     UserMenu,
     UserMenuBody,
@@ -94,30 +94,21 @@ const ACCOUNTS = [
     { name: 'Jane Doe', mail: 'jane.doe@test.com' }
 ];
 
-/**
- * Stand-in for the panel of other accounts (panel is not ported yet): an expand button, a title and an action over
- * a list of accounts.
- */
+/** The panel of other accounts, as Angular's story: a transparent, square panel with an action over a list. */
 function AccountsPanel() {
     const [expanded, setExpanded] = useState(true);
     return (
-        <div className="mb-1 border-b border-solid border-sap-group-title-border-color">
-            <div className="flex min-h-11 items-center gap-2 px-2 compact:min-h-8">
-                <Button
-                    variant="transparent"
-                    glyph={expanded ? 'slim-arrow-down' : 'slim-arrow-right'}
-                    aria-expanded={expanded}
-                    aria-controls="user-menu-accounts"
-                    aria-label={expanded ? 'Hide other accounts' : 'Show other accounts'}
-                    onClick={() => setExpanded(!expanded)}
-                />
-                <Title level={5} className="flex-1">
-                    Accounts (3)
-                </Title>
-                <Button variant="transparent" glyph="user-edit" aria-label="Add account" title="Add account" />
-            </div>
-            {expanded && (
-                <List subline id="user-menu-accounts" aria-label="Other accounts">
+        <Panel
+            transparent
+            noRadius
+            expanded={expanded}
+            onExpandedChange={setExpanded}
+            expandAriaLabel={expanded ? 'Hide other accounts' : 'Show other accounts'}
+        >
+            <PanelTitle level={5}>Accounts (3)</PanelTitle>
+            <Button variant="transparent" glyph="user-edit" aria-label="Add account" title="Add account" />
+            <PanelContent noPadding aria-label="Other accounts">
+                <List subline>
                     {ACCOUNTS.map((account, index) => (
                         <ListItem key={account.mail} interactive active={index === 0}>
                             <Avatar size="s" circle label={account.name} />
@@ -128,8 +119,8 @@ function AccountsPanel() {
                         </ListItem>
                     ))}
                 </List>
-            )}
-        </div>
+            </PanelContent>
+        </Panel>
     );
 }
 

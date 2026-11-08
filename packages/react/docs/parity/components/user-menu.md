@@ -110,17 +110,17 @@ Behaviour, as Angular:
 
 ### Stories vs. sources
 
-| Source             | Example                    | React story      | Status     | Notes                                                                                                                                                            |
-| ------------------ | -------------------------- | ---------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Angular            | Default                    | `Default`        | ✅ covered | Header with a message strip and an action, accounts, actions with two levels of submenus, footer; toasts on choice. The accounts panel is a stand-in (no panel). |
-| Angular            | Mobile                     | `Mobile`         | ✅ covered |                                                                                                                                                                  |
-| Angular            | Open: desktop              | `OpenDesktop`    | ✅ covered |                                                                                                                                                                  |
-| Angular            | Open: long name, scrolling | `OpenLong`       | ✅ covered |                                                                                                                                                                  |
-| Angular            | Open: submenu              | `OpenSubmenu`    | ✅ covered | Opens the submenu from the keyboard (mirrored in RTL).                                                                                                           |
-| Angular            | Open: mobile               | `OpenMobile`     | ✅ covered |                                                                                                                                                                  |
-| fundamental-styles | Default (first example)    | `Variants`       | ✅ new     | Open in a box of the page (`container`) with its submenu open: the visual reference cases.                                                                       |
-| fundamental-styles | Mobile                     | `VariantsMobile` | ✅ new     | The mobile dialog, open: visual reference cases of mobile mode.                                                                                                  |
-| fundamental-react  | —                          | —                | ➖ n/a     | No fundamental-react source.                                                                                                                                     |
+| Source             | Example                    | React story      | Status     | Notes                                                                                                                                                                                                               |
+| ------------------ | -------------------------- | ---------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Angular            | Default                    | `Default`        | ✅ covered | Header with a message strip and an action, accounts, actions with two levels of submenus, footer; toasts on choice. The accounts are in a `Panel` (transparent, square, no content padding), as in Angular's story. |
+| Angular            | Mobile                     | `Mobile`         | ✅ covered |                                                                                                                                                                                                                     |
+| Angular            | Open: desktop              | `OpenDesktop`    | ✅ covered |                                                                                                                                                                                                                     |
+| Angular            | Open: long name, scrolling | `OpenLong`       | ✅ covered |                                                                                                                                                                                                                     |
+| Angular            | Open: submenu              | `OpenSubmenu`    | ✅ covered | Opens the submenu from the keyboard (mirrored in RTL).                                                                                                                                                              |
+| Angular            | Open: mobile               | `OpenMobile`     | ✅ covered |                                                                                                                                                                                                                     |
+| fundamental-styles | Default (first example)    | `Variants`       | ✅ new     | Open in a box of the page (`container`) with its submenu open: the visual reference cases.                                                                                                                          |
+| fundamental-styles | Mobile                     | `VariantsMobile` | ✅ new     | The mobile dialog, open: visual reference cases of mobile mode.                                                                                                                                                     |
+| fundamental-react  | —                          | —                | ➖ n/a     | No fundamental-react source.                                                                                                                                                                                        |
 
 ### Tests vs. sources
 
@@ -167,3 +167,8 @@ footer bar, and in mobile mode the body and an item. Computed styles and pixels 
 
 Reviewed by eye in Horizon cozy and compact, LTR and RTL: `Variants`, `OpenSubmenu` (the submenu flips to the free
 side), `OpenLong` scrolled (the name in the header bar) and `OpenMobile`, also scrolled.
+
+The accounts panel of the `Default` and `Open…` stories is the ported `panel` (it was a stand-in of a button, a title
+and a list until then); re-run after the change: 336/336. The `Variants` stories leave out fundamental-styles'
+accounts panels (`fd-user-menu__panel`), so no case covers them here: the panel is compared in its own report, and
+`OpenDesktop` was reviewed by eye with it in Horizon cozy and compact, LTR and RTL.

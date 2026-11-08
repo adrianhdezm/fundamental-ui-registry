@@ -651,8 +651,7 @@
       "name": "user-menu",
       "phase": 2,
       "status": "done",
-      "visual": "336/336",
-      "notes": "stand-in: accounts panel in the stories (until panel is ported)"
+      "visual": "336/336"
     },
     {
       "name": "vertical-navigation",
