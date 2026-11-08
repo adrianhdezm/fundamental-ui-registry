@@ -931,6 +931,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "product-switch",
+      "type": "registry:ui",
+      "title": "Product Switch",
+      "description": "A grid button that opens the products of the user in a popover: a grid of two to four columns or a list, reorderable by drag and drop, with arrow key navigation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "avatar", "busy-indicator", "button", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/product-switch/product-switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

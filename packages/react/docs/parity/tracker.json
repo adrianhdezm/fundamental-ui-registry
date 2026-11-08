@@ -414,7 +414,9 @@
     {
       "name": "product-switch",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "232/256",
+      "notes": "kept: HC hover over fundamental-styles' thumbnail avatars (24); drag and drop with mouse/pen only (no touch drag)"
     },
     {
       "name": "progress-indicator",
