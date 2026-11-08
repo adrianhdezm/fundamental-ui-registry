@@ -1534,6 +1534,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "content-density",
+      "type": "registry:ui",
+      "title": "Content Density",
+      "description": "Sets cozy, compact or condensed density for an element and everything inside it through data-density, with a hook that carries it into portals.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "registry/ui/content-density/content-density.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

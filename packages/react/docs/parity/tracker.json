@@ -104,7 +104,9 @@
     {
       "name": "content-density",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "48/48",
+      "notes": "renders nothing of its own: a button and an input in nested densities compared; fundamental.css compact variant extended to 4 alternating levels"
     },
     {
       "name": "counter",
