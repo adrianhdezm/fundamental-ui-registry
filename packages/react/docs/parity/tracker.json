@@ -108,8 +108,7 @@
       "source": ["src/Counter/__stories__/Counter.stories.js"],
       "sourceStories": 5,
       "status": "done",
-      "visual": "208/208",
-      "notes": "fundamental-styles Tabs example: after tabs"
+      "visual": "240/240"
     },
     {
       "name": "date-picker",

@@ -23,5 +23,15 @@ export default [
             ours: { story: 'components-counter--notification', selector: `button >> nth=${nth}` },
             ref: { story: `${FS}counter--notifier`, selector: `.fd-button >> nth=${nth}` }
         }
-    ])
+    ]),
+    {
+        label: 'tabs',
+        ours: { story: 'components-counter--tabs', selector: '[role=tab] >> nth=0 >> span.rounded-lg' },
+        ref: { story: `${FS}counter--tabs`, selector: '.fd-tabs__link .fd-counter' }
+    },
+    {
+        label: 'tabs link',
+        ours: { story: 'components-counter--tabs', selector: '[role=tab] >> nth=0' },
+        ref: { story: `${FS}counter--tabs`, selector: '.fd-tabs__link >> nth=0' }
+    }
 ];

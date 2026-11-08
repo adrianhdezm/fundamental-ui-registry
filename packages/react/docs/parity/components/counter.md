@@ -28,7 +28,7 @@ visible count in the name (speech input users say what they see).
 | fundamental-styles | Standalone                      | `Standalone`   | ✅ covered |                                                                                                                     |
 | fundamental-styles | Text                            | `Inline`       | ✅ covered |                                                                                                                     |
 | fundamental-styles | Notification                    | `Notification` | ✅ covered |                                                                                                                     |
-| fundamental-styles | Tabs                            | —              | ⬜ missing | A counter in a tab link: after tabs.                                                                                |
+| fundamental-styles | Tabs                            | `Tabs`         | ✅ covered | A counter after the text of a tab (`titleContent` of a `Tab`), with fundamental-styles' texts and disabled tab.     |
 
 ### Tests vs. sources
 
@@ -42,10 +42,11 @@ visible count in the name (speech input users say what they see).
 
 ### Visual comparison
 
-`pnpm visual counter`: 13 cases × 16 combinations, 208/208 matching. Cases: the four standalone counters (5, 25, 101,
-999+), the counter inline with text, and for each of the four notification counters (1, 20, 300, 999+) the counter
-itself and the whole transparent bell button around it; all by pixels and computed style. Horizon cozy and compact,
-LTR and RTL, were also reviewed by eye.
+`pnpm visual counter`: 15 cases × 16 combinations, 240/240 matching. Cases: the four standalone counters (5, 25, 101,
+999+), the counter inline with text, for each of the four notification counters (1, 20, 300, 999+) the counter
+itself and the whole transparent bell button around it, and the counter in a tab and that whole tab ("Link 25")
+against fundamental-styles' Tabs example; all by pixels and computed style. Horizon cozy and compact, LTR and RTL,
+were also reviewed by eye.
 
 | Difference                                                                                    | Cause                                                                                                     | Resolution                                                                                                         |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |

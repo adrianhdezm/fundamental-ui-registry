@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '@/ui/button/button';
+import { Tab, TabList } from '@/ui/tabs/tabs';
 import { Counter } from './counter';
 
 const meta = {
@@ -60,5 +61,36 @@ export const Notification: Story = {
                 </Button>
             ))}
         </div>
+    )
+};
+
+export const Tabs: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "A counter next to a tab's text, with the tab's `titleContent` (fundamental-styles' Tabs example)."
+            }
+        }
+    },
+    render: () => (
+        <TabList ariaLabel="Mailbox" defaultValue="counter-selected">
+            <Tab
+                id="counter-link"
+                titleContent={
+                    <>
+                        Link <Counter>25</Counter>
+                    </>
+                }
+            >
+                <p className="m-0 p-4 font-sap-font-family text-sap-font-size text-sap-text-color">Link content</p>
+            </Tab>
+            <Tab id="counter-selected" title="Selected">
+                <p className="m-0 p-4 font-sap-font-family text-sap-font-size text-sap-text-color">Selected content</p>
+            </Tab>
+            <Tab id="counter-other" title="Link">
+                <p className="m-0 p-4 font-sap-font-family text-sap-font-size text-sap-text-color">Other content</p>
+            </Tab>
+            <Tab id="counter-disabled" title="Disabled" disabled />
+        </TabList>
     )
 };
