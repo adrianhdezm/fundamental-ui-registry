@@ -367,7 +367,9 @@
     {
       "name": "object-marker",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "208/224",
+      "notes": "kept: RTL request glyph mirrored (as UI5) and focused clickable icon in contrast colour (16)"
     },
     {
       "name": "object-number",

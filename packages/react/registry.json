@@ -987,6 +987,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "object-marker",
+      "type": "registry:ui",
+      "title": "Object Marker",
+      "description": "A technical status of an object, such as draft, locked or favourite, as an icon, text or both, optionally a clickable link.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/object-marker/object-marker.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
