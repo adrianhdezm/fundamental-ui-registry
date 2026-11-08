@@ -346,7 +346,9 @@
     {
       "name": "multi-combobox",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "306/320",
+      "notes": "kept: HC compact input inside the field border (12, as multi-input), compact hover anti-aliasing (2); mobile approve mode reports once on approve; dataSource is an array (no Observable)"
     },
     {
       "name": "multi-input",

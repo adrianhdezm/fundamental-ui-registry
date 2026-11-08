@@ -1330,6 +1330,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "multi-combobox",
+      "type": "registry:ui",
+      "title": "Multi Combobox",
+      "description": "Chooses several items from a filtered list of check box options, shown as tokens, with groups, two columns and a mobile dialog.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "bar", "dialog", "input", "input-group", "list", "popover", "token"],
+      "files": [
+        {
+          "path": "registry/ui/multi-combobox/multi-combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
