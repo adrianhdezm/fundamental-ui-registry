@@ -459,7 +459,9 @@
     {
       "name": "rating-indicator",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "352/352",
+      "notes": "votes link is a popover trigger (role button, opens on hover and focus)"
     },
     {
       "name": "resizable-card-layout",

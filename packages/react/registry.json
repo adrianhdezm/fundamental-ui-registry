@@ -1225,6 +1225,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "rating-indicator",
+      "type": "registry:ui",
+      "title": "Rating Indicator",
+      "description": "Star rating as a slider, with half values, display mode, custom icons, sizes and the votes per rating in a popover.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "icon", "link", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/rating-indicator/rating-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
