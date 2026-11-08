@@ -1179,6 +1179,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "quick-view",
+      "type": "registry:ui",
+      "title": "Quick View",
+      "description": "A short overview of a person, an object or a company in a popover or dialog: a header, a subheader with an avatar and groups of label-value pairs.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "form", "popover", "title"],
+      "files": [
+        {
+          "path": "registry/ui/quick-view/quick-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

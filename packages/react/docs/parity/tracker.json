@@ -444,7 +444,8 @@
     {
       "name": "quick-view",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "384/384"
     },
     {
       "name": "radio",
