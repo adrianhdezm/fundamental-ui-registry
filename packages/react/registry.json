@@ -688,6 +688,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "nested-list",
+      "type": "registry:ui",
+      "title": "Nested List",
+      "description": "A tree of navigation items with groups, headers, icons and expandable children, and a condensed mode whose children open in a popover.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/nested-list/nested-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -344,7 +344,9 @@
     {
       "name": "nested-list",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "272/272",
+      "notes": "fundamental-styles' Storybook has no nested-list story any more: the visual cases render its fd-nested-list markup in a fundamental-styles page; kept: the left-pointing collapsed arrow in RTL"
     },
     {
       "name": "notification",
