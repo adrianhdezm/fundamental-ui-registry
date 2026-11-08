@@ -71,7 +71,9 @@
     {
       "name": "card",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "704/704",
+      "notes": "stand-ins until ported: text, illustrated message, quick view; press state not compared"
     },
     {
       "name": "carousel",
