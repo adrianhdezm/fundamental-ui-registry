@@ -92,7 +92,9 @@
       "phase": 1,
       "source": ["src/ComboboxInput/__stories__/ComboboxInput.stories.js"],
       "sourceStories": 12,
-      "status": "todo"
+      "status": "done",
+      "visual": "368/368",
+      "notes": "fundamental-react's selectionType=\"auto\" has no equivalent; Escape keeps the text (as Angular); Base UI hides the rest of the page while the list is open"
     },
     {
       "name": "content-density",

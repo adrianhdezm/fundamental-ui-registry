@@ -662,6 +662,32 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "An input that suggests values from a list while typing, with inline completion, groups, item templates, value states and a mobile dialog, on Base UI's Combobox.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "bar",
+        "button",
+        "dialog",
+        "form",
+        "icon",
+        "input",
+        "input-group",
+        "list",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/combobox/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
