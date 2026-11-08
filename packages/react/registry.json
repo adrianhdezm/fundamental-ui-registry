@@ -1193,6 +1193,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "avatar-group",
+      "type": "registry:ui",
+      "title": "Avatar Group",
+      "description": "Avatars of a team, each with its own details popover or overlapping in one group button, with the avatars that do not fit in a \"+N\" overflow popover.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "avatar", "bar", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/avatar-group/avatar-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/avatar-group/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

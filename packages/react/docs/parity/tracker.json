@@ -26,7 +26,9 @@
     {
       "name": "avatar-group",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "120/144",
+      "notes": "kept: RTL '+4' (bdi, as Angular) vs fundamental-styles' '4+' on the overflow button (24)"
     },
     {
       "name": "bar",
