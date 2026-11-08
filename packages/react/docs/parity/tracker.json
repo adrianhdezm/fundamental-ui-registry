@@ -436,7 +436,8 @@
     {
       "name": "progress-indicator",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "416/416"
     },
     {
       "name": "quick-view",

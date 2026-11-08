@@ -1151,6 +1151,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "progress-indicator",
+      "type": "registry:ui",
+      "title": "Progress Indicator",
+      "description": "A bar that shows the progress of a task, with its value or a text above it, an icon for a value state, and a popover for a truncated text.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/progress-indicator/progress-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
