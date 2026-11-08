@@ -283,7 +283,7 @@
       "sourceStories": 14,
       "status": "done",
       "visual": "520/544",
-      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-ins until ported: toolbar, input group, infinite scroll"
+      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8); stand-ins: input group (follow-up), infinite scroll (until ported)"
     },
     {
       "name": "menu",

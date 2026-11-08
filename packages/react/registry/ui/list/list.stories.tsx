@@ -9,6 +9,7 @@ import { Input } from '@/ui/input/input';
 import { Radio, RadioGroup } from '@/ui/radio/radio';
 import { Skeleton } from '@/ui/skeleton/skeleton';
 import { Title } from '@/ui/title/title';
+import { Toolbar, ToolbarLabel, ToolbarSpacer } from '@/ui/toolbar/toolbar';
 import {
     List,
     ListByline,
@@ -586,13 +587,9 @@ function FilterSortList() {
     }, [term, ascending, items]);
     return (
         <div className="max-w-xl">
-            <div role="toolbar" aria-label="Filter and sort" className="mb-2 flex items-center gap-2">
-                <label
-                    htmlFor="list-filter-search"
-                    className="me-auto font-sap-font-family text-sap-font-size text-sap-content-label-color"
-                >
-                    Filter for list elements
-                </label>
+            <Toolbar aria-label="Filter and sort">
+                <ToolbarLabel render={<label htmlFor="list-filter-search" />}>Filter for list elements</ToolbarLabel>
+                <ToolbarSpacer />
                 <Input
                     id="list-filter-search"
                     placeholder="Search"
@@ -612,7 +609,7 @@ function FilterSortList() {
                     title="Sort descending"
                     onClick={() => setAscending(false)}
                 />
-            </div>
+            </Toolbar>
             <List aria-label="Fruits">
                 {shown.length ? (
                     shown.map((item) => (

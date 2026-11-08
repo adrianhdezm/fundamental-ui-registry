@@ -68,7 +68,7 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
 - Angular's `value` input of `ListItem` (for components built on the list) is not ported: `value` is a native `<li>`
   attribute. Its deprecated `truncate` inputs are gone.
 - Not ported until their components are:
-  the toolbar and input group of the filter story (a toolbar `div` with an `Input`), and Angular's `fdInfiniteScroll` (the story listens to `onScroll`).
+  the input group of the filter story (an `Input` in the `Toolbar`), and Angular's `fdInfiniteScroll` (the story listens to `onScroll`).
 
 ### Stories vs. sources
 
@@ -93,7 +93,7 @@ Behaviour, as Angular's (CDK `FocusKeyManager`):
 | Angular           | Selection                               | `Selection`         | ✅ covered | Item texts as fundamental-styles' ("List item n").                                                                            |
 | Angular           | Navigation (links)                      | `Navigation`        | ✅ covered | Plus a navigated item with an indicator.                                                                                      |
 | Angular           | Byline and subline                      | `Byline`            | ✅ covered | Subline items with `Avatar`; first item as fundamental-styles'.                                                               |
-| Angular           | Filter and sort                         | `FilterSort`        | ✅ covered | A toolbar `div` with `Input` (toolbar, input group: after those).                                                             |
+| Angular           | Filter and sort                         | `FilterSort`        | ✅ covered | A `Toolbar` with a `ToolbarLabel`, a spacer and an `Input` (input group: after it).                                           |
 | Angular           | Complex (borderless, groups and footer) | `Complex`           | ✅ covered |                                                                                                                               |
 | Angular           | Keyboard support                        | `KeyboardSupport`   | ✅ covered | `actionsRef.setItemActive(0)`.                                                                                                |
 | Angular           | Infinite scroll                         | `InfiniteScroll`    | ✅ covered | `onScroll` instead of `fdInfiniteScroll` (not ported).                                                                        |
