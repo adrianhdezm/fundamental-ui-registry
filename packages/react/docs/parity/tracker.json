@@ -172,7 +172,9 @@
     {
       "name": "fixed-card-layout",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "80/80",
+      "notes": "drag and drop with mouse/pen only (no touch drag), as product-switch"
     },
     {
       "name": "flexible-column-layout",

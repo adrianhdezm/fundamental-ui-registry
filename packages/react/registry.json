@@ -1380,6 +1380,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "fixed-card-layout",
+      "type": "registry:ui",
+      "title": "Fixed Card Layout",
+      "description": "Cards of the same width in as many 20rem columns as fit, placed row by row, reordered by drag and drop or Alt with the arrow keys.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/fixed-card-layout/fixed-card-layout.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
