@@ -1492,6 +1492,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "upload-collection",
+      "type": "registry:ui",
+      "title": "Upload Collection",
+      "description": "A list of uploaded files with thumbnails, names shortened in the middle, descriptions and statuses, and buttons to rename a file in place or delete it.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "input", "list", "object-status"],
+      "files": [
+        {
+          "path": "registry/ui/upload-collection/upload-collection.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

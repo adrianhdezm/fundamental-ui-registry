@@ -687,7 +687,8 @@
     {
       "name": "upload-collection",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "304/304"
     },
     {
       "name": "user-menu",
