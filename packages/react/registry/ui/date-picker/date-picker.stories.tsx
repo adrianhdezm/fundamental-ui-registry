@@ -12,7 +12,7 @@ import {
 import { Button } from '@/ui/button/button';
 import { DateRange, type CalendarCurrent, type FdCalendarView, type SpecialDayRule } from '@/ui/calendar/calendar';
 import { FormItem, FormLabel } from '@/ui/form/form';
-import { SegmentedButton, SegmentedButtonItem } from '@/ui/segmented-button/segmented-button';
+import { Select, SelectOption } from '@/ui/select/select';
 import { Title } from '@/ui/title/title';
 import { DatePicker, type DatePickerProps, type DatePickerState } from './date-picker';
 
@@ -464,11 +464,20 @@ function LocaleExample() {
     return (
         <DatetimeAdapterProvider locale={locale}>
             <Heading>Locale (an adapter of its own)</Heading>
-            <SegmentedButton aria-label="Locale" value={locale} onValueChange={setLocale}>
-                {LOCALES.map((code) => (
-                    <SegmentedButtonItem key={code} value={code} label={code} />
-                ))}
-            </SegmentedButton>
+            <FormItem>
+                <FormLabel id="dp-locale-select">Locale</FormLabel>
+                <Select<string>
+                    aria-labelledby="dp-locale-select"
+                    value={locale}
+                    onValueChange={(code) => code && setLocale(code)}
+                >
+                    {LOCALES.map((code) => (
+                        <SelectOption key={code} value={code}>
+                            {code}
+                        </SelectOption>
+                    ))}
+                </Select>
+            </FormItem>
             <FormItem className="mt-3">
                 <FormLabel htmlFor="dp-locale">Date</FormLabel>
                 <DatePicker inputId="dp-locale" selectedDate={date} onSelectedDateChange={setDate} />

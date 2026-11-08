@@ -77,9 +77,8 @@ the `disable…` props are `disableFunction` (and the range start/end functions)
 - The mobile dialog title is a `DialogTitle` (`<h2>`, as fundamental-styles' dialogs); Angular uses `<h1>`.
 - The today button shows with ranges too (Angular's `showTodayButton` selects a range of today); fundamental-react
   hides it with range selection.
-- The today footer has the popover's bottom corners and a decisive (4rem) button, and the field input keeps an italic
-  placeholder in HC and the compact field padding at its start, as fundamental-styles' date picker (see the visual
-  comparison).
+- The today footer has the popover's bottom corners and a decisive (4rem) button, as fundamental-styles' date picker
+  (see the visual comparison).
 
 ### Stories vs. sources
 
@@ -109,7 +108,7 @@ the `disable…` props are `disableFunction` (and the range start/end functions)
 | Angular           | Disable functions                             | `DisableFunctions`                              | ✅ covered | Touched (native `onBlur`), dirty (`onValueChange`) and valid (`onValidityChange`).             |
 | Angular           | Special days                                  | `SpecialDays`                                   | ✅ covered |                                                                                                |
 | Angular           | Forms                                         | `Forms`                                         | ✅ covered | The form state from the callbacks, as in `DisableFunctions`.                                   |
-| Angular           | Locale                                        | `Locale`                                        | ✅ covered | A `SegmentedButton` picks the locale (select is not ported yet).                               |
+| Angular           | Locale                                        | `Locale`                                        | ✅ covered | A `Select` picks the locale.                                                                   |
 | Angular           | Mobile                                        | `Mobile`                                        | ✅ covered |                                                                                                |
 | Angular           | Custom formats                                | `CustomFormats`                                 | ✅ covered | `DateTimeFormatsProvider` instead of the `DATE_TIME_FORMATS` provider.                         |
 | Angular           | Prevent scroll on focus                       | `PreventScrollOnFocus`                          | ✅ covered |                                                                                                |
@@ -170,27 +169,29 @@ The first displayed day by locale is the calendar's (tested there). The calendar
 
 ### Visual comparison
 
-`pnpm visual date-picker`: 12 cases × 16 combinations, 168/192 matching, the other 24 kept (below). Our `Reference`
-stories are fundamental-styles' Today Selection Button story (Design Patterns): the same label, placeholder and button
-name, the label and field in a box as wide as the label. The field closed (`Reference`) compares by pixels: the field
-at rest and on hover, the input and the calendar button at rest and on hover. The calendar open and rendered into the
-page (`Reference: open`): the popover surface by computed style (fundamental-styles shows a selected range and legend
-colours), the today footer bar and the today button at rest and on hover by pixels. `Reference: mobile` against the
-Mobile Portrait story: the window, header bar and calendar by computed style (fundamental-styles' static docs window
-holds a date/time switch and no footer). The field focus ring is the input group's (compared there).
+`pnpm visual date-picker`: 12 cases × 16 combinations, 168/192 matching, the other 24 kept (below); the same since the
+input padding, placeholder and today button fixes moved from the picker into the input group and button. Our
+`Reference` stories are fundamental-styles' Today Selection Button story (Design Patterns): the same label,
+placeholder and button name, the label and field in a box as wide as the label. The field closed (`Reference`)
+compares by pixels: the field at rest and on hover, the input and the calendar button at rest and on hover. The
+calendar open and rendered into the page (`Reference: open`): the popover surface by computed style
+(fundamental-styles shows a selected range and legend colours), the today footer bar and the today button at rest and
+on hover by pixels. `Reference: mobile` against the Mobile Portrait story: the window, header bar and calendar by
+computed style (fundamental-styles' static docs window holds a date/time switch and no footer). The field focus ring
+is the input group's (compared there).
 
-| Difference                                                                            | Cause                                                                                                                                                       | Resolution                                                                                              |
-| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Field 34px narrower                                                                   | fundamental-styles' field fills a box as wide as its label                                                                                                  | Fixed in the story (the same box); the picker is `inline-block` as Angular's.                           |
-| Calendar button blue (`--sapButton_Selected_TextColor`) instead of the text colour    | The calendar is open: Angular marks the button of an open picker; fundamental-styles' static story does not                                                 | Kept (Angular and the input group's `isExpanded`); the field cases use the closed `Reference` story.    |
-| Compact input start padding 10px instead of 8px                                       | The group's `compact:px-2` loses to its `first:ps-2.5`; fundamental-styles' date picker input has the compact field padding                                 | Fixed in the picker (`compact:first:ps-2`). Input-group issue, also Angular (no compact padding there). |
-| HC placeholder upright instead of italic                                              | The input group sets `hc:placeholder:not-italic`; fundamental-styles' date picker keeps italic                                                              | Fixed in the picker (`hc:placeholder:italic!`). Input-group issue, also Angular.                        |
-| Today footer without the popover's bottom corners (8px, 4px in HC)                    | Angular's footer bar has no radius                                                                                                                          | Fixed: `rounded-b-sap-popover-border-corner-radius` (not in the mobile dialog). Angular issue.          |
-| Today button 53–57px wide instead of 64px                                             | fundamental-styles' footer buttons have a 4rem minimum; Angular's button has none; `decisive` alone loses to the compact button minimum (`compact:min-w-8`) | Fixed: `decisive` and `compact:min-w-16`. Angular issue; button issue (`decisive` in compact).          |
-| Field, input and calendar button: 3.1–4.6% pixels in HC and compact (24 combinations) | fundamental-styles' story has its calendar open: the popover's shadow falls on the bottom rows of the field; the computed styles are equal                  | Kept: not a difference of the field (solid `--sapField_Background` in both).                            |
-| Mobile window `min-height` 100% instead of 120px                                      | fundamental-styles' docs window keeps the dialog's 7.5rem minimum; ours is the dialog's full-screen mobile window                                           | Kept (the dialog component's), ignored in the case.                                                     |
-| Mobile header without rounded top corners (12px, 4px in HC)                           | fundamental-styles' docs window keeps them; a full-screen mobile window has none                                                                            | Kept (the dialog component's), ignored in the case.                                                     |
-| Compact mobile calendar 0 instead of 8px padding                                      | fundamental-styles' compact calendar padding wins over the mobile layout's none (specificity); mobile layouts are cozy in Fiori                             | Kept (the calendar component's), ignored in the case.                                                   |
+| Difference                                                                            | Cause                                                                                                                                                | Resolution                                                                                           |
+| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Field 34px narrower                                                                   | fundamental-styles' field fills a box as wide as its label                                                                                           | Fixed in the story (the same box); the picker is `inline-block` as Angular's.                        |
+| Calendar button blue (`--sapButton_Selected_TextColor`) instead of the text colour    | The calendar is open: Angular marks the button of an open picker; fundamental-styles' static story does not                                          | Kept (Angular and the input group's `isExpanded`); the field cases use the closed `Reference` story. |
+| Compact input start padding 10px instead of 8px                                       | The group's `compact:px-2` lost to its `first:ps-2.5`; fundamental-styles' date picker input has the compact field padding                           | Fixed in the input group (`fix(input-group)`). Also Angular (no compact padding there).              |
+| HC placeholder upright instead of italic                                              | The input group set `hc:placeholder:not-italic`; fundamental-styles' date picker keeps italic                                                        | Fixed in the input group (`fix(input-group)`). Also Angular.                                         |
+| Today footer without the popover's bottom corners (8px, 4px in HC)                    | Angular's footer bar has no radius                                                                                                                   | Fixed: `rounded-b-sap-popover-border-corner-radius` (not in the mobile dialog). Angular issue.       |
+| Today button 53–57px wide instead of 64px                                             | fundamental-styles' footer buttons have a 4rem minimum; Angular's button has none; `decisive` lost to the compact button minimum (`compact:min-w-8`) | Fixed: `decisive` (in compact since `fix(button)`). Angular issue.                                   |
+| Field, input and calendar button: 3.1–4.6% pixels in HC and compact (24 combinations) | fundamental-styles' story has its calendar open: the popover's shadow falls on the bottom rows of the field; the computed styles are equal           | Kept: not a difference of the field (solid `--sapField_Background` in both).                         |
+| Mobile window `min-height` 100% instead of 120px                                      | fundamental-styles' docs window keeps the dialog's 7.5rem minimum; ours is the dialog's full-screen mobile window                                    | Kept (the dialog component's), ignored in the case.                                                  |
+| Mobile header without rounded top corners (12px, 4px in HC)                           | fundamental-styles' docs window keeps them; a full-screen mobile window has none                                                                     | Kept (the dialog component's), ignored in the case.                                                  |
+| Compact mobile calendar 0 instead of 8px padding                                      | fundamental-styles' compact calendar padding wins over the mobile layout's none (specificity); mobile layouts are cozy in Fiori                      | Kept (the calendar component's), ignored in the case.                                                |
 
 Reviewed by eye in Horizon, cozy and compact, LTR and RTL: `Reference`, `Reference: open`, `Open: calendar`,
 `Open: range`, `Reference: mobile` and `Single`.

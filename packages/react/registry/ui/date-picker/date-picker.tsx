@@ -757,9 +757,6 @@ export function DatePicker<D = FdDate>({
                     aria-required={required || undefined}
                     aria-invalid={computedState === 'error' || undefined}
                     {...inputProps}
-                    // fundamental-styles' date picker field: the compact field padding at the start (the group
-                    // keeps 0.625rem there), and an italic placeholder also in HC (the group sets `not-italic`)
-                    className={cn('compact:first:ps-2 hc:placeholder:italic!', inputProps?.className)}
                     ref={fieldRef}
                     value={text}
                     disabled={disabled}
@@ -850,13 +847,7 @@ export function DatePicker<D = FdDate>({
                 >
                     <BarRight>
                         <BarElement>
-                            <Button
-                                decisive
-                                // `decisive` alone loses to the compact button minimum (a button issue)
-                                className="compact:min-w-16"
-                                label={todayButtonLabel}
-                                onClick={selectToday}
-                            />
+                            <Button decisive label={todayButtonLabel} onClick={selectToday} />
                         </BarElement>
                     </BarRight>
                 </Bar>
