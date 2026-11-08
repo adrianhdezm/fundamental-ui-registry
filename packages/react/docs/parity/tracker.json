@@ -393,7 +393,9 @@
       "phase": 1,
       "source": ["src/Pagination/__stories__/Pagination.stories.js"],
       "sourceStories": 11,
-      "status": "todo"
+      "status": "done",
+      "visual": "464/464",
+      "notes": "fundamental-react's visiblePageTotal not ported: the page window follows Angular"
     },
     {
       "name": "panel",

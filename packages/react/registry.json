@@ -747,6 +747,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Previous and next buttons, page numbers with ellipses or a page input, an optional items per page select and the number of results, as one keyboard tab stop.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button", "input", "select"],
+      "files": [
+        {
+          "path": "registry/ui/pagination/pagination.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/pagination/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
