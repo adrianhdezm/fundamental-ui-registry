@@ -1,30 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type ReactNode } from 'react';
-import { expect } from 'storybook/test';
+import { useState } from 'react';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
+import { FormItem, FormLabel } from '@/ui/form/form';
+import { FormInputMessageGroup } from '@/ui/form/form-input-message-group';
+import { FormMessage } from '@/ui/form/form-message';
 import type { FormState } from '@/ui/input/input';
 import { StepInput, type StepInputProps } from './step-input';
 
-/** Plain label until the form component is ported (form label with colon, required and inline help). */
-function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: ReactNode }) {
-    return (
-        <label
-            htmlFor={htmlFor}
-            className="font-sap-font-family text-sap-font-size leading-[normal] text-sap-content-label-color"
-        >
-            {children}
-            {required && (
-                <span aria-hidden="true" className="ms-0.5 text-sap-field-required-color">
-                    *
-                </span>
-            )}
-        </label>
-    );
-}
-
 const GRID = 'grid max-w-3xl grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-6';
 const COLUMN = 'flex flex-col gap-4';
-const ITEM = 'flex flex-col items-start';
 const SMALL = 'm-0 mt-1 block font-sap-font-family text-sap-font-small-size text-sap-content-label-color';
 
 /** A labelled step input with its own value, printed below it. */
@@ -44,11 +29,13 @@ function Item({
 }) {
     const [value, setValue] = useState<number | null>(initial);
     return (
-        <div className={ITEM} data-density={density}>
-            <Label htmlFor={id}>{label}</Label>
+        <FormItem className="items-start" data-density={density}>
+            <FormLabel htmlFor={id} disabled={props.disabled}>
+                {label}
+            </FormLabel>
             <StepInput inputId={id} {...props} value={value} onValueChange={setValue} />
             {print && <small className={SMALL}>Value: {String(value)}</small>}
-        </div>
+        </FormItem>
     );
 }
 
@@ -132,28 +119,30 @@ export const Primary: Story = {
         docs: { description: { story: 'fundamental-styles’ and fundamental-react’s primary step input.' } }
     },
     render: () => (
-        <div className={ITEM}>
-            <Label htmlFor="si-primary">Default Step Input</Label>
+        <FormItem className="items-start">
+            <FormLabel htmlFor="si-primary">Default Step Input</FormLabel>
             <StepInput inputId="si-primary" defaultValue={0} />
-        </div>
+        </FormItem>
     )
 };
 
 export const Compact: Story = {
     render: () => (
-        <div className={ITEM} data-density="compact">
-            <Label htmlFor="si-compact">Amount</Label>
+        <FormItem className="items-start" data-density="compact">
+            <FormLabel htmlFor="si-compact">Amount</FormLabel>
             <StepInput inputId="si-compact" defaultValue={0} />
-        </div>
+        </FormItem>
     )
 };
 
 export const Disabled: Story = {
     render: () => (
-        <div className={ITEM}>
-            <Label htmlFor="si-disabled">Disabled Step Input</Label>
+        <FormItem className="items-start">
+            <FormLabel htmlFor="si-disabled" disabled>
+                Disabled Step Input
+            </FormLabel>
             <StepInput inputId="si-disabled" disabled defaultValue={0} />
-        </div>
+        </FormItem>
     )
 };
 
@@ -167,53 +156,79 @@ export const ReadOnly: Story = {
         }
     },
     render: () => (
-        <div className={ITEM}>
-            <Label htmlFor="si-readonly">Temperature set to</Label>
+        <FormItem className="items-start">
+            <FormLabel htmlFor="si-readonly">Temperature set to</FormLabel>
             <StepInput inputId="si-readonly" readOnly defaultValue={23} unit="Degree Celsius" />
-        </div>
+        </FormItem>
     )
 };
 
 const STATES = ['success', 'information', 'error', 'warning'] as const;
 const STATE_LABELS = { success: 'Success', information: 'Information', error: 'Error', warning: 'Warning' };
 
+/** The four value states, each with its message in a `FormInputMessageGroup` (shown while the focus is in it). */
+function StatesDemo() {
+    return (
+        <div className={COLUMN}>
+            {STATES.map((state) => (
+                <FormItem key={state} className="items-start">
+                    <FormLabel htmlFor={`si-state-${state}`}>{STATE_LABELS[state]} Step Input</FormLabel>
+                    <FormInputMessageGroup>
+                        <StepInput
+                            inputId={`si-state-${state}`}
+                            state={state}
+                            defaultValue={0}
+                            placeholder={STATE_LABELS[state]}
+                        />
+                        <FormMessage type={state}>{state} message</FormMessage>
+                    </FormInputMessageGroup>
+                </FormItem>
+            ))}
+        </div>
+    );
+}
+
 export const States: Story = {
     parameters: {
         docs: {
             description: {
                 story:
-                    'Value states colour the field and its buttons; only `error` sets `aria-invalid`. The state ' +
-                    'messages follow with the form component.'
+                    'Value states colour the field and its buttons; only `error` sets `aria-invalid`. In a ' +
+                    '`FormInputMessageGroup` with a `FormMessage`, the message describes the input and shows while the ' +
+                    'focus is in it.'
             }
         }
     },
-    render: () => (
-        <div className={COLUMN}>
-            {STATES.map((state) => (
-                <div key={state} className={ITEM}>
-                    <Label htmlFor={`si-state-${state}`}>{STATE_LABELS[state]} Step Input</Label>
-                    <StepInput
-                        inputId={`si-state-${state}`}
-                        state={state}
-                        defaultValue={0}
-                        placeholder={STATE_LABELS[state]}
-                    />
-                </div>
-            ))}
-        </div>
-    )
+    render: () => <StatesDemo />
+};
+
+/** Focuses the error step input so its value state message opens and axe checks it. */
+export const OpenStates: Story = {
+    name: 'Open: states',
+    tags: ['!autodocs'],
+    render: () => <StatesDemo />,
+    play: async ({ canvasElement }) => {
+        await userEvent.click(canvasElement.querySelector<HTMLInputElement>('#si-state-error')!);
+        await waitFor(() =>
+            expect(
+                [...document.querySelectorAll<HTMLElement>('[data-slot="form-message"]')].some(
+                    (m) => m.checkVisibility() && m.textContent!.includes('error message')
+                )
+            ).toBe(true)
+        );
+    }
 };
 
 export const FullWidth: Story = {
     render: () => (
         <div className={COLUMN}>
             {(['default', ...STATES] as const).map((state) => (
-                <div key={state} className="flex flex-col">
-                    <Label htmlFor={`si-full-${state}`}>
+                <FormItem key={state}>
+                    <FormLabel htmlFor={`si-full-${state}`}>
                         {state === 'default' ? 'Default' : STATE_LABELS[state]} Step Input
-                    </Label>
+                    </FormLabel>
                     <StepInput inputId={`si-full-${state}`} state={state} fullWidth defaultValue={0} />
-                </div>
+                </FormItem>
             ))}
         </div>
     )
@@ -224,10 +239,10 @@ const focusStory = (state: FormState): Story => ({
     name: `Focus: ${state}`,
     tags: ['!autodocs'],
     render: () => (
-        <div className={ITEM}>
-            <Label htmlFor="si-focus">Focused Step Input</Label>
+        <FormItem className="items-start">
+            <FormLabel htmlFor="si-focus">Focused Step Input</FormLabel>
             <StepInput inputId="si-focus" state={state} defaultValue={0} />
-        </div>
+        </FormItem>
     ),
     play: async ({ canvasElement }) => {
         const input = canvasElement.querySelector<HTMLInputElement>('#si-focus')!;
@@ -296,7 +311,7 @@ export const Formats: Story = {
 };
 
 /** Value, dirty and touched of a step input, the React form of Angular's form control examples. */
-function FormItem({
+function ControlItem({
     label,
     id,
     initial,
@@ -317,10 +332,10 @@ function FormItem({
     const [disabled, setDisabled] = useState(!!toggleDisabled);
     const problem = error?.(value) ?? null;
     return (
-        <div className={ITEM}>
-            <Label htmlFor={id} required={required}>
+        <FormItem className="items-start">
+            <FormLabel htmlFor={id} required={required} disabled={disabled}>
                 {label}
-            </Label>
+            </FormLabel>
             <StepInput
                 inputId={id}
                 required={required}
@@ -342,7 +357,7 @@ function FormItem({
             {toggleDisabled && (
                 <Button className="mt-2" label="Toggle disabled state" onClick={() => setDisabled((d) => !d)} />
             )}
-        </div>
+        </FormItem>
     );
 }
 
@@ -358,8 +373,8 @@ export const Form: Story = {
     },
     render: () => (
         <div className={GRID}>
-            <FormItem label="Reactive forms (min value 0)" id="si-form" required min={0} initial={null} />
-            <FormItem
+            <ControlItem label="Reactive forms (min value 0)" id="si-form" required min={0} initial={null} />
+            <ControlItem
                 label="Reactive forms (min value 5, max value 10)"
                 id="si-form-limits"
                 required
@@ -368,9 +383,9 @@ export const Form: Story = {
                 initial={5}
                 error={(value) => (value == null ? 'a value is required' : null)}
             />
-            <FormItem label="Template driven forms" id="si-form-template" initial={100} />
-            <FormItem label="Disabled control" id="si-form-disabled" initial={100} toggleDisabled />
-            <FormItem label="Read-only control" id="si-form-readonly" readOnly initial={100} />
+            <ControlItem label="Template driven forms" id="si-form-template" initial={100} />
+            <ControlItem label="Disabled control" id="si-form-disabled" initial={100} toggleDisabled />
+            <ControlItem label="Read-only control" id="si-form-readonly" readOnly initial={100} />
         </div>
     )
 };

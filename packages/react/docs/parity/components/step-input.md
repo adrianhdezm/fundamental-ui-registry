@@ -24,8 +24,10 @@ input submits the value with a form.
 fundamental-react's props map as follows: `compact` is `data-density="compact"`; `inputId`, `placeholder`,
 `disabled`, `readOnly` and `value` keep their names; `localizedText.stepUpLabel`/`stepDownLabel` are
 `incrementLabel`/`decrementLabel`; `validationState.state` is `state`; `onChange(value)` is `onValueChange`.
-`validationState.text` and `validationOverlayProps` (the message popover) belong to the form component's input
-message group.
+`validationState` and `validationOverlayProps` (the message popover) are form's `FormInputMessageGroup` around the step
+input with a `FormMessage`: `validationState.text` is the message, `show` is `defaultOpen`, `wrapperProps` and
+`className` are the group's own props, `formMessageProps` the message's; the message describes the input after its
+unit (Base UI's hidden number input is left out) and errors set `aria-invalid`.
 
 ARIA and keyboard as Angular: the input is a `spinbutton` with `aria-valuenow`, `aria-valuetext` (the formatted
 value), `aria-valuemin`/`aria-valuemax`, `aria-required`, `aria-invalid` (error state) and `aria-describedby` the unit
@@ -56,19 +58,22 @@ in a polite live region with the unit (Angular's `LiveAnnouncer`).
 
 ### Stories vs. sources
 
+The stories use form's `FormItem` and `FormLabel` (disabled labels for disabled step inputs).
+
 | Source             | Example                       | React story                     | Status     | Notes                                                                                         |
 | ------------------ | ----------------------------- | ------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
 | fundamental-react  | primary                       | `Primary`                       | ✅ covered | fundamental-styles' label "Default Step Input" instead of "Amount".                           |
 | fundamental-react  | compact                       | `Compact`                       | ✅ covered | `data-density="compact"` instead of `compact`.                                                |
 | fundamental-react  | disabled                      | `Disabled`                      | ✅ covered |                                                                                               |
 | fundamental-react  | readOnly                      | `ReadOnly`                      | ✅ covered | fundamental-styles' Read Only, with the unit "Degree Celsius".                                |
-| fundamental-react  | validationStates              | `States`                        | 🟡 partial | The four states with their placeholders; the message popover waits for form.                  |
+| fundamental-react  | validationStates              | `States`, `OpenStates`          | ✅ covered | The four states with their placeholders, each with its message in a `FormInputMessageGroup`.  |
 | fundamental-react  | dev                           | `Playground`                    | ✅ covered |                                                                                               |
 | fundamental-react  | noStyles                      | —                               | ➖ n/a     | No `cssNamespace`.                                                                            |
 | Angular            | Playground                    | `Playground`                    | ✅ covered |                                                                                               |
 | Angular            | Default                       | `Default`                       | ✅ covered |                                                                                               |
 | Angular            | Formats, currencies and units | `Formats`                       | ✅ covered |                                                                                               |
-| Angular            | States                        | `States`                        | 🟡 partial | The state messages (form input message group) wait for form.                                  |
+| Angular            | States                        | `States`                        | ✅ covered | Each state with Angular’s "<state> message" in a `FormInputMessageGroup`.                     |
+| —                  | Open: states                  | `OpenStates`                    | ✅ covered | "Open: states" focuses the error step input, so its message opens and axe checks it.          |
 | Angular            | Form                          | `Form`                          | ✅ covered | `value`/`onValueChange`, `onBlur`; value, dirty, touched and status printed; disabled toggle. |
 | fundamental-styles | Primary                       | `Primary`                       | ✅ covered |                                                                                               |
 | fundamental-styles | States                        | `States`                        | ✅ covered |                                                                                               |
@@ -79,37 +84,40 @@ in a polite live region with the unit (Angular's `LiveAnnouncer`).
 
 ### Tests vs. sources
 
-| Source            | Behaviour                                                          | React test                                                                                       | Status     |
-| ----------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ---------- |
-| Angular           | Spin button with value and limits                                  | is a spin button with the value and its limits                                                   | ✅ covered |
-| Angular           | Buttons step, disabled at the limits, focus stays in the input     | steps with the buttons and disables them at the limits                                           | ✅ covered |
-| Angular           | Arrows, Home, End                                                  | steps with the keyboard                                                                          | ✅ covered |
-| Angular           | Decimal steps without floating point noise                         | adds decimal steps without floating point noise                                                  | ✅ covered |
-| Angular           | Parses locale text, limits it, ignores invalid text, clears        | parses typed text in the locale, limits it, and formats it on blur                               | ✅ covered |
-| Angular           | Empty value starts at the minimum                                  | starts an empty value at the minimum going up, and at the maximum going down                     | ✅ covered |
-| Angular           | Repeats while a button is held                                     | repeats while a button is held                                                                   | ✅ covered |
-| Angular           | Unit describes the input; touched on blur                          | describes the input with the unit and is marked touched on blur in a Base UI Field               | ✅ covered |
-| Angular           | `onFocusIn`, `onFocusOut`                                          | calls onFocus and onBlur of the root (Angular onFocusIn and onFocusOut)                          | ✅ covered |
-| Angular           | Writes only null or numbers                                        | ignores values that are not numbers                                                              | ✅ covered |
-| Angular           | Enter and Space on the buttons                                     | steps with Enter and Space on the buttons                                                        | ✅ covered |
-| Angular           | Custom step, Page Up, Page Down                                    | steps by a custom step, and by ten steps with Page Up and Page Down; steps from typed text …     | ✅ covered |
-| Angular           | Smaller in compact density                                         | is smaller in compact density                                                                    | ✅ covered |
-| Angular           | Error state: `aria-invalid`, invalid border colour                 | shows the error state with aria-invalid and the invalid border colour                            | ✅ covered |
-| Angular           | Titles, custom icons                                               | puts titles on the buttons and the input, and takes custom button icons                          | ✅ covered |
-| Angular           | `inputId`, `ariaLabel`                                             | puts inputId, aria-label and aria-labelledby on the input                                        | ✅ covered |
-| Angular           | Wheel only while focused, `disableWheel`                           | steps with the wheel only while focused, and not with disableWheel                               | ✅ covered |
-| Angular           | Starts from the limit after clearing a value at the maximum        | starts from the limit when a value at the maximum is cleared                                     | ✅ covered |
-| Angular           | Euros in currency mode                                             | formats and parses euros in currency mode, with the sign after the field                         | ✅ covered |
-| Angular           | Read-only hides buttons, blocks changes                            | hides the buttons and blocks changes when read-only                                              | ✅ covered |
-| Angular           | Form `disable()`: input and buttons disabled                       | disables the input and both buttons                                                              | ✅ covered |
-| fundamental-react | Renders a `div`, data attribute                                    | renders a div and passes className, native props, the ref and the input ref through              | ✅ covered |
-| fundamental-react | `onChange` for numbers, not for other text, and the step buttons   | calls onValueChange for typed numbers, not for other text, and for the step buttons              | ✅ covered |
-| fundamental-react | `validationOverlayProps` (6 tests)                                 | —                                                                                                | ⬜ missing |
-| —                 | Live announcement, `onValueCommitted`, form submission             | announces stepped values with the unit; calls onValueCommitted …; works uncontrolled and submits | ✅ covered |
-| —                 | Focus frame, fraction digits, grouping, `hasStepButtons`, required | shows the focus frame …; formats with the fraction digits …; hides the buttons …; marks required | ✅ covered |
+| Source            | Behaviour                                                                              | React test                                                                                       | Status     |
+| ----------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------- |
+| Angular           | Spin button with value and limits                                                      | is a spin button with the value and its limits                                                   | ✅ covered |
+| Angular           | Buttons step, disabled at the limits, focus stays in the input                         | steps with the buttons and disables them at the limits                                           | ✅ covered |
+| Angular           | Arrows, Home, End                                                                      | steps with the keyboard                                                                          | ✅ covered |
+| Angular           | Decimal steps without floating point noise                                             | adds decimal steps without floating point noise                                                  | ✅ covered |
+| Angular           | Parses locale text, limits it, ignores invalid text, clears                            | parses typed text in the locale, limits it, and formats it on blur                               | ✅ covered |
+| Angular           | Empty value starts at the minimum                                                      | starts an empty value at the minimum going up, and at the maximum going down                     | ✅ covered |
+| Angular           | Repeats while a button is held                                                         | repeats while a button is held                                                                   | ✅ covered |
+| Angular           | Unit describes the input; touched on blur                                              | describes the input with the unit and is marked touched on blur in a Base UI Field               | ✅ covered |
+| Angular           | `onFocusIn`, `onFocusOut`                                                              | calls onFocus and onBlur of the root (Angular onFocusIn and onFocusOut)                          | ✅ covered |
+| Angular           | Writes only null or numbers                                                            | ignores values that are not numbers                                                              | ✅ covered |
+| Angular           | Enter and Space on the buttons                                                         | steps with Enter and Space on the buttons                                                        | ✅ covered |
+| Angular           | Custom step, Page Up, Page Down                                                        | steps by a custom step, and by ten steps with Page Up and Page Down; steps from typed text …     | ✅ covered |
+| Angular           | Smaller in compact density                                                             | is smaller in compact density                                                                    | ✅ covered |
+| Angular           | Error state: `aria-invalid`, invalid border colour                                     | shows the error state with aria-invalid and the invalid border colour                            | ✅ covered |
+| Angular           | Titles, custom icons                                                                   | puts titles on the buttons and the input, and takes custom button icons                          | ✅ covered |
+| Angular           | `inputId`, `ariaLabel`                                                                 | puts inputId, aria-label and aria-labelledby on the input                                        | ✅ covered |
+| Angular           | Wheel only while focused, `disableWheel`                                               | steps with the wheel only while focused, and not with disableWheel                               | ✅ covered |
+| Angular           | Starts from the limit after clearing a value at the maximum                            | starts from the limit when a value at the maximum is cleared                                     | ✅ covered |
+| Angular           | Euros in currency mode                                                                 | formats and parses euros in currency mode, with the sign after the field                         | ✅ covered |
+| Angular           | Read-only hides buttons, blocks changes                                                | hides the buttons and blocks changes when read-only                                              | ✅ covered |
+| Angular           | Form `disable()`: input and buttons disabled                                           | disables the input and both buttons                                                              | ✅ covered |
+| fundamental-react | Renders a `div`, data attribute                                                        | renders a div and passes className, native props, the ref and the input ref through              | ✅ covered |
+| fundamental-react | `onChange` for numbers, not for other text, and the step buttons                       | calls onValueChange for typed numbers, not for other text, and for the step buttons              | ✅ covered |
+| fundamental-react | `validationOverlayProps`: `className`, `wrapperProps`                                  | spreads className and native props on the message group (className, wrapperProps)                | ✅ covered |
+| fundamental-react | `validationOverlayProps`: `formMessageProps`, `show`                                   | spreads props on the form message (formMessageProps) and shows it initially (show)               | ✅ covered |
+| fundamental-react | `validationOverlayProps`: `popperClassName`, `referenceClassName`, `innerRefClassName` | —                                                                                                | ➖ n/a     |
+| —                 | Message describes the input after its unit, stays open while stepping                  | describes the input after its unit, and stays open while stepping with the buttons               | ✅ covered |
+| —                 | Live announcement, `onValueCommitted`, form submission                                 | announces stepped values with the unit; calls onValueCommitted …; works uncontrolled and submits | ✅ covered |
+| —                 | Focus frame, fraction digits, grouping, `hasStepButtons`, required                     | shows the focus frame …; formats with the fraction digits …; hides the buttons …; marks required | ✅ covered |
 
-The `validationOverlayProps` tests and the state messages wait for the form component (form message, input message
-group).
+fundamental-react's `popperClassName`, `referenceClassName` and `innerRefClassName` have no Popper elements to go to
+(n/a), as in input-group.
 
 ### Visual comparison
 

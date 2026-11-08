@@ -3,10 +3,23 @@ import { createRef, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { FormInputMessageGroup } from '@/ui/form/form-input-message-group';
+import { FormMessage } from '@/ui/form/form-message';
 import { Icon } from '@/ui/icon/icon';
 import { StepInput, type StepInputProps } from './step-input';
 
 const wait = (ms = 50) => new Promise((resolve) => setTimeout(resolve, ms));
+const frame = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+const settle = async () => {
+    await frame();
+    await wait();
+    await frame();
+};
+/** Value state messages whose popover is shown. */
+const openMessages = () =>
+    [...document.querySelectorAll<HTMLElement>('[data-slot="form-message"]')].filter(
+        (m) => m.checkVisibility() && m.getBoundingClientRect().height > 0
+    );
 
 /** A step input with a value held by its host, echoed in `#echo`. */
 function Host({ initial = 5, ...props }: Partial<StepInputProps> & { initial?: number | null }) {
@@ -484,5 +497,81 @@ describe('StepInput (fundamental-react)', () => {
         await userEvent.click(screen.container.querySelector('button[aria-label="Step Down"]')!);
         expect(onValueChange).toHaveBeenLastCalledWith(4, expect.anything());
         expect(onValueChange).toHaveBeenCalledTimes(3);
+    });
+
+    // fundamental-react's validationState and validationOverlayProps: a FormInputMessageGroup with a FormMessage
+    describe('value state message (validationOverlayProps)', () => {
+        it('spreads className and native props on the message group (className, wrapperProps)', async () => {
+            const ref = createRef<HTMLDivElement>();
+            const screen = await render(
+                <FormInputMessageGroup ref={ref} className="wonderful-styles" data-sample="Sample">
+                    <StepInput aria-label="Amount" state="error" />
+                    <FormMessage type="error">Test validation state</FormMessage>
+                </FormInputMessageGroup>
+            );
+            expect(ref.current!.classList).toContain('wonderful-styles');
+            expect(ref.current!.getAttribute('data-sample')).toBe('Sample');
+            expect(ref.current!.contains(screen.container.querySelector('input[role=spinbutton]'))).toBe(true);
+            // hidden until the input has the focus
+            await settle();
+            expect(openMessages()).toEqual([]);
+        });
+
+        it('spreads props on the form message (formMessageProps) and shows it initially (show)', async () => {
+            await render(
+                <FormInputMessageGroup defaultOpen>
+                    <StepInput aria-label="Amount" state="error" />
+                    <FormMessage type="error" data-sample="Sample" className="wonderful-styles">
+                        Test validation state
+                    </FormMessage>
+                </FormInputMessageGroup>
+            );
+            await settle();
+            const [message] = openMessages();
+            expect(message.textContent).toContain('Test validation state');
+            expect(message.getAttribute('data-sample')).toBe('Sample');
+            expect(message.classList).toContain('wonderful-styles');
+        });
+
+        it('describes the input after its unit, and stays open while stepping with the buttons', async () => {
+            const screen = await render(
+                <div>
+                    <FormInputMessageGroup>
+                        <StepInput inputId="weight" aria-label="Weight" unit="kg" state="error" defaultValue={5} />
+                        <FormMessage type="error">Too heavy.</FormMessage>
+                    </FormInputMessageGroup>
+                    <button type="button" id="after">
+                        After
+                    </button>
+                </div>
+            );
+            const input = screen.container.querySelector<HTMLInputElement>('#weight')!;
+            const message = document.querySelector<HTMLElement>('[data-slot="form-message"]')!;
+            const [unit, described] = input.getAttribute('aria-describedby')!.split(' ');
+            expect(document.getElementById(unit)!.textContent).toBe('kg');
+            expect(described).toBe(message.id);
+            expect(input.getAttribute('aria-invalid')).toBe('true');
+            // Base UI's hidden number input is not described
+            const hidden = screen.container.querySelector<HTMLInputElement>('input[aria-hidden=true]')!;
+            expect(hidden.hasAttribute('aria-describedby')).toBe(false);
+
+            await userEvent.click(input);
+            await settle();
+            expect(openMessages()).toEqual([message]);
+            const field = input.parentElement!.getBoundingClientRect();
+            expect(message.getBoundingClientRect().top).toBeGreaterThanOrEqual(field.bottom - 1);
+            // the buttons keep the focus in the input: the message stays open, and the description survives re-renders
+            await userEvent.click(screen.container.querySelector('button[aria-label="Increase"]')!);
+            expect(input.value).toBe('6');
+            await settle();
+            expect(document.activeElement).toBe(input);
+            expect(openMessages()).toEqual([message]);
+            expect(input.getAttribute('aria-describedby')).toBe(`${unit} ${message.id}`);
+            // Tab skips the buttons (out of the tab order) and leaves the field: the message closes
+            await userEvent.tab();
+            expect(document.activeElement).toBe(screen.container.querySelector('#after'));
+            await settle();
+            expect(openMessages()).toEqual([]);
+        });
     });
 });
