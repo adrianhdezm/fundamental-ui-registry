@@ -625,7 +625,9 @@
     {
       "name": "timeline",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "80/80",
+      "notes": "no fundamental-styles timeline: the line and nodes compared by hand with fundamental-ngx's docs; the script checks the avatar, post text and More toggle"
     },
     {
       "name": "title",

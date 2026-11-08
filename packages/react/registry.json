@@ -1302,6 +1302,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "Posts in chronological order along a vertical or horizontal line, on one side or alternating on both sides, with loading placeholders.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "skeleton", "text"],
+      "files": [
+        {
+          "path": "registry/ui/timeline/timeline.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
