@@ -28,7 +28,10 @@ const openMessages = () =>
     );
 
 describe('InputGroup', () => {
-    afterEach(() => document.documentElement.removeAttribute('data-density'));
+    afterEach(() => {
+        document.documentElement.removeAttribute('data-density');
+        document.documentElement.removeAttribute('data-sap-theme');
+    });
 
     it('renders an input labelled by its label and described by the text addon', async () => {
         const screen = await render(
@@ -317,6 +320,53 @@ describe('InputGroup', () => {
         document.documentElement.removeAttribute('data-density');
         await screen.rerender(<InputGroup aria-label="Amount" addOnText="$" data-density="compact" />);
         expect(group.getBoundingClientRect().height).toBe(26);
+    });
+
+    it('compact inputs have the compact field padding at the edges of the group', async () => {
+        const screen = await render(
+            <>
+                <InputGroup aria-label="After" addOnText="$" />
+                <InputGroup aria-label="Before" addOnText="$" placement="before" />
+                <InputGroup>
+                    <InputGroupAddon>$</InputGroupAddon>
+                    <InputGroupInput aria-label="Between" />
+                    <InputGroupAddon>%</InputGroupAddon>
+                </InputGroup>
+            </>
+        );
+        const padding = (label: string) => {
+            const style = getComputedStyle(screen.container.querySelector(`input[aria-label="${label}"]`)!);
+            return [style.paddingInlineStart, style.paddingInlineEnd];
+        };
+        // cozy: 0.625rem at the edges of the group, 0.25rem next to an addon
+        expect(padding('After')).toEqual(['10px', '4px']);
+        expect(padding('Before')).toEqual(['4px', '10px']);
+        expect(padding('Between')).toEqual(['4px', '4px']);
+        // compact: fundamental-styles' compact field padding (0.5rem) everywhere
+        document.documentElement.setAttribute('data-density', 'compact');
+        expect(padding('After')).toEqual(['8px', '8px']);
+        expect(padding('Before')).toEqual(['8px', '8px']);
+        expect(padding('Between')).toEqual(['8px', '8px']);
+    });
+
+    it('keeps an italic placeholder in every theme, high contrast included', async () => {
+        const screen = await render(
+            <>
+                <InputGroup aria-label="Generated" placeholder="Generated" addOnText="$" />
+                <InputGroup>
+                    <InputGroupInput aria-label="Projected" placeholder="Projected" />
+                </InputGroup>
+            </>
+        );
+        const styles = () =>
+            [...screen.container.querySelectorAll('input')].map(
+                (input) => getComputedStyle(input, '::placeholder').fontStyle
+            );
+        expect(styles()).toEqual(['italic', 'italic']);
+        for (const theme of ['sap_horizon_hcb', 'sap_horizon_hcw']) {
+            document.documentElement.setAttribute('data-sap-theme', theme);
+            expect(styles()).toEqual(['italic', 'italic']);
+        }
     });
 
     it('grows with a projected text area', async () => {

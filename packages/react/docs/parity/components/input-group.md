@@ -98,34 +98,42 @@ button).
 | —                 | States                                                               | states set aria-invalid only for errors and change the group colours                         | ✅ covered |
 | —                 | Focus frame, `showFocus`                                             | shows the focus frame while the input has the focus, unless showFocus is off                 | ✅ covered |
 | —                 | Read-only, inline, `onSearch`, compact, text area                    | read-only …; inline groups …; calls onSearch …; compact density …; grows with …              | ✅ covered |
+| —                 | Compact field padding at the edges of the group                      | compact inputs have the compact field padding at the edges of the group                      | ➕ extra   |
+| —                 | Italic placeholder in the HC themes                                  | keeps an italic placeholder in every theme, high contrast included                           | ➕ extra   |
 
 fundamental-react's `validationOverlayProps` tests are ported on a `FormInputMessageGroup` around the group (the
 form's own message group tests are in the form spec); the three that set classes on its Popper elements are n/a.
 
 ### Visual comparison
 
-`pnpm visual input-group`: 33 cases × 16 combinations, 528/528 matching after the fixes below. Cases, by pixels and computed style against fundamental-styles' Input Group
-stories (our story texts are theirs): groups with a text addon before (at rest and hovered), after and on both sides,
-the text addon and the input themselves (Text Add On); icon addons before and after (Input With Icons); text and icon
-button addons (group, button at rest and hovered), two icon buttons and a text button before (Input With Actions);
-success, error, warning and information groups at rest and hovered, the information button, disabled, read-only at
-rest and hovered (States); the focused group in each value state ("Focus: …" stories against Focus's `is-focus`).
+`pnpm visual input-group`: 33 cases × 16 combinations, 520/528 matching after the fixes below; the other 8 are the
+input's compact start padding, kept (below). Cases, by pixels and computed style against fundamental-styles' Input
+Group stories (our story texts are theirs): groups with a text addon before (at rest and hovered), after and on both
+sides, the text addon and the input themselves (Text Add On); icon addons before and after (Input With Icons); text
+and icon button addons (group, button at rest and hovered), two icon buttons and a text button before (Input With
+Actions); success, error, warning and information groups at rest and hovered, the information button, disabled,
+read-only at rest and hovered (States); the focused group in each value state ("Focus: …" stories against Focus's
+`is-focus`).
 
-| Difference                                                                                   | Cause                                                                                                                         | Resolution                                                                      |
-| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Groups 384px wide instead of the full width                                                  | The stories' `max-w-96` (Angular's)                                                                                           | Fixed in the stories: full width as fundamental-styles' (Playground keeps it).  |
-| `min-height` 36px/26px instead of none                                                       | `fieldBase`'s field minimum height; fundamental-styles' group has none                                                        | Fixed: `min-h-0` on the group (not visible).                                    |
-| Addon buttons 2px wider, 1px transparent border                                              | The button border stays; fundamental-styles' `.fd-input-group__button` has `border: none`                                     | Fixed: `[&_button]:border-0` in `INPUT_GROUP_BUTTON_VARS`.                      |
-| HC: addon buttons transparent instead of black/white, hover transparent instead of `#795100` | `INPUT_GROUP_BUTTON_VARS` sets the lite button backgrounds to transparent in every theme; fundamental-styles keeps them in HC | Fixed: those three variables only `not-hc:`.                                    |
-| Compact input end padding 4px instead of 8px                                                 | fundamental-styles' compact field padding (0.5rem) applies to the group input                                                 | Fixed: `compact:px-2` on the input (first/last child keep 0.625rem).            |
-| Input `min-height` 0 and no corner radius                                                    | fundamental-styles' input keeps the field's `min-height: 100%` and radius                                                     | Kept (ignored in the case): the input has no background or border; not visible. |
+| Difference                                                                                            | Cause                                                                                                                                                                                                                                                                   | Resolution                                                                      |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Groups 384px wide instead of the full width                                                           | The stories' `max-w-96` (Angular's)                                                                                                                                                                                                                                     | Fixed in the stories: full width as fundamental-styles' (Playground keeps it).  |
+| `min-height` 36px/26px instead of none                                                                | `fieldBase`'s field minimum height; fundamental-styles' group has none                                                                                                                                                                                                  | Fixed: `min-h-0` on the group (not visible).                                    |
+| Addon buttons 2px wider, 1px transparent border                                                       | The button border stays; fundamental-styles' `.fd-input-group__button` has `border: none`                                                                                                                                                                               | Fixed: `[&_button]:border-0` in `INPUT_GROUP_BUTTON_VARS`.                      |
+| HC: addon buttons transparent instead of black/white, hover transparent instead of `#795100`          | `INPUT_GROUP_BUTTON_VARS` sets the lite button backgrounds to transparent in every theme; fundamental-styles keeps them in HC                                                                                                                                           | Fixed: those three variables only `not-hc:`.                                    |
+| Compact input end padding 4px instead of 8px                                                          | fundamental-styles' compact field padding (0.5rem) applies to the group input                                                                                                                                                                                           | Fixed: `compact:px-2` on the input.                                             |
+| Input `min-height` 0 and no corner radius                                                             | fundamental-styles' input keeps the field's `min-height: 100%` and radius                                                                                                                                                                                               | Kept (ignored in the case): the input has no background or border; not visible. |
+| Compact: the first/last input kept 10px at the group's edge instead of 8px (found by the date picker) | `first:ps-2.5` and `last:pe-2.5` won over `compact:px-2`; fundamental-styles' date picker field and UI5's compact input have 0.5rem                                                                                                                                     | Fixed: `compact:first:ps-2 compact:last:pe-2` (`fix(input-group)`).             |
+| `input` case, compact (8 combinations): start padding 8px instead of 10px (0.3–0.4% pixels)           | fundamental-styles' `:nth-child(1)` rule and its compact field rule have the same specificity: its Input Group story loads the input group styles after the input's, so 0.625rem wins there; where the input's load later (Date Picker stories) the compact 0.5rem wins | Kept: the compact field padding, as the date picker reference and UI5.          |
+| HC: placeholder upright instead of italic (found by the date picker; the cases show values)           | `hc:placeholder:not-italic` (Angular's); fundamental-styles keeps `font-style: italic` in every theme                                                                                                                                                                   | Fixed: removed (`fix(input-group)`).                                            |
 
-Angular issues: Angular's addon buttons keep their 1px transparent border (text buttons 2px wider than
+Angular issues: Angular's group input has no compact field padding (0.25rem/0.625rem in compact) and an upright
+placeholder in HC; Angular's addon buttons keep their 1px transparent border (text buttons 2px wider than
 fundamental-styles') and lose the lite button backgrounds in the HC themes (transparent instead of black/white, no
 hover colour); a disabled group leaves a projected input enabled; the addon's `aria-describedby` id is kept when a
 projected addon replaces the generated one.
 
 Reviewed by eye in Horizon, cozy and compact, LTR and RTL: Text addon, Icon addon, Button addon, Projected parts,
 Text area, States, Open: states, Compact and Inline stories. The stories use the form components (`FormItem`,
-`FormLabel`, disabled labels for disabled groups) instead of story-local labels; the comparison is unchanged
-(528/528).
+`FormLabel`, disabled labels for disabled groups) instead of story-local labels; the comparison is unchanged by
+them.
