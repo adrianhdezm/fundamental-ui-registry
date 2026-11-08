@@ -825,6 +825,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tab bar with panels, counts, value states, icon-only, process and filter modes, a \"More\" menu for tabs that do not fit, and stacked content that follows the scrolling.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "menu", "overflow-layout", "scroll-spy"],
+      "files": [
+        {
+          "path": "registry/ui/tabs/tabs.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/tabs/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

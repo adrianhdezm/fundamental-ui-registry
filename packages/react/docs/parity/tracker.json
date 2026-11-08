@@ -550,7 +550,9 @@
       "phase": 1,
       "source": ["src/Tabs/__stories__/TabGroup.stories.js"],
       "sourceStories": 7,
-      "status": "todo"
+      "status": "done",
+      "visual": "440/448",
+      "notes": "kept: fundamental-styles' RTL start padding on the first filter tab (8)"
     },
     {
       "name": "text",
