@@ -164,7 +164,9 @@
     {
       "name": "feed-list",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "352/352",
+      "notes": "More/Less label not capitalised (fundamental-styles capitalises it), so custom labels show as written"
     },
     {
       "name": "file-uploader",

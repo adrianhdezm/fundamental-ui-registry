@@ -1422,6 +1422,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "feed-list",
+      "type": "registry:ui",
+      "title": "Feed List",
+      "description": "Posts and comments with an author, a collapsible or rich text, an avatar, actions and a footer of bylines, with a mobile layout.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "formatted-text", "link"],
+      "files": [
+        {
+          "path": "registry/ui/feed-list/feed-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
