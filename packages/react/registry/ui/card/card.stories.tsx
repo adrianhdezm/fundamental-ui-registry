@@ -5,6 +5,13 @@ import { Avatar } from '@/ui/avatar/avatar';
 import { BusyIndicator } from '@/ui/busy-indicator/busy-indicator';
 import { Button } from '@/ui/button/button';
 import { Calendar, type FdCalendarView } from '@/ui/calendar/calendar';
+import {
+    IllustratedMessage,
+    IllustratedMessageActions,
+    IllustratedMessageFigcaption,
+    IllustratedMessageText,
+    IllustratedMessageTitle
+} from '@/ui/illustrated-message/illustrated-message';
 import { Link } from '@/ui/link/link';
 import {
     List,
@@ -20,6 +27,7 @@ import {
 import { Menu, MenuAddon, MenuItem, MenuPopup, MenuTitle, MenuTrigger } from '@/ui/menu/menu';
 import { ObjectStatus } from '@/ui/object-status/object-status';
 import { Skeleton } from '@/ui/skeleton/skeleton';
+import { UNABLE_TO_LOAD } from '../../../docs/assets/illustrations';
 import {
     Card,
     CardContent,
@@ -746,13 +754,6 @@ export const ExtendedHeader: Story = {
 
 export const EmptyState: Story = {
     name: 'Empty state',
-    parameters: {
-        docs: {
-            description: {
-                story: 'The illustrated message is a plain stand-in (title, text, action) until the Illustrated Message component is ported.'
-            }
-        }
-    },
     render: () => (
         <Card className="w-96">
             <CardHeader>
@@ -763,17 +764,17 @@ export const EmptyState: Story = {
                 </CardMainHeader>
             </CardHeader>
             <CardContent>
-                <figure className="m-0 flex flex-col items-center gap-4 p-4 text-center">
-                    <figcaption className="flex flex-col gap-2">
-                        <h3 className="m-0 font-sap-font-header-family text-sap-font-header4-size text-sap-text-color">
-                            Unable to load data
-                        </h3>
-                        <p className="m-0 text-sap-font-size text-sap-text-color">
+                <IllustratedMessage type="dialog" svgConfig={UNABLE_TO_LOAD} svgAriaLabel="Unable to load data">
+                    <IllustratedMessageFigcaption>
+                        <IllustratedMessageTitle>Unable to load data</IllustratedMessageTitle>
+                        <IllustratedMessageText>
                             Try reloading. If that still doesn&apos;t help, check with your administrator.
-                        </p>
-                    </figcaption>
-                    <Button label="Reload" />
-                </figure>
+                        </IllustratedMessageText>
+                    </IllustratedMessageFigcaption>
+                    <IllustratedMessageActions>
+                        <Button label="Reload" />
+                    </IllustratedMessageActions>
+                </IllustratedMessage>
             </CardContent>
         </Card>
     )
