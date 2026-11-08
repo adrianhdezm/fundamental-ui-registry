@@ -59,6 +59,7 @@ axe rejects `aria-selected` on a plain button. Angular sets it always; its segme
 | Angular           | Semantic descriptions, custom and external descriptions | semantic variants announce their meaning through the hidden description                                    | ✅ covered |
 | Angular           | Badge content, attention, compact placement             | badge (ButtonBadge or the badge prop) shows content and attention style                                    | ✅ covered |
 | Angular           | Compact density                                         | compact density shrinks height via data-density                                                            | ✅ covered |
+| —                 | Decisive minimum width in cozy and compact density      | decisive buttons are at least 4rem wide in cozy and compact density                                        | ➕ extra   |
 | Angular           | Focus on click                                          | focuses the button on click                                                                                | ✅ covered |
 | fundamental-react | Prop spreading, className, ref                          | passes className, native props and the ref to the button                                                   | ✅ covered |
 | fundamental-react | Spreading className to the text, props to the icon      | —                                                                                                          | ➖ n/a     |
@@ -71,12 +72,14 @@ props; pass children instead.
 
 ### Visual comparison
 
-`pnpm visual button`: 16 cases × 16 combinations, 256/256 matching. Cases: default, emphasized, transparent, ghost,
-positive, negative and attention at rest; default and emphasized on hover; toggled; disabled; icon-only standard and
-emphasized; icon-only menu button; badge and attention badge (styles only: the numbers differ).
+`pnpm visual button`: 16 cases × 16 combinations, 256/256 matching (also after `fix(button)`; no case is decisive, the
+date picker's today button compares it). Cases: default, emphasized, transparent, ghost, positive, negative and
+attention at rest; default and emphasized on hover; toggled; disabled; icon-only standard and emphasized; icon-only
+menu button; badge and attention badge (styles only: the numbers differ).
 
-| Difference                                        | Cause                                                   | Resolution                                  |
-| ------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------- |
-| Icon-only menu button 6px narrower (52px vs 58px) | The arrow icon was as wide as its glyph (10px), not 1em | Fixed in the icon (`fix(icon)`): a 1em box. |
+| Difference                                                                                    | Cause                                                                                                               | Resolution                                                                                        |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Icon-only menu button 6px narrower (52px vs 58px)                                             | The arrow icon was as wide as its glyph (10px), not 1em                                                             | Fixed in the icon (`fix(icon)`): a 1em box.                                                       |
+| Compact decisive button narrower than 4rem (found by the date picker's today button: 53–57px) | `decisive`'s `min-w-16` lost to the compact minimum `compact:min-w-8`; fundamental-styles' footer buttons keep 4rem | Fixed: `decisive` also sets `compact:min-w-16` (`fix(button)`). Angular issue (the same classes). |
 
 Reviewed by eye in Horizon, cozy and compact, LTR and RTL: Badge and Menu stories.

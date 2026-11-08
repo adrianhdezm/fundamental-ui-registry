@@ -385,6 +385,22 @@ describe('Button', () => {
         button().parentElement!.removeAttribute('data-density');
     });
 
+    it('decisive buttons are at least 4rem wide in cozy and compact density', async () => {
+        const screen = await render(
+            <>
+                <Button label="OK" />
+                <Button label="OK" decisive />
+            </>
+        );
+        const [plain, decisive] = [...screen.container.querySelectorAll('button')];
+        const minWidth = (el: Element) => getComputedStyle(el).minWidth;
+        expect([minWidth(plain), minWidth(decisive)]).toEqual(['36px', '64px']);
+        expect(decisive.getBoundingClientRect().width).toBe(64);
+        document.documentElement.setAttribute('data-density', 'compact');
+        expect([minWidth(plain), minWidth(decisive)]).toEqual(['32px', '64px']);
+        expect(decisive.getBoundingClientRect().width).toBe(64);
+    });
+
     it('focuses the button on click', async () => {
         const { button } = await setup();
         button().addEventListener('mousedown', (event) => event.preventDefault());
