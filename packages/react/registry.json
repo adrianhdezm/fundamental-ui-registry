@@ -959,6 +959,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "user-menu",
+      "type": "registry:ui",
+      "title": "User Menu",
+      "description": "The signed-in user's name, details and actions in a popover opened from an avatar, with submenus and a full-screen mobile mode.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "icon", "popover", "title"],
+      "files": [
+        {
+          "path": "registry/ui/user-menu/user-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
