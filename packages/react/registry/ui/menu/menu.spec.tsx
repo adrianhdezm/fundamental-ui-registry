@@ -105,7 +105,8 @@ describe('Menu', () => {
         await userEvent.keyboard('{Escape}');
         await settle();
         expect(trigger().getAttribute('aria-expanded')).toBe('false');
-        expect(document.activeElement).toBe(trigger());
+        // Base UI returns the focus once the menu has finished closing
+        await expect.poll(() => document.activeElement).toBe(trigger());
     });
 
     it('opens a submenu with ArrowRight and returns with ArrowLeft', async () => {
@@ -506,7 +507,8 @@ describe('Menu options', () => {
         await userEvent.keyboard('{Escape}');
         await settle();
         expect(trigger().getAttribute('aria-expanded')).toBe('false');
-        expect(document.activeElement).toBe(trigger());
+        // Base UI returns the focus once the menu has finished closing
+        await expect.poll(() => document.activeElement).toBe(trigger());
     });
 
     it('mobile mode opens a dialog with the mobileConfig title and buttons', async () => {

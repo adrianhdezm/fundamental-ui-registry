@@ -323,6 +323,7 @@ describe('ActionBar', () => {
         await expect.poll(() => document.activeElement!.textContent!.trim()).toBe('Edit');
         await userEvent.keyboard('{Escape}');
         await expect.poll(() => more.getAttribute('aria-expanded')).toBe('false');
-        expect(document.activeElement).toBe(more);
+        // Base UI returns the focus once the menu has finished closing
+        await expect.poll(() => document.activeElement).toBe(more);
     });
 });
