@@ -374,7 +374,9 @@
     {
       "name": "object-number",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "344/400",
+      "notes": "kept: RTL negative numbers keep the leading minus (bdi, as Angular; 56)"
     },
     {
       "name": "object-status",

@@ -1001,6 +1001,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "object-number",
+      "type": "registry:ui",
+      "title": "Object Number",
+      "description": "A number formatted for the locale with its unit, coloured by value state, optionally emphasized, large, an inverted badge or an interactive button.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/object-number/object-number.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
