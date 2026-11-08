@@ -177,7 +177,9 @@
     {
       "name": "flexible-column-layout",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "148/176",
+      "notes": "kept: fundamental-styles does not mirror the separator arrows (24) or the start column border (4) in RTL"
     },
     {
       "name": "form",

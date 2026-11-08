@@ -1362,6 +1362,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "flexible-column-layout",
+      "type": "registry:ui",
+      "title": "Flexible Column Layout",
+      "description": "Up to three columns (list, detail, detail of the detail) whose widths follow the layout, with separator buttons that expand or collapse them and fewer columns on narrow widths.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button"],
+      "files": [
+        {
+          "path": "registry/ui/flexible-column-layout/flexible-column-layout.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/flexible-column-layout/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
