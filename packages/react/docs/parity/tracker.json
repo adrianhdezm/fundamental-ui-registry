@@ -124,7 +124,9 @@
     {
       "name": "datetime-picker",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "228/256",
+      "notes": "kept: `date-time` glyph vs the reference's `appointment-2` (12), the open reference calendar's HC shadow on the field (16); references are fundamental-styles' date picker pattern and Mobile Portrait"
     },
     {
       "name": "dialog",

@@ -1239,6 +1239,37 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "datetime-picker",
+      "type": "registry:ui",
+      "title": "Datetime Picker",
+      "description": "Date and time field with a button that opens a calendar and time columns in a popover (or a dialog on mobile), applied with OK or at once, with typed values, validation and value states.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "datetime",
+        "bar",
+        "button",
+        "calendar",
+        "dialog",
+        "form",
+        "input-group",
+        "popover",
+        "segmented-button",
+        "time"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/datetime-picker/datetime-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/datetime-picker/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
