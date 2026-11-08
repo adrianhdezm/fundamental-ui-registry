@@ -211,6 +211,8 @@ describe('ObjectNumber', () => {
     it('underlines an interactive number, but not on hover or an inverted one', async () => {
         const { root, number, update } = await setup();
         const line = () => getComputedStyle(number().parentElement!).textDecorationLine;
+        // The pointer may still rest where an earlier test left it, over the number: move it away first.
+        await userEvent.hover(root.querySelector<HTMLElement>('#plain')!);
         expect(line()).toBe('none');
         await update({ interactive: true });
         expect(line()).toBe('underline');
