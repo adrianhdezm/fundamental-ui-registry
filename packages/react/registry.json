@@ -619,6 +619,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A field that opens a list of options, with value state messages, keyboard selection and typeahead, and a mobile dialog mode, on Base UI's Select.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "icon", "input", "list", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/select/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

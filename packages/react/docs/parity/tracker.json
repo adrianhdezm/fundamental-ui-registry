@@ -467,7 +467,9 @@
       "phase": 1,
       "source": ["src/Select/__stories__/Select.stories.js"],
       "sourceStories": 8,
-      "status": "todo"
+      "status": "done",
+      "visual": "492/496",
+      "notes": "kept: one pixel column of the item icon outside the option (4 cases, Horizon/Dark LTR)"
     },
     {
       "name": "settings",
