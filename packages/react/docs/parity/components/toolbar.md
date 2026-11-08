@@ -65,19 +65,19 @@ container of their own, and the toolbar moves that container between the item's 
 
 ### Stories vs. sources
 
-| Source  | Example                        | React story            | Status     | Notes                                                                                                                  |
-| ------- | ------------------------------ | ---------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Angular | Playground                     | `Playground`           | ✅ covered | Resizable frame, transparent overflow buttons.                                                                         |
-| Angular | Types                          | `Types`                | ✅ covered | With the contents of fundamental-styles' Types (solid, transparent, auto, clear, info, active info, title).            |
-| Angular | Title, spacer and separator    | `TitleSpacerSeparator` | ✅ covered |                                                                                                                        |
-| Angular | Overflow priorities and groups | `Overflow`             | ✅ covered | The form controls are an `Input` and a `Checkbox` in `ToolbarItem`s.                                                   |
-| Angular | Title variants                 | `TitleVariants`        | ✅ covered | The projected title is a `Title` child.                                                                                |
-| Angular | Overflow with overlays         | `OverflowOverlays`     | ✅ covered | Split button: a menu button stand-in until the split button is ported. Date picker, select, menu and segmented button. |
-| Angular | Open: overflow                 | `OpenOverflow`         | ✅ covered |                                                                                                                        |
-| Angular | Open: overflow with overlays   | `OpenOverflowOverlays` | ✅ covered |                                                                                                                        |
-| —       | —                              | `Alignment`            | ➕ added   | fundamental-styles' Alignment and Separators stories.                                                                  |
-| —       | —                              | `OverflowPopover`      | ➕ added   | fundamental-styles' Overflow story: buttons, labels and separators that always overflow.                               |
-| —       | —                              | `OpenOverflowPopover`  | ➕ added   | The same, open, for the visual comparison of the panel.                                                                |
+| Source  | Example                        | React story            | Status     | Notes                                                                                                       |
+| ------- | ------------------------------ | ---------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
+| Angular | Playground                     | `Playground`           | ✅ covered | Resizable frame, transparent overflow buttons.                                                              |
+| Angular | Types                          | `Types`                | ✅ covered | With the contents of fundamental-styles' Types (solid, transparent, auto, clear, info, active info, title). |
+| Angular | Title, spacer and separator    | `TitleSpacerSeparator` | ✅ covered |                                                                                                             |
+| Angular | Overflow priorities and groups | `Overflow`             | ✅ covered | The form controls are an `Input` and a `Checkbox` in `ToolbarItem`s.                                        |
+| Angular | Title variants                 | `TitleVariants`        | ✅ covered | The projected title is a `Title` child.                                                                     |
+| Angular | Overflow with overlays         | `OverflowOverlays`     | ✅ covered | Split button, date picker, select, menu and segmented button.                                               |
+| Angular | Open: overflow                 | `OpenOverflow`         | ✅ covered |                                                                                                             |
+| Angular | Open: overflow with overlays   | `OpenOverflowOverlays` | ✅ covered |                                                                                                             |
+| —       | —                              | `Alignment`            | ➕ added   | fundamental-styles' Alignment and Separators stories.                                                       |
+| —       | —                              | `OverflowPopover`      | ➕ added   | fundamental-styles' Overflow story: buttons, labels and separators that always overflow.                    |
+| —       | —                              | `OpenOverflowPopover`  | ➕ added   | The same, open, for the visual comparison of the panel.                                                     |
 
 ### Tests vs. sources
 
@@ -115,7 +115,9 @@ wide as their container, which differs); the title heading, a label, the label o
 of the info toolbars, the separator, the flexible and the fixed spacer, a button in a toolbar and the "More" button;
 and, in the open overflow popover (`Open: overflow popover`, with the contents of fundamental-styles' Overflow
 story), the panel, an overflow button at rest and on hover, a separator and a label. Cozy and compact, LTR and RTL in
-Horizon were also checked by eye (Types, Title variants, the open overflow popovers).
+Horizon were also checked by eye (Types, Title variants, the open overflow popovers). Re-run when the split button
+replaced the menu button stand-in of `Overflow with overlays`: unchanged, 360/384 (no case uses that story; its open
+popover was checked by eye: the split button stretches to the panel width with the arrow at the end).
 
 Fixed while comparing: the label of an info toolbar takes the bar's text colour, the icons of an active info toolbar
 keep `--sapList_TextColor`, and the focus frame of an active info toolbar is inset by 1px (see the differences from

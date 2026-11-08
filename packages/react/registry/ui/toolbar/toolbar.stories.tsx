@@ -10,6 +10,7 @@ import { Input } from '@/ui/input/input';
 import { Menu, MenuItem, MenuPopup, MenuTrigger } from '@/ui/menu/menu';
 import { SegmentedButton, SegmentedButtonItem } from '@/ui/segmented-button/segmented-button';
 import { Select, SelectOption } from '@/ui/select/select';
+import { SplitButton } from '@/ui/split-button/split-button';
 import { Title } from '@/ui/title/title';
 import { Toolbar, ToolbarItem, ToolbarLabel, ToolbarOverflowButton, ToolbarSeparator, ToolbarSpacer } from './toolbar';
 
@@ -365,9 +366,8 @@ export const OverflowOverlays: Story = {
         docs: {
             description: {
                 story:
-                    'Overlay controls keep working in the overflow popover: a date picker, a select, a menu button ' +
-                    'and a segmented button, plus a fixed spacer. The split button is a menu button until the split ' +
-                    'button is ported.'
+                    'Overlay controls keep working in the overflow popover: a date picker, a select, a split button, ' +
+                    'a menu button and a segmented button, plus a fixed spacer.'
             }
         }
     },
@@ -392,13 +392,10 @@ export const OverflowOverlays: Story = {
                     <Checkbox label="Option 1" />
                 </ToolbarItem>
                 <ToolbarItem>
-                    <Menu>
-                        <MenuTrigger render={<Button menu label="Split button" />} />
-                        <MenuPopup aria-label="Split button">
-                            <MenuItem>Option 1</MenuItem>
-                            <MenuItem>Option 2</MenuItem>
-                        </MenuPopup>
-                    </Menu>
+                    <SplitButton aria-label="Split button">
+                        <MenuItem>Option 1</MenuItem>
+                        <MenuItem>Option 2</MenuItem>
+                    </SplitButton>
                 </ToolbarItem>
                 <ToolbarLabel render={<FormLabel htmlFor="story-toolbar-input" />}>Default input</ToolbarLabel>
                 <ToolbarItem>
