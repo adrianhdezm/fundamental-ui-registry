@@ -1,9 +1,10 @@
-import { createRef, useState } from 'react';
+import { createRef, useState, type ReactNode } from 'react';
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Checkbox } from '@/ui/checkbox/checkbox';
 import { Input } from '@/ui/input/input';
+import type { Placement } from '@/ui/popover/popover';
 import { Radio, RadioGroup } from '@/ui/radio/radio';
 import { FormFieldset, FormGroup, FormGroupHeader, FormHeader, FormItem, FormLabel, FormLegend } from './form';
 import { FormInputMessageGroup, type FormInputMessageGroupProps } from './form-input-message-group';
@@ -16,7 +17,7 @@ const settle = async () => {
     await frame();
 };
 const $ = <E extends HTMLElement = HTMLElement>(selector: string) => document.querySelector<E>(selector)!;
-const labelText = (label: HTMLElement) => label.querySelector<HTMLElement>(':scope > span')!;
+const labelText = (label: HTMLElement) => label.querySelector<HTMLElement>(':scope > [data-slot=form-label-text]')!;
 const middle = (r: DOMRect) => r.top + r.height / 2;
 /** Messages whose popover is shown. */
 const openMessages = () =>
@@ -65,6 +66,40 @@ function Labels() {
                     End
                 </FormLabel>
             </div>
+        </div>
+    );
+}
+
+function HelpLabel({
+    content = 'Country code and digits',
+    placement,
+    label,
+    bodyPlacement,
+    triggers,
+    horizontal = false
+}: {
+    content?: ReactNode;
+    placement?: 'before' | 'after';
+    label?: string;
+    bodyPlacement?: Placement;
+    triggers?: string[];
+    horizontal?: boolean;
+}) {
+    return (
+        <div style={{ padding: 100, width: 400 }}>
+            <FormItem horizontal={horizontal}>
+                <FormLabel
+                    htmlFor="vat"
+                    inlineHelpContent={content}
+                    inlineHelpPlacement={placement}
+                    inlineHelpLabel={label}
+                    inlineHelpBodyPlacement={bodyPlacement}
+                    inlineHelpTriggers={triggers}
+                >
+                    VAT
+                </FormLabel>
+                <Input id="vat" />
+            </FormItem>
         </div>
     );
 }
@@ -197,6 +232,99 @@ describe('Form', () => {
                 parseFloat(getComputedStyle(required, '::after').right)
             );
             // the markers are not part of the accessible name
+        });
+
+        it('inline help adds a focusable help icon that opens the help text', async () => {
+            const screen = await render(<HelpLabel />);
+            const label = $('label[for=vat]');
+            const icon = label.querySelector<HTMLElement>('[data-slot=inline-help]')!;
+            expect(icon.getAttribute('tabindex')).toBe('0');
+            expect(icon.getAttribute('aria-label')).toBe('Country code and digits');
+            expect(icon.getAttribute('data-glyph')).not.toBeNull();
+            expect(icon.previousElementSibling).toBe(labelText(label));
+            // the help describes the icon; the hidden copy adds nothing to the label's text
+            expect(document.getElementById(icon.getAttribute('aria-describedby')!)!.textContent).toBe(
+                'Country code and digits'
+            );
+            await expect
+                .element(page.getByRole('textbox', { name: 'VAT Country code and digits' }))
+                .toBeInTheDocument();
+            icon.focus();
+            await settle();
+            expect(document.querySelector('[role=tooltip]')!.textContent).toContain('Country code and digits');
+            // below the icon by default
+            expect(document.querySelector('[role=tooltip]')!.getBoundingClientRect().top).toBeGreaterThan(
+                icon.getBoundingClientRect().bottom
+            );
+            icon.blur();
+            await screen.rerender(<HelpLabel placement="before" />);
+            await settle();
+            expect(label.firstElementChild!.getAttribute('data-slot')).toBe('inline-help');
+            // the icon sits 0.25rem from the text, on its side
+            expect(getComputedStyle(label.firstElementChild!).marginInlineEnd).toBe('4px');
+        });
+
+        it('a click on the help icon toggles the help and leaves the field alone', async () => {
+            await render(<HelpLabel />);
+            const icon = $('label[for=vat] [data-slot=inline-help]');
+            const open = () => document.querySelector('[role=tooltip]') !== null;
+            await userEvent.hover(icon);
+            await settle();
+            expect(open()).toBe(true);
+            // the pointer is on the icon: a click closes the help, the next opens it again
+            await userEvent.click(icon);
+            await settle();
+            await new Promise((r) => setTimeout(r, 150));
+            expect(open()).toBe(false);
+            expect(document.activeElement).toBe(icon);
+            await userEvent.click(icon);
+            await settle();
+            expect(open()).toBe(true);
+            expect(document.activeElement).toBe(icon);
+            // the label text still focuses the field
+            await userEvent.click(labelText($('label[for=vat]')));
+            expect(document.activeElement).toBe($('#vat'));
+        });
+
+        it('inlineHelpLabel names the icon, inlineHelpBodyPlacement and inlineHelpTriggers configure the help', async () => {
+            await render(
+                <HelpLabel
+                    content={
+                        <span>
+                            Rich <b>help</b>
+                        </span>
+                    }
+                    label="More about VAT"
+                    bodyPlacement="right"
+                    triggers={['click']}
+                />
+            );
+            const icon = $('label[for=vat] [data-slot=inline-help]');
+            expect(icon.getAttribute('aria-label')).toBe('More about VAT');
+            icon.focus();
+            await settle();
+            expect(document.querySelector('[role=tooltip]')).toBeNull();
+            await userEvent.click(icon);
+            await settle();
+            const tooltip = document.querySelector<HTMLElement>('[role=tooltip]')!;
+            expect(tooltip.querySelector('b')!.textContent).toBe('help');
+            expect(tooltip.getBoundingClientRect().left).toBeGreaterThanOrEqual(icon.getBoundingClientRect().right);
+        });
+
+        it('rich inline help without inlineHelpLabel names the icon "Help"; no content, no icon', async () => {
+            const screen = await render(<HelpLabel content={<b>Rich</b>} />);
+            expect($('label[for=vat] [data-slot=inline-help]').getAttribute('aria-label')).toBe('Help');
+            await screen.rerender(<HelpLabel content={null} />);
+            expect(document.querySelector('[data-slot=inline-help]')).toBeNull();
+        });
+
+        it('in a horizontal item the help icon keeps its own spacing', async () => {
+            await render(<HelpLabel horizontal />);
+            const label = $('label[for=vat]');
+            const icon = label.querySelector<HTMLElement>('[data-slot=inline-help]')!;
+            expect(getComputedStyle(icon).marginInlineStart).toBe('4px');
+            expect(getComputedStyle(icon).marginInlineEnd).toBe('0px');
+            expect(getComputedStyle(labelText(label)).marginInlineEnd).toBe('4px');
         });
 
         it('a disabled label is dimmed', async () => {

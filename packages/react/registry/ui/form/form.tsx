@@ -6,8 +6,19 @@
  */
 import { Fieldset as BaseFieldset } from '@base-ui/react/fieldset';
 import { useRender } from '@base-ui/react/use-render';
-import { createContext, use, useId, type ComponentProps } from 'react';
+import { createContext, use, useId, type ComponentProps, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { InlineHelp } from '@/ui/inline-help/inline-help';
+import type { Placement, TriggerConfig } from '@/ui/popover/popover';
+
+/** Hover and focus show the label's help, and a click toggles it. */
+const INLINE_HELP_TRIGGERS: readonly (string | TriggerConfig)[] = [
+    'mouseenter',
+    'mouseleave',
+    'focusin',
+    'focusout',
+    { trigger: 'click', openAction: true, closeAction: true }
+];
 
 export interface FormLabelProps extends ComponentProps<'label'> {
     /** Shows the required asterisk (empty alternative text: the field itself is `required`). */
@@ -24,15 +35,27 @@ export interface FormLabelProps extends ComponentProps<'label'> {
     unitDescription?: boolean;
     /** A label not attached to a field, centred vertically. */
     independent?: boolean;
+    /** Help text or content shown by an inline help icon next to the text. */
+    inlineHelpContent?: ReactNode;
+    /** The inline help icon before or after the label text (default `after`). */
+    inlineHelpPlacement?: 'before' | 'after';
+    /** Placement of the help body relative to the icon (default `bottom`). */
+    inlineHelpBodyPlacement?: Placement;
+    /** Events on the icon that show and hide the help (default: hover and focus, and a click toggles). */
+    inlineHelpTriggers?: readonly (string | TriggerConfig)[];
+    /** Accessible name of the inline help icon; defaults to the help text when it is a string. */
+    inlineHelpLabel?: string;
 }
 
 /**
- * Label of a form field, with required and colon markers. Connect it to the field with `htmlFor` (Angular's `for`)
- * and the field's `id`; it gets a generated `id` for `aria-labelledby` when none is given.
+ * Label of a form field, with required and colon markers and an optional inline help icon. Connect it to the field
+ * with `htmlFor` (Angular's `for`) and the field's `id`; it gets a generated `id` for `aria-labelledby` when none is
+ * given.
  *
  * ```tsx
  * <FormLabel htmlFor="name" required colon>Name</FormLabel>
  * <Input id="name" required />
+ * <FormLabel htmlFor="vat" inlineHelpContent="Country code and 9-12 digits">VAT number</FormLabel>
  * ```
  */
 export function FormLabel({
@@ -43,12 +66,29 @@ export function FormLabel({
     disabled = false,
     unitDescription = false,
     independent = false,
+    inlineHelpContent,
+    inlineHelpPlacement = 'after',
+    inlineHelpBodyPlacement = 'bottom',
+    inlineHelpTriggers = INLINE_HELP_TRIGGERS,
+    inlineHelpLabel,
     id: idProp,
     className,
     children,
     ...props
 }: FormLabelProps) {
     const autoId = useId();
+    const helpLabel = inlineHelpLabel ?? (typeof inlineHelpContent === 'string' ? inlineHelpContent : undefined);
+    const help = inlineHelpContent != null && inlineHelpContent !== false && inlineHelpContent !== '' && (
+        <InlineHelp
+            content={inlineHelpContent}
+            placement={inlineHelpBodyPlacement}
+            triggers={inlineHelpTriggers}
+            {...(helpLabel ? { 'aria-label': helpLabel } : {})}
+            className={cn('relative top-0.5', inlineHelpPlacement === 'before' ? 'me-1' : 'ms-1')}
+            // the icon is a control of its own: a click on it does not move focus to the labelled field
+            onClick={(event) => event.preventDefault()}
+        />
+    );
     return (
         <label
             {...props}
@@ -56,7 +96,9 @@ export function FormLabel({
             data-slot="form-label"
             className={cn('relative flex pb-0.5', alignLabelEnd && 'justify-end', className)}
         >
+            {inlineHelpPlacement === 'before' && help}
             <span
+                data-slot="form-label-text"
                 aria-disabled={disabled || undefined}
                 className={cn(
                     'relative m-0 -mb-0.5 inline-block w-fit max-w-full truncate p-0 me-2 self-start cursor-text',
@@ -74,6 +116,7 @@ export function FormLabel({
             >
                 {children}
             </span>
+            {inlineHelpPlacement === 'after' && help}
         </label>
     );
 }
@@ -104,7 +147,7 @@ export function FormItem({ isInline = false, horizontal = false, className, ...p
                 'relative m-0 box-border flex flex-1 flex-col p-0',
                 '[&>[data-slot=form-message]:not(:first-child)]:-mt-1',
                 horizontal &&
-                    'flex-row items-center [&_[data-slot=form-label]>span]:my-auto [&_[data-slot=form-label]>span]:me-1 [&_[data-slot=form-label]>span]:pb-0 [&>input]:flex-1',
+                    'flex-row items-center [&_[data-slot=form-label-text]]:my-auto [&_[data-slot=form-label-text]]:me-1 [&_[data-slot=form-label-text]]:pb-0 [&>input]:flex-1',
                 isInline && 'flex-none',
                 className
             )}

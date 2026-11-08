@@ -11,7 +11,8 @@ Sources: fundamental-react [FormFieldset, FormGroup, FormItem, FormLabel, FormLe
 [Field Set](https://sap.github.io/fundamental-styles/?path=/docs/sap-design-components-forms-field-set--docs) and
 [Form Message](https://sap.github.io/fundamental-styles/?path=/docs/sap-design-components-forms-form-message--docs)
 Registry: `registry/ui/form/` (`form.tsx`, `form-message.tsx`, `form-input-message-group.tsx`), on Base UI's
-`Fieldset` (Root, Legend) and `Tooltip` (Root, Portal, Positioner, Popup, Arrow) with the popover's surface.
+`Fieldset` (Root, Legend) and `Tooltip` (Root, Portal, Positioner, Popup, Arrow) with the popover's surface; the label's
+inline help is the `InlineHelp` component (`registry/ui/inline-help/`).
 
 API: one component per Angular directive or component, its inputs as props; native props, `className` and the `ref`
 go to the root element.
@@ -20,7 +21,11 @@ go to the root element.
   `unitDescription`, `independent` and a generated `id` (`fd-form-label-…`); `htmlFor` is Angular's `for`. As in
   Angular, the label is a flex row and its text a `<span>` with the label styles (`aria-disabled` when disabled); the
   asterisk (`content: '*' / ''`) and the colon are pseudo-elements at the end, so they stay visible when a long text
-  is truncated.
+  is truncated. Inline help, as Angular: `inlineHelpContent` (a string or any React node, Angular's template) adds a
+  focusable question-mark `InlineHelp` icon after the text (`inlineHelpPlacement="before"` before it, with the
+  0.25rem margin on the text side); `inlineHelpBodyPlacement` (default `bottom`), `inlineHelpTriggers` (default hover
+  and focus, and a click toggles) and `inlineHelpLabel` (the icon's name; by default the help text when it is a
+  string, else the inline help's "Help") go to it. The help describes the icon (`aria-describedby`).
 - `FormItem` (`fdFormItem`): `horizontal`, `isInline`. `FormGroup` (`fd-form-group`): `isInline`, `withSpacing`.
   `FormGroupHeader` (`fdFormGroupHeader`): `noPadding`, `noBorder`, and `render` for the element (e.g.
   `render={<h4 />}`, fundamental-styles' heading). `FormHeader` (`<h4 fdFormHeader>`): an `<h4>` by default,
@@ -44,7 +49,8 @@ go to the root element.
   link when a field re-renders its own `aria-describedby`.
 
 fundamental-react's props map as follows: `FormLabel`'s `includeColon` is `colon`, `disabled` the same,
-`isInlineHelp` belongs to the inline help (below); `FormItem`'s `isHorizontal` is `horizontal`, `isInline` the
+`isInlineHelp` (a full-width, space-between layout for a label holding fundamental-react's old `InlineHelp`) is
+`inlineHelpContent`, which places the icon next to the text; `FormItem`'s `isHorizontal` is `horizontal`, `isInline` the
 same; `FormGroup`, `FormFieldset` and `FormLegend` spread their props as before. The validation overlay
 (`validationState`, `validationOverlayProps` of FormInput, FormTextarea and Checkbox) is the
 `FormInputMessageGroup` with a `FormMessage`: `validationState.state`/`text` are the message's `type` and children,
@@ -72,8 +78,12 @@ same; `FormGroup`, `FormFieldset` and `FormLegend` spread their props as before.
 - Header and group header lines use `--sapGroup_TitleBorderWidth` (1px, 2px in the HC themes), as fundamental-styles;
   Angular draws 1px group header borders and a 3px form header line in HC. The form header shadow is
   `[box-shadow:…]` instead of a `shadow-[…]` utility, which adds Tailwind's transparent ring layers.
-- Inline help on the label (`inlineHelpContent`, `inlineHelpPlacement`, `inlineHelpBodyPlacement`,
-  `inlineHelpTriggers`, `inlineHelpLabel`, fundamental-react's `isInlineHelp`) waits for the inline-help component.
+- A click on the label's inline help icon does not activate the label (it would move focus to the field and close
+  the help at once): the icon is a control of its own, and the click only toggles the help. In Angular the click
+  toggles the help and then focuses the field. As in Angular, the icon's name (the help text by default) is part of
+  the field's name ("VAT Country code and digits"); the hidden copy that describes the icon adds nothing to it.
+- The label text span has `data-slot="form-label-text"`, and the horizontal item's text spacing targets it: the help
+  icon is a `<span>` too (Angular's `fd-icon` is not), and must keep its own margins.
 - fundamental-react's `aria-required` on the label is not ported (not allowed on `<label>`; `required` belongs on the
   field). Angular's `selector` alternatives (`fd-form-item`, …) and `fdCompact` are attributes, not components.
 
@@ -99,7 +109,7 @@ same; `FormGroup`, `FormFieldset` and `FormLegend` spread their props as before.
 | fundamental-react FormLabel    | noStyles              | —                        | ➖ n/a     | No `cssNamespace`.                                                                    |
 | fundamental-react FormLegend   | primary               | `Legend`                 | ✅ covered | A legend outside a fieldset.                                                          |
 | fundamental-react FormLegend   | noStyles              | —                        | ➖ n/a     | No `cssNamespace`.                                                                    |
-| Angular                        | Labels                | `Labels`                 | 🟡 partial | All but inline help (waits for inline-help); fundamental-styles' texts.               |
+| Angular                        | Labels                | `Labels`                 | ✅ covered | With inline help after and before the text; fundamental-styles' texts.                |
 | Angular                        | Fieldset and groups   | `FieldsetAndGroups`      | ✅ covered | Plus a disabled fieldset and fundamental-styles' three group headers.                 |
 | Angular                        | Messages              | `Messages`               | ✅ covered | fundamental-styles' texts for the four types.                                         |
 | Angular                        | Message group         | `MessageGroup`           | ✅ covered | Input groups with buttons and a multi input, as Angular.                              |
@@ -107,6 +117,7 @@ same; `FormGroup`, `FormFieldset` and `FormLegend` spread their props as before.
 | Angular                        | Open: message group   | `OpenMessageGroup`       | ✅ covered |                                                                                       |
 | Angular                        | Open: rich message    | `OpenRichMessage`        | ✅ covered | Opened from its button.                                                               |
 | —                              | Open: message states  | `OpenMessageStates`      | ➕ extra   | A message with a link, checked by axe.                                                |
+| —                              | Open: label help      | `OpenLabelInlineHelp`    | ➕ extra   | Focuses the label's help icon, so axe checks the open help.                           |
 
 ### Tests vs. sources
 
@@ -114,7 +125,7 @@ same; `FormGroup`, `FormFieldset` and `FormLegend` spread their props as before.
 | ----------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ---------- |
 | Angular           | Label names the control and focuses it on click                | names the control and focuses it on click                                               | ✅ covered |
 | Angular           | Required asterisk with empty alt text, colon                   | required shows an asterisk with empty alt text and colon a colon                        | ✅ covered |
-| Angular           | Inline help icon and its popover                               | —                                                                                       | ⬜ missing |
+| Angular           | Inline help icon and its popover                               | inline help adds a focusable help icon that opens the help text                         | ✅ covered |
 | Angular           | Disabled label dimmed                                          | a disabled label is dimmed                                                              | ✅ covered |
 | Angular           | Independent label centred, no end margin                       | an independent label renders stand-alone: centred, with no end margin                   | ✅ covered |
 | Angular           | Generated label id                                             | gets a generated id                                                                     | ✅ covered |
@@ -152,19 +163,26 @@ same; `FormGroup`, `FormFieldset` and `FormLegend` spread their props as before.
 | —                 | Legend names a radio group                                     | the legend of a fieldset names the radio group inside it                                | ➕ extra   |
 | —                 | static and embedded                                            | static and embedded change the width and the shadow                                     | ➕ extra   |
 | —                 | alignLabelEnd                                                  | alignLabelEnd puts the text at the end of the column                                    | ➕ extra   |
+| —                 | Help icon click                                                | a click on the help icon toggles the help and leaves the field alone                    | ➕ extra   |
+| —                 | inlineHelpLabel, body placement, triggers, rich content        | inlineHelpLabel names the icon, inlineHelpBodyPlacement and inlineHelpTriggers …        | ➕ extra   |
+| —                 | Rich help without a label, no content                          | rich inline help without inlineHelpLabel names the icon "Help"; no content, no icon     | ➕ extra   |
+| —                 | Help icon in a horizontal item                                 | in a horizontal item the help icon keeps its own spacing                                | ➕ extra   |
 
 The message's own props are its children's (`formMessageProps`), and there is no Popper reference or popper element
-to take class names. The inline help test waits for the inline-help component.
+to take class names.
 
 ### Visual comparison
 
-`pnpm visual form`: 17 cases × 16 combinations, 272/272 matching after the fixes below. Cases, against
+`pnpm visual form`: 18 cases × 16 combinations, 288/288 matching after the fixes below. Cases, against
 fundamental-styles' Form Label, Form Item, Form Header, Form Group, Field Set and Form Message stories (our story
-texts are theirs): the label text at rest, required, with colon and disabled, and the labels of the form item and
+texts are theirs): the label text at rest, required, with colon and disabled, the text of a label with inline help
+against the default label (styles: fundamental-styles has no label with inline help, and the texts differ), and the
+labels of the form item and
 required form item stories, by pixels; the form header bar (styles: theirs is as wide as the page) and its text (by
 pixels); the group header bar, without padding and without border (styles), and its title typography (theirs is an
 inner `<h4>`); the fieldset legend; and the success, error, warning and information messages, by pixels. The message
 popup is the popover surface without shadow and border, as Angular's `additionalBodyClass`; it was reviewed by eye.
+The inline help body is compared in `pnpm visual inline-help`.
 
 | Difference                                                  | Cause                                                                                  | Resolution                                                                                                |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -173,8 +191,9 @@ popup is the popover surface without shadow and border, as Angular's `additional
 | Group header border 1px instead of 2px in the HC themes     | Angular's `border-b`                                                                   | Fixed: `border-b-(length:--sapGroup_TitleBorderWidth)`.                                                   |
 | `static` message as wide as its container                   | `w-auto` on a flex box fills a block container (Angular)                               | Fixed: `w-fit`.                                                                                           |
 
-Reviewed by eye in Horizon, cozy and compact, LTR and RTL: Labels, Fieldset and groups, Messages and Message states
-(with the error and warning messages open; the message follows the field's start edge in RTL).
+Reviewed by eye in Horizon, cozy and compact, LTR and RTL: Labels (with the label's inline help open), Fieldset and
+groups, Messages and Message states (with the error and warning messages open; the message follows the field's start
+edge in RTL).
 
 Angular issues: the form header line is 3px in the HC themes and the group header border 1px (fundamental-styles:
 2px both); the form header shadow carries Tailwind's transparent ring layers; `static` messages still fill a block

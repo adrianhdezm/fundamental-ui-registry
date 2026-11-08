@@ -18,7 +18,7 @@ const meta = {
             description: {
                 component:
                     'Building blocks for forms: header, fieldset and legend (on Base UI’s Fieldset), groups, items, ' +
-                    'labels with required and colon markers, and value state messages, shown in a popover under ' +
+                    'labels with required and colon markers and inline help, and value state messages, shown in a popover under ' +
                     'their field by a form input message group (on Base UI’s Field).'
             }
         }
@@ -28,7 +28,9 @@ const meta = {
         required: true,
         colon: false,
         allowWrap: false,
-        disabled: false
+        disabled: false,
+        inlineHelpContent: '',
+        inlineHelpPlacement: 'after'
     }
 } satisfies Meta<typeof FormLabel>;
 export default meta;
@@ -49,7 +51,9 @@ export const Labels: Story = {
     parameters: {
         docs: {
             description: {
-                story: 'The required asterisk and the colon are drawn after the text, so they stay visible when a long label is truncated.'
+                story:
+                    'The required asterisk and the colon are drawn after the text, so they stay visible when a long ' +
+                    'label is truncated. A label can carry an inline help icon after (or before) its text.'
             }
         }
     },
@@ -78,6 +82,23 @@ export const Labels: Story = {
                 <Input id="l4" required />
             </FormItem>
             <FormItem>
+                <FormLabel htmlFor="l5" inlineHelpContent="Help text for this field">
+                    With inline help
+                </FormLabel>
+                <Input id="l5" />
+            </FormItem>
+            <FormItem>
+                <FormLabel
+                    htmlFor="l10"
+                    inlineHelpContent="Help text for this field"
+                    inlineHelpPlacement="before"
+                    inlineHelpLabel="More about this field"
+                >
+                    Inline help before the label
+                </FormLabel>
+                <Input id="l10" />
+            </FormItem>
+            <FormItem>
                 <FormLabel htmlFor="l6" disabled>
                     Organization
                 </FormLabel>
@@ -104,6 +125,19 @@ export const Labels: Story = {
             </FormItem>
         </div>
     )
+};
+
+/** Focuses the inline help icon of a label, so axe checks the open help. */
+export const OpenLabelInlineHelp: Story = {
+    name: 'Open: label inline help',
+    tags: ['!autodocs'],
+    render: Labels.render,
+    play: async ({ canvasElement }) => {
+        canvasElement.querySelector<HTMLElement>('label[for=l5] [data-slot=inline-help]')!.focus();
+        await waitFor(() =>
+            expect(document.querySelector('[role=tooltip]')?.textContent).toContain('Help text for this field')
+        );
+    }
 };
 
 export const Items: Story = {

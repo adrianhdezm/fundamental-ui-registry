@@ -496,7 +496,7 @@
       "title": "Form",
       "description": "Form building blocks: header, fieldset and legend, groups, items, labels with required and colon markers, and value state messages in a popover under their field, on Base UI.",
       "dependencies": ["@base-ui/react"],
-      "registryDependencies": ["utils", "theme", "icon", "popover"],
+      "registryDependencies": ["utils", "theme", "icon", "inline-help", "popover"],
       "files": [
         {
           "path": "registry/ui/form/form.tsx",

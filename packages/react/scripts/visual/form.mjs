@@ -24,6 +24,12 @@ export default [
     label('label colon', 'l3', 'colon'),
     label('label disabled', 'l6', 'disabled'),
     {
+        // the text of a label with inline help is the plain label's; the texts differ, so styles only
+        ...label('label with inline help', 'l5', 'primary'),
+        pixels: false,
+        ignore: ['width']
+    },
+    {
         label: 'form item',
         ours: { story: 'components-form--items', selector: '[data-slot=form-item]:has(#item-1) > label > span' },
         ref: { story: `${FS}forms-form-item--primary`, selector: '.fd-form-item > label' }
