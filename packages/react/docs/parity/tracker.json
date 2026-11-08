@@ -478,7 +478,9 @@
     {
       "name": "resizable-card-layout",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "128/128",
+      "notes": "no keyboard resizing (none in Angular)"
     },
     {
       "name": "scroll-spy",

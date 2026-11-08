@@ -1394,6 +1394,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "resizable-card-layout",
+      "type": "registry:ui",
+      "title": "Resizable Card Layout",
+      "description": "Cards in one to four 20rem columns that users resize by their edges or corner, snapping to columns and 1rem rows, while the other cards make room.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/resizable-card-layout/resizable-card-layout.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
