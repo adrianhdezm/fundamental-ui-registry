@@ -4,6 +4,7 @@ import { Avatar } from '@/ui/avatar/avatar';
 import { Button } from '@/ui/button/button';
 import { Combobox } from '@/ui/combobox/combobox';
 import { Input } from '@/ui/input/input';
+import { SegmentedButton, SegmentedButtonItem } from '@/ui/segmented-button/segmented-button';
 import { Title } from '@/ui/title/title';
 import { Bar, BarElement, BarLeft, BarMiddle, BarRight, ButtonBar, type BarDesign, type BarProps } from './bar';
 
@@ -54,8 +55,8 @@ interface ExampleProps {
 }
 
 /**
- * fundamental-react's and fundamental-styles' bar: a title or navigation buttons at the start, a group of buttons
- * in the middle, an avatar and a products button at the end.
+ * fundamental-react's and fundamental-styles' bar: a title or navigation buttons at the start, a segmented button
+ * in the middle (fundamental-styles'), an avatar and a products button at the end.
  */
 function Example({ design, start = 'title', text, noMiddle = false, compact = false, ...props }: ExampleProps) {
     const density = compact ? 'compact' : undefined;
@@ -78,11 +79,15 @@ function Example({ design, start = 'title', text, noMiddle = false, compact = fa
             {!noMiddle && (
                 <BarMiddle data-density={density}>
                     <BarElement>
-                        <div className="flex" role="group" aria-label="Devices">
-                            <Button glyph="email" aria-label="Email" toggled />
-                            <Button glyph="iphone" aria-label="Phone" />
-                            <Button glyph="notification-2" aria-label="Notifications" />
-                        </div>
+                        <SegmentedButton aria-label="Devices" defaultValue="email">
+                            <SegmentedButtonItem value="email" glyph="email" aria-label="Email" />
+                            <SegmentedButtonItem value="iphone" glyph="iphone" aria-label="Phone" />
+                            <SegmentedButtonItem
+                                value="notification"
+                                glyph="notification-2"
+                                aria-label="Notifications"
+                            />
+                        </SegmentedButton>
                     </BarElement>
                 </BarMiddle>
             )}

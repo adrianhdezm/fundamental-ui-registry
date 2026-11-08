@@ -6,8 +6,8 @@ const REF = `${FS}bar--`;
 const BAR = '[role="toolbar"]';
 
 // bars and full width elements are as wide as their container, which differs between the two Storybooks: their
-// computed styles and heights are compared, not pixels. The middle areas (fundamental-styles' segmented button)
-// and the avatars (an image there, initials here) are not compared.
+// computed styles and heights are compared, not pixels. The avatars (an image there, initials here) are not
+// compared.
 export default [
     {
         label: 'bar',
@@ -49,6 +49,11 @@ export default [
         refFocus: true,
         ours: { story: `${OURS}default`, selector: `${BAR} >> nth=0 >> button[aria-label="Products"]` },
         ref: { story: `${REF}default`, selector: '.fd-bar >> nth=0 >> .fd-bar__right button' }
+    },
+    {
+        label: 'middle segmented button',
+        ours: { story: `${OURS}default`, selector: `${BAR} >> nth=0 >> [role="listbox"]` },
+        ref: { story: `${REF}default`, selector: '.fd-bar >> nth=0 >> .fd-segmented-button' }
     },
     {
         label: 'right area',

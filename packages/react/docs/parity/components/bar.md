@@ -56,8 +56,9 @@ type are `render={<header />}` or `render={<footer />}`.
 | Angular           | In page, responsive paddings | `PageSizes`           | ✅ covered | Plus the home page size `s`.                                                                                       |
 | Angular           | Custom shellbar              | `CustomShellbar`      | ✅ covered | A compact search `Combobox` (`isSearch`), as Angular; a plain bar, not a `Shellbar` (see [shellbar](shellbar.md)). |
 
-The middle group of buttons of fundamental-react's and fundamental-styles' examples is a `role="group"` of
-`Button`s until segmented-button is ported.
+The middle group of buttons of fundamental-react's and fundamental-styles' examples is a `SegmentedButton` (email
+selected), as fundamental-styles' (fundamental-react has three separate buttons; Angular's stories have texts in the
+middle area).
 
 ### Tests vs. sources
 
@@ -92,14 +93,15 @@ The middle group of buttons of fundamental-react's and fundamental-styles' examp
 
 ### Visual comparison
 
-`pnpm visual bar`: 23 cases × 16 combinations, 368/368 matching. Cases, against fundamental-styles' Default, Header,
+`pnpm visual bar`: 24 cases × 16 combinations, 384/384 matching. Cases, against fundamental-styles' Default, Header,
 Subheader, Header With Subheader, Footer, Floating Footer and Responsive stories: the plain, header, subheader,
 header with subheader, subheader after a header, footer, floating footer (home page `xl`) and page `m_l` bars and the
 full width element by computed style (they are as wide as their container, which differs between the two
 Storybooks); the left areas with a title, with navigation buttons, with compact buttons and with the header text, the
 title element, the header and footer texts, the footer actions and a transparent button element (at rest, hovered and
-focused) by pixels; the right area and the floating footer actions by computed style. The middle areas
-(fundamental-styles' segmented button) and the avatars (an image there, initials here) are not compared.
+focused) by pixels, and the segmented button in the middle (email selected, as fundamental-styles') by pixels; the
+right area and the floating footer actions by computed style. The avatars (an image there, initials here) are not
+compared.
 
 | Difference                                                    | Cause                                                                                                  | Resolution                                                                                      |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
