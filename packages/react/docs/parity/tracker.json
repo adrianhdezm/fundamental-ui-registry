@@ -339,7 +339,9 @@
       "phase": 1,
       "source": ["src/MultiInput/__stories__/MultiInput.stories.js"],
       "sourceStories": 6,
-      "status": "todo"
+      "status": "done",
+      "visual": "228/256",
+      "notes": "kept: RTL value-help icon mirrored (16, as Angular); HC compact input inside the field border (12, as the tokenizer); mobile approve mode fires onSelectedChange once on approve"
     },
     {
       "name": "nested-list",

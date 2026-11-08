@@ -720,6 +720,33 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "multi-input",
+      "type": "registry:ui",
+      "title": "Multi Input",
+      "description": "A tokenizer field with a filterable list of check box options, inline completion, new tokens and a mobile dialog with select all.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "bar",
+        "button",
+        "dialog",
+        "icon",
+        "input",
+        "input-group",
+        "link",
+        "list",
+        "popover",
+        "token"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/multi-input/multi-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
