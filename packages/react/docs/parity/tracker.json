@@ -502,7 +502,9 @@
       "phase": 1,
       "source": ["src/SideNavigation/__stories__/SideNav.stories.js"],
       "sourceStories": 8,
-      "status": "todo"
+      "status": "done",
+      "visual": "240/240",
+      "notes": "lists compared against fd-nested-list markup injected into a fundamental-styles page; the fd-side-nav column by style only"
     },
     {
       "name": "skeleton",
