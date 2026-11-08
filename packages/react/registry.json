@@ -1344,6 +1344,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "facets",
+      "type": "registry:ui",
+      "title": "Facets",
+      "description": "Key information blocks for an object page header: form, key-value, rating and image facets in a wrapping facet group, and a flex container for custom facets.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/facets/facets.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/facets/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -151,7 +151,8 @@
     {
       "name": "facets",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "192/192"
     },
     {
       "name": "feed-input",
