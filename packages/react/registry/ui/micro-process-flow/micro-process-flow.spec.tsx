@@ -40,10 +40,28 @@ function Host({ steps, independent = false }: HostProps) {
 
 const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
 
+/**
+ * Waits until the overflow links stop changing: the first measurement sees the row without the "next" link, and the
+ * re-measure after the link takes its place lands a frame or two later.
+ */
+async function settle(root: HTMLElement) {
+    const read = () =>
+        [...root.querySelectorAll('[role="button"]')].map((link) => link.getAttribute('aria-label')).join();
+    let last = read();
+    for (let i = 0; i < 20; i++) {
+        await frame();
+        await frame();
+        const now = read();
+        if (now === last) return;
+        last = now;
+    }
+}
+
 async function setup(count = 3) {
     let props: HostProps = { steps: Array.from({ length: count }, (_, i) => i + 1) };
     const screen = await render(<Host {...props} />);
-    await frame();
+    await document.fonts.ready;
+    await settle(screen.container);
     const root = screen.container;
     const icons = () => [...root.querySelectorAll<HTMLElement>('[data-step]')];
     return {
@@ -53,7 +71,7 @@ async function setup(count = 3) {
         update: async (change: Partial<HostProps>) => {
             props = { ...props, ...change };
             await screen.rerender(<Host {...props} />);
-            await frame();
+            await settle(screen.container);
         },
         tabbable: () =>
             icons()
@@ -150,10 +168,18 @@ describe('MicroProcessFlow', () => {
         for (let i = 0; i < visible; i++) await userEvent.keyboard('{ArrowRight}');
         await frame();
         expect(document.activeElement!.getAttribute('data-step')).toBe(String(visible + 1));
-        expect(links()[0]).toBe('1 previous steps');
+        await expect.poll(() => links()[0]).toBe('1 previous steps');
         const flow = root.querySelector('[data-mpf-item]')!.parentElement!.parentElement!.getBoundingClientRect();
         const focused = document.activeElement!.getBoundingClientRect();
         expect(focused.right).toBeLessThanOrEqual(flow.right + 0.5);
+    });
+
+    it('measures again when a step gets wider, e.g. once the icon font has loaded', async () => {
+        const { root, links } = await setup(20);
+        const hidden = Number(links()[0]!.split(' ')[0]);
+        const first = root.querySelector<HTMLElement>('[data-mpf-item]')!;
+        first.style.minWidth = `${first.getBoundingClientRect().width + 200}px`;
+        await expect.poll(() => Number(links()[0]!.split(' ')[0])).toBeGreaterThan(hidden);
     });
 
     it('starts again at the first step when the steps change', async () => {

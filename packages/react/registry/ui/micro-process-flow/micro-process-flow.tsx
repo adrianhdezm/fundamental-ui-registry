@@ -278,10 +278,12 @@ export function MicroProcessFlow({
     useLayoutEffect(() => {
         const el = container.current;
         if (!el) return;
+        // the steps too: their widths change once the icon font has loaded, or when a step's content changes
         const observer = new ResizeObserver(() => measure());
         observer.observe(el);
+        for (const item of itemElements()) observer.observe(item);
         return () => observer.disconnect();
-    }, [measure]);
+    }, [measure, itemElements, signature]);
 
     // new steps: measure them and start at the first
     useLayoutEffect(() => {

@@ -58,19 +58,20 @@ the cozy and compact sizes are Angular's custom properties.
 
 ### Tests vs. sources
 
-| Source  | Behaviour                                                 | React test                                                      | Status     |
-| ------- | --------------------------------------------------------- | --------------------------------------------------------------- | ---------- |
-| Angular | Connectors, not after the last; intermediate; independent | joins the steps with connectors, but not after the last         | ✅ covered |
-| Angular | One tab stop; Left and Right                              | is one tab stop; Left and Right move between the steps          | ✅ covered |
-| Angular | Hidden step counts, scrolling with the links              | shows how many steps are hidden and scrolls to them             | ✅ covered |
-| Angular | Arrow keys scroll a step into view                        | scrolls a step into view when the arrow keys reach it           | ✅ covered |
-| Angular | Glyph in the given icon font; no glyph, no icon           | renders the glyph in the given icon font                        | ✅ covered |
-| —       | RTL arrow keys                                            | mirrors Left and Right in RTL                                   | ✅ new     |
-| —       | Links with Enter and Space                                | the overflow links work with Enter and Space                    | ✅ new     |
-| —       | New steps start at the first                              | starts again at the first step when the steps change            | ✅ new     |
-| —       | Focusable item on any element; a step outside a flow      | the focusable item makes any element of a step the focus target | ✅ new     |
-| —       | State colours                                             | state colours the icon of a step                                | ✅ new     |
-| —       | Native props, className, ref (registry convention)        | passes className, native props and the ref through              | ✅ new     |
+| Source  | Behaviour                                                                     | React test                                                                | Status     |
+| ------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ---------- |
+| Angular | Connectors, not after the last; intermediate; independent                     | joins the steps with connectors, but not after the last                   | ✅ covered |
+| Angular | One tab stop; Left and Right                                                  | is one tab stop; Left and Right move between the steps                    | ✅ covered |
+| Angular | Hidden step counts, scrolling with the links                                  | shows how many steps are hidden and scrolls to them                       | ✅ covered |
+| Angular | Arrow keys scroll a step into view                                            | scrolls a step into view when the arrow keys reach it                     | ✅ covered |
+| Angular | Glyph in the given icon font; no glyph, no icon                               | renders the glyph in the given icon font                                  | ✅ covered |
+| —       | RTL arrow keys                                                                | mirrors Left and Right in RTL                                             | ✅ new     |
+| —       | Links with Enter and Space                                                    | the overflow links work with Enter and Space                              | ✅ new     |
+| —       | New steps start at the first                                                  | starts again at the first step when the steps change                      | ✅ new     |
+| —       | Focusable item on any element; a step outside a flow                          | the focusable item makes any element of a step the focus target           | ✅ new     |
+| —       | State colours                                                                 | state colours the icon of a step                                          | ✅ new     |
+| —       | Native props, className, ref (registry convention)                            | passes className, native props and the ref through                        | ✅ new     |
+| React   | A step that gets wider (the icon font loading, new content) is measured again | measures again when a step gets wider, e.g. once the icon font has loaded | ✅ covered |
 
 ### Visual comparison
 
