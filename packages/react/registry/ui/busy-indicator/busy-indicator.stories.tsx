@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
+import { MessageToastProvider, useMessageToastService } from '@/ui/message-toast/message-toast';
 import { BusyIndicator, BusyIndicatorExtended } from './busy-indicator';
 
 // a plain field until the input component is ported
@@ -118,4 +120,59 @@ export const Extended: Story = {
             <BusyIndicator loading aria-label="Loading" label="Loading data..." aria-valuetext="Busy" />
         </BusyIndicatorExtended>
     )
+};
+
+/** Opens an extended busy indicator in a message toast that stays until "Hide all". */
+function ToastButtons() {
+    const toasts = useMessageToastService();
+    return (
+        <div className="flex flex-wrap gap-2">
+            <Button
+                label="Open from template"
+                onClick={() =>
+                    toasts.open(
+                        () => (
+                            <BusyIndicatorExtended>
+                                <BusyIndicator
+                                    loading
+                                    contrast
+                                    aria-label="Loading"
+                                    title="Please wait"
+                                    aria-valuetext="Busy"
+                                />
+                            </BusyIndicatorExtended>
+                        ),
+                        { mousePersist: true, duration: 0 }
+                    )
+                }
+            />
+            <Button variant="emphasized" label="Hide all" onClick={() => toasts.hideAll()} />
+        </div>
+    );
+}
+
+export const WithMessageToast: Story = {
+    name: 'With message toast',
+    parameters: {
+        docs: {
+            description: {
+                story: 'An extended busy indicator in a message toast opened from a template. The toast stays open until "Hide all".'
+            }
+        }
+    },
+    render: () => (
+        <MessageToastProvider>
+            <ToastButtons />
+        </MessageToastProvider>
+    )
+};
+
+export const OpenMessageToast: Story = {
+    name: 'Open: message toast',
+    tags: ['!autodocs'],
+    render: WithMessageToast.render,
+    play: async ({ canvasElement }) => {
+        await userEvent.click(canvasElement.querySelector<HTMLElement>('button')!);
+        await waitFor(() => expect(document.querySelector('[data-message-toast] [role=progressbar]')).not.toBeNull());
+    }
 };

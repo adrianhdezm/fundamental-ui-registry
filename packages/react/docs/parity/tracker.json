@@ -51,8 +51,7 @@
       "source": ["src/BusyIndicator/__stories__/BusyIndicator.stories.js"],
       "sourceStories": 4,
       "status": "done",
-      "visual": "128/128",
-      "notes": "message toast stories: after message-toast"
+      "visual": "128/128"
     },
     {
       "name": "button",

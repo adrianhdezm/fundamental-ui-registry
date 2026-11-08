@@ -15,20 +15,20 @@ native props and apply only while loading, as Angular's. fundamental-react's `sh
 
 ### Stories vs. sources
 
-| Source            | Example               | React story  | Status     | Notes                                                     |
-| ----------------- | --------------------- | ------------ | ---------- | --------------------------------------------------------- |
-| fundamental-react | primary               | `Basic`      | ✅ covered |                                                           |
-| fundamental-react | sizes                 | `Sizes`      | ✅ covered |                                                           |
-| fundamental-react | dev                   | `Playground` | ✅ covered |                                                           |
-| fundamental-react | noStyles              | —            | ➖ n/a     | No `cssNamespace`.                                        |
-| Angular           | Playground            | `Playground` | ✅ covered |                                                           |
-| Angular           | Basic                 | `Basic`      | ✅ covered |                                                           |
-| Angular           | Sizes                 | `Sizes`      | ✅ covered |                                                           |
-| Angular           | Contrast              | `Contrast`   | ✅ covered | Size `l`, as fundamental-styles' Contrast Mode story.     |
-| Angular           | As a wrapper          | `Wrapper`    | ✅ covered | Plain token-styled fields until the input is ported.      |
-| Angular           | With label (extended) | `Extended`   | ✅ covered |                                                           |
-| Angular           | With message toast    | —            | ❌ missing | Blocked: needs the message toast. Add with message-toast. |
-| Angular           | Open: message toast   | —            | ❌ missing | Same.                                                     |
+| Source            | Example               | React story        | Status     | Notes                                                                                                                               |
+| ----------------- | --------------------- | ------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| fundamental-react | primary               | `Basic`            | ✅ covered |                                                                                                                                     |
+| fundamental-react | sizes                 | `Sizes`            | ✅ covered |                                                                                                                                     |
+| fundamental-react | dev                   | `Playground`       | ✅ covered |                                                                                                                                     |
+| fundamental-react | noStyles              | —                  | ➖ n/a     | No `cssNamespace`.                                                                                                                  |
+| Angular           | Playground            | `Playground`       | ✅ covered |                                                                                                                                     |
+| Angular           | Basic                 | `Basic`            | ✅ covered |                                                                                                                                     |
+| Angular           | Sizes                 | `Sizes`            | ✅ covered |                                                                                                                                     |
+| Angular           | Contrast              | `Contrast`         | ✅ covered | Size `l`, as fundamental-styles' Contrast Mode story.                                                                               |
+| Angular           | As a wrapper          | `Wrapper`          | ✅ covered | Plain token-styled fields until the input is ported.                                                                                |
+| Angular           | With label (extended) | `Extended`         | ✅ covered |                                                                                                                                     |
+| Angular           | With message toast    | `WithMessageToast` | ✅ covered | An extended contrast indicator in a message toast opened from a render function (Angular's template), duration 0, until "Hide all". |
+| Angular           | Open: message toast   | `OpenMessageToast` | ✅ covered | `play` opens the toast and waits for its progressbar, so axe checks it.                                                             |
 
 ### Tests vs. sources
 
