@@ -113,7 +113,9 @@
       "phase": 1,
       "source": ["src/DatePicker/__stories__/DatePicker.stories.js"],
       "sourceStories": 19,
-      "status": "todo"
+      "status": "done",
+      "visual": "168/192",
+      "notes": "kept: in 24 HC/compact cases fundamental-styles' reference has its calendar open and the popover shadow falls on the field (styles equal)"
     },
     {
       "name": "datetime-picker",

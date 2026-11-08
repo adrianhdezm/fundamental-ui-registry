@@ -633,6 +633,35 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "Date field with a button that opens a calendar in a popover (or a dialog on mobile), for a date, several dates, a range or several ranges, with typed dates, validation, value states and a today button.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "datetime",
+        "bar",
+        "button",
+        "calendar",
+        "dialog",
+        "form",
+        "input-group",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/date-picker/date-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/date-picker/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
