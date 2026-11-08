@@ -496,7 +496,9 @@
       "phase": 1,
       "source": ["src/Shellbar/__stories__/Shellbar.stories.js"],
       "sourceStories": 6,
-      "status": "todo"
+      "status": "done",
+      "visual": "240/368",
+      "notes": "kept: cozy-only shellbar in compact pages (96, as Angular; fundamental-styles compacts it), fundamental-styles' Arial search input, stand-in product switch; product switch and full user menu: stand-ins until ported"
     },
     {
       "name": "side-navigation",

@@ -1,0 +1,642 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState, type ComponentType } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { Button } from '@/ui/button/button';
+import { Icon } from '@/ui/icon/icon';
+import {
+    Menu,
+    MenuAddon,
+    MenuContent,
+    MenuItem,
+    MenuPopup,
+    MenuSubtitle,
+    MenuTitle,
+    MenuTrigger
+} from '@/ui/menu/menu';
+import { ObjectStatus } from '@/ui/object-status/object-status';
+import { Popover, PopoverBody, PopoverTrigger } from '@/ui/popover/popover';
+import { Switch } from '@/ui/switch/switch';
+import {
+    ProductMenu,
+    Shellbar,
+    ShellbarAction,
+    ShellbarActions,
+    ShellbarBranding,
+    ShellbarContextArea,
+    ShellbarLogo,
+    ShellbarSearch,
+    ShellbarSeparator,
+    ShellbarSubtitle,
+    ShellbarTitle,
+    ShellbarUserMenu,
+    type ShellbarGroupFlexOptions,
+    type ShellbarMenuItem,
+    type ShellbarProps,
+    type ShellbarSize,
+    type ShellbarUser,
+    type ShellbarUserMenuItem
+} from './shellbar';
+
+/** A neutral placeholder logo. */
+const LOGO =
+    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'><rect width='60' height='30' rx='4' fill='%230070f2'/><text x='30' y='20' font-family='Arial' font-size='13' font-weight='bold' fill='white' text-anchor='middle'>ACME</text></svg>";
+
+/** A placeholder user photo. */
+const PHOTO =
+    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23d1efff'/><circle cx='16' cy='12' r='6' fill='%23a16c32'/><path d='M4 32c1-8 6-11 12-11s11 3 12 11z' fill='%230064d9'/></svg>";
+
+const NOTE = 'm-0 font-sap-font-family text-sap-font-small-size text-sap-content-label-color';
+
+const PRODUCTS = [
+    { title: 'Home', subtitle: 'Central Home', icon: 'home' },
+    { title: 'Analytics Cloud', icon: 'business-objects-experience' },
+    { title: 'Catalog', subtitle: 'Ariba', icon: 'contacts' },
+    { title: 'Guided Buying', icon: 'credit-card' },
+    { title: 'Strategic Procurement', icon: 'cart-3' },
+    { title: 'Human Capital Management', icon: 'customer' }
+];
+
+/** Stand-in for the product switch, which is not ported yet: a grid button opening a menu of the products. */
+function ProductSwitchStandIn() {
+    return (
+        <Menu placement="bottom-end">
+            <MenuTrigger
+                render={
+                    <Button variant="transparent" glyph="grid" aria-label="Product switch" title="Product switch" />
+                }
+            />
+            <MenuPopup aria-label="Products">
+                {PRODUCTS.map((product) => (
+                    <MenuItem key={product.title}>
+                        <MenuAddon glyph={product.icon} />
+                        <MenuContent>
+                            <MenuTitle>{product.title}</MenuTitle>
+                            {product.subtitle && <MenuSubtitle>{product.subtitle}</MenuSubtitle>}
+                        </MenuContent>
+                    </MenuItem>
+                ))}
+            </MenuPopup>
+        </Menu>
+    );
+}
+
+/**
+ * Stand-in for the user menu, which is not ported yet: the simple user menu with Angular's example items. An element,
+ * not a component, so that `ShellbarActions` sees a `ShellbarUserMenu` child and puts it after the actions.
+ */
+const USER_MENU_STAND_IN = (
+    <ShellbarUserMenu user={{ fullName: 'Lisa Miller' }}>
+        <MenuItem addonBefore="action-settings">Settings</MenuItem>
+        <MenuItem addonBefore="message-information">About</MenuItem>
+        <MenuItem addonBefore="log">Sign Out</MenuItem>
+    </ShellbarUserMenu>
+);
+
+const ACTIONS = [
+    { glyph: 'ai', label: 'Joule', count: 0 },
+    { glyph: 'bell', label: 'Notifications', count: 72 },
+    { glyph: 'feedback', label: 'Feedback', count: 0 },
+    { glyph: 'sys-help', label: 'Help', count: 0 }
+];
+
+interface ExampleProps extends Pick<ShellbarProps, 'size' | 'showSearchFieldOnSizeSmall'> {
+    width?: number;
+    search?: boolean;
+    navigation?: boolean;
+}
+
+/** Angular's story shellbar: navigation and back buttons, branding, search, four actions, user menu, product switch. */
+function Example({ width, search = true, navigation = true, ...props }: ExampleProps) {
+    const [last, setLast] = useState('');
+    return (
+        <div style={{ maxWidth: width }}>
+            <Shellbar
+                {...props}
+                showNavigationButton={navigation}
+                showBackButton={navigation}
+                onNavigationButtonClick={() => setLast('Navigation')}
+                onBackButtonClick={() => setLast('Back')}
+            >
+                <ShellbarBranding
+                    interactiveBranding
+                    aria-label="ACME Corporate Portal home"
+                    onClick={() => setLast('Home')}
+                >
+                    <ShellbarLogo>
+                        <img src={LOGO} alt="ACME" />
+                    </ShellbarLogo>
+                    <ShellbarTitle>Corporate Portal</ShellbarTitle>
+                </ShellbarBranding>
+                {search && (
+                    <ShellbarSearch
+                        placeholder="Search everything"
+                        onSearchSubmit={(text) => setLast(`Search: ${text}`)}
+                    />
+                )}
+                <ShellbarActions productSwitch={<ProductSwitchStandIn />}>
+                    {ACTIONS.map((action) => (
+                        <ShellbarAction
+                            key={action.label}
+                            glyph={action.glyph}
+                            label={action.label}
+                            notificationCount={action.count}
+                            notificationLabel={action.count ? `${action.count} new` : null}
+                            onClick={() => setLast(action.label)}
+                        />
+                    ))}
+                    {USER_MENU_STAND_IN}
+                </ShellbarActions>
+            </Shellbar>
+            <p className={`${NOTE} mt-2`} aria-live="polite">
+                {last && `Last action: ${last}`}
+            </p>
+        </div>
+    );
+}
+
+const SIZES: { size: ShellbarSize; width: number }[] = [
+    { size: 'xl', width: 1300 },
+    { size: 'l', width: 1000 },
+    { size: 'm', width: 560 },
+    { size: 's', width: 319 }
+];
+
+function Sizes() {
+    return (
+        <div className="flex flex-col gap-6">
+            {SIZES.map((s) => (
+                <div key={s.size}>
+                    <p className={`${NOTE} mb-1`}>
+                        {s.size.toUpperCase()}: {s.width}px
+                    </p>
+                    <Example width={s.width} />
+                </div>
+            ))}
+        </div>
+    );
+}
+
+/** Toggle actions: `variant` sets the button type and `toggled` shows it pressed (aria-pressed). */
+const TOGGLES = [
+    { glyph: 'account', label: 'Account', variant: 'transparent' },
+    { glyph: 'filter', label: 'Filter', variant: 'attention' },
+    { glyph: 'cart', label: 'Cart', variant: 'positive' }
+] as const;
+
+function ContextExample({ width, overflow = false }: { width?: number; overflow?: boolean }) {
+    const [hidden, setHidden] = useState<HTMLElement[]>([]);
+    const [overflowOpen, setOverflowOpen] = useState(false);
+    const [toggled, setToggled] = useState<string[]>(['Filter']);
+    const hiddenLabels = hidden.map((el) => el.dataset['label']).filter((label): label is string => !!label);
+    return (
+        <div style={{ maxWidth: width }}>
+            <Shellbar showNavigationButton>
+                <ShellbarBranding interactiveBranding aria-label="ACME Corporate Portal home">
+                    <ShellbarLogo>
+                        <img src={LOGO} alt="ACME" />
+                    </ShellbarLogo>
+                    <ShellbarTitle>Corporate Portal</ShellbarTitle>
+                </ShellbarBranding>
+                <ShellbarContextArea
+                    onContentItemVisibilityChange={(items) => {
+                        setHidden(items);
+                        if (!items.length) setOverflowOpen(false);
+                    }}
+                >
+                    {overflow && (
+                        // priority 0: the overflow button hides last; it lists what does not fit
+                        <span
+                            data-hide-priority="0"
+                            className="flex"
+                            style={{ visibility: hidden.length ? 'visible' : 'hidden' }}
+                        >
+                            <Popover placement="bottom-end" open={overflowOpen} onOpenChange={setOverflowOpen}>
+                                <PopoverTrigger
+                                    render={
+                                        <Button
+                                            variant="transparent"
+                                            glyph="slim-arrow-down"
+                                            aria-label="Show hidden context items"
+                                            title="More items"
+                                        />
+                                    }
+                                />
+                                <PopoverBody aria-label="Hidden context items">
+                                    <ul className="m-0 flex list-none flex-col gap-2 p-4 font-sap-font-family text-sap-font-size text-sap-text-color">
+                                        {hiddenLabels.map((label) => (
+                                            <li key={label}>{label}</li>
+                                        ))}
+                                    </ul>
+                                </PopoverBody>
+                            </Popover>
+                        </span>
+                    )}
+                    <ShellbarSeparator />
+                    <Menu placement="bottom-start">
+                        <MenuTrigger
+                            render={<Button variant="transparent" menu label="EMEA" data-label="Region: EMEA" />}
+                        />
+                        <MenuPopup aria-label="Region">
+                            <MenuItem>EMEA</MenuItem>
+                            <MenuItem>Americas</MenuItem>
+                            <MenuItem>APJ</MenuItem>
+                        </MenuPopup>
+                    </Menu>
+                    <ShellbarSeparator />
+                    <ObjectStatus
+                        inverted
+                        indicationColor={5}
+                        label="Environment"
+                        data-label="Environment"
+                        data-hide-priority="4"
+                    />
+                    {/* stand-in for the object marker, which is not ported yet */}
+                    <span
+                        data-label="New Feature"
+                        data-hide-priority="3"
+                        className="inline-flex items-center gap-1 font-sap-font-family text-sap-font-size text-sap-content-label-color"
+                    >
+                        <Icon glyph="flag" />
+                        New Feature
+                    </span>
+                    <Switch aria-label="Preview mode" data-label="Preview mode" data-hide-priority="2" />
+                </ShellbarContextArea>
+                <ShellbarActions assistiveTools onAssistiveToolsClick={() => undefined}>
+                    {TOGGLES.map((action) => (
+                        <ShellbarAction
+                            key={action.label}
+                            glyph={action.glyph}
+                            label={action.label}
+                            variant={action.variant}
+                            toggled={toggled.includes(action.label)}
+                            onClick={() =>
+                                setToggled((list) =>
+                                    list.includes(action.label)
+                                        ? list.filter((l) => l !== action.label)
+                                        : [...list, action.label]
+                                )
+                            }
+                        />
+                    ))}
+                    <ShellbarAction glyph="bell" label="Notifications" notificationCount={3} />
+                    {USER_MENU_STAND_IN}
+                </ShellbarActions>
+            </Shellbar>
+            <p className={`${NOTE} mt-2`} aria-live="polite">
+                Hidden context items: {hidden.length}. Toggled: {toggled.join(', ') || 'none'}.
+            </p>
+        </div>
+    );
+}
+
+const SIMPLE_USER: ShellbarUser = { fullName: 'William Wallingham', colorAccent: 6 };
+const SIMPLE_USER_MENU: ShellbarUserMenuItem[] = [{ text: 'Settings' }, { text: 'Sign Out' }];
+
+function SimpleExample() {
+    const productItems: ShellbarMenuItem[] = [
+        { name: 'Application A' },
+        { name: 'Application B', glyph: 'action-settings' },
+        { name: 'Application C' }
+    ];
+    return (
+        <Shellbar>
+            <ShellbarLogo>
+                <img src={LOGO} alt="ACME" />
+            </ShellbarLogo>
+            <ProductMenu control="Corporate Portal" items={productItems} closePopoverOnSelect />
+            <ShellbarSubtitle>Subtitle</ShellbarSubtitle>
+            <ShellbarActions user={SIMPLE_USER} userMenu={SIMPLE_USER_MENU}>
+                <ShellbarAction glyph="bell" label="Notifications" notificationCount={5} notificationLabel="5 unread" />
+                <ShellbarAction glyph="sys-help" label="Help" />
+            </ShellbarActions>
+        </Shellbar>
+    );
+}
+
+/** Groups that may shrink take only the space their content needs. */
+const GROWING: ShellbarGroupFlexOptions = {
+    product: { shrink: true, flexBasisAuto: true },
+    actions: { shrink: true, flexBasisAuto: true }
+};
+
+function GrowingExample() {
+    return (
+        <Shellbar groupFlex={GROWING}>
+            <ShellbarBranding interactiveBranding aria-label="ACME Product Identifier home">
+                <ShellbarLogo>
+                    <img src={LOGO} alt="ACME" />
+                </ShellbarLogo>
+                <ShellbarTitle>Product Identifier</ShellbarTitle>
+            </ShellbarBranding>
+            <ShellbarActions productSwitch={<ProductSwitchStandIn />}>
+                <ShellbarAction glyph="bell" label="Notifications" notificationCount={12} />
+                <ShellbarAction glyph="sys-help" label="Help" />
+                {USER_MENU_STAND_IN}
+            </ShellbarActions>
+        </Shellbar>
+    );
+}
+
+/** Product menu, actions, simple user menu and product switch, collapsing at each size. */
+function CollapsibleExample() {
+    const productItems: ShellbarMenuItem[] = [
+        { name: 'Application A' },
+        { name: 'Application B' },
+        { name: 'Application C' }
+    ];
+    return (
+        <div className="flex flex-col gap-6">
+            {SIZES.map((s) => (
+                <div key={s.size} style={{ maxWidth: s.width }}>
+                    <p className={`${NOTE} mb-1`}>{s.size.toUpperCase()}</p>
+                    <Shellbar size={s.size}>
+                        <ShellbarLogo>
+                            <img src={LOGO} alt="ACME" />
+                        </ShellbarLogo>
+                        <ProductMenu control="Corporate Portal" items={productItems} closePopoverOnSelect />
+                        <ShellbarActions
+                            user={SIMPLE_USER}
+                            userMenu={SIMPLE_USER_MENU}
+                            closePopoverOnSelect
+                            productSwitch={<ProductSwitchStandIn />}
+                        >
+                            <ShellbarAction glyph="bell" label="Notifications" notificationCount={5} />
+                            <ShellbarAction glyph="feedback" label="Feedback" />
+                            <ShellbarAction glyph="sys-help" label="Help" />
+                        </ShellbarActions>
+                    </Shellbar>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+/* fundamental-react's examples */
+
+const PROFILE_MENU: ShellbarUserMenuItem[] = [{ text: 'Settings' }, { text: 'Sign Out' }];
+const PROFILE: ShellbarUser = { initials: 'JS', fullName: 'John Snow', colorAccent: 8 };
+
+/** fundamental-react's basic example (and fundamental-styles' mandatory elements): logo, title and user menu. */
+function MandatoryExample({ back = false }: { back?: boolean }) {
+    return (
+        <Shellbar showBackButton={back}>
+            <ShellbarBranding interactiveBranding aria-label="ACME Corporate Portal home">
+                <ShellbarLogo>
+                    <img src={LOGO} alt="ACME" />
+                </ShellbarLogo>
+                <ShellbarTitle>Corporate Portal</ShellbarTitle>
+            </ShellbarBranding>
+            <ShellbarActions user={PROFILE} userMenu={PROFILE_MENU} />
+        </Shellbar>
+    );
+}
+
+const FR_PRODUCT_MENU: ShellbarMenuItem[] = [{ name: 'Application A' }, { name: 'Application B' }];
+
+/** fundamental-react's withProductMenu: product menu, subtitle, notifications, search and a user image. */
+function ProductMenuExample() {
+    return (
+        <Shellbar>
+            <ShellbarLogo>
+                <img src={LOGO} alt="ACME" />
+            </ShellbarLogo>
+            <ProductMenu control="Corporate Portal" items={FR_PRODUCT_MENU} closePopoverOnSelect />
+            <ShellbarSubtitle>Subtitle</ShellbarSubtitle>
+            <ShellbarSearch placeholder="Search" />
+            <ShellbarActions user={{ fullName: 'John Snow', image: PHOTO }} userMenu={PROFILE_MENU}>
+                <ShellbarAction glyph="bell" label="Notifications" notificationCount={2} />
+            </ShellbarActions>
+        </Shellbar>
+    );
+}
+
+/** fundamental-react's coPilot: an action with a menu, notifications with a popover, product switch, all collapsing. */
+function CoPilotExample() {
+    return (
+        <Shellbar>
+            <ShellbarLogo>
+                <img src={LOGO} alt="ACME" />
+            </ShellbarLogo>
+            <ProductMenu control="Corporate Portal" items={FR_PRODUCT_MENU} closePopoverOnSelect />
+            <ShellbarSubtitle>Subtitle</ShellbarSubtitle>
+            <ShellbarSearch placeholder="Search" />
+            <ShellbarActions user={PROFILE} userMenu={PROFILE_MENU} productSwitch={<ProductSwitchStandIn />}>
+                <Menu placement="bottom-end">
+                    <MenuTrigger
+                        render={
+                            <Button variant="transparent" glyph="settings" aria-label="Settings, 5" title="Settings" />
+                        }
+                    />
+                    <MenuPopup aria-label="Settings">
+                        <MenuItem>Option 1</MenuItem>
+                        <MenuItem>Option 2</MenuItem>
+                        <MenuItem>Option 3</MenuItem>
+                    </MenuPopup>
+                </Menu>
+                <ShellbarAction glyph="ai" label="Joule" />
+                <ShellbarAction glyph="bell" label="Notifications" notificationCount={2} />
+            </ShellbarActions>
+        </Shellbar>
+    );
+}
+
+/** Clicks the button named `name` in the story and waits for the menu it opens. */
+function openFrom(name: string | RegExp): Story['play'] {
+    return async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('button', { name }));
+        await waitFor(() => expect(document.querySelector('[role=menuitem]')).not.toBeNull());
+    };
+}
+
+const meta = {
+    title: 'Components/Shellbar',
+    component: Shellbar,
+    subcomponents: {
+        ShellbarBranding,
+        ShellbarLogo,
+        ShellbarTitle,
+        ShellbarSubtitle,
+        ShellbarSeparator,
+        ShellbarContextArea,
+        ShellbarSearch,
+        ShellbarActions,
+        ShellbarAction,
+        ShellbarUserMenu,
+        ProductMenu
+    } as Record<string, ComponentType<unknown>>,
+    parameters: {
+        docs: {
+            story: { inline: false, iframeHeight: 420 },
+            description: {
+                component:
+                    'The shellbar is the top bar of an application: navigation and back buttons, the branding (logo and ' +
+                    'title), an optional context area, a search field, actions, the user menu and the product switch. ' +
+                    'Its size follows its width (s below 320px, m below 600px, l below 1240px, xl above). Actions that ' +
+                    'do not fit collapse into an overflow menu, context area items hide by `data-hide-priority`, and ' +
+                    'the search moves from the middle (xl) behind a search button; on small sizes it opens in place of ' +
+                    'everything else. Transparent buttons inside the shellbar take the shell colours.\n\n' +
+                    'The product switch and the full user menu are not ported yet: the stories use a menu as stand-in.\n\n' +
+                    '```tsx\n' +
+                    '<Shellbar>\n' +
+                    '    <ShellbarBranding interactiveBranding aria-label="Product home" onClick={home}>\n' +
+                    '        <ShellbarLogo><img src="logo.svg" alt="Company" /></ShellbarLogo>\n' +
+                    '        <ShellbarTitle>Product</ShellbarTitle>\n' +
+                    '    </ShellbarBranding>\n' +
+                    '    <ShellbarSearch placeholder="Search" onSearchSubmit={search} />\n' +
+                    '    <ShellbarActions user={{ fullName: "Lisa Miller" }} userMenu={[{ text: "Sign out" }]}>\n' +
+                    '        <ShellbarAction glyph="bell" label="Notifications" notificationCount={3} />\n' +
+                    '    </ShellbarActions>\n' +
+                    '</Shellbar>\n' +
+                    '```'
+            }
+        }
+    },
+    argTypes: {
+        size: { control: 'inline-radio', options: [undefined, 's', 'm', 'l', 'xl'] }
+    }
+} satisfies Meta<typeof Shellbar>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Playground: Story = {
+    args: { showSearchFieldOnSizeSmall: false },
+    render: (args) => <Example size={args.size} showSearchFieldOnSizeSmall={args.showSearchFieldOnSizeSmall} />
+};
+
+export const Basic: Story = { render: () => <Example /> };
+
+export const Responsive: Story = {
+    name: 'Responsive sizes',
+    parameters: { docs: { story: { iframeHeight: 520 } } },
+    render: () => <Sizes />
+};
+
+export const ContextArea: Story = {
+    name: 'Context area',
+    parameters: {
+        docs: {
+            description: {
+                story: 'Branding with a context area, and toggle actions: `variant` sets the button type and `toggled` shows it pressed.'
+            }
+        }
+    },
+    render: () => <ContextExample />
+};
+
+export const ContextAreaOverflow: Story = {
+    name: 'Context area overflow',
+    parameters: {
+        docs: {
+            description: {
+                story: 'Context items hide by `data-hide-priority` when space runs out; `onContentItemVisibilityChange` reports them, here listed in a popover behind the arrow button (priority 0, so it hides last).'
+            }
+        }
+    },
+    render: () => <ContextExample width={560} overflow />
+};
+
+export const ProductMenuAndSimpleUserMenu: Story = {
+    name: 'Product menu and simple user menu',
+    render: () => <SimpleExample />
+};
+
+export const GrowingGroups: Story = {
+    name: 'Growing groups',
+    parameters: {
+        docs: {
+            description: {
+                story: '`groupFlex` lets the product and actions groups shrink (`shrink`) and size to their content (`flexBasisAuto`), so they take only the space they need.'
+            }
+        }
+    },
+    render: () => <GrowingExample />
+};
+
+export const CollapsibleLinks: Story = {
+    name: 'Collapsible links',
+    parameters: {
+        docs: {
+            story: { iframeHeight: 520 },
+            description: {
+                story: 'A product menu, actions, a simple user menu (`user` and `userMenu`) and the product switch at each size: actions collapse into the overflow menu.'
+            }
+        }
+    },
+    render: () => <CollapsibleExample />
+};
+
+export const MandatoryElements: Story = {
+    name: 'Mandatory elements',
+    parameters: {
+        docs: {
+            description: {
+                story: 'The minimum shellbar for a single application with only user settings (fundamental-react’s basic example): without a user image, the initials show.'
+            }
+        }
+    },
+    render: () => <MandatoryExample />
+};
+
+export const WithBackButton: Story = {
+    name: 'With back button',
+    render: () => <MandatoryExample back />
+};
+
+export const WithProductMenu: Story = {
+    name: 'With product menu',
+    parameters: {
+        docs: {
+            description: {
+                story: 'The product menu navigates to applications within the product, with a subtitle, a search and a user image.'
+            }
+        }
+    },
+    render: () => <ProductMenuExample />
+};
+
+export const CoPilot: Story = {
+    name: 'Actions with menus',
+    parameters: {
+        docs: {
+            description: {
+                story: 'fundamental-react’s coPilot example: an action that opens a menu (a `Menu` among the actions), Joule (fundamental-styles’ successor of CoPilot), notifications, the user menu and the product switch.'
+            }
+        }
+    },
+    render: () => <CoPilotExample />
+};
+
+export const OpenUserMenu: Story = {
+    name: 'Open: user menu',
+    tags: ['!autodocs'],
+    render: () => <Example />,
+    play: openFrom('Lisa Miller')
+};
+
+export const OpenProductSwitch: Story = {
+    name: 'Open: product switch',
+    tags: ['!autodocs'],
+    render: () => <Example />,
+    play: openFrom('Product switch')
+};
+
+export const OpenProductMenu: Story = {
+    name: 'Open: product menu',
+    tags: ['!autodocs'],
+    render: () => <SimpleExample />,
+    play: openFrom('Corporate Portal')
+};
+
+export const OpenSimpleUserMenu: Story = {
+    name: 'Open: simple user menu',
+    tags: ['!autodocs'],
+    render: () => <SimpleExample />,
+    play: openFrom('William Wallingham')
+};
+
+export const OpenOverflowMenu: Story = {
+    name: 'Open: overflow menu',
+    tags: ['!autodocs'],
+    render: () => <Example width={340} />,
+    play: openFrom(/^Collapsed Item Menu/)
+};

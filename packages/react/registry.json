@@ -875,6 +875,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "shellbar",
+      "type": "registry:ui",
+      "title": "Shellbar",
+      "description": "The top bar of an application: branding, context area, search, actions with an overflow menu, user menu and product switch, adapting to its width.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "action-sheet", "avatar", "button", "icon", "menu", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/shellbar/shellbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
