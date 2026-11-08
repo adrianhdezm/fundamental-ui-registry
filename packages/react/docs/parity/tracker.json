@@ -672,7 +672,9 @@
     {
       "name": "vertical-navigation",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "440/464",
+      "notes": "kept: HC indicated text colour (8, as Angular; fundamental-styles' about 3:1 on black), panel header 1px and RTL radius token (16); second-level lists span the row (as Angular)"
     },
     {
       "name": "wizard",

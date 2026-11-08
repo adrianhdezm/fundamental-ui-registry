@@ -1270,6 +1270,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "vertical-navigation",
+      "type": "registry:ui",
+      "title": "Vertical Navigation",
+      "description": "The side navigation of SAP Fiori: items with icons, texts and second-level items, an indicator for the current page and a condensed mode that opens second-level items in a panel.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/vertical-navigation/vertical-navigation.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
