@@ -1316,6 +1316,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "micro-process-flow",
+      "type": "registry:ui",
+      "title": "Micro Process Flow",
+      "description": "A compact row of process steps in value-state colours, joined by connectors, with overflow links and arrow-key navigation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/micro-process-flow/micro-process-flow.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
