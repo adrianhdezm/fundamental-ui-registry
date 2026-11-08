@@ -702,6 +702,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "time-picker",
+      "type": "registry:ui",
+      "title": "Time Picker",
+      "description": "A time field with a button that opens the time columns in a popover; typed times are read on Enter and blur, unreadable ones set the error state, with value state messages.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "datetime", "button", "form", "input-group", "popover", "time"],
+      "files": [
+        {
+          "path": "registry/ui/time-picker/time-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/time-picker/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
