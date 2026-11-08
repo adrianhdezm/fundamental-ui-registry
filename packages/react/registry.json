@@ -1165,6 +1165,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "formatted-text",
+      "type": "registry:ui",
+      "title": "Formatted Text",
+      "description": "Renders a sanitised subset of HTML (paragraphs, headings, lists, emphasis, links, code) with the SAP typography, optionally in a fixed-size scrolling box.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/formatted-text/formatted-text.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

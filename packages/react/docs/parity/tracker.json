@@ -189,7 +189,9 @@
     {
       "name": "formatted-text",
       "phase": 2,
-      "status": "todo"
+      "status": "done",
+      "visual": "64/64",
+      "notes": "no fundamental-styles reference; typography compared with title, text and link"
     },
     {
       "name": "generic-tag",
