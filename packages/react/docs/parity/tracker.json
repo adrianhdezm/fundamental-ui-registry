@@ -639,7 +639,9 @@
       "phase": 1,
       "source": ["src/Wizard/__stories__/Wizard.stories.js"],
       "sourceStories": 14,
-      "status": "todo"
+      "status": "done",
+      "visual": "464/464",
+      "notes": "fundamental-react noLabels n/a (narrow steps stack instead)"
     }
   ]
 }

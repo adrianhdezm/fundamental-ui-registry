@@ -811,6 +811,20 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "wizard",
+      "type": "registry:ui",
+      "title": "Wizard",
+      "description": "Breaks a long task into steps: a progress bar of steps over the content of the visited steps, which scrolls and updates the current step, with stacking steps on narrow screens.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "action-sheet", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/wizard/wizard.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
