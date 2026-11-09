@@ -366,6 +366,25 @@ describe('Select', () => {
         expect(combobox.getAttribute('aria-expanded')).toBe('false');
     });
 
+    it('mobile: Tab moves from the list to the dialog buttons, which stay in the dialog', async () => {
+        const { fixture, combobox } = await setup(true);
+        await openList(fixture, combobox);
+        await wait();
+        const listbox = dialog()!.querySelector<HTMLElement>('[role=listbox]')!;
+        expect(document.activeElement).toBe(listbox);
+        await userEvent.keyboard('{Tab}');
+        const focused = document.activeElement as HTMLElement;
+        expect(focused).not.toBe(listbox);
+        expect(focused.tagName).toBe('BUTTON');
+        expect(dialog()!.contains(focused)).toBe(true);
+        // on through the buttons and around: the focus never leaves the dialog
+        for (let i = 0; i < 4; i++) {
+            await userEvent.keyboard('{Tab}');
+            expect(dialog()!.contains(document.activeElement)).toBe(true);
+        }
+        expect(combobox.getAttribute('aria-expanded')).toBe('true');
+    });
+
     it('mobile: Cancel closes the dialog and keeps the old value', async () => {
         const { fixture, host, combobox } = await setup(true, (h) => h.control.setValue('Apple'));
         await openList(fixture, combobox);

@@ -983,9 +983,9 @@
       "source": "../../../react/docs/parity/components/select.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: a mobile select (title, Save and Cancel) opened with a click; the listbox has the focus; a real Tab key press leaves the focus on the listbox (handleOpenKeydown calls preventDefault on Tab in mobile mode), so Save and Cancel cannot be reached with the keyboard.",
+      "test": "Select › mobile: Tab moves from the list to the dialog buttons, which stay in the dialog",
       "fix": "",
       "notes": ""
     },
