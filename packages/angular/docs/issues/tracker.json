@@ -2026,9 +2026,9 @@
       "source": "../../../react/docs/parity/components/formatted-text.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "formatted-text.spec.ts, a link in the content: text-underline-offset auto (fundamental-styles 2px) and the link colour kept on hover (fundamental-styles --sapLink_Hover_Color); focus showed the browser ring.",
+      "test": "formatted-text.spec.ts › FormattedText › links have fundamental-styles' underline offset and hover colour",
       "fix": "",
       "notes": ""
     },

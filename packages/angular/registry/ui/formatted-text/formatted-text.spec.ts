@@ -43,6 +43,19 @@ async function setup(html: string | null) {
 }
 
 describe('FormattedText', () => {
+    it("links have fundamental-styles' underline offset and hover colour", async () => {
+        const { text } = await setup('<p><a href="#x">A link</a></p>');
+        const link = text.querySelector<HTMLElement>('a')!;
+        const probe = document.createElement('div');
+        document.body.appendChild(probe);
+        probe.style.color = 'var(--sapLink_Hover_Color)';
+        expect(getComputedStyle(link).textUnderlineOffset).toBe('2px');
+        await userEvent.hover(link);
+        expect(getComputedStyle(link).color).toBe(getComputedStyle(probe).color);
+        await userEvent.unhover(link);
+        probe.remove();
+    });
+
     it('sanitizes htmlText: keeps the allowed tags and attributes, strips scripts and event handlers', async () => {
         (window as unknown as { pwned?: boolean }).pwned = false;
         const { text, update } = await setup(`

@@ -617,11 +617,11 @@ None.
 
 #### formatted-text
 
-[React report](../../../react/docs/parity/components/formatted-text.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/formatted-text.md) · 🧪 covered: 1
 
-| ID               | Issue                                                                             | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ---------------- | --------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| formatted-text-1 | Formatted-text links have no underline offset, hover colour or SAP focus outline. | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID               | Issue                                                                             | Kind   | Confirmed | Pattern | Status     | Test                                                                                                      | Fix | Notes |
+| ---------------- | --------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | --------------------------------------------------------------------------------------------------------- | --- | ----- |
+| formatted-text-1 | Formatted-text links have no underline offset, hover colour or SAP focus outline. | visual | rendered  |         | 🧪 covered | formatted-text.spec.ts › FormattedText › links have fundamental-styles' underline offset and hover colour |     |       |
 
 #### quick-view
 
