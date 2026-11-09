@@ -2580,9 +2580,9 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host in RTL, hover card A): the corner icon computes rotate: 90deg and transform: none; fundamental-styles turns it with transform: rotate(90deg) (computed only, same pixels).",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › in RTL the corner icon turns with transform, not rotate (computed style)",
       "fix": "",
       "notes": ""
     },

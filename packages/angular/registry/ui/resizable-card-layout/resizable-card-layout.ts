@@ -114,7 +114,7 @@ let nextId = 0;
                             class="absolute end-0 -bottom-[0.35rem] z-2 flex size-6 items-start justify-start rtl:-end-1 rtl:-bottom-0.5"
                         >
                             <div
-                                class="absolute z-2 flex size-full cursor-nwse-resize items-center justify-center font-sap-content-icon-font-family text-[1rem] leading-4 text-sap-button-lite-text-color before:content-[attr(data-glyph)] rtl:rotate-90 rtl:cursor-nesw-resize"
+                                class="absolute z-2 flex size-full cursor-nwse-resize items-center justify-center font-sap-content-icon-font-family text-[1rem] leading-4 text-sap-button-lite-text-color before:content-[attr(data-glyph)] rtl:[transform:rotate(90deg)] rtl:cursor-nesw-resize"
                                 [attr.data-glyph]="cornerGlyph"
                                 (pointerdown)="startResize($event, 'both')"
                             ></div>

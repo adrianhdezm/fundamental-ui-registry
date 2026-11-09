@@ -550,4 +550,11 @@ describe('ResizableCardLayout corner and RTL', () => {
         expect(Math.round(a.left - b.left)).toBe(4);
         expect(b.right).toBeLessThan(a.left + 24);
     });
+
+    it('in RTL the corner icon turns with transform, not rotate (computed style)', async () => {
+        const { icon } = await corner(true);
+        const style = getComputedStyle(icon);
+        expect(style.rotate).toBe('none');
+        expect(style.transform).toBe('matrix(0, 1, -1, 0, 0, 0)');
+    });
 });
