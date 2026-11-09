@@ -553,9 +553,9 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (FeaturesHost): the expander of item A computes border-radius 0px; fundamental-styles' expander has the button corner radius (8px in Horizon), visible with a focus outline.",
+      "test": "tree.spec.ts › Tree styles › the expander has the button corner radius, for its focus outline (computed style)",
       "fix": "",
       "notes": ""
     },

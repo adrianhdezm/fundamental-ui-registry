@@ -203,7 +203,7 @@ function forwardTree(): typeof Tree {
             @if (expandable()) {
                 <span
                     aria-hidden="true"
-                    class="flex min-h-(--tree-exp) min-w-(--tree-exp) shrink-0 cursor-pointer items-center justify-center text-sap-button-icon-color"
+                    class="flex min-h-(--tree-exp) min-w-(--tree-exp) shrink-0 cursor-pointer items-center justify-center rounded-sap-button-border-corner-radius text-sap-button-icon-color"
                     [style.margin-inline-start]="placement() === 'left' ? null : indent()"
                     (click)="toggle($event)"
                 >

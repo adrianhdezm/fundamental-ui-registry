@@ -451,4 +451,16 @@ describe('Tree styles', () => {
         expect(row.textContent!.trim()).toBe('No data');
         expect(row.getBoundingClientRect().height).toBe(45);
     });
+
+    it('the expander has the button corner radius, for its focus outline (computed style)', async () => {
+        const { root } = await render(FeaturesHost);
+        const expander = itemRow(root, 'A').querySelector<HTMLElement>(
+            ':scope span[aria-hidden="true"].cursor-pointer'
+        )!;
+        const probe = document.createElement('div');
+        probe.style.borderRadius = 'var(--sapButton_BorderCornerRadius)';
+        document.body.appendChild(probe);
+        expect(getComputedStyle(expander).borderTopLeftRadius).toBe(getComputedStyle(probe).borderTopLeftRadius);
+        probe.remove();
+    });
 });

@@ -208,14 +208,14 @@ None.
 
 #### tree
 
-[React report](../../../react/docs/parity/components/tree.md) · ⬜ reported: 1 · 🧪 covered: 3
+[React report](../../../react/docs/parity/components/tree.md) · 🧪 covered: 4
 
-| ID     | Issue                                                                                       | Kind   | Confirmed | Pattern | Status      | Test                                                                                                   | Fix | Notes |
-| ------ | ------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ------------------------------------------------------------------------------------------------------ | --- | ----- |
-| tree-1 | `wrapContent` items get `py-1`, so wrapping rows are 8px taller than fundamental-styles'.   | visual | rendered  |         | 🧪 covered  | tree.spec.ts › Tree styles › wrapping items have no extra block padding (computed style)               |     |       |
-| tree-2 | Tree item buttons get a 2px start margin; fundamental-styles' resolves to 0.                | visual | rendered  |         | 🧪 covered  | tree.spec.ts › Tree styles › item buttons have no start margin, as fundamental-styles (computed style) |     |       |
-| tree-3 | The "No data" row is 1px too low (44px instead of 45px): its text has a normal line height. | visual | rendered  |         | 🧪 covered  | tree.spec.ts › Tree styles › the No data row is as high as an item plus its border (45px)              |     |       |
-| tree-4 | The expander lacks the button corner radius (visible only with a focus outline).            | visual | rendered  |         | ⬜ reported |                                                                                                        |     |       |
+| ID     | Issue                                                                                       | Kind   | Confirmed | Pattern | Status     | Test                                                                                                           | Fix | Notes |
+| ------ | ------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | -------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| tree-1 | `wrapContent` items get `py-1`, so wrapping rows are 8px taller than fundamental-styles'.   | visual | rendered  |         | 🧪 covered | tree.spec.ts › Tree styles › wrapping items have no extra block padding (computed style)                       |     |       |
+| tree-2 | Tree item buttons get a 2px start margin; fundamental-styles' resolves to 0.                | visual | rendered  |         | 🧪 covered | tree.spec.ts › Tree styles › item buttons have no start margin, as fundamental-styles (computed style)         |     |       |
+| tree-3 | The "No data" row is 1px too low (44px instead of 45px): its text has a normal line height. | visual | rendered  |         | 🧪 covered | tree.spec.ts › Tree styles › the No data row is as high as an item plus its border (45px)                      |     |       |
+| tree-4 | The expander lacks the button corner radius (visible only with a focus outline).            | visual | rendered  |         | 🧪 covered | tree.spec.ts › Tree styles › the expander has the button corner radius, for its focus outline (computed style) |     |       |
 
 #### bar
 
