@@ -1054,7 +1054,13 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
         )
     );
 
-    protected readonly optionClass = computed(() => cn(LIST_DROPDOWN_ITEM, 'gap-x-2 ps-3', this.byline() && 'py-2'));
+    protected readonly optionClass = computed(() => cn(
+            LIST_DROPDOWN_ITEM,
+            // a list item of fundamental-styles' multi combobox list: 2.75rem high in cozy, plus the selection line of
+            // a selected item
+            'min-h-11 gap-x-2 ps-3 pe-4 aria-selected:min-h-[2.8125rem] compact:aria-selected:min-h-[2.0625rem]',
+            this.byline() && 'py-2'
+        ));
 
     protected readonly secondaryClass = computed(() =>
         cn(
