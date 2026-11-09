@@ -466,3 +466,63 @@ describe('MultiInput', () => {
         expect(document.activeElement).toBe(input);
     });
 });
+
+describe('MultiInput styles', () => {
+    const probe = (cls: string) => {
+        const el = document.createElement('div');
+        el.className = cls;
+        document.body.appendChild(el);
+        const style = getComputedStyle(el).boxShadow;
+        el.remove();
+        return style;
+    };
+    const field = (root: HTMLElement) => root.querySelector<HTMLElement>('fd-tokenizer > div')!;
+
+    it('caps the popup and its list at 40rem on a wide field (multi-input-1)', async () => {
+        const { input, addon, stable } = await render(SignalHost, (h) => h.width.set(1200));
+        await userEvent.click(addon());
+        await stable();
+        const list = document.querySelector<HTMLElement>('.cdk-overlay-container ul[role=listbox]')!;
+        const pane = list.closest<HTMLElement>('.cdk-overlay-pane')!;
+        expect(input.closest('fd-multi-input')!.getBoundingClientRect().width).toBe(1200);
+        expect(pane.getBoundingClientRect().width).toBeLessThanOrEqual(640);
+        expect(list.getBoundingClientRect().width).toBeGreaterThan(600);
+        expect(list.getBoundingClientRect().width).toBeLessThanOrEqual(640);
+    });
+
+    it('has 44px options, 45px when selected (multi-input-2)', async () => {
+        const { addon, stable } = await render(SignalHost, (h) => h.control.setValue(['Banana']));
+        await userEvent.click(addon());
+        await stable();
+        expect(options()[0].getBoundingClientRect().height).toBe(44);
+        expect(options()[2].getAttribute('aria-selected')).toBe('true');
+        expect(options()[2].getBoundingClientRect().height).toBe(45);
+    });
+
+    it('shows the field hover shadow on hover (multi-input-3)', async () => {
+        const { root } = await render(SignalHost);
+        await userEvent.hover(field(root));
+        expect(getComputedStyle(field(root)).boxShadow).toBe(probe('[box-shadow:var(--sapField_Hover_Shadow)]'));
+        await userEvent.unhover(field(root));
+    });
+
+    it('keeps the field 36px high with the addon button in high contrast (multi-input-4)', async () => {
+        const { root } = await render(SignalHost);
+        const height = field(root).getBoundingClientRect().height;
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            expect(height).toBe(36);
+            expect(field(root).getBoundingClientRect().height).toBe(36);
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
+    it('gives the list no background of its own (multi-input-5)', async () => {
+        const { addon, stable } = await render(SignalHost);
+        await userEvent.click(addon());
+        await stable();
+        const list = document.querySelector<HTMLElement>('.cdk-overlay-container ul[role=listbox]')!;
+        expect(getComputedStyle(list).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    });
+});

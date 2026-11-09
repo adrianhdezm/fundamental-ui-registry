@@ -84,6 +84,9 @@ let nextId = 0;
  * <fd-multi-input ariaLabel="Fruits" placeholder="Search" [dropdownValues]="fruits" [(selected)]="chosen" />
  * ```
  */
+/** The dropdown width of fundamental-styles (40rem): the most the popup takes from a wider field. */
+const DROPDOWN_MAX_WIDTH = 640;
+
 @Component({
     selector: 'fd-multi-input',
     exportAs: 'fdMultiInput',
@@ -365,7 +368,7 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
     readonly buttonFocusable = input(false, { transform: booleanAttribute });
     readonly maxHeight = input('300px');
     readonly fillControlMode = input<PopoverFillMode | null>('at-least');
-    /** Maximum width of the list: none, the width of the field or pixels. */
+    /** Maximum width of the list: `none` (its content, up to 40rem), the width of the field (`container`) or pixels. */
     readonly bodyMaxWidth = input<'none' | 'container' | number>('none');
     readonly placement = input<'top' | 'bottom'>('bottom');
     /** A link under a filtered list that shows all items again; `{count}` is the number of items. */
@@ -454,7 +457,8 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
     protected readonly glyphMirrored = computed(() => this.glyph() === 'value-help' && this.dir?.value === 'rtl');
     protected readonly popoverMaxWidth = computed(() => {
         const max = this.bodyMaxWidth();
-        if (max === 'none') return null;
+        // fundamental-styles' dropdown stops at 40rem, also on a wider field
+        if (max === 'none') return DROPDOWN_MAX_WIDTH;
         if (typeof max === 'number') return max;
         return this.elementRef.nativeElement.getBoundingClientRect().width;
     });
@@ -802,7 +806,7 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
     protected readonly listClass = computed(() =>
         cn(
             'relative m-0 box-border block min-w-20 list-none overflow-auto bg-sap-list-background p-0 outline-none scrollbar-sap',
-            this.mobile() ? 'w-full' : 'w-full max-w-[37.5rem] rounded-[inherit]'
+            this.mobile() ? 'w-full' : 'w-full max-w-[40rem] rounded-[inherit]'
         )
     );
 

@@ -389,15 +389,15 @@ None.
 
 #### multi-input
 
-[React report](../../../react/docs/parity/components/multi-input.md) · ⬜ reported: 5
+[React report](../../../react/docs/parity/components/multi-input.md) · 🧪 covered: 5
 
-| ID            | Issue                                                                                              | Kind          | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------------- | -------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| multi-input-1 | The popup fills a wide field while its list stops at 600px; fundamental-styles caps both at 40rem. | visual        | rendered  |         | ⬜ reported |      |     |       |
-| multi-input-2 | Multi-input options are 40px high; fundamental-styles' list items are 44px (45px selected).        | visual        | rendered  |         | ⬜ reported |      |     |       |
-| multi-input-3 | The hovered multi-input field has no field hover shadow.                                           | visual        | rendered  |         | ⬜ reported |      |     |       |
-| multi-input-4 | In high contrast the multi-input addon button makes the field 40px instead of 36px (26px compact). | visual        | rendered  |         | ⬜ reported |      |     |       |
-| multi-input-5 | The multi-input list has a background of its own (not visible).                                    | computed-only | rendered  |         | ⬜ reported |      |     |       |
+| ID            | Issue                                                                                              | Kind          | Confirmed | Pattern | Status     | Test                                                                                                 | Fix | Notes |
+| ------------- | -------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ---------- | ---------------------------------------------------------------------------------------------------- | --- | ----- |
+| multi-input-1 | The popup fills a wide field while its list stops at 600px; fundamental-styles caps both at 40rem. | visual        | rendered  |         | 🧪 covered | MultiInput styles > caps the popup and its list at 40rem on a wide field (multi-input-1)             |     |       |
+| multi-input-2 | Multi-input options are 40px high; fundamental-styles' list items are 44px (45px selected).        | visual        | rendered  |         | 🧪 covered | MultiInput styles > has 44px options, 45px when selected (multi-input-2)                             |     |       |
+| multi-input-3 | The hovered multi-input field has no field hover shadow.                                           | visual        | rendered  |         | 🧪 covered | MultiInput styles > shows the field hover shadow on hover (multi-input-3)                            |     |       |
+| multi-input-4 | In high contrast the multi-input addon button makes the field 40px instead of 36px (26px compact). | visual        | rendered  |         | 🧪 covered | MultiInput styles > keeps the field 36px high with the addon button in high contrast (multi-input-4) |     |       |
+| multi-input-5 | The multi-input list has a background of its own (not visible).                                    | computed-only | rendered  |         | 🧪 covered | MultiInput styles > gives the list no background of its own (multi-input-5)                          |     |       |
 
 #### pagination
 
