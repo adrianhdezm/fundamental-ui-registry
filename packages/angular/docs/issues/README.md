@@ -726,13 +726,13 @@ None.
 
 #### facets
 
-[React report](../../../react/docs/parity/components/facets.md) · ⬜ reported: 1 · 🧪 covered: 2
+[React report](../../../react/docs/parity/components/facets.md) · 🧪 covered: 3
 
-| ID       | Issue                                                                                                       | Kind   | Confirmed | Pattern | Status      | Test                                                                                                                           | Fix | Notes |
-| -------- | ----------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------ | --- | ----- |
-| facets-1 | The facet title has no 1rem bottom margin, so the content sits right on the title.                          | visual | rendered  |         | 🧪 covered  | facets.spec.ts › Facets › the title (or a rating facet's subtitle) has a 1rem bottom margin above the content (computed style) |     |       |
-| facets-2 | Facet form rows have `gap-1`, which adds 4px on top of the label's or icon's 0.5rem end margin.             | visual | rendered  |         | 🧪 covered  | facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin                                             |     |       |
-| facets-3 | Facet form rows have `items-baseline`, which makes icon rows 18px high and puts links 2px below their icon. | visual | rendered  |         | ⬜ reported |                                                                                                                                |     |       |
+| ID       | Issue                                                                                                       | Kind   | Confirmed | Pattern | Status     | Test                                                                                                                           | Fix | Notes |
+| -------- | ----------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | --- | ----- |
+| facets-1 | The facet title has no 1rem bottom margin, so the content sits right on the title.                          | visual | rendered  |         | 🧪 covered | facets.spec.ts › Facets › the title (or a rating facet's subtitle) has a 1rem bottom margin above the content (computed style) |     |       |
+| facets-2 | Facet form rows have `gap-1`, which adds 4px on top of the label's or icon's 0.5rem end margin.             | visual | rendered  |         | 🧪 covered | facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin                                             |     |       |
+| facets-3 | Facet form rows have `items-baseline`, which makes icon rows 18px high and puts links 2px below their icon. | visual | rendered  |         | 🧪 covered | facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin                                             |     |       |
 
 #### flexible-column-layout
 

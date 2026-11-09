@@ -2473,9 +2473,9 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host): form facet rows compute align-items baseline (items-baseline), which makes icon rows 18px high and puts links 2px below their icon; fundamental-styles' rows stretch. The existing spec asserted baseline.",
+      "test": "facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin",
       "fix": "",
       "notes": ""
     },
