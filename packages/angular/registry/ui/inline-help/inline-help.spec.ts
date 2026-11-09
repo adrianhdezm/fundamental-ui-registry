@@ -2,10 +2,20 @@ import type { ScrollStrategy } from '@angular/cdk/overlay';
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { Icon } from '@/ui/icon/icon';
 import type { Placement } from '@/ui/popover/popover';
+import { Button } from '@/ui/button/button';
 import { InlineHelp } from './inline-help';
+
+@Component({
+    imports: [Button, InlineHelp],
+    template: `
+        <button fdButton id="btn" label="Click me" fdInlineHelp="Explains the action" bodyId="btn-body"></button>
+        <label id="lbl">Name <span tabindex="0" fdInlineHelp="Your full name" bodyId="lbl-body">?</span></label>
+    `
+})
+class TriggersHost {}
 
 @Component({
     imports: [Icon, InlineHelp],
@@ -158,13 +168,13 @@ describe('InlineHelp', () => {
         expect(body('click-body')).toBeNull();
     });
 
-    it('the help text is referenced via aria-describedby with an off-screen copy in the trigger', async () => {
+    it('the help text is referenced via aria-describedby with a hidden copy next to the trigger', async () => {
         const { icon, root } = await setup();
         expect(icon.getAttribute('aria-describedby')).toBe('help-body-text');
         const text = document.getElementById('help-body-text')!;
         expect(text.textContent).toBe('Explains the field');
-        expect(icon.contains(text)).toBe(true);
-        expect(text.getBoundingClientRect().width).toBeLessThanOrEqual(1);
+        expect(text.previousElementSibling).toBe(icon);
+        expect(text.hidden).toBe(true);
         // the icon trigger stays visible to assistive technology
         expect(icon.getAttribute('aria-hidden')).not.toBe('true');
 
@@ -172,7 +182,20 @@ describe('InlineHelp', () => {
         expect(field.getAttribute('aria-describedby')).toBe('field-body-text');
         const fieldText = document.getElementById('field-body-text')!;
         expect(fieldText.previousElementSibling).toBe(field);
+        expect(fieldText.hidden).toBe(true);
         expect(fieldText.textContent).toBe('Format: YYYY-MM-DD');
+    });
+
+    it('the help text describes a button trigger and adds nothing to its name or to a label around it', async () => {
+        const fixture = TestBed.createComponent(TriggersHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const button = document.getElementById('btn')!;
+        expect(page.getByRole('button', { name: 'Click me', exact: true }).element()).toBe(button);
+        expect(document.getElementById(button.getAttribute('aria-describedby')!)!.textContent).toBe(
+            'Explains the action'
+        );
+        expect(document.getElementById('lbl')!.innerText.trim()).toBe('Name ?');
     });
 
     it('template content renders in the body and in the screen reader text', async () => {
