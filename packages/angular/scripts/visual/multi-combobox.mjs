@@ -15,7 +15,7 @@ const OPTION = { ignore: ['min-height', 'padding-left', 'padding-right'] };
 /** fundamental-styles' "As Form Item" multi combobox, the field and its open list. */
 const item = (label, ours, ref, { open = false, ...extra } = {}) => ({
     label,
-    ours: { story: `${OURS}${open ? 'open-default' : 'as-form-item'}`, selector: ours },
+    ours: { story: `${OURS}${open ? 'open-default' : 'as-form-item'}`, selector: ours, overlay: open },
     ref: { story: `${MC}as-form-item`, selector: ref },
     ...extra
 });
@@ -62,13 +62,13 @@ export default [
         label: 'secondary text',
         pixels: false,
         ignore: ['width'],
-        ours: { story: `${OURS}open-two-columns`, selector: `${OPTION_SEL(0)} >> span[title] >> nth=1` },
+        ours: { story: `${OURS}open-two-columns`, selector: `${OPTION_SEL(0)} >> span[title] >> nth=1`, overlay: true },
         ref: { story: `${MC}two-column-combo-box`, selector: '.fd-list__secondary >> nth=0' }
     },
     // "Semantic": the message on top of the list
     {
         label: 'list message',
-        ours: { story: `${OURS}open-semantic`, selector: 'div:has(+ ul[role="listbox"])' },
+        ours: { story: `${OURS}open-semantic`, selector: 'div:has(+ ul[role="listbox"])', overlay: true },
         ref: { story: `${MC}semantic`, selector: '.fd-list__message' }
     },
     // the mobile dialog: fundamental-styles' list fills a docs dialog of another width, so styles only
@@ -76,7 +76,7 @@ export default [
         label: 'mobile option',
         pixels: false,
         ignore: ['width', ...OPTION.ignore],
-        ours: { story: `${OURS}open-mobile`, selector: '[role="dialog"] ul [role="option"] >> nth=4' },
+        ours: { story: `${OURS}open-mobile`, selector: '[role="dialog"] ul [role="option"] >> nth=4', overlay: true },
         ref: { story: `${MC}mobile-mode`, selector: '.fd-dialog .fd-list__item >> nth=3' }
     }
 ];

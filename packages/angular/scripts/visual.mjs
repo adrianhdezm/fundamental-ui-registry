@@ -126,15 +126,16 @@ const refUrl = (story, c) =>
     `${FS_URL}/iframe.html?id=${story}&viewMode=story&globals=styles-theme:${c.theme};contentDensity:${c.density};directionality:${c.dir}`;
 
 /** Renders a story and returns the computed styles, size and screenshot of the element matched by `selector`. */
-async function capture(page, url, selector, hover, props, focus) {
+async function capture(page, url, selector, hover, props, focus, scope = '#storybook-root') {
     await page.goto(url, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     // the end state of every element: no animation (e.g. pulsing busy dots) or transition in progress
     await page.addStyleTag({
         content: '*, *::before, *::after { animation: none !important; transition: none !important; }'
     });
-    // inside the story: Storybook's own (hidden) controls are elsewhere in the iframe
-    const el = page.locator('#storybook-root').locator(selector).first();
+    // inside the story (Storybook's own hidden controls are elsewhere in the iframe), or in the CDK overlay container
+    // for elements of an open popover or dialog
+    const el = page.locator(scope).locator(selector).first();
     await el.waitFor({ state: 'visible', timeout: 15000 });
     if (hover) await el.hover();
     else await page.mouse.move(0, 0);
@@ -225,7 +226,8 @@ async function compare(page, name, kase, c) {
             kase.ours.selector,
             kase.hover,
             props,
-            kase.focus
+            kase.focus,
+            kase.ours.overlay ? '.cdk-overlay-container' : undefined
         );
         // fundamental-styles shows focus with an is-focus class in its stories; refFocus focuses the element too
         const ref = await capture(page, refUrl(kase.ref.story, c), kase.ref.selector, kase.hover, props, kase.refFocus);

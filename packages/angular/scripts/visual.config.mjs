@@ -5,7 +5,8 @@
  * file with `const FS = 'sap-design-components-';` for the reference story ids.
  *
  *   label     name in the report
- *   ours      { story: Storybook story id, selector: Playwright selector of the element }
+ *   ours      { story: Storybook story id, selector: Playwright selector of the element, overlay: true to look
+ *             for it in the CDK overlay container (an open popover or dialog) instead of the story }
  *   ref       the same for https://sap.github.io/fundamental-styles/
  *   hover     hover the element before capturing
  *   focus     focus our element with the keyboard (:focus-visible); fundamental-styles' stories usually show focus

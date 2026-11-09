@@ -6,7 +6,8 @@ const OURS = 'components-select--';
 /** A part of a control: ours in `story` against fundamental-styles' in `refStory`. */
 const control = (label, story, ours, refStory, ref, extra = {}) => ({
     label,
-    ours: { story: `${OURS}${story}`, selector: ours },
+    // the list of an "Open: …" story is in the CDK overlay container
+    ours: { story: `${OURS}${story}`, selector: ours, overlay: story.startsWith('open-') },
     ref: { story: `${SEL}${refStory}`, selector: ref },
     ...extra
 });

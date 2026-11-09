@@ -8,7 +8,7 @@ export default [
         label: 'group header',
         pixels: false,
         ignore: ['width'],
-        ours: { story: `${OURS}open-groups`, selector: 'li[role=presentation][id*="-group-"] >> nth=0' },
+        ours: { story: `${OURS}open-groups`, selector: 'li[role=presentation][id*="-group-"] >> nth=0', overlay: true },
         ref: { story: `${COMBOBOX}two-items-and-items-grouping`, selector: '#fruitListHeader' }
     }
 ];

@@ -13,7 +13,7 @@ const OPTION = { ignore: ['min-height', 'padding-left', 'padding-right'] };
 /** fundamental-styles' "As Form Item" multi input, the field and its open list. */
 const item = (label, ours, ref, { open = false, ...extra } = {}) => ({
     label,
-    ours: { story: `${OURS}${open ? 'open-default' : 'as-form-item'}`, selector: ours },
+    ours: { story: `${OURS}${open ? 'open-default' : 'as-form-item'}`, selector: ours, overlay: open },
     ref: { story: `${MI}as-form-item`, selector: ref },
     ...extra
 });
@@ -80,12 +80,12 @@ export default [
         label: 'mobile option',
         pixels: false,
         ignore: ['width', ...OPTION.ignore],
-        ours: { story: `${OURS}open-mobile`, selector: '[role="dialog"] ul [role="option"] >> nth=4' },
+        ours: { story: `${OURS}open-mobile`, selector: '[role="dialog"] ul [role="option"] >> nth=4', overlay: true },
         ref: { story: `${MI}mobile-mode`, selector: '.fd-dialog .fd-list__item >> nth=0' }
     },
     {
         label: 'mobile select all button',
-        ours: { story: `${OURS}open-mobile`, selector: '[role="dialog"] button[aria-pressed]' },
+        ours: { story: `${OURS}open-mobile`, selector: '[role="dialog"] button[aria-label="Select all"]', overlay: true },
         ref: { story: `${MI}mobile-mode`, selector: '.fd-dialog__subheader .fd-bar__element >> nth=1 >> button' }
     }
 ];
