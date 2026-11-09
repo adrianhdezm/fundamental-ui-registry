@@ -1961,9 +1961,9 @@
       "source": "../../../react/docs/parity/components/status-indicator.md",
       "kind": "test",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "The Clickable story (components-status-indicator--clickable) with a play function that focuses it and presses Enter once: the value goes from 20% to 60%, its own keydown.enter and the component's activation both add 20%.",
+      "test": "status-indicator.stories.ts › Clickable (play: one Enter adds 20% once), run by the a11y projects",
       "fix": "",
       "notes": "A story bug, not a component bug."
     },
