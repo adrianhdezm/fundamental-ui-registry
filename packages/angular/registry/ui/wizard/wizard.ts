@@ -454,7 +454,9 @@ export class WizardStep {
             'm-2 box-border max-w-full min-w-4 flex-auto border-0 border-b border-solid border-sap-list-border-color p-0',
             this.isCompleted() && 'border-sap-content-selected-foreground-color',
             this.branching() && 'border-dashed',
-            this.stacked() && !this.stackedTop() && 'hidden'
+            this.stacked() && !this.stackedTop() && 'hidden',
+            // the stacked top step is 4rem wide: its connector takes what the indicator leaves
+            this.stacked() && this.stackedTop() && 'min-w-0'
         )
     );
 }

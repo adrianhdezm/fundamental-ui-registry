@@ -1351,9 +1351,9 @@
       "source": "../../../react/docs/parity/components/wizard.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "wizard.spec.ts Host, seven steps in 300px, the fourth current: the connector of the stacked top step (the 64px step before the current one) is 16px wide instead of 5px (min-w-4), running past its step.",
+      "test": "Wizard issues > keeps the connector of the stacked top step inside its 4rem step (wizard-2)",
       "fix": "",
       "notes": ""
     },
