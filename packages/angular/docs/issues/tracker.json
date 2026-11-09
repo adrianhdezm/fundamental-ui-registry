@@ -1075,9 +1075,9 @@
       "source": "../../../react/docs/parity/components/combobox.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: a mobile combobox opened with a click: the dialog search field has aria-expanded=\"false\" while the dialog list shows (its expanded state followed listShown(), which is false in mobile mode). A combobox 60rem wide with noDropDownMaxWidth opened from its button: the list has max-width 640px.",
+      "test": "Combobox › mobile › the search field of the dialog is expanded while its list shows; Combobox › noDropDownMaxWidth lets the list fill a field wider than 40rem",
       "fix": "",
       "notes": ""
     },

@@ -174,6 +174,19 @@ class OptionsHost {
     readonly control = new FormControl<unknown>(null);
 }
 
+@Component({
+    imports: [Combobox],
+    template: `
+        <fd-combobox
+            ariaLabel="Fruit"
+            style="display: block; width: 60rem"
+            noDropDownMaxWidth
+            [dropdownValues]="['Apple', 'Banana']"
+        />
+    `
+})
+class WideHost {}
+
 async function setupOptions(configure: (host: OptionsHost) => void = () => {}) {
     const fixture = TestBed.createComponent(OptionsHost);
     configure(fixture.componentInstance);
@@ -565,7 +578,33 @@ describe('Combobox', () => {
         expect(emitted[0]).not.toBe(APPLE_2);
     });
 
+    it('noDropDownMaxWidth lets the list fill a field wider than 40rem', async () => {
+        const fixture = TestBed.createComponent(WideHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const field = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('fd-combobox')!;
+        await userEvent.click(field.querySelector('button')!);
+        await fixture.whenStable();
+        await wait();
+        const list = document.querySelector<HTMLElement>('[role=listbox]')!;
+        expect(getComputedStyle(list).maxWidth).toBe('none');
+        expect(list.getBoundingClientRect().width).toBeGreaterThan(640);
+    });
+
     describe('mobile', () => {
+        it('the search field of the dialog is expanded while its list shows', async () => {
+            const { fixture, input } = await setupOptions((h) => h.mobile.set(true));
+            await userEvent.click(input);
+            await fixture.whenStable();
+            await wait();
+            const search = document.querySelector<HTMLInputElement>('[role=dialog] input[role=combobox]')!;
+            expect(document.querySelector('[role=dialog] [role=listbox]')).not.toBeNull();
+            expect(search.getAttribute('aria-expanded')).toBe('true');
+            expect(search.getAttribute('aria-controls')).toBe(
+                document.querySelector('[role=dialog] [role=listbox]')!.id
+            );
+        });
+
         it('Approve commits the draft once, Cancel restores the form value', async () => {
             const { fixture, host, input, emitted } = await setupOptions((h) => {
                 h.mobile.set(true);
