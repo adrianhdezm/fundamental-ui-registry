@@ -55,9 +55,9 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 <!-- tracker:start -->
 
-**Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
+**Progress:** 3 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 212 · ✅ verified: 2 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -823,12 +823,12 @@ None.
 
 #### notification
 
-[React report](../../../react/docs/parity/components/notification.md) · ⬜ reported: 1 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/notification.md) · ⬜ reported: 1 · ✅ verified: 1
 
-| ID             | Issue                                                                                              | Kind          | Confirmed | Pattern | Status      | Test                                                                                                 | Fix | Notes |
-| -------------- | -------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ---------------------------------------------------------------------------------------------------- | --- | ----- |
-| notification-1 | The notification group header lacks fundamental-styles' transparent bottom border (computed only). | computed-only | rendered  |         | ⬜ reported |                                                                                                      |     |       |
-| notification-2 | Notifications sit directly inside a `<ul>` as non-`<li>` elements, which axe reports.              | a11y          | rendered  |         | 🧪 covered  | Notification › makes notifications and groups the list items of a notification list (axe list rules) |     |       |
+| ID             | Issue                                                                                              | Kind          | Confirmed | Pattern | Status      | Test                                                                                                 | Fix     | Notes                                                                                |
+| -------------- | -------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| notification-1 | The notification group header lacks fundamental-styles' transparent bottom border (computed only). | computed-only | rendered  |         | ⬜ reported |                                                                                                      |         |                                                                                      |
+| notification-2 | Notifications sit directly inside a `<ul>` as non-`<li>` elements, which axe reports.              | a11y          | rendered  |         | ✅ verified | Notification › makes notifications and groups the list items of a notification list (axe list rules) | a6e1bc7 | Verified: the test fails before the fix and passes after; pnpm angular check passes. |
 
 #### settings
 
