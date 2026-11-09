@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { provideLocationMocks } from '@angular/common/testing';
 import { Component, TemplateRef, inject, viewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import axe from 'axe-core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { cdp, userEvent } from 'vitest/browser';
 import { ButtonBar } from '@/ui/bar/bar';
@@ -101,6 +102,18 @@ const near = (actual: number, expected: number) => expect(Math.abs(actual - expe
 
 describe('Dialog', () => {
     afterEach(() => TestBed.inject(DialogService).dismissAll());
+
+    it('adds no page landmarks: two dialogs without backdrop have no banner or content info', async () => {
+        const { open } = await setup();
+        await open({ data: 'one', hasBackdrop: false });
+        await open({ data: 'two', hasBackdrop: false });
+        expect(windows()).toHaveLength(2);
+        const { violations } = await axe.run(document, {
+            runOnly: ['landmark-no-duplicate-banner', 'landmark-no-duplicate-contentinfo', 'landmark-unique']
+        });
+        expect(violations.map((v) => v.id)).toEqual([]);
+        expect(document.querySelectorAll('[role=dialog] header, [role=dialog] footer')).toHaveLength(0);
+    });
 
     it('is a labelled modal that takes the focus and gives it back when closed', async () => {
         const { open } = await setup();

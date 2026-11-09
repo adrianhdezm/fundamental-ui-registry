@@ -247,13 +247,13 @@ None.
 
 #### dialog
 
-[React report](../../../react/docs/parity/components/dialog.md) · ⬜ reported: 3
+[React report](../../../react/docs/parity/components/dialog.md) · ⬜ reported: 2 · ✅ verified: 1
 
-| ID       | Issue                                                                                                                                              | Kind          | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| dialog-1 | The draggable header shows the grab cursor at rest; fundamental-styles shows it only while the window is hovered.                                  | visual        | rendered  |         | ⬜ reported |      |     |       |
-| dialog-2 | Header and footer render `<header>`/`<footer>`, which become page landmarks (duplicates with two dialogs) while a dialog without backdrop is open. | a11y          | rendered  |         | ⬜ reported |      |     |       |
-| dialog-3 | The title sits in a full-width bar element (592px instead of the text width); not visible.                                                         | computed-only | rendered  |         | ⬜ reported |      |     |       |
+| ID       | Issue                                                                                                                                              | Kind          | Confirmed | Pattern | Status      | Test                                                                                         | Fix     | Notes                                                                                                               |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
+| dialog-1 | The draggable header shows the grab cursor at rest; fundamental-styles shows it only while the window is hovered.                                  | visual        | rendered  |         | ⬜ reported |                                                                                              |         |                                                                                                                     |
+| dialog-2 | Header and footer render `<header>`/`<footer>`, which become page landmarks (duplicates with two dialogs) while a dialog without backdrop is open. | a11y          | rendered  |         | ✅ verified | Dialog › adds no page landmarks: two dialogs without backdrop have no banner or content info | 98bb868 | Verified: the test fails before the fix (3 violations) and passes after; pnpm angular check (a11y included) passes. |
+| dialog-3 | The title sits in a full-width bar element (592px instead of the text width); not visible.                                                         | computed-only | rendered  |         | ⬜ reported |                                                                                              |         |                                                                                                                     |
 
 #### token
 

@@ -670,11 +670,11 @@
       "source": "../../../react/docs/parity/components/dialog.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: two dialogs opened with hasBackdrop: false (both aria-modal=\"true\"); axe-core with landmark-no-duplicate-banner, landmark-no-duplicate-contentinfo and landmark-unique reports 3 violations: each dialog header is a <header> (banner) and each footer a <footer> (content info).",
+      "test": "Dialog › adds no page landmarks: two dialogs without backdrop have no banner or content info",
+      "fix": "98bb868",
+      "notes": "Verified: the test fails before the fix (3 violations) and passes after; pnpm angular check (a11y included) passes."
     },
     {
       "id": "dialog-3",
