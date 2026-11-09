@@ -55,9 +55,9 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 <!-- tracker:start -->
 
-**Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
+**Progress:** 3 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 212 · ✅ verified: 2 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -363,13 +363,13 @@ None.
 
 #### combobox
 
-[React report](../../../react/docs/parity/components/combobox.md) · ⬜ reported: 2 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/combobox.md) · ⬜ reported: 2 · ✅ verified: 1
 
-| ID         | Issue                                                                                                                                                    | Kind      | Confirmed | Pattern | Status      | Test                                                                                                                                                           | Fix | Notes |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
-| combobox-1 | Group headers in the list show a text cursor; fundamental-styles uses the default cursor.                                                                | visual    | rendered  |         | ⬜ reported |                                                                                                                                                                |     |       |
-| combobox-2 | In mobile immediate mode, Cancel, Close or Escape put the old text back without telling the form, so the field and the form value disagree.              | behaviour | rendered  |         | ⬜ reported |                                                                                                                                                                |     |       |
-| combobox-3 | The mobile dialog's search field has `aria-expanded="false"` while the list shows; with `noDropDownMaxWidth` the list still keeps a 40rem maximum width. | a11y      | rendered  |         | 🧪 covered  | Combobox › mobile › the search field of the dialog is expanded while its list shows; Combobox › noDropDownMaxWidth lets the list fill a field wider than 40rem |     |       |
+| ID         | Issue                                                                                                                                                    | Kind      | Confirmed | Pattern | Status      | Test                                                                                                                                                           | Fix     | Notes                                                                               |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------- |
+| combobox-1 | Group headers in the list show a text cursor; fundamental-styles uses the default cursor.                                                                | visual    | rendered  |         | ⬜ reported |                                                                                                                                                                |         |                                                                                     |
+| combobox-2 | In mobile immediate mode, Cancel, Close or Escape put the old text back without telling the form, so the field and the form value disagree.              | behaviour | rendered  |         | ⬜ reported |                                                                                                                                                                |         |                                                                                     |
+| combobox-3 | The mobile dialog's search field has `aria-expanded="false"` while the list shows; with `noDropDownMaxWidth` the list still keeps a 40rem maximum width. | a11y      | rendered  |         | ✅ verified | Combobox › mobile › the search field of the dialog is expanded while its list shows; Combobox › noDropDownMaxWidth lets the list fill a field wider than 40rem | 89dc82a | Verified: both tests fail before the fix and pass after; pnpm angular check passes. |
 
 #### nested-list
 
