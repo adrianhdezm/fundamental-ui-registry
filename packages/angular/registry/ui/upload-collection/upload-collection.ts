@@ -164,7 +164,9 @@ export class UploadCollectionTitleContainer {
         '[attr.title]': 'item?.fullName() ?? null',
         // a link title keeps the link colour and its 1rem line over the list title's (fundamental-styles)
         // a link title stays interactive (the list title and content are pointer-events-none)
-        class: 'me-2 min-w-0 flex-none shrink [a&]:pointer-events-auto [a&]:text-sap-link-color [a&]:leading-4'
+        // it takes the list title's size; only its colours transition (the link's transition-all would animate the size,
+        // and the middle shortening measures the title)
+        class: 'me-2 min-w-0 flex-none shrink [a&]:pointer-events-auto [a&]:text-(length:--li-fs) [a&]:text-sap-link-color [a&]:leading-4 [a&]:transition-colors'
     }
 })
 export class UploadCollectionTitle {
