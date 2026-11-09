@@ -148,7 +148,7 @@
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision: fundamental-styles' `--fdBusy_Indicator_Dot_Color` (#0070f2 in every theme) or the theme's `--sapContent_BusyColor` (what UI5 and the SAP theming parameters define)? React took fundamental-styles'."
+      "notes": "Decision: fundamental-styles' `--fdBusy_Indicator_Dot_Color` (#0070f2 in every theme) or the theme's `--sapContent_BusyColor` (the theme parameter; UI5 not checked yet)? React took fundamental-styles'."
     },
     {
       "id": "layout-grid-1",
@@ -2399,7 +2399,7 @@
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision: fundamental-styles' single truncated 2rem state message line, or a wrapping message (UI5 wraps value-state messages, and truncation hides text)?"
+      "notes": "Decision: fundamental-styles' single truncated 2rem state message line, or a wrapping message (truncation hides text; UI5 to be checked)?"
     },
     {
       "id": "multi-combobox-7",
