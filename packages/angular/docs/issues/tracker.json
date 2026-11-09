@@ -118,9 +118,9 @@
       "source": "../../../react/docs/parity/components/icon.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reproduced",
+      "status": "covered",
       "repro": "`pnpm visual icon`, case \"narrow glyph\" (components-icon--rtl, first icon), 16 of 16 combinations: 12px wide against fundamental-styles 32px (1em); the md lightbulb is 24px wide against 32px.",
-      "test": "",
+      "test": "icon.spec.ts › Icon › a narrow glyph gets a 1em box, as wide as the font size",
       "fix": "",
       "notes": ""
     },

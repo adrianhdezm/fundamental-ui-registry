@@ -17,7 +17,8 @@ const GLYPHS: Record<IconFont, Readonly<Record<string, IconGlyph>>> = {
 };
 
 export const iconVariants = cva(
-    'inline-flex shrink-0 items-center justify-center not-italic font-normal normal-case no-underline ' +
+    // a 1em box whatever the glyph's width, as fundamental-styles' icons
+    'inline-flex shrink-0 items-center justify-center w-[1em] not-italic font-normal normal-case no-underline ' +
         'before:content-[attr(data-glyph)] before:text-center before:[text-rendering:optimizeLegibility]',
     {
         variants: {
