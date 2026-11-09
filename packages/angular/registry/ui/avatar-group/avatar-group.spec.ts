@@ -2,7 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { cdp, userEvent } from 'vitest/browser';
 import { Avatar } from '@/ui/avatar/avatar';
 import type { Placement } from '@/ui/popover/popover';
 import { AvatarGroup, AvatarGroupItem, type AvatarGroupOrientation, type AvatarGroupType } from './avatar-group';
@@ -226,6 +226,8 @@ describe('AvatarGroup', () => {
     it('the overflow button is an avatar with button colours, the avatar font size and as wide as its count', async () => {
         const { overflow, root } = await setup((h) => h.max.set(2));
         const button = overflow()!.querySelector<HTMLElement>('span')!;
+        // the resting colours: the pointer may still be where an earlier test left it, over the button
+        await cdp().send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 0, y: 0 });
         const probe = document.createElement('span');
         root.appendChild(probe);
         probe.style.backgroundColor = 'var(--sapButton_Background)';
