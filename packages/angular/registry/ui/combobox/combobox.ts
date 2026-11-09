@@ -537,7 +537,9 @@ export class Combobox<T = unknown> implements ControlValueAccessor {
         this.isOpen.set(true);
         this.openChange.emit(true);
         if (this.mobile()) {
-            this.snapshot = { text: this.inputText(), value: this.modelValue(), confirmed: this.confirmed };
+            // what Cancel goes back to; in immediate mode the choices are already applied, so they stay
+            if (this.approveMode())
+                this.snapshot = { text: this.inputText(), value: this.modelValue(), confirmed: this.confirmed };
             this.searchTerm.set('');
             this.openDialog();
         }
