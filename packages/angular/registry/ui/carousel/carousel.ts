@@ -485,7 +485,9 @@ let nextCarouselId = 0;
                 <ng-container [ngTemplateOutlet]="indicatorContainer" />
             }
             <div class="sr-only-sap" aria-live="polite">
-                {{ readerLabel() }} {{ start() + 1 }} {{ ofLabel() }} {{ pages() }}
+                @if (pages() > 0) {
+                    {{ readerLabel() }} {{ start() + 1 }} {{ ofLabel() }} {{ pages() }}
+                }
             </div>
         </div>
 

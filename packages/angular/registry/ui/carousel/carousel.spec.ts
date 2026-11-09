@@ -121,6 +121,16 @@ describe('Carousel', () => {
         expect(next().disabled).toBe(false);
     });
 
+    it('announces the shown item, and nothing without slides', async () => {
+        const { fixture, host, root } = await setup();
+        const region = root.querySelector<HTMLElement>('[aria-live=polite]')!;
+        expect(region.textContent!.replace(/\s+/g, ' ').trim()).toBe('Displaying item 1 of 4');
+        host.slides.set([]);
+        await fixture.whenStable();
+        expect(root.querySelector('[aria-live=polite]')).toBe(region);
+        expect(region.textContent!.trim()).toBe('');
+    });
+
     it('moves with the buttons and stops at the ends', async () => {
         const { fixture, host, selected, previous, next, transform } = await setup();
         await userEvent.click(next());
