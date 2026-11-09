@@ -257,14 +257,14 @@ None.
 
 #### token
 
-[React report](../../../react/docs/parity/components/token.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/token.md) · 🧪 covered: 4
 
-| ID      | Issue                                                                                                                                         | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| token-1 | The tokenizer input is only 16px high: `h-full` resolves against a field that has only a min-height.                                          | visual | rendered  |         | ⬜ reported |      |     |       |
-| token-2 | The read-only tokenizer's `border-dashed` loses to the field border style, and `shadow-none` drops the field shadow fundamental-styles keeps. | visual | rendered  |         | ⬜ reported |      |     |       |
-| token-3 | Selected tokens keep their inset bottom line in the HC themes, where fundamental-styles has none.                                             | visual | rendered  |         | ⬜ reported |      |     |       |
-| token-4 | A hovered tokenizer keeps the field shadow; fundamental-styles removes it.                                                                    | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID      | Issue                                                                                                                                         | Kind   | Confirmed | Pattern | Status     | Test                                                                                             | Fix | Notes |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ------------------------------------------------------------------------------------------------ | --- | ----- |
+| token-1 | The tokenizer input is only 16px high: `h-full` resolves against a field that has only a min-height.                                          | visual | rendered  |         | 🧪 covered | Tokenizer field styles > stretches the input to the field height (token-1)                       |     |       |
+| token-2 | The read-only tokenizer's `border-dashed` loses to the field border style, and `shadow-none` drops the field shadow fundamental-styles keeps. | visual | rendered  |         | 🧪 covered | Tokenizer field styles > has the read-only field background and keeps the field shadow (token-2) |     |       |
+| token-3 | Selected tokens keep their inset bottom line in the HC themes, where fundamental-styles has none.                                             | visual | rendered  |         | 🧪 covered | Tokenizer field styles > has no inset bottom line on selected tokens in high contrast (token-3)  |     |       |
+| token-4 | A hovered tokenizer keeps the field shadow; fundamental-styles removes it.                                                                    | visual | rendered  |         | 🧪 covered | Tokenizer field styles > drops the field shadow on hover (token-4)                               |     |       |
 
 #### input-group
 

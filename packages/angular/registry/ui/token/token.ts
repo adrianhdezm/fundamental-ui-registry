@@ -168,7 +168,7 @@ export class Token {
 @Directive({
     selector: 'input[fdTokenizerInput], input[fd-tokenizer-input]',
     host: {
-        class: 'm-0 box-border h-full min-h-full min-w-12 flex-1 basis-full border-none bg-transparent px-[0.3125rem] py-0 shadow-none outline-none compact:min-w-8 compact:px-1 font-sap-font-family text-sap-font-size text-sap-field-text-color placeholder:italic placeholder:text-sap-field-placeholder-text-color hc:placeholder:not-italic  '
+        class: 'm-0 box-border min-w-12 flex-1 basis-full self-stretch border-none bg-transparent px-[0.3125rem] py-0 shadow-none outline-none compact:min-w-8 compact:px-1 font-sap-font-family text-sap-font-size text-sap-field-text-color placeholder:italic placeholder:text-sap-field-placeholder-text-color hc:placeholder:not-italic  '
     }
 })
 export class TokenizerInput {
@@ -364,7 +364,7 @@ export class Tokenizer {
     );
     protected readonly innerClass = computed(() =>
         cn(
-            'flex h-full w-full items-center overflow-hidden px-[0.3125rem] whitespace-nowrap compact:px-1',
+            'flex w-full items-center self-stretch overflow-hidden px-[0.3125rem] whitespace-nowrap compact:px-1',
             '[&_fd-token]:me-[0.3125rem] compact:[&_fd-token]:me-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
             this.expanded() && 'overflow-x-auto'
         )
