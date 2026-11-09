@@ -70,7 +70,9 @@ const LIST_VARS = [
     '[--mi-pl:var(--mi-pad)] [--mi-pr:var(--mi-pad)]',
     '[--mr:var(--sapPopover_BorderCornerRadius)]'
 ].join(' ');
-const MOBILE_VARS = '[--mi-icon-w:2.75rem]! [--mi-pad:1rem]! [--mi-sc-pr:1rem]! [--mi-text-r:1rem]! [--mr:0]!';
+// the shortcut's mobile end padding is cozy only: compact keeps 0.5rem, as fundamental-styles
+const MOBILE_VARS =
+    '[--mi-icon-w:2.75rem]! [--mi-pad:1rem]! [--mi-sc-pr:1rem]! compact:[--mi-sc-pr:0.5rem]! [--mi-text-r:1rem]! [--mr:0]!';
 /** Lists with icons align their texts after the icon column instead of padding the items. */
 const ICON_VARS = '[--mi-pl:0]! [--mi-pr:0]!';
 

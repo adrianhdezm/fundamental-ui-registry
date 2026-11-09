@@ -306,3 +306,52 @@ describe('GridList parts', () => {
         expect(host.log()).toBe('navigate');
     });
 });
+
+@Component({
+    imports: [GridList, GridListItem, GridListTitleBar, GridListGroupHeader],
+    template: `
+        <fd-grid-list ariaLabel="Groups">
+            <fd-grid-list-title-bar title="Products" />
+            <fd-grid-list-group-header id="first">First group</fd-grid-list-group-header>
+            <fd-grid-list-item value="a" title="A" />
+            <fd-grid-list-group-header id="second">Second group</fd-grid-list-group-header>
+            <fd-grid-list-item value="b" title="B" />
+        </fd-grid-list>
+    `
+})
+class GroupsHost {}
+
+describe('GridList styles', () => {
+    async function renderGroups() {
+        const fixture = TestBed.createComponent(GroupsHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        return fixture.nativeElement as HTMLElement;
+    }
+    const colour = (variable: string) => {
+        const probe = document.createElement('span');
+        probe.style.color = `var(${variable})`;
+        document.body.appendChild(probe);
+        const value = getComputedStyle(probe).color;
+        probe.remove();
+        return value;
+    };
+
+    it('the item title uses the regular SAP font, as fundamental-styles (computed style)', async () => {
+        const el = await renderGroups();
+        const title = el.querySelector<HTMLElement>('[data-grid-list-item] [role="heading"]')!;
+        expect(getComputedStyle(title).fontFamily.split(',')[0].replace(/["']/g, '').trim()).toBe('72');
+    });
+
+    it('the title bar text has the text colour (computed style)', async () => {
+        const el = await renderGroups();
+        const heading = el.querySelector<HTMLElement>('fd-grid-list-title-bar [role="heading"]')!;
+        expect(getComputedStyle(heading).color).toBe(colour('--sapTextColor'));
+    });
+
+    it('group headers after items have a 0.75rem top margin, the first one none (computed style)', async () => {
+        const el = await renderGroups();
+        expect(getComputedStyle(el.querySelector('#first')!).marginTop).toBe('0px');
+        expect(getComputedStyle(el.querySelector('#second')!).marginTop).toBe('12px');
+    });
+});

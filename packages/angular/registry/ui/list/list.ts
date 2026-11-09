@@ -672,7 +672,8 @@ export class ListLink {
         const indication = !!list?.navigationIndicator();
         return cn(
             'relative m-0 box-border flex h-full w-full items-center bg-(--li-bg) text-(--li-tc) no-underline',
-            'border-b-(length:--sapList_BorderWidth) border-solid border-transparent [--li-bc:transparent]',
+            // the list border colour shows on hover, as fundamental-styles
+            'border-b-(length:--sapList_BorderWidth) border-solid border-transparent [--li-bc:transparent] hover:border-sap-list-border-color',
             'ps-[0.9375rem] pe-[0.9375rem]',
             INTERACTIVE_STATES,
             this.pressed() && '[--li-bg:var(--sapList_Active_Background)] [--li-tc:var(--sapList_Active_TextColor)]',
@@ -843,7 +844,8 @@ export class ListBylineRight {
 @Directive({
     selector: '[fd-list-thumbnail], [fdListThumbnail]',
     host: {
-        class: 'pointer-events-none m-0 me-3 box-border flex size-12 min-w-12 max-w-12 items-center justify-center rounded-sm p-0 text-[2rem] text-sap-content-non-interactive-icon-color [&>svg]:h-full'
+        // icons take the thumbnail size (2rem), not their own default size
+        class: 'pointer-events-none m-0 me-3 box-border flex size-12 min-w-12 max-w-12 items-center justify-center rounded-sm p-0 text-[2rem] text-sap-content-non-interactive-icon-color [&>svg]:h-full [&>[data-glyph]]:text-[2rem]'
     }
 })
 export class ListThumbnail {}

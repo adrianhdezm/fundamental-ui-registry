@@ -136,6 +136,38 @@ export const States: Story = {
     })
 };
 
+export const ValidationStates: Story = {
+    name: 'Validation states',
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' states example, for the visual comparison: unchecked, checked and mixed per state."
+            }
+        }
+    },
+    render: () => ({
+        props: {
+            states: [
+                ['error', 'Error'],
+                ['success', 'Success'],
+                ['warning', 'Warning'],
+                ['information', 'Information']
+            ]
+        },
+        template: `
+            <div class="flex flex-col gap-2">
+                <fd-checkbox label="Default Checkbox" [ngModel]="false" />
+                @for (s of states; track s[0]) {
+                    <div class="flex flex-wrap">
+                        <fd-checkbox [state]="s[0]" [label]="s[1] + ' State'" [ngModel]="false" />
+                        <fd-checkbox [state]="s[0]" [label]="s[1] + ' Selected State'" [ngModel]="true" />
+                        <fd-checkbox [state]="s[0]" tristate [label]="s[1] + ' Tri-State'" [ngModel]="null" />
+                    </div>
+                }
+            </div>`
+    })
+};
+
 /** Upstream's "Accept all" pattern: a tristate parent that reflects and drives three agreements. */
 @Component({
     selector: 'story-checkbox-accept-all',

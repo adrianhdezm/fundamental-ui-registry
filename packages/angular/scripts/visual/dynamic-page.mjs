@@ -38,5 +38,14 @@ export default [
         ignore: ['background-color'],
         ours: { story: OURS, selector: `${BUTTONS} >> nth=1` },
         ref: { story: `${REF}desktop`, selector: '.fd-dynamic-page__pin-button' }
+    },
+    {
+        // the pointer cursor on hover only (dynamic-page-4): the title area at rest
+        label: 'title area',
+        pixels: false,
+        // the size and the inline padding follow the page width, whose container differs between the Storybooks
+        ignore: ['width', 'height', 'padding-left', 'padding-right'],
+        ours: { story: OURS, selector: '[class*="hover:bg-sap-object-header-hover-background"] >> nth=0' },
+        ref: { story: `${REF}desktop`, selector: '.fd-dynamic-page__title-area' }
     }
 ];

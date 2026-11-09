@@ -125,7 +125,7 @@ export class FixedCardLayoutItem implements FocusableOption {
         <div
             #layout
             cdkDropListGroup
-            class="m-0 -mt-4 -ms-4 box-border flex flex-col flex-wrap content-start items-start justify-start p-0"
+            class="m-0 -mt-4 -ms-4 box-border flex flex-col flex-wrap content-start items-center justify-start p-0"
             [style.height.px]="height()"
             [cdkDropListGroupDisabled]="disableDragDrop()"
         >

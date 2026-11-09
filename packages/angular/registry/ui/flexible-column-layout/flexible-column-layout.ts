@@ -313,7 +313,8 @@ export class FlexibleColumnLayoutComponent {
         return cn(
             'm-0 box-border min-w-0 overflow-hidden p-0 [container-type:inline-size]',
             'transition-[width,visibility] duration-[560ms] ease-[cubic-bezier(0.1,0,0.05,1)] motion-reduce:transition-none',
-            'border-x border-solid border-sap-group-content-border-color first:border-s-0 last:border-e-0',
+            // no column borders in high contrast, as fundamental-styles
+            'border-x border-solid border-sap-group-content-border-color first:border-s-0 last:border-e-0 hc:border-x-0',
             !width && 'invisible h-0 border-0'
         );
     }

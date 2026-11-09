@@ -93,6 +93,11 @@ describe('MicroProcessFlow', () => {
         expect(hugeRadius(root)).toEqual([]);
     });
 
+    it('the root has a normal line height, as fundamental-styles (computed style)', async () => {
+        const { root } = await setup();
+        expect(getComputedStyle(root.querySelector('fd-micro-process-flow')!).lineHeight).toBe('normal');
+    });
+
     it('joins the steps with connectors, but not after the last', async () => {
         const { root, fixture } = await setup();
         const items = root.querySelectorAll('fd-micro-process-flow-item');

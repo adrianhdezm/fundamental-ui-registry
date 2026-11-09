@@ -255,3 +255,32 @@ describe('LayoutGrid', () => {
         expect(el('dyn').classList).toContain('box-border');
     });
 });
+
+@Component({
+    imports: [LayoutGrid, LayoutGridRow, LayoutGridCol],
+    template: `
+        <div style="font-family: serif; font-size: 20px; line-height: 30px; font-weight: 700; color: rgb(255, 0, 0)">
+            <fd-layout-grid id="typo">
+                <div fdLayoutGridRow><div fdLayoutGridCol id="typo-col">Text</div></div>
+            </fd-layout-grid>
+            <span id="probe" class="text-sap-text-color"></span>
+        </div>
+    `
+})
+class TypographyHost {}
+
+describe('LayoutGrid typography', () => {
+    it("sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-container (computed style)", async () => {
+        const fixture = TestBed.createComponent(TypographyHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const col = getComputedStyle(root.querySelector('#typo-col')!);
+        expect(col.fontFamily.split(',')[0].replace(/["']/g, '').trim()).toBe('72');
+        expect(col.fontSize).toBe('14px');
+        expect(col.lineHeight).toBe('normal');
+        expect(col.fontWeight).toBe('400');
+        expect(col.color).toBe(getComputedStyle(root.querySelector('#probe')!).color);
+        fixture.destroy();
+    });
+});

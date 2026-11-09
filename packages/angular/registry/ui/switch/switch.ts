@@ -21,19 +21,19 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { cn, type ClassValue } from '@/lib/utils';
 import { Icon } from '@/ui/icon/icon';
 
-/** Track and handle colours: [unchecked, unchecked hover, checked, checked hover]. */
+/** Track and handle colours: [unchecked, unchecked hover, checked, checked hover], set on the label. */
 const COLORS = {
     standard: [
         '[--sw-track-bg:var(--sapButton_Track_Background)] [--sw-track-bc:var(--sapButton_Track_BorderColor)] [--sw-handle-bg:var(--sapButton_Handle_Background)] [--sw-handle-bc:var(--sapButton_Track_BorderColor)]',
-        'group-hover/sw:[--sw-track-bg:var(--sapButton_Track_Hover_Background)] group-hover/sw:[--sw-track-bc:var(--sapButton_Track_Hover_BorderColor)] group-hover/sw:[--sw-handle-bg:var(--sapButton_Handle_Selected_Hover_Background)] group-hover/sw:[--sw-handle-bc:var(--sapButton_Handle_Hover_BorderColor)]',
+        'hover:[--sw-track-bg:var(--sapButton_Track_Hover_Background)] hover:[--sw-track-bc:var(--sapButton_Track_Hover_BorderColor)] hover:[--sw-handle-bg:var(--sapButton_Handle_Selected_Hover_Background)] hover:[--sw-handle-bc:var(--sapButton_Handle_Hover_BorderColor)]',
         '[--sw-track-bg:var(--sapButton_Track_Selected_Background)] [--sw-track-bc:var(--sapButton_Selected_BorderColor)] [--sw-handle-bg:var(--sapButton_Selected_Background)] [--sw-handle-bc:var(--sapButton_Selected_BorderColor)]',
-        'group-hover/sw:[--sw-track-bg:var(--sapButton_Track_Selected_Hover_Background)] group-hover/sw:[--sw-track-bc:var(--sapButton_Track_Selected_Hover_BorderColor)] group-hover/sw:[--sw-handle-bg:var(--sapButton_Handle_Selected_Hover_Background)] group-hover/sw:[--sw-handle-bc:var(--sapButton_Handle_Selected_Hover_BorderColor)]'
+        'hover:[--sw-track-bg:var(--sapButton_Track_Selected_Hover_Background)] hover:[--sw-track-bc:var(--sapButton_Track_Selected_Hover_BorderColor)] hover:[--sw-handle-bg:var(--sapButton_Handle_Selected_Hover_Background)] hover:[--sw-handle-bc:var(--sapButton_Handle_Selected_Hover_BorderColor)]'
     ],
     semantic: [
         '[--sw-track-bg:var(--sapButton_Track_Negative_Background)] [--sw-track-bc:var(--sapButton_Track_Negative_BorderColor)] [--sw-handle-bg:var(--sapButton_Handle_Negative_Background)] [--sw-handle-bc:var(--sapButton_Track_Negative_Background)] hc:[--sw-handle-bc:var(--sapButton_Handle_Negative_BorderColor)]',
-        'group-hover/sw:[--sw-track-bg:var(--sapButton_Track_Negative_Hover_Background)] group-hover/sw:[--sw-track-bc:var(--sapButton_Track_Negative_Hover_BorderColor)] group-hover/sw:[--sw-handle-bg:var(--sapButton_Handle_Negative_Hover_Background)] group-hover/sw:[--sw-handle-bc:var(--sapButton_Handle_Negative_Hover_BorderColor)]',
+        'hover:[--sw-track-bg:var(--sapButton_Track_Negative_Hover_Background)] hover:[--sw-track-bc:var(--sapButton_Track_Negative_Hover_BorderColor)] hover:[--sw-handle-bg:var(--sapButton_Handle_Negative_Hover_Background)] hover:[--sw-handle-bc:var(--sapButton_Handle_Negative_Hover_BorderColor)]',
         '[--sw-track-bg:var(--sapButton_Track_Positive_Background)] [--sw-track-bc:var(--sapButton_Track_Positive_BorderColor)] [--sw-handle-bg:var(--sapButton_Handle_Positive_Background)] [--sw-handle-bc:var(--sapButton_Track_Positive_Background)] hc:[--sw-handle-bc:var(--sapButton_Handle_Positive_BorderColor)]',
-        'group-hover/sw:[--sw-track-bg:var(--sapButton_Track_Positive_Hover_Background)] group-hover/sw:[--sw-track-bc:var(--sapButton_Track_Positive_Hover_BorderColor)] group-hover/sw:[--sw-handle-bg:var(--sapButton_Handle_Positive_Hover_Background)] group-hover/sw:[--sw-handle-bc:var(--sapButton_Handle_Positive_Hover_BorderColor)]'
+        'hover:[--sw-track-bg:var(--sapButton_Track_Positive_Hover_Background)] hover:[--sw-track-bc:var(--sapButton_Track_Positive_Hover_BorderColor)] hover:[--sw-handle-bg:var(--sapButton_Handle_Positive_Hover_Background)] hover:[--sw-handle-bc:var(--sapButton_Handle_Positive_Hover_BorderColor)]'
     ]
 } as const;
 

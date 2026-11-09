@@ -23,7 +23,8 @@ export type ScrollbarOverflow = 'auto' | 'scroll' | 'hidden';
     exportAs: 'fdScrollbar',
     hostDirectives: [CdkScrollable],
     host: {
-        class: 'scrollbar-sap focus-visible:outline-sap focus-visible:-outline-offset-2',
+        // the SAP text typography, as fundamental-styles' .fd-scrollbar
+        class: 'scrollbar-sap font-sap-font-family text-sap-font-size leading-[normal] font-normal text-sap-text-color focus-visible:outline-sap focus-visible:-outline-offset-2',
         '[style.overflow-x]': 'overflowX()',
         '[style.overflow-y]': 'overflowY()'
     }

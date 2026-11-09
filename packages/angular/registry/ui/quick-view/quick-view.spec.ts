@@ -111,6 +111,23 @@ describe('QuickView', () => {
         expect(el.querySelector('fd-form-group')!.getAttribute('role')).toBe('group');
     });
 
+    it("the subheader keeps the bar's minimum height, as fundamental-styles (computed style)", async () => {
+        const fixture = TestBed.createComponent(Host);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const bar = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>(
+            'fd-quick-view-subheader [fd-bar]'
+        )!;
+        expect(getComputedStyle(bar).minHeight).toBe('44px');
+        document.documentElement.setAttribute('data-density', 'compact');
+        try {
+            expect(getComputedStyle(bar).minHeight).toBe('40px');
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+            fixture.destroy();
+        }
+    });
+
     it('names each group by its title', async () => {
         const fixture = TestBed.createComponent(Host);
         await fixture.whenStable();

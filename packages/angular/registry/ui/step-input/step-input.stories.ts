@@ -283,3 +283,38 @@ export const Formats: Story = {
 };
 export const States: Story = { render: () => ({ template: `<story-step-input-states />` }) };
 export const Form: Story = { render: () => ({ template: `<story-step-input-form />` }) };
+
+export const ValidationStates: Story = {
+    name: 'Validation states',
+    parameters: {
+        docs: { description: { story: "fundamental-styles' states example, for the visual comparison." } }
+    },
+    render: () => ({
+        props: { states: ['success', 'information', 'error', 'warning'] },
+        template: `
+            <div class="flex flex-col gap-4">
+                @for (state of states; track state) {
+                    <fd-step-input [inputId]="'si-state-' + state" [state]="state" [value]="0" [ariaLabel]="state" />
+                }
+            </div>`
+    })
+};
+
+/** A step input whose input `play` focuses, against fundamental-styles' `is-focus` examples. */
+const focusStory = (state: string): Story => ({
+    tags: ['!autodocs'],
+    parameters: {
+        docs: { description: { story: "fundamental-styles' focused example, for the visual comparison." } }
+    },
+    render: () => ({
+        template: `<fd-step-input inputId="si-focus" state="${state}" [value]="0" ariaLabel="Focused Step Input" />`
+    }),
+    play: async ({ canvasElement }) => {
+        canvasElement.querySelector<HTMLInputElement>('#si-focus')!.focus();
+    }
+});
+
+export const FocusDefault = focusStory('default');
+export const FocusSuccess = focusStory('success');
+export const FocusError = focusStory('error');
+export const FocusWarning = focusStory('warning');

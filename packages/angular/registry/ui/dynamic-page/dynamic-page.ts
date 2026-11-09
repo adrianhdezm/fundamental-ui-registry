@@ -282,7 +282,7 @@ export class DynamicPageHeader {
             'relative z-1 m-0 box-border flex min-h-12 flex-col justify-between bg-sap-object-header-background px-(--dp-px) py-2 [overflow-wrap:break-word]',
             'peer-focus-visible:outline-sap peer-focus-visible:-outline-offset-4',
             page?.collapsible() &&
-                'cursor-pointer hover:bg-sap-object-header-hover-background hc:hover:border-b hc:hover:border-solid hc:hover:border-sap-object-header-border-color',
+                'hover:cursor-pointer hover:bg-sap-object-header-hover-background hc:hover:border-b hc:hover:border-solid hc:hover:border-sap-object-header-border-color',
             page?.collapsed() && 'pb-4',
             page?.background() === 'transparent' && 'bg-transparent hc:bg-sap-object-header-background',
             this.userClass()
@@ -385,9 +385,10 @@ export class DynamicPageSubheader {
         this.pinned.update((pinned) => !pinned);
     }
 
-    // the size in both densities: the button's compact height, padding and minimum width are compact: variants
+    // the size in both densities: the button's compact height, padding and minimum width are compact: variants;
+    // on the header background, as fundamental-styles
     protected readonly buttonClass =
-        "relative mx-1 my-0 h-6 w-6 min-w-6 p-0 before:absolute before:inset-x-0 before:-inset-y-1 before:content-[''] " +
+        "relative mx-1 my-0 h-6 w-6 min-w-6 bg-sap-object-header-background p-0 before:absolute before:inset-x-0 before:-inset-y-1 before:content-[''] " +
         'compact:h-6 compact:max-h-6 compact:w-6 compact:min-w-6 compact:px-0';
 
     protected readonly contentClass = computed(() =>

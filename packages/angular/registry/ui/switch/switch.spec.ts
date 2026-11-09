@@ -275,6 +275,42 @@ describe('Switch', () => {
     });
 });
 
+describe('Switch hover (switch-1)', () => {
+    const themed = (value: string) => {
+        const probe = document.createElement('div');
+        probe.style.backgroundColor = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe).backgroundColor;
+        probe.remove();
+        return computed;
+    };
+
+    it('changes the track colour on hover, off and on', async () => {
+        const fixture = TestBed.createComponent(NamesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const label = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#plain label')!;
+        const slider = label.querySelector<HTMLElement>(':scope > span > span')!;
+        await userEvent.unhover(label);
+        expect(getComputedStyle(slider).backgroundColor).toBe(themed('var(--sapButton_Track_Background)'));
+        await userEvent.hover(label);
+        expect(getComputedStyle(slider).backgroundColor).toBe(themed('var(--sapButton_Track_Hover_Background)'));
+        await userEvent.click(label);
+        await fixture.whenStable();
+        await frame();
+        await fixture.whenStable();
+        expect(label.parentElement!.querySelector('input')!.checked).toBe(true);
+        // the track colour animates for 100ms
+        await new Promise((r) => setTimeout(r, 200));
+        expect(getComputedStyle(slider).backgroundColor).toBe(
+            themed('var(--sapButton_Track_Selected_Hover_Background)')
+        );
+        await userEvent.unhover(label);
+        await new Promise((r) => setTimeout(r, 200));
+        expect(getComputedStyle(slider).backgroundColor).toBe(themed('var(--sapButton_Track_Selected_Background)'));
+    });
+});
+
 @Component({
     imports: [Switch],
     template: `

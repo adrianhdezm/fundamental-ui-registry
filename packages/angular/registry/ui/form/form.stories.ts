@@ -202,6 +202,25 @@ export const FieldsetAndGroups: Story = {
     })
 };
 
+export const HeadersAndMessages: Story = {
+    name: 'Headers and messages',
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' form header, group header and form message examples, for the visual comparison."
+            }
+        }
+    },
+    render: () => ({
+        template: `
+            <div class="flex max-w-2xl flex-col gap-4">
+                <h4 fdFormHeader id="formHeader">Form Header</h4>
+                <div fdFormGroupHeader id="basicGroupHeader">Group Header</div>
+                <div><fd-form-message id="staticMessage" type="information" static>You can leave this blank if not applicable.</fd-form-message></div>
+            </div>`
+    })
+};
+
 export const Messages: Story = {
     render: () => ({
         props: { types: ['error', 'warning', 'success', 'information'] },
