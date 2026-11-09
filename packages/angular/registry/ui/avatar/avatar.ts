@@ -270,7 +270,10 @@ export class Avatar {
                 '[--av-bg:var(--sapTile_Background)] [--av-border:var(--sapAvatar_Lite_BorderColor)] [--av-color:var(--sapTile_IconColor)] [--av-hover-border:var(--sapTile_IconColor)] [--av-hover-bg:var(--sapTile_Background)]',
             this.placeholder() &&
                 '[--av-bg:var(--sapContent_ImagePlaceholderBackground)] [--av-border:var(--sapAvatar_Lite_BorderColor)] [--av-color:var(--sapContent_ImagePlaceholderForegroundColor)] [--av-hover-border:var(--sapContent_ImagePlaceholderForegroundColor)] [--av-hover-bg:var(--sapContent_ImagePlaceholderBackground)]',
-            // after transparent, tile and placeholder: a border wins over their borders, as fundamental-styles'
+            // a loaded image: the lite background and border (none in Horizon), as fundamental-styles' thumbnail
+            this.imageLoaded() &&
+                '[--av-bg:var(--sapAvatar_Lite_Background)] [--av-border:var(--sapAvatar_Lite_BorderColor)]',
+            // after transparent, tile, placeholder and a loaded image: a border wins over their borders, as fundamental-styles'
             // `fd-avatar--border`, with the avatar hover border
             this.border() &&
                 '[--av-border:var(--sapGroup_ContentBorderColor)] [--av-hover-border:var(--sapAvatar_Hover_BorderColor)]',

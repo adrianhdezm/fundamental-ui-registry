@@ -381,9 +381,9 @@
       "source": "../../../react/docs/parity/components/avatar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "avatar.spec.ts, an image that loads: the avatar keeps the accent 6 background and border (e.g. a light blue ring in Horizon); fundamental-styles' thumbnail uses --sapAvatar_Lite_Background and --sapAvatar_Lite_BorderColor.",
+      "test": "avatar.spec.ts › Avatar image loading › a loaded image takes the lite background and border instead of the accent colours",
       "fix": "",
       "notes": ""
     },

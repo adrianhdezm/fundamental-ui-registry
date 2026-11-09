@@ -494,6 +494,30 @@ describe('Avatar image loading', () => {
         };
     }
 
+    it('a loaded image takes the lite background and border instead of the accent colours', async () => {
+        const { fixture, avatar, update } = await setupImages();
+        document.body.appendChild(fixture.nativeElement);
+        const probe = document.createElement('div');
+        document.body.appendChild(probe);
+        const resolve = (property: 'backgroundColor' | 'borderTopColor', variable: string) => {
+            probe.style.backgroundColor = '';
+            probe.style.border = '';
+            if (property === 'backgroundColor') probe.style.backgroundColor = `var(${variable})`;
+            else probe.style.border = `1px solid var(${variable})`;
+            return getComputedStyle(probe)[property];
+        };
+        await update((h) => h.image.set('/one.png'));
+        FakeImage.requests[0].load();
+        await update(() => {});
+        expect(getComputedStyle(avatar()).backgroundColor).toBe(
+            resolve('backgroundColor', '--sapAvatar_Lite_Background')
+        );
+        expect(getComputedStyle(avatar()).borderTopColor).toBe(
+            resolve('borderTopColor', '--sapAvatar_Lite_BorderColor')
+        );
+        probe.remove();
+    });
+
     it('returns to a previously loaded URL without a new request', async () => {
         const { avatar, urls, update } = await setupImages();
         await update((h) => h.image.set('/one.png'));
