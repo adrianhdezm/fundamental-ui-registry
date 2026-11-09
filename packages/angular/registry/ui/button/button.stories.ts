@@ -211,3 +211,22 @@ export const Badge: Story = {
         `
     })
 };
+
+export const Decisive: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: '`decisive` gives dialog and footer actions a 4rem minimum width, in every density (the short OK button shows it).'
+            }
+        }
+    },
+    render: () => ({
+        template: `
+            <div class="flex flex-wrap items-center gap-2">
+                <button fdButton decisive label="Begin button"></button>
+                <button fdButton decisive label="End button"></button>
+                <button fdButton decisive variant="emphasized" label="OK"></button>
+            </div>
+        `
+    })
+};
