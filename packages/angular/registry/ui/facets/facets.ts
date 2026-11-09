@@ -129,7 +129,7 @@ export class FacetContent {
     protected readonly computedClass = computed(() =>
         cn(
             'm-0 box-border flex p-0',
-            this.facet?.type() === 'form' && 'items-baseline gap-1 not-last:mb-2 [&_fd-icon]:me-2',
+            this.facet?.type() === 'form' && 'items-baseline not-last:mb-2 [&_fd-icon]:me-2',
             this.facet?.type() === 'rating-indicator' && 'flex-col',
             this.userClass()
         )

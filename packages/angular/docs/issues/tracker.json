@@ -2460,9 +2460,9 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host): a form facet row computes column-gap 4px (gap-1) on top of the label's or icon's 0.5rem end margin; fundamental-styles' rows have no gap. The existing spec asserted the 4px gap.",
+      "test": "facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin",
       "fix": "",
       "notes": ""
     },

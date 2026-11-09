@@ -124,7 +124,8 @@ describe('Facets', () => {
         const rows = ['row1', 'row2', 'row3'].map(el);
         expect(rows.map((r) => getComputedStyle(r).marginBottom)).toEqual(['8px', '8px', '0px']);
         expect(rows.map((r) => getComputedStyle(r).alignItems)).toEqual(['baseline', 'baseline', 'baseline']);
-        expect(getComputedStyle(rows[0]).columnGap).toBe('4px');
+        // no gap on top of the label's (or icon's) end margin, as fundamental-styles
+        expect(getComputedStyle(rows[0]).columnGap).toBe('normal');
         const gaps = [
             rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().bottom,
             rows[2].getBoundingClientRect().top - rows[1].getBoundingClientRect().bottom
