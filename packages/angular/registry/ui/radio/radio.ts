@@ -97,7 +97,11 @@ let nextId = 0;
             (click)="onInputClick($event)"
         />
         <label [class]="labelClass()" [for]="id()" [attr.title]="title() || null" (click)="onLabelClick($event)">
-            <span class="m-0 truncate p-0" [class.whitespace-normal]="wrapLabel()"><ng-content /></span>
+            <span
+                class="m-0 truncate p-0 text-sap-font-size leading-[normal] text-sap-text-color"
+                [class.whitespace-normal]="wrapLabel()"
+                ><ng-content
+            /></span>
         </label>
     `
 })
