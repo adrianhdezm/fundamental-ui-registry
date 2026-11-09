@@ -435,9 +435,9 @@
       "source": "../../../react/docs/parity/components/list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (ThumbnailHost): an fd-list-icon in a byline thumbnail computes font-size 18px (the list icon size) and an fd-icon 16px; fundamental-styles' thumbnail icons are 2rem.",
+      "test": "list.spec.ts › List styles › icons in a thumbnail take its 2rem size (computed style)",
       "fix": "",
       "notes": ""
     },

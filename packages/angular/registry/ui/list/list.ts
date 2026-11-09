@@ -843,7 +843,8 @@ export class ListBylineRight {
 @Directive({
     selector: '[fd-list-thumbnail], [fdListThumbnail]',
     host: {
-        class: 'pointer-events-none m-0 me-3 box-border flex size-12 min-w-12 max-w-12 items-center justify-center rounded-sm p-0 text-[2rem] text-sap-content-non-interactive-icon-color [&>svg]:h-full'
+        // icons take the thumbnail size (2rem), not their own default size
+        class: 'pointer-events-none m-0 me-3 box-border flex size-12 min-w-12 max-w-12 items-center justify-center rounded-sm p-0 text-[2rem] text-sap-content-non-interactive-icon-color [&>svg]:h-full [&>[data-glyph]]:text-[2rem]'
     }
 })
 export class ListThumbnail {}
