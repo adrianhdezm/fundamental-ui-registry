@@ -441,7 +441,7 @@ export class GridListItemFooterBar {}
                             <div
                                 role="heading"
                                 [attr.aria-level]="titleLevel()"
-                                class="m-0 mt-0.5 p-0 font-sap-font-header-family text-sap-font-large-size leading-[normal] whitespace-normal text-sap-list-text-color"
+                                class="m-0 mt-0.5 p-0 font-sap-font-family text-sap-font-large-size leading-[normal] whitespace-normal text-sap-list-text-color"
                             >
                                 {{ title() }}
                             </div>

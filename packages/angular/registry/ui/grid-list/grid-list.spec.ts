@@ -306,3 +306,40 @@ describe('GridList parts', () => {
         expect(host.log()).toBe('navigate');
     });
 });
+
+@Component({
+    imports: [GridList, GridListItem, GridListTitleBar, GridListGroupHeader],
+    template: `
+        <fd-grid-list ariaLabel="Groups">
+            <fd-grid-list-title-bar title="Products" />
+            <fd-grid-list-group-header id="first">First group</fd-grid-list-group-header>
+            <fd-grid-list-item value="a" title="A" />
+            <fd-grid-list-group-header id="second">Second group</fd-grid-list-group-header>
+            <fd-grid-list-item value="b" title="B" />
+        </fd-grid-list>
+    `
+})
+class GroupsHost {}
+
+describe('GridList styles', () => {
+    async function renderGroups() {
+        const fixture = TestBed.createComponent(GroupsHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        return fixture.nativeElement as HTMLElement;
+    }
+    const colour = (variable: string) => {
+        const probe = document.createElement('span');
+        probe.style.color = `var(${variable})`;
+        document.body.appendChild(probe);
+        const value = getComputedStyle(probe).color;
+        probe.remove();
+        return value;
+    };
+
+    it('the item title uses the regular SAP font, as fundamental-styles (computed style)', async () => {
+        const el = await renderGroups();
+        const title = el.querySelector<HTMLElement>('[data-grid-list-item] [role="heading"]')!;
+        expect(getComputedStyle(title).fontFamily.split(',')[0].replace(/["']/g, '').trim()).toBe('72');
+    });
+});

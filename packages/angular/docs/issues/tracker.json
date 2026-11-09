@@ -2659,9 +2659,9 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (GroupsHost): the grid list item title computes font-family 72-Bold (font-sap-font-header-family); fundamental-styles' item title is in --sapFontFamily (72), weight normal.",
+      "test": "grid-list.spec.ts › GridList styles › the item title uses the regular SAP font, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },
