@@ -23,6 +23,7 @@ pnpm test                                   # component and lib tests (Vitest br
 pnpm test:a11y                              # axe on every story, Horizon and Horizon HC Black
 pnpm exec vitest run --project unit registry/ui/menu/   # one component; keep the trailing slash
 pnpm storybook                              # http://localhost:6006
+pnpm build-storybook && pnpm visual icon    # compare with fundamental-styles, 16 combinations (report in .visual/icon/)
 ```
 
 ## Components
@@ -37,7 +38,9 @@ pnpm storybook                              # http://localhost:6006
   hard-coded colours or sizes where a token exists. Class strings must be literal for Tailwind to find them: no
   `${}` inside a class name (a module-level constant interpolated whole is fine, declared above the component). Dynamic
   values go through CSS variables. Variants: `compact:`, `condensed:`, `hc:`, `toggled:`, `rtl:`.
-- Visual reference is fundamental-styles: compare in Storybook with the theme, density and RTL switchers.
+- Visual reference is fundamental-styles: add cases in `scripts/visual/<name>.mjs` (fields in
+  `scripts/visual.config.mjs`) and run `pnpm visual <name>`; also compare in Storybook with the theme, density and RTL
+  switchers.
 
 ## Issues
 

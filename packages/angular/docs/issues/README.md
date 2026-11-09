@@ -48,8 +48,10 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
    issues get an assertion on the computed value. Record the test name in `test`.
 3. Fix it in the component (the React port is a read-only reference, never an import), one commit per issue or
    pattern, naming the ids. Record the commit in `fix`.
-4. Verify it, then set `verified`. Every pull request keeps this tracker in sync, and its body has a table of its
-   issues with status, repro, test and fix.
+4. Verify it: the test passes, `pnpm check` passes, and for visual issues `pnpm build-storybook && pnpm visual <name>`
+   (cases in `scripts/visual/<name>.mjs`) matches fundamental-styles in all 16 combinations. Then set `verified`.
+   Every pull request keeps this tracker in sync, and its body has a table of its issues with status, repro, test and
+   fix.
 
 ## Tracker
 
@@ -57,7 +59,7 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 **Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 213 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 211 · 🔍 reproduced: 2 · ✅ verified: 1 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -81,12 +83,12 @@ None.
 
 #### icon
 
-[React report](../../../react/docs/parity/components/icon.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/icon.md) · 🔍 reproduced: 2
 
-| ID     | Issue                                                                                                                                                                                                             | Kind   | Confirmed | Pattern               | Status      | Test | Fix | Notes |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ----------- | ---- | --- | ----- |
-| icon-1 | The icon box is taller than fundamental-styles' (35px instead of 32px at `md`): `tailwind-merge` drops `leading-none` because the size class (`text-[2rem]`) comes after it. Fixed in React by moving it after.   | visual | rendered  | pattern-leading-merge | ⬜ reported |      |     |       |
-| icon-2 | Narrow glyphs get a box as wide as the glyph instead of 1em, so e.g. the menu arrow of an icon-only menu button is 10px wide and the button 6px narrower than fundamental-styles'. Fixed in React with `w-[1em]`. | visual | rendered  |                       | ⬜ reported |      |     |       |
+| ID     | Issue                                                                                                                                                                                                             | Kind   | Confirmed | Pattern               | Status        | Test | Fix | Notes |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ------------- | ---- | --- | ----- |
+| icon-1 | The icon box is taller than fundamental-styles' (35px instead of 32px at `md`): `tailwind-merge` drops `leading-none` because the size class (`text-[2rem]`) comes after it. Fixed in React by moving it after.   | visual | rendered  | pattern-leading-merge | 🔍 reproduced |      |     |       |
+| icon-2 | Narrow glyphs get a box as wide as the glyph instead of 1em, so e.g. the menu arrow of an icon-only menu button is 10px wide and the button 6px narrower than fundamental-styles'. Fixed in React with `w-[1em]`. | visual | rendered  |                       | 🔍 reproduced |      |     |       |
 
 #### link
 

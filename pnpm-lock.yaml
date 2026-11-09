@@ -99,9 +99,15 @@ importers:
       axe-core:
         specifier: 4.14.0
         version: 4.14.0
+      pixelmatch:
+        specifier: ^7.2.0
+        version: 7.2.0
       playwright:
         specifier: 1.63.0
         version: 1.63.0
+      pngjs:
+        specifier: ^7.0.0
+        version: 7.0.0
       prettier:
         specifier: ^3.9.10
         version: 3.9.10
