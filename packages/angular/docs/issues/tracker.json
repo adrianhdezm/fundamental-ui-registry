@@ -2039,9 +2039,9 @@
       "source": "../../../react/docs/parity/components/quick-view.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host: a subheader with a title alone): the subheader bar computes min-height 0px (min-h-0); fundamental-styles keeps the bar's 44px (40px compact).",
+      "test": "quick-view.spec.ts › QuickView › the subheader keeps the bar's minimum height, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },

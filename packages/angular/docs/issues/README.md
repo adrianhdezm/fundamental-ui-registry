@@ -625,11 +625,11 @@ None.
 
 #### quick-view
 
-[React report](../../../react/docs/parity/components/quick-view.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/quick-view.md) · 🧪 covered: 1
 
-| ID           | Issue                                                                                                                     | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| quick-view-1 | The quick-view subheader's `min-h-0` drops the bar's minimum height (44px, 40px compact), which fundamental-styles keeps. | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID           | Issue                                                                                                                     | Kind   | Confirmed | Pattern | Status     | Test                                                                                                                  | Fix | Notes |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| quick-view-1 | The quick-view subheader's `min-h-0` drops the bar's minimum height (44px, 40px compact), which fundamental-styles keeps. | visual | rendered  |         | 🧪 covered | quick-view.spec.ts › QuickView › the subheader keeps the bar's minimum height, as fundamental-styles (computed style) |     |       |
 
 #### avatar-group
 

@@ -108,7 +108,7 @@ export class QuickViewTitle {
             fd-bar
             barDesign="header-with-subheader"
             role="group"
-            class="h-auto min-h-0 [--bar-px:0] pb-3 [--bar-pb:0.75rem] [&_fd-avatar]:me-3 [&>[fd-bar-left]]:items-start"
+            class="h-auto [--bar-px:0] pb-3 [--bar-pb:0.75rem] [&_fd-avatar]:me-3 [&>[fd-bar-left]]:items-start"
         >
             <div fd-bar-left>
                 <ng-content select="fd-avatar" />
