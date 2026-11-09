@@ -18,6 +18,7 @@ pnpm check                                  # everything below; takes about 5 mi
 pnpm typecheck && pnpm typecheck:tests      # strict templates for sources and specs
 pnpm check:styles                           # SAP token classes
 pnpm registry:check                         # registry.json and each component's imports
+pnpm tracker:check                          # docs/issues/README.md is up to date with tracker.json (`pnpm tracker` rewrites it)
 pnpm test                                   # component and lib tests (Vitest browser mode, project "unit")
 pnpm test:a11y                              # axe on every story, Horizon and Horizon HC Black
 pnpm exec vitest run --project unit registry/ui/menu/   # one component; keep the trailing slash
@@ -37,6 +38,12 @@ pnpm storybook                              # http://localhost:6006
   `${}` inside a class name (a module-level constant interpolated whole is fine, declared above the component). Dynamic
   values go through CSS variables. Variants: `compact:`, `condensed:`, `hc:`, `toggled:`, `rtl:`.
 - Visual reference is fundamental-styles: compare in Storybook with the theme, density and RTL switchers.
+
+## Issues
+
+- `docs/issues/tracker.json` tracks the Angular issues found while porting to React, from reported to verified (see
+  `docs/issues/README.md` for the fields and statuses). Update it, then `pnpm tracker`, in every pull request that
+  works on one, and name the issue ids in the commit message.
 
 ## Tests
 
