@@ -144,9 +144,9 @@
       "source": "../../../react/docs/parity/components/busy-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "busy-indicator.spec.ts: the dots compute to --sapContent_BusyColor, rgb(0, 100, 217) in Horizon, against fundamental-styles' --fdBusy_Indicator_Dot_Color #0070f2 (rgb(0, 112, 242)) in Horizon and Dark.",
+      "test": "busy-indicator.spec.ts › BusyIndicator › the dots use fundamental-styles' dot colour (#0070f2 in Horizon and Horizon Dark, the busy colour in HC)",
       "fix": "",
       "notes": "Decided: fundamental-styles’ `--fdBusy_Indicator_Dot_Color` (as React)."
     },

@@ -96,11 +96,11 @@ None.
 
 #### busy-indicator
 
-[React report](../../../react/docs/parity/components/busy-indicator.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/busy-indicator.md) · 🧪 covered: 1
 
-| ID               | Issue                                                                                                                                                                                                                                             | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----------------------------------------------------------------------- |
-| busy-indicator-1 | The dots use `--sapContent_BusyColor` (`#0064d9` in Horizon, `#4db1ff` in Horizon Dark); fundamental-styles uses `--fdBusy_Indicator_Dot_Color`, `#0070f2` in both (the busy colour in HC). Fixed in React with the variable in `extensions.css`. | visual | rendered  |         | ⬜ reported |      |     | Decided: fundamental-styles’ `--fdBusy_Indicator_Dot_Color` (as React). |
+| ID               | Issue                                                                                                                                                                                                                                             | Kind   | Confirmed | Pattern | Status     | Test                                                                                                                                              | Fix | Notes                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ----------------------------------------------------------------------- |
+| busy-indicator-1 | The dots use `--sapContent_BusyColor` (`#0064d9` in Horizon, `#4db1ff` in Horizon Dark); fundamental-styles uses `--fdBusy_Indicator_Dot_Color`, `#0070f2` in both (the busy colour in HC). Fixed in React with the variable in `extensions.css`. | visual | rendered  |         | 🧪 covered | busy-indicator.spec.ts › BusyIndicator › the dots use fundamental-styles' dot colour (#0070f2 in Horizon and Horizon Dark, the busy colour in HC) |     | Decided: fundamental-styles’ `--fdBusy_Indicator_Dot_Color` (as React). |
 
 #### layout-grid
 
