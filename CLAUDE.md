@@ -4,10 +4,10 @@ SAP Fiori Horizon components distributed shadcn-style (copy-paste source), as a 
 registries. Each package has its own `registry.json`, Storybook, tests, tsconfig and dependencies, and imports nothing
 from the others. See `README.md` for the layout and usage.
 
-| Package            | Port of                                  | Published at (site root `https://adrianhdezm.github.io/fundamental-ui-registry/`) |
-| ------------------ | ---------------------------------------- | --------------------------------------------------------------------------------- |
-| `packages/angular` | `@fundamental-ngx/core`                  | Storybook `/angular/`, registry `/angular/r/<name>.json`                          |
-| `packages/react`   | fundamental-react, Base UI (in progress) | Storybook `/react/`, registry `/react/r/<name>.json`                              |
+| Package            | Port of                       | Published at (site root `https://adrianhdezm.github.io/fundamental-ui-registry/`) |
+| ------------------ | ----------------------------- | --------------------------------------------------------------------------------- |
+| `packages/angular` | `@fundamental-ngx/core`       | Storybook `/angular/`, registry `/angular/r/<name>.json`                          |
+| `packages/react`   | fundamental-react, on Base UI | Storybook `/react/`, registry `/react/r/<name>.json`                              |
 
 Each package has its own `CLAUDE.md` with its component and test rules; read it before working in that package.
 
