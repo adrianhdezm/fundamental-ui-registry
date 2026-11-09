@@ -156,6 +156,18 @@ describe('Pagination', () => {
         expect(Math.abs(alone.start - alone.end)).toBeLessThan(2);
     });
 
+    it('describes the nav by the results text only where it is shown', async () => {
+        const { fixture, host, root } = await setup();
+        const nav = root.querySelector('nav')!;
+        const description = () => nav.getAttribute('aria-describedby');
+        expect(document.getElementById(description()!)!.textContent).toContain('500');
+        host.mobile.set(true);
+        await fixture.whenStable();
+        // the mobile layout shows no results text: the description must not point at nothing
+        const id = description();
+        expect(id === null || document.getElementById(id) !== null).toBe(true);
+    });
+
     it('shows first and last buttons in mobile mode', async () => {
         const { fixture, host, root } = await setup({ mobile: true, page: 3 });
         expect(button(root, 'Page 2')).toBeNull();

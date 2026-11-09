@@ -1258,11 +1258,11 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a pagination of 500 items; in the desktop layout the nav is described by the results text (<id>-total); switched to mobile, the nav keeps aria-describedby=\"<id>-total\" while that element is no longer rendered (getElementById returns null).",
+      "test": "Pagination › describes the nav by the results text only where it is shown",
+      "fix": "6d9d3de",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "action-sheet-1",
