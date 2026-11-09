@@ -1,9 +1,9 @@
 /** Visual cases for timeline; see ../visual.config.mjs for the fields. */
 const FS = 'sap-design-components-';
 
-// fundamental-styles has no timeline: its look comes from fundamental-ngx's own timeline styles, which were compared
-// by hand with the fundamental-ngx documentation. These cases check the
-// fundamental-styles parts of a post: the header avatar, the post text and its More toggle (Text and Link).
+// fundamental-styles has no timeline: its look comes from fundamental-ngx's own timeline styles, so the line, nodes
+// and post layout have no reference here (check them against the fundamental-ngx documentation in Storybook). These
+// cases check the fundamental-styles parts of a post: the header avatar, the post text and its More toggle.
 const VERTICAL = 'components-timeline--vertical';
 const COLLAPSED = 'components-timeline--vertical-left';
 const MORE = '[role=listitem] button:has-text("More") >> nth=0';
