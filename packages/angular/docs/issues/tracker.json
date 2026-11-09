@@ -2118,9 +2118,9 @@
       "source": "../../../react/docs/parity/components/rating-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "rating-indicator.spec.ts, sap_horizon_hcb: the focus frame element keeps rounded-[0.5rem] (8px); fundamental-styles' corner radius is 0 in the HC themes.",
+      "test": "rating-indicator.spec.ts › RatingIndicator › in high contrast the focus frame has square corners",
       "fix": "",
       "notes": ""
     },

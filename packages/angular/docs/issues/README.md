@@ -652,11 +652,11 @@ None.
 
 #### rating-indicator
 
-[React report](../../../react/docs/parity/components/rating-indicator.md) · ⬜ reported: 1 · ✅ verified: 1
+[React report](../../../react/docs/parity/components/rating-indicator.md) · 🧪 covered: 1 · ✅ verified: 1
 
 | ID                 | Issue                                                                                              | Kind   | Confirmed          | Pattern               | Status      | Test                                                                                                         | Fix     | Notes                                                                                                                                                |
 | ------------------ | -------------------------------------------------------------------------------------------------- | ------ | ------------------ | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| rating-indicator-1 | In HC the rating-indicator focus outline has round corners; fundamental-styles' is square.         | visual | rendered           |                       | ⬜ reported |                                                                                                              |         |                                                                                                                                                      |
+| rating-indicator-1 | In HC the rating-indicator focus outline has round corners; fundamental-styles' is square.         | visual | rendered           |                       | 🧪 covered  | rating-indicator.spec.ts › RatingIndicator › in high contrast the focus frame has square corners             |         |                                                                                                                                                      |
 | rating-indicator-2 | The rating-indicator half icons lose Icon's `leading-none` to tailwind-merge (read from the code). | visual | read from the code | pattern-leading-merge | ✅ verified | rating-indicator.spec.ts › RatingIndicator line height › the half-star icons keep line-height 1 (24px at md) | 115fbfa | Same cause as icon-1: may be fixed by it. Verified: the spec passes and pnpm check passes. pnpm visual rating-indicator: halves md matches in 16/16. |
 
 #### datetime-picker
