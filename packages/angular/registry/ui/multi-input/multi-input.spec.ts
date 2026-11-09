@@ -518,6 +518,21 @@ describe('MultiInput styles', () => {
         }
     });
 
+    it('styles the addon button as an input group button: field text colour, no border, field radius', async () => {
+        const { addon } = await render(SignalHost);
+        const style = getComputedStyle(addon());
+        const ref = document.createElement('div');
+        ref.setAttribute('style', 'color: var(--sapField_TextColor); border-radius: var(--sapField_BorderCornerRadius)');
+        document.body.appendChild(ref);
+        try {
+            expect(style.color).toBe(getComputedStyle(ref).color);
+            expect(style.borderTopLeftRadius).toBe(getComputedStyle(ref).borderTopLeftRadius);
+            expect(style.borderTopWidth).toBe('0px');
+        } finally {
+            ref.remove();
+        }
+    });
+
     it('gives the list no background of its own (multi-input-5)', async () => {
         const { addon, stable } = await render(SignalHost);
         await userEvent.click(addon());

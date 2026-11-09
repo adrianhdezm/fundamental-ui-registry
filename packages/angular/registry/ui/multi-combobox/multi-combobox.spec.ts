@@ -586,6 +586,18 @@ describe('MultiCombobox styles and check boxes', () => {
         }
     });
 
+    it('styles the addon button as an input group button: field text colour, no border, field radius', async () => {
+        const { root } = await render();
+        const style = getComputedStyle(root.querySelector<HTMLElement>('button[aria-haspopup]')!);
+        expect(style.color).toBe(probe('color: var(--sapField_TextColor)', 'color'));
+        expect(style.borderTopWidth).toBe('0px');
+        const ref = document.createElement('div');
+        ref.setAttribute('style', 'border-radius: var(--sapField_BorderCornerRadius)');
+        document.body.appendChild(ref);
+        expect(style.borderTopLeftRadius).toBe(getComputedStyle(ref).borderTopLeftRadius);
+        ref.remove();
+    });
+
     it('shows the secondary text in the neutral colour, sharing the row with the title (multi-combobox-5)', async () => {
         const { open } = await render((h) => h.secondary.set(true));
         await open();
