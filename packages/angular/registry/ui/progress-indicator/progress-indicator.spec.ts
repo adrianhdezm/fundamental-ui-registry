@@ -74,6 +74,13 @@ async function setup() {
 }
 
 describe('ProgressIndicator', () => {
+    it('the state icon box is 18px high, as fundamental-styles', async () => {
+        const { fixture, host, root } = await setup();
+        host.state.set('positive');
+        await fixture.whenStable();
+        expect(Math.round(root.querySelector<HTMLElement>('fd-icon')!.getBoundingClientRect().height)).toBe(18);
+    });
+
     it('the bar sits inside the track border, as wide as its share of it', async () => {
         const { fixture, host, root, bar: track } = await setup();
         const fill = () => root.querySelector<HTMLElement>('[role=progressbar] > div')!.getBoundingClientRect();

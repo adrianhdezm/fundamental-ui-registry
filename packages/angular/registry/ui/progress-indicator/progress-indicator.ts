@@ -200,6 +200,7 @@ export class ProgressIndicator {
         'absolute start-px top-px max-w-[calc(100%-1.25rem-2px)]'
     );
 
+    /** fundamental-styles' 14px normal line, with the 16px glyph middle-aligned in it (an 18px box). */
     protected readonly iconClass =
-        'absolute -end-5 -bottom-2.5 text-sap-font-large-size leading-none text-(--pi-icon) [&_*]:align-middle';
+        'absolute -end-5 -bottom-2.5 block w-auto text-sap-font-size leading-[normal] text-sap-text-color before:align-middle before:text-sap-font-large-size before:text-(--pi-icon)';
 }

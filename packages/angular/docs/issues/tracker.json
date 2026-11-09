@@ -2013,9 +2013,9 @@
       "source": "../../../react/docs/parity/components/progress-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "progress-indicator.spec.ts, state positive: the icon box is 16px high (17px before pattern-leading-merge) instead of fundamental-styles' 18px (a 14px normal line with the 16px glyph middle-aligned), so the glyph sits 1px higher.",
+      "test": "progress-indicator.spec.ts › ProgressIndicator › the state icon box is 18px high, as fundamental-styles",
       "fix": "",
       "notes": ""
     },
