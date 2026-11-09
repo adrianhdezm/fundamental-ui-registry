@@ -284,4 +284,10 @@ describe('Pagination issues', () => {
         const current = root.querySelector<HTMLElement>('[aria-current=page]')!;
         expect([page, current].map((el) => getComputedStyle(el).paddingInlineStart)).toEqual(['9px', '9px']);
     });
+
+    it('gives the mobile "Page:" and "of N" labels the form label end margin (pagination-2)', async () => {
+        const { root } = await setup({ mobile: true });
+        const labels = [...root.querySelectorAll<HTMLElement>('nav span[id]')];
+        expect(labels.map((el) => getComputedStyle(el).marginInlineEnd)).toEqual(['8px', '8px']);
+    });
 });

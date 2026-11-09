@@ -1219,9 +1219,9 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "pagination.spec.ts Host (mobile): the 'Page:' and 'of 50' labels have a 0px inline end margin instead of the form label's 8px.",
+      "test": "Pagination issues > gives the mobile \"Page:\" and \"of N\" labels the form label end margin (pagination-2)",
       "fix": "",
       "notes": ""
     },
