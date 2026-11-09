@@ -1,20 +1,20 @@
 /**
  * Compares components with the fundamental-styles Storybook (the visual reference) in every combination of theme
- * (4), density (cozy, compact) and direction (LTR, RTL): 16 per case.
+ * (4), density (cozy, compact) and direction (LTR, RTL): 16 per case. The Angular and React packages keep the same
+ * copy of this script.
  *
  * Each case in scripts/visual.config.mjs pairs an element of one of our stories with the matching element of a
  * fundamental-styles story. For every combination the script renders both, then compares
  *   - the computed styles that make up the look (size, spacing, typography, colours, borders, radius, shadow), and
  *   - element screenshots, pixel by pixel with a tolerance (the markup differs, so pixel-exact is not expected).
  * Style differences and screenshots over the tolerance are listed in .visual/<name>/report.md, with the
- * screenshots (ours, reference, diff) next to it, to be checked by hand. Differences kept on purpose go in
- * docs/components/<name>.md.
+ * screenshots (ours, reference, diff) next to it, to be checked by hand.
  *
  * Usage:
  *   pnpm build-storybook                     # our Storybook, served from dist/storybook by this script
  *   pnpm visual <name> [<name> ...]          # or `pnpm visual --all`
  *   pnpm visual button --only=sap_horizon    # limit to combinations whose key contains the text
- *   VISUAL_WORKERS=6                         # pages rendering in parallel (default 6)
+ *   VISUAL_WORKERS=4                         # pages rendering in parallel (default 4)
  *
  * The reference is https://sap.github.io/fundamental-styles/ (override with FS_URL).
  */
@@ -125,8 +125,15 @@ const oursUrl = (story, c) =>
 const refUrl = (story, c) =>
     `${FS_URL}/iframe.html?id=${story}&viewMode=story&globals=styles-theme:${c.theme};contentDensity:${c.density};directionality:${c.dir}`;
 
-/** Renders a story and returns the computed styles, size and screenshot of the element matched by `selector`. */
-async function capture(page, url, selector, hover, props, focus) {
+const VIEWPORT = { width: 1280, height: 800 };
+
+/**
+ * Renders a story and returns the computed styles, size and screenshot of the element matched by `side.selector`.
+ * `side` is the case's `ours` or `ref` ({ story, selector, overlay, within }); `opts` the case-wide options.
+ */
+async function capture(page, url, side, props, { hover, focus, active, viewport }) {
+    const { selector, overlay = false, within } = side;
+    await page.setViewportSize({ ...VIEWPORT, ...viewport });
     await page.goto(url, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     // the end state of every element: no animation (e.g. pulsing busy dots) or transition in progress
@@ -134,9 +141,10 @@ async function capture(page, url, selector, hover, props, focus) {
         content: '*, *::before, *::after { animation: none !important; transition: none !important; }'
     });
     // inside the story: Storybook's own (hidden) controls are elsewhere in the iframe
-    const el = page.locator('#storybook-root').locator(selector).first();
+    // `overlay`: in the whole page, for overlay content (overlays and portals render outside the story root)
+    const el = (overlay ? page.locator('body') : page.locator('#storybook-root')).locator(selector).first();
     await el.waitFor({ state: 'visible', timeout: 15000 });
-    if (hover) await el.hover();
+    if (hover || active) await el.hover();
     else await page.mouse.move(0, 0);
     if (focus) {
         // keyboard focus, so :focus-visible applies: Tab into the page, then focus the element
@@ -165,17 +173,31 @@ async function capture(page, url, selector, hover, props, focus) {
             node.style.right = `${(parseFloat(style.right) || 0) + start.x}px`;
         }
     });
+    // pressed (:active): the mouse button held down on the element, released after the capture
+    if (active) await page.mouse.down();
     await page.waitForTimeout(150);
-    const styles = await el.evaluate((node, props) => {
-        const cs = getComputedStyle(node);
-        const box = node.getBoundingClientRect();
-        return {
-            width: box.width,
-            height: box.height,
-            styles: Object.fromEntries(props.map((p) => [p, cs.getPropertyValue(p)]))
-        };
-    }, props);
+    const styles = await el.evaluate(
+        (node, { props, within }) => {
+            const cs = getComputedStyle(node);
+            const box = node.getBoundingClientRect();
+            const styles = Object.fromEntries(props.map((p) => [p, `${cs.getPropertyValue(p)}`]));
+            // the element's distance from the inline start and end (left and right in LTR) and the top edge of the
+            // ancestor matched by `within`: where it sits in it
+            const outer = within && node.parentElement?.closest(within)?.getBoundingClientRect();
+            if (within && !outer) throw new Error(`no ancestor matches ${within}`);
+            if (outer) {
+                const [left, right] = [box.left - outer.left, outer.right - box.right];
+                const rtl = cs.direction === 'rtl';
+                styles['offset-start'] = `${rtl ? right : left}px`;
+                styles['offset-end'] = `${rtl ? left : right}px`;
+                styles['offset-top'] = `${box.top - outer.top}px`;
+            }
+            return { width: box.width, height: box.height, styles };
+        },
+        { props, within }
+    );
     const png = PNG.sync.read(await el.screenshot({ animations: 'disabled' }));
+    if (active) await page.mouse.up();
     return { ...styles, png };
 }
 
@@ -186,6 +208,8 @@ function normalise(prop, value) {
     v = v.replace(/rgba\(0, 0, 0, 0\)/g, 'transparent');
     // equal for display: no minimum height, and shadows that are all transparent
     if (prop === 'min-height' && v === 'auto') v = '0px';
+    // `normal` is no gap between flex items
+    if ((prop === 'column-gap' || prop === 'row-gap') && v === 'normal') v = '0px';
     if (prop === 'box-shadow' && /^(transparent 0px 0px 0px 0px(, )?)+$/.test(v)) v = 'none';
     v = v.replace(/(\d+\.\d+)px/g, (_, n) => `${Math.round(Number(n) * 2) / 2}px`);
     return v;
@@ -211,7 +235,7 @@ function compareImages(a, b, diffPath) {
 const browser = await chromium.launch();
 const context = await browser.newContext({ viewport: { width: 1280, height: 800 }, deviceScaleFactor: 1 });
 /** Pages rendering in parallel (VISUAL_WORKERS); every comparison loads two stories. */
-const WORKERS = Number(process.env.VISUAL_WORKERS ?? 6);
+const WORKERS = Number(process.env.VISUAL_WORKERS ?? 4);
 
 /** Renders one case in one combination and compares the two captures. */
 async function compare(page, name, kase, c) {
@@ -219,16 +243,10 @@ async function compare(page, name, kase, c) {
     const id = `${kase.label.replace(/\W+/g, '-')}--${c.key}`;
     try {
         const props = [...STYLE_PROPS, ...(kase.props ?? [])];
-        const ours = await capture(
-            page,
-            oursUrl(kase.ours.story, c),
-            kase.ours.selector,
-            kase.hover,
-            props,
-            kase.focus
-        );
+        const opts = { hover: kase.hover, active: kase.active, viewport: kase.viewport };
+        const ours = await capture(page, oursUrl(kase.ours.story, c), kase.ours, props, { ...opts, focus: kase.focus });
         // fundamental-styles shows focus with an is-focus class in its stories; refFocus focuses the element too
-        const ref = await capture(page, refUrl(kase.ref.story, c), kase.ref.selector, kase.hover, props, kase.refFocus);
+        const ref = await capture(page, refUrl(kase.ref.story, c), kase.ref, props, { ...opts, focus: kase.refFocus });
         writeFileSync(join(outDir, `${id}.ours.png`), PNG.sync.write(ours.png));
         writeFileSync(join(outDir, `${id}.ref.png`), PNG.sync.write(ref.png));
         const ignore = new Set(kase.ignore ?? []);
@@ -242,7 +260,8 @@ async function compare(page, name, kase, c) {
                 if (side === 'top') ignore.add('border-top-style');
             }
         }
-        const styleDiffs = props
+        const compared = [...props, ...(kase.ours.within ? ['offset-start', 'offset-end', 'offset-top'] : [])];
+        const styleDiffs = compared
             .filter((p) => !ignore.has(p))
             .map((p) => [p, normalise(p, ours.styles[p]), normalise(p, ref.styles[p])])
             .filter(([, a, b]) => a !== b);

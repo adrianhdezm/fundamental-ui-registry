@@ -6,7 +6,7 @@
  *
  *   label     name in the report
  *   ours      { story: Storybook story id, selector: Playwright selector of the element }
- *             (`overlay: true` looks for it in the whole page: popovers and dialogs render in a CDK overlay outside
+ *             (`overlay: true` looks for it in the whole page: popovers and dialogs render in an overlay outside
  *             the story root; use it with an "Open: …" story, whose `play` opens the overlay: the capture waits up to
  *             15s for the element to be visible)
  *             (`within`: a selector of an ancestor of the element, set on both sides; the element's distances from

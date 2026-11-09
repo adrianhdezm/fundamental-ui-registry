@@ -1,7 +1,7 @@
 /**
  * Compares components with the fundamental-styles Storybook (the visual reference) in every combination of theme
- * (4), density (cozy, compact) and direction (LTR, RTL): 16 per case. Adapted from the React package's
- * scripts/visual.mjs (each package keeps its own copy).
+ * (4), density (cozy, compact) and direction (LTR, RTL): 16 per case. The Angular and React packages keep the same
+ * copy of this script.
  *
  * Each case in scripts/visual.config.mjs pairs an element of one of our stories with the matching element of a
  * fundamental-styles story. For every combination the script renders both, then compares
@@ -141,7 +141,7 @@ async function capture(page, url, side, props, { hover, focus, active, viewport 
         content: '*, *::before, *::after { animation: none !important; transition: none !important; }'
     });
     // inside the story: Storybook's own (hidden) controls are elsewhere in the iframe
-    // `overlay`: in the whole page, for overlay content (CDK overlays render outside the story root)
+    // `overlay`: in the whole page, for overlay content (overlays and portals render outside the story root)
     const el = (overlay ? page.locator('body') : page.locator('#storybook-root')).locator(selector).first();
     await el.waitFor({ state: 'visible', timeout: 15000 });
     if (hover || active) await el.hover();
