@@ -193,6 +193,7 @@ const DROPDOWN_MAX_WIDTH = 640;
                 [glyphExpanded]="isOpen()"
                 [buttonFocusable]="buttonFocusable()"
                 [tokenizerLabel]="tokensLabel()"
+                [class]="tokenizerClass()"
                 (moreClickedEvent)="onMoreClicked()"
                 (addOnButtonClicked)="onAddOnButtonClick($event)"
             >
@@ -1046,6 +1047,16 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
     }
 
     protected readonly computedClass = computed(() => cn('block', this.userClass()));
+
+    /** Classes of the tokenizer field: fundamental-styles' multi combobox is an input group around a tokenizer. */
+    protected readonly tokenizerClass = computed(() =>
+        cn(
+            // the input group's field hover shadow (value states keep their own); no shadow when read-only
+            this.readonly()
+                ? '[box-shadow:none] hover:[box-shadow:none]'
+                : (this.currentState() ?? 'default') === 'default' && 'hover:[box-shadow:var(--sapField_Hover_Shadow)]'
+        )
+    );
 
     protected readonly listClass = computed(() =>
         cn(
