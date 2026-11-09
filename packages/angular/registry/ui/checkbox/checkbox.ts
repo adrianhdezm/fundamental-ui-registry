@@ -272,12 +272,16 @@ export class Checkbox implements ControlValueAccessor {
     });
 
     protected readonly containerClass = computed(() =>
-        cn('m-0 flex h-4 max-w-[inherit] items-center truncate p-0', this.wrapLabel() && 'h-auto whitespace-normal')
+        cn(
+            // the text colour with a normal line height, as fundamental-styles (the label itself has the label colour)
+            'm-0 flex h-4 max-w-[inherit] items-center truncate p-0 text-sap-font-size leading-[normal] text-sap-text-color',
+            this.wrapLabel() && 'h-auto whitespace-normal'
+        )
     );
 
     protected readonly textClass = computed(() =>
         cn(
-            'm-0 max-w-[inherit] truncate p-0 empty:m-0',
+            'm-0 max-w-[inherit] truncate p-0 empty:m-0 text-sap-font-size leading-[normal] text-sap-text-color',
             this.wrapLabel() && 'whitespace-normal',
             this.required() &&
                 "relative pe-2 after:absolute after:ps-0.5 after:text-sap-font-size after:font-bold after:text-sap-field-required-color after:content-['*'_/_'']"

@@ -360,3 +360,58 @@ describe('Checkbox', () => {
         expect(events).toEqual([true, false]);
     });
 });
+
+@Component({
+    imports: [Checkbox],
+    template: `
+        <fd-checkbox id="plain" label="Plain" />
+        <fd-checkbox id="success" label="Success" state="success" />
+        <fd-checkbox id="warning" label="Warning" state="warning" />
+        <fd-checkbox id="information" label="Information" state="information" />
+    `
+})
+class StylesHost {}
+
+describe('Checkbox styles', () => {
+    afterEach(() => document.documentElement.removeAttribute('data-sap-theme'));
+    const themed = (value: string) => {
+        const probe = document.createElement('div');
+        probe.style.backgroundColor = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe).backgroundColor;
+        probe.remove();
+        return computed;
+    };
+    async function render() {
+        const fixture = TestBed.createComponent(StylesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        return (id: string) => root.querySelector<HTMLElement>(`#${id} label`)!;
+    }
+
+    it('shows the label text in the text colour with a normal line height (checkbox-1)', async () => {
+        const label = await render();
+        const text = [...label('plain').querySelectorAll<HTMLElement>('span')].find((s) => s.textContent?.trim() === 'Plain')!;
+        const probe = document.createElement('div');
+        probe.style.color = 'var(--sapTextColor)';
+        probe.style.lineHeight = 'normal';
+        probe.style.fontSize = 'var(--sapFontSize)';
+        document.body.appendChild(probe);
+        expect(getComputedStyle(text).color).toBe(getComputedStyle(probe).color);
+        expect(getComputedStyle(text).lineHeight).toBe('normal');
+        probe.remove();
+    });
+
+    for (const state of ['success', 'warning', 'information']) {
+        it(`hovers a ${state} check box with the field hover background in high contrast (checkbox-2)`, async () => {
+            const label = await render();
+            document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+            await userEvent.hover(label(state));
+            const box = label(state).querySelector<HTMLElement>('span[aria-hidden=true]')!;
+            expect(getComputedStyle(box).backgroundColor).toBe(themed('var(--sapField_Hover_Background)'));
+            expect(themed('var(--sapField_Hover_Background)')).not.toBe(themed('var(--sapSelectedColor)'));
+            await userEvent.unhover(label(state));
+        });
+    }
+});

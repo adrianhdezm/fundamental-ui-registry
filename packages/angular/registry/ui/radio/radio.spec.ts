@@ -215,3 +215,46 @@ describe('RadioButton', () => {
         expect(getComputedStyle(labels[0], '::before').width).toBe('16px');
     });
 });
+
+@Component({
+    imports: [RadioButton],
+    template: `
+        <fd-radio-button id="plain" name="styles" value="plain" standalone>Plain</fd-radio-button>
+        <fd-radio-button id="success" name="styles-s" value="s" state="success">Success</fd-radio-button>
+        <fd-radio-button id="warning" name="styles-w" value="w" state="warning">Warning</fd-radio-button>
+        <fd-radio-button id="information" name="styles-i" value="i" state="information">Information</fd-radio-button>
+    `
+})
+class StylesHost {}
+
+describe('Radio styles', () => {
+    afterEach(() => document.documentElement.removeAttribute('data-sap-theme'));
+    const themed = (property: 'color' | 'backgroundColor', value: string) => {
+        const probe = document.createElement('div');
+        probe.style[property] = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe)[property];
+        probe.remove();
+        return computed;
+    };
+    const label = (id: string) => document.querySelector<HTMLElement>(`#${id} label`)!;
+
+    it('shows the label text in the text colour with a normal line height (radio-1)', async () => {
+        await render(StylesHost);
+        const text = label('plain').querySelector<HTMLElement>('span')!;
+        expect(getComputedStyle(text).color).toBe(themed('color', 'var(--sapTextColor)'));
+        expect(getComputedStyle(text).lineHeight).toBe('normal');
+    });
+
+    for (const state of ['success', 'warning', 'information']) {
+        it(`hovers a ${state} radio with the field hover background in high contrast (radio-2)`, async () => {
+            await render(StylesHost);
+            document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+            await userEvent.hover(label(state));
+            expect(getComputedStyle(label(state), '::before').backgroundColor).toBe(
+                themed('backgroundColor', 'var(--sapField_Hover_Background)')
+            );
+            await userEvent.unhover(label(state));
+        });
+    }
+});
