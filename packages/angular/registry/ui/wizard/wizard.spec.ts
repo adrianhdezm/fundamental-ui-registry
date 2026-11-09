@@ -1,7 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import axe from 'axe-core';
 import { afterEach, describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { Bar, BarRight } from '@/ui/bar/bar';
 import { iconGlyphChar } from '@/ui/icon/icon';
 import {
@@ -43,7 +44,7 @@ const TEXT = 'Lorem ipsum dolor sit amet. '.repeat(40);
                                 [branching]="i === branchingStep()"
                             >
                                 <fd-wizard-step-indicator [glyph]="i === 0 ? glyph() : null">{{
-                                    i + 1
+                                    i === 0 && glyph() ? '' : i + 1
                                 }}</fd-wizard-step-indicator>
                                 <fd-wizard-content>
                                     <h3>Content {{ i + 1 }}</h3>
@@ -279,6 +280,23 @@ describe('Wizard', () => {
         expect(items.length).toBeGreaterThan(1);
         expect(items).toContain('C');
     });
+    it('keeps the labels of stacked steps for assistive technology, also when the indicator shows a glyph', async () => {
+        const labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+        const { root, host, stable } = await setup({ width: '600px', labels, summary: false });
+        host.glyph.set('product');
+        host.go(3);
+        await stable();
+        const first = root.querySelector<HTMLElement>('[fd-wizard-step]')!;
+        expect(first.hasAttribute('data-stacked')).toBe(true);
+        const button = first.querySelector<HTMLElement>('[data-wizard-step-container][role=button]')!;
+        // the glyph is decorative: the hidden label names the step
+        expect(button.querySelector('fd-icon')).not.toBeNull();
+        expect(button.textContent!.trim()).toBe('A');
+        const { violations } = await axe.run(root, { runOnly: ['aria-command-name'] });
+        expect(violations.flatMap((v) => v.nodes.map((n) => n.target.join(' ')))).toEqual([]);
+        expect(page.getByRole('button', { name: 'A', exact: true }).element()).toBe(button);
+    });
+
     describe('more', () => {
         afterEach(() => document.documentElement.removeAttribute('dir'));
 
