@@ -6,8 +6,10 @@ listed in [the React parity README](../../../react/docs/parity/README.md#angular
 (`packages/react/docs/parity/components/<name>.md`) has more detail and the React fix. This folder tracks each of them
 in the Angular package, from "reported" to "verified".
 
-[`tracker.json`](tracker.json) is the source of truth; `pnpm tracker` rewrites the tables below from it, and
-`pnpm check` (`pnpm tracker:check`) fails when they are out of date or an entry is incomplete for its status.
+[`tracker.json`](tracker.json) is the source of truth; `pnpm tracker` rewrites the tables below from it (and prints
+the totals, which are not in this file so that pull requests do not conflict), and `pnpm check` (`pnpm tracker:check`)
+fails when they are out of date or an entry is incomplete for its status. `pnpm issue set <id> --status … --repro …
+--test … --fix HEAD` updates an entry and the tables; `pnpm issue table <id> …` prints the table of a pull request body.
 
 ## Entries
 
@@ -54,12 +56,6 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 ## Tracker
 
 <!-- tracker:start -->
-
-**Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
-
-Issues: ⬜ reported: 213 · ✅ verified: 1 · 🚫 won’t fix: 1.
-
-Patterns: ⬜ reported: 7.
 
 ### Patterns
 

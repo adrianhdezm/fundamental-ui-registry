@@ -43,7 +43,8 @@ pnpm storybook                              # http://localhost:6006
 
 - `docs/issues/tracker.json` tracks the Angular issues found while porting to React, from reported to verified (see
   `docs/issues/README.md` for the fields and statuses). Update it, then `pnpm tracker`, in every pull request that
-  works on one, and name the issue ids in the commit message.
+  works on one, and name the issue ids in the commit message. `pnpm issue set <id> --status … --fix HEAD` updates an
+  entry; `pnpm issue table <ids…>` prints the table for the pull request body.
 
 ## Tests
 
