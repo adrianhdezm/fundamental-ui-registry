@@ -853,11 +853,11 @@
       "source": "../../../react/docs/parity/components/calendar.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure."
+      "status": "verified",
+      "repro": "Spec: open the month view (\"March, Select month\"); the cells read Jan, Feb, Mar, … while each cell is named \"January 2024\", …; axe-core label-content-name-mismatch flags 11 of the 12 cells (#cal-month-view-month-0, …; only May has the same short and long name).",
+      "test": "Calendar › shows long month names in the month view, matching the cell names (axe label-content-name-mismatch)",
+      "fix": "4a4f004",
+      "notes": "Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure. Verified: the test fails before the fix (11 cells) and passes after; the long names fit their cells; pnpm angular check passes."
     },
     {
       "id": "calendar-2",

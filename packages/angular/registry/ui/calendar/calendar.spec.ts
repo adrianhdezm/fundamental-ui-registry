@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import axe from 'axe-core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
@@ -134,6 +135,22 @@ describe('Calendar', () => {
         await userEvent.keyboard('{Tab}');
         expect(document.activeElement!.id).toBe('cal-header-left-arrow');
         expect(root.contains(document.activeElement)).toBe(true);
+    });
+
+    it('shows long month names in the month view, matching the cell names (axe label-content-name-mismatch)', async () => {
+        const { root, button, stable } = await setup();
+        await userEvent.click(button('March, Select month'));
+        await stable();
+        const months = [...root.querySelectorAll<HTMLElement>('td[data-fd-calendar-month]')];
+        const { violations } = await axe.run(root, { runOnly: ['label-content-name-mismatch'] });
+        expect(violations.flatMap((v) => v.nodes.map((n) => n.target.join(' ')))).toEqual([]);
+        expect(months.map((m) => m.textContent!.trim()).slice(0, 3)).toEqual(['January', 'February', 'March']);
+        // the long names fit their cells
+        const texts = months.map((m) => m.querySelector<HTMLElement>('[data-cal-text]')!);
+        expect(texts.filter((t) => t.scrollWidth > t.clientWidth).map((t) => t.textContent)).toEqual([]);
+        expect(
+            texts.filter((t) => t.getBoundingClientRect().right > t.closest('td')!.getBoundingClientRect().right)
+        ).toEqual([]);
     });
 
     it('navigates months, and picks a month and a year in their views', async () => {
