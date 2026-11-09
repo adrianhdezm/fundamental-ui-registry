@@ -459,6 +459,8 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
     protected readonly tokenizerClass = computed(() =>
         cn(
             this.glyphMirrored() && '[&>div>button_fd-icon]:-scale-x-100',
+            // in high contrast the addon button is as high as the field, over its border (an input group button)
+            'hc:[&>button]:-my-(--sapField_BorderWidth)',
             // the input group's field hover shadow (value states keep their own)
             (this.state() ?? 'default') === 'default' && 'hover:[box-shadow:var(--sapField_Hover_Shadow)]'
         )
