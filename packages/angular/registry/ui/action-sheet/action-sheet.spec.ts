@@ -139,4 +139,9 @@ describe('ActionSheet styles', () => {
         expect(z(bar)).toBeLessThanOrEqual(z(list()));
         expect(bar.compareDocumentPosition(list()) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     });
+
+    it('the popover list has the popover corner radius, as fundamental-styles (computed style)', async () => {
+        await setup(false);
+        expect(radius(list())).toEqual(['8px', '8px', '8px']);
+    });
 });

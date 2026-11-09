@@ -1311,9 +1311,9 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host, popover): the open list computes border-radius 0px; fundamental-styles' action sheet list has the popover corner radius (8px, 4px in HC).",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the popover list has the popover corner radius, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },
