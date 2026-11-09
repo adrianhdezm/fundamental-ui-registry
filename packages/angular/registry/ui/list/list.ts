@@ -284,7 +284,7 @@ export class List {
         @if (unread() && (!list || list.hasByline())) {
             <fd-icon
                 glyph="circle-task-2"
-                class="absolute start-4 top-1/2 -translate-y-1/2 text-[0.375rem] text-sap-accent-color6"
+                class="absolute start-4 top-1/2 -translate-y-1/2 text-[0.375rem] leading-none text-sap-accent-color6"
             />
         }
         <ng-content />
@@ -538,7 +538,7 @@ export class ListTitle {
             item?.unread() && 'font-bold',
             item?.noData() && 'text-center',
             this.list?.subline() &&
-                'w-full max-w-full font-sap-font-semibold-duplex-family text-sap-font-size text-sap-list-text-color not-italic',
+                'w-full max-w-full font-sap-font-semibold-duplex-family text-sap-font-size leading-[normal] text-sap-list-text-color not-italic',
             this.scope() && 'text-sap-font-size text-sap-content-label-color',
             item?.growing() && 'flex items-center justify-center gap-2',
             item?.action() && [
@@ -618,7 +618,7 @@ export class ListIcon {
     protected readonly computedClass = computed(() =>
         cn(
             iconVariants({ font: this.glyphFont() }),
-            'pointer-events-none flex w-11 flex-[0_0_auto] items-center justify-center text-(length:--li-ifs) text-sap-content-non-interactive-icon-color',
+            'pointer-events-none flex w-11 flex-[0_0_auto] items-center justify-center text-(length:--li-ifs) leading-none text-sap-content-non-interactive-icon-color',
             'first:-ms-4 [[data-list-title]~&]:-me-4',
             this.list?.navigationIndicator() && 'last:m-0',
             this.userClass()
@@ -672,7 +672,8 @@ export class ListLink {
         const indication = !!list?.navigationIndicator();
         return cn(
             'relative m-0 box-border flex h-full w-full items-center bg-(--li-bg) text-(--li-tc) no-underline',
-            'border-b-(length:--sapList_BorderWidth) border-solid border-transparent [--li-bc:transparent]',
+            // the list border colour shows on hover, as fundamental-styles
+            'border-b-(length:--sapList_BorderWidth) border-solid border-transparent [--li-bc:transparent] hover:border-sap-list-border-color',
             'ps-[0.9375rem] pe-[0.9375rem]',
             INTERACTIVE_STATES,
             this.pressed() && '[--li-bg:var(--sapList_Active_Background)] [--li-tc:var(--sapList_Active_TextColor)]',
@@ -688,7 +689,7 @@ export class ListLink {
                   ]
                 : indication && "after:min-w-10 after:content-['']",
             this.navigated() &&
-                '[--li-nav:var(--sapList_SelectionBorderColor)] shadow-[inset_-0.1875rem_0_0_0_var(--li-nav)] rtl:shadow-[inset_0.1875rem_0_0_0_var(--li-nav)]',
+                '[--li-nav:var(--sapList_SelectionBorderColor)] [box-shadow:inset_-0.1875rem_0_0_0_var(--li-nav)] rtl:[box-shadow:inset_0.1875rem_0_0_0_var(--li-nav)]',
             this.userClass()
         );
     });
@@ -843,7 +844,8 @@ export class ListBylineRight {
 @Directive({
     selector: '[fd-list-thumbnail], [fdListThumbnail]',
     host: {
-        class: 'pointer-events-none m-0 me-3 box-border flex size-12 min-w-12 max-w-12 items-center justify-center rounded-sm p-0 text-[2rem] text-sap-content-non-interactive-icon-color [&>svg]:h-full'
+        // icons take the thumbnail size (2rem), not their own default size
+        class: 'pointer-events-none m-0 me-3 box-border flex size-12 min-w-12 max-w-12 items-center justify-center rounded-sm p-0 text-[2rem] text-sap-content-non-interactive-icon-color [&>svg]:h-full [&>[data-glyph]]:text-[2rem]'
     }
 })
 export class ListThumbnail {}

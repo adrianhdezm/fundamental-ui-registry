@@ -148,7 +148,7 @@ export class MicroProcessFlowItem {
                 [glyph]="glyph"
                 [font]="font()"
                 [ariaLabel]="ariaLabel()"
-                class="text-(length:--mpf-icon-size) text-(--mpf-icon) group-hover/mpf-icon:text-(--mpf-hover-icon,var(--mpf-icon)) group-active/mpf-icon:text-(--mpf-active-icon)"
+                class="text-(length:--mpf-icon-size) leading-none text-(--mpf-icon) group-hover/mpf-icon:text-(--mpf-hover-icon,var(--mpf-icon)) group-active/mpf-icon:text-(--mpf-active-icon)"
             />
         }
     `
@@ -161,7 +161,7 @@ export class MicroProcessFlowIcon {
 
     protected readonly computedClass = computed(() =>
         cn(
-            'group/mpf-icon m-0 box-border flex min-h-(--mpf-min) min-w-(--mpf-min) items-center justify-center rounded-full border border-solid border-(--mpf-border) bg-(--mpf-bg) p-0',
+            'group/mpf-icon m-0 box-border flex min-h-(--mpf-min) min-w-(--mpf-min) items-center justify-center rounded-[50%] border border-solid border-(--mpf-border) bg-(--mpf-bg) p-0',
             'hover:border-(--mpf-hover-border) hover:bg-(--mpf-hover-bg)',
             'active:border-(--mpf-active-border,var(--sapHighlightColor)) active:bg-sap-highlight-color',
             this.userClass()
@@ -372,7 +372,7 @@ export class MicroProcessFlow {
 
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 box-border flex max-w-[calc(var(--mpf-item)*9+0.0625rem)] p-0 font-sap-font-family text-sap-font-size leading-(--sapContent_LineHeight) text-sap-text-color',
+            'm-0 box-border flex max-w-[calc(var(--mpf-item)*9+0.0625rem)] p-0 font-sap-font-family text-sap-font-size leading-[normal] text-sap-text-color',
             '[--mpf-item:2.75rem] [--mpf-min:1.875rem] [--mpf-connector:1.125rem] [--mpf-icon-size:var(--sapFontLargeSize)] [--mpf-direction:-1] rtl:[--mpf-direction:1]',
             'compact:[--mpf-item:2rem] compact:[--mpf-min:1.375rem] compact:[--mpf-connector:0.625rem] compact:[--mpf-icon-size:var(--sapFontSmallSize)]',
             '[--mpf-active-icon:var(--sapContent_ContrastIconColor)] hc:[--mpf-active-icon:var(--sapContent_ForegroundColor)]',

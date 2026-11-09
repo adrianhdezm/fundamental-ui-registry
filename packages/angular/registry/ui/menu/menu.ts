@@ -70,7 +70,9 @@ const LIST_VARS = [
     '[--mi-pl:var(--mi-pad)] [--mi-pr:var(--mi-pad)]',
     '[--mr:var(--sapPopover_BorderCornerRadius)]'
 ].join(' ');
-const MOBILE_VARS = '[--mi-icon-w:2.75rem]! [--mi-pad:1rem]! [--mi-sc-pr:1rem]! [--mi-text-r:1rem]! [--mr:0]!';
+// the shortcut's mobile end padding is cozy only: compact keeps 0.5rem, as fundamental-styles
+const MOBILE_VARS =
+    '[--mi-icon-w:2.75rem]! [--mi-pad:1rem]! [--mi-sc-pr:1rem]! compact:[--mi-sc-pr:0.5rem]! [--mi-text-r:1rem]! [--mr:0]!';
 /** Lists with icons align their texts after the icon column instead of padding the items. */
 const ICON_VARS = '[--mi-pl:0]! [--mi-pr:0]!';
 
@@ -570,7 +572,7 @@ export class Submenu extends MenuList {
             mobile
                 ? ['static max-w-full', MOBILE_VARS]
                 : [
-                      'absolute start-full top-0 z-[2] mt-1 -ms-1 min-w-full bg-sap-list-background shadow-sap-content-shadow1',
+                      'absolute start-full top-0 z-[2] mt-1 -ms-1 min-w-full bg-sap-list-background [box-shadow:var(--sapContent_Shadow1)]',
                       // in a menu with icons, a submenu without icons gets wider paddings
                       !this.icons() &&
                           '[[data-menu-icons]_&]:[--mi-pl:var(--mi-sub-pad)] [[data-menu-icons]_&]:[--mi-pr:var(--mi-sub-pad)]'
@@ -762,9 +764,9 @@ export type MenuInteractiveKind = 'item' | 'toggle' | 'option' | 'input';
         @if (mark(); as m) {
             <span class="${ADDON}" aria-hidden="true">
                 @if (m === 'check') {
-                    <fd-icon glyph="accept" class="text-[1rem] text-sap-content-selected-foreground-color" />
+                    <fd-icon glyph="accept" class="text-sap-content-selected-foreground-color" />
                 } @else if (m === 'dot') {
-                    <span class="size-3 rounded-full bg-sap-content-selected-foreground-color"></span>
+                    <span class="size-3 rounded-[100%] bg-sap-content-selected-foreground-color"></span>
                 }
             </span>
         }
@@ -879,7 +881,7 @@ export class MenuInteractive {
     },
     template: `
         @if (submenuIndicator()) {
-            <fd-icon glyph="navigation-right-arrow" class="text-[1rem]" />
+            <fd-icon glyph="navigation-right-arrow" />
         } @else if (glyph()) {
             <fd-icon [glyph]="glyph()" />
         }

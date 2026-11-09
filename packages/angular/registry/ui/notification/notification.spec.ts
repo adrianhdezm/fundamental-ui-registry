@@ -293,6 +293,20 @@ describe('Notification', () => {
         expect(document.activeElement).toBe(items[2]);
     });
 
+    it("the group header has fundamental-styles' transparent bottom border (computed style)", async () => {
+        const fixture = TestBed.createComponent(GroupHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const header = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>(
+            'fd-notification-group-header'
+        )!;
+        const style = getComputedStyle(header);
+        expect(style.borderBottomStyle).toBe('solid');
+        expect(style.borderBottomWidth).toBe('1px');
+        expect(style.borderBottomColor).toBe('rgba(0, 0, 0, 0)');
+        expect(style.borderTopWidth).toBe('0px');
+    });
+
     it('offers More/Less for truncated texts', async () => {
         const fixture = TestBed.createComponent(GroupHost);
         document.body.appendChild(fixture.nativeElement);

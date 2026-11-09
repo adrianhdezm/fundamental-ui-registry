@@ -291,3 +291,20 @@ describe('ObjectStatus', () => {
         expect(hidden(status)).toEqual(['Object Status']);
     });
 });
+
+@Component({
+    imports: [ObjectStatusComponent],
+    template: `<span fd-object-status id="os" status="positive" label="Shipped"></span>`
+})
+class LineHeightHost {}
+
+describe('ObjectStatus line height', () => {
+    it('the root keeps its 1rem line height', async () => {
+        const fixture = TestBed.createComponent(LineHeightHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const os = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#os')!;
+        expect(getComputedStyle(os).lineHeight).toBe('16px');
+        fixture.nativeElement.remove();
+    });
+});

@@ -307,6 +307,17 @@ describe('Menu', () => {
         expect(dot()).toBeNull();
         expect(mark(item('Desc')).querySelector('span')).not.toBeNull();
     });
+
+    it('keeps the line height of the toggle check mark and the submenu arrow at 1 (16px high)', async () => {
+        await open();
+        await userEvent.click(item('Toggle'));
+        const check = item('Toggle').querySelector<HTMLElement>('[aria-hidden=true] fd-icon')!;
+        const arrow = item('Parent').querySelector<HTMLElement>('fd-menu-addon fd-icon')!;
+        for (const icon of [check, arrow]) {
+            expect(getComputedStyle(icon).lineHeight).toBe('16px');
+            expect(icon.getBoundingClientRect().height).toBe(16);
+        }
+    });
 });
 
 async function setup(init: (host: ConfigHost) => void = () => {}) {
@@ -559,6 +570,24 @@ describe('Menu options', () => {
         host.hideShortcut.set(false);
         await settle(fixture);
         expect(shortcut().getBoundingClientRect().width).toBeGreaterThan(0);
+    });
+
+    it('a mobile shortcut keeps the compact end padding in compact density (computed style)', async () => {
+        const { fixture, host, trigger } = await setup();
+        host.mobile.set(true);
+        host.hideShortcut.set(false);
+        await settle(fixture);
+        await userEvent.click(trigger);
+        await expect.poll(() => document.querySelector('[role=dialog]')).not.toBeNull();
+        await settle(fixture);
+        const shortcut = document.querySelector<HTMLElement>('[fd-menu-shortcut]')!;
+        expect(getComputedStyle(shortcut).paddingInlineEnd).toBe('16px');
+        document.documentElement.setAttribute('data-density', 'compact');
+        try {
+            expect(getComputedStyle(shortcut).paddingInlineEnd).toBe('8px');
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
     });
 
     it('renders addons before and after the title', async () => {

@@ -80,6 +80,36 @@ function cssColor(variable: string): string {
 }
 
 describe('FlexibleColumnLayout', () => {
+    it('the separator gradient lines blend in sRGB, as fundamental-styles', async () => {
+        const { separators } = await setup('ThreeColumnsMidExpanded');
+        for (const separator of separators()) {
+            for (const pseudo of ['::before', '::after']) {
+                const image = getComputedStyle(separator, pseudo).backgroundImage;
+                expect(image).toMatch(/^linear-gradient\(/);
+                expect(image).not.toContain('oklab');
+            }
+        }
+    });
+
+    it('the separator buttons are 32×24px in cozy and 26×24px in compact density', async () => {
+        const { buttons } = await setup('ThreeColumnsMidExpanded');
+        expect(buttons()).toHaveLength(2);
+        try {
+            for (const [density, height] of [
+                ['cozy', 32],
+                ['compact', 26]
+            ] as const) {
+                document.documentElement.setAttribute('data-density', density);
+                for (const button of buttons()) {
+                    const { width, height: h } = button.getBoundingClientRect();
+                    expect([width, h]).toEqual([24, height]);
+                }
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
     afterEach(() => {
         document.documentElement.removeAttribute('dir');
         document.documentElement.removeAttribute('data-sap-theme');
@@ -253,6 +283,23 @@ describe('FlexibleColumnLayout', () => {
         host.layout.set('TwoColumnsStartExpanded');
         await stable();
         expect(columns().map((c) => c.style.width)).toEqual(['67%', '33%', '0%']);
+    });
+
+    it('the columns have no borders in high contrast, as fundamental-styles (computed style)', async () => {
+        const { columns } = await setup('ThreeColumnsMidExpanded', 1400);
+        const mid = columns()[1];
+        expect(getComputedStyle(mid).borderLeftWidth).toBe('1px');
+        try {
+            for (const theme of ['sap_horizon_hcb', 'sap_horizon_hcw']) {
+                document.documentElement.setAttribute('data-sap-theme', theme);
+                expect([getComputedStyle(mid).borderLeftWidth, getComputedStyle(mid).borderRightWidth]).toEqual([
+                    '0px',
+                    '0px'
+                ]);
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
     });
 
     it('backgroundDesign solid/translucent/transparent, including high contrast', async () => {

@@ -50,7 +50,7 @@ let nextId = 0;
                     <button
                         fdButton
                         variant="transparent"
-                        class="text-base"
+                        class="text-base leading-[normal]"
                         [id]="expandId()"
                         [glyph]="expanded() ? 'slim-arrow-down' : 'slim-arrow-right'"
                         [attr.aria-expanded]="expanded()"
@@ -80,7 +80,7 @@ export class Panel {
     readonly expanded = model(false);
     readonly expandAriaLabel = input<string | null | undefined>();
     readonly expandAriaLabelledBy = input<string | null | undefined>();
-    /** Transparent header and content. */
+    /** Transparent content; the header keeps its background, as fundamental-styles. */
     readonly transparent = input(false, { transform: booleanAttribute });
     readonly noRadius = input(false, { transform: booleanAttribute });
     readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -103,7 +103,6 @@ export class Panel {
             'rounded-t-sap-element-border-corner-radius has-[fd-toolbar]:pe-0',
             !open && 'rounded-b-sap-element-border-corner-radius',
             this.fixed() && 'ps-3',
-            this.transparent() && 'bg-transparent',
             this.noRadius() && 'rounded-none'
         );
     });
@@ -118,7 +117,7 @@ export class PanelTitle {
     readonly wrap = input(true, { transform: booleanAttribute });
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 w-full max-w-full flex-1 p-0 ps-1 font-sap-font-header-family text-sap-group-title-font-size font-bold text-sap-group-title-text-color',
+            'm-0 w-full max-w-full flex-1 p-0 ps-1 font-sap-font-header-family text-sap-group-title-font-size font-normal text-sap-group-title-text-color',
             this.wrap() ? 'whitespace-normal break-words' : 'truncate'
         )
     );

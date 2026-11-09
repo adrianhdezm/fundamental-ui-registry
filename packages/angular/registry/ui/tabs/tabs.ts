@@ -93,7 +93,8 @@ export class TabCount {
         const mode = this.tabs?.mode();
         return cn(
             'm-0 p-0 pb-0.5 leading-4 text-sap-content-label-color',
-            mode && 'text-sap-font-small-size',
+            // the line height after the font size: tailwind-merge drops one that comes before
+            mode && 'text-sap-font-small-size leading-4',
             (mode === 'icon-only' || mode === 'filter') && 'absolute start-[calc(100%+0.1875rem)] top-0'
         );
     });
@@ -107,7 +108,11 @@ export class TabCount {
     host: { '[class]': 'computedClass()' },
     template: `
         @if (icon()) {
-            <fd-icon [glyph]="icon()!" [font]="iconFont()" class="text-[length:var(--tabs-icon-size,1.125rem)]" />
+            <fd-icon
+                [glyph]="icon()!"
+                [font]="iconFont()"
+                class="text-[length:var(--tabs-icon-size,1.125rem)] leading-none"
+            />
         }
         <ng-content />
     `
@@ -120,7 +125,7 @@ export class TabIcon {
     protected readonly computedClass = computed(() => {
         const mode = this.tabs?.mode();
         return cn(
-            'relative mx-[0.188rem] my-0 box-border flex size-(--tabs-icon-height) items-center justify-center rounded-full bg-transparent p-0',
+            'relative mx-[0.188rem] my-0 box-border flex size-(--tabs-icon-height) items-center justify-center rounded-[50%] bg-transparent p-0',
             '[--tabs-icon-height:2.625rem] compact:[--tabs-icon-height:1.875rem]',
             'border-[length:0.125rem] border-solid border-(--tab-icon,var(--sapContent_Selected_ForegroundColor)) text-(--tab-icon,var(--sapContent_Selected_ForegroundColor))',
             'group-aria-selected/tab:bg-(--tab-icon,var(--sapSelectedColor)) group-aria-selected/tab:text-sap-content-contrast-icon-color',
@@ -787,7 +792,7 @@ export class TabList implements TabsContext {
 /** Classes of a tab bar. */
 function tabBarClass(mode: TabModes | null | undefined, size: TabSizes, userClass: ClassValue): string {
     return cn(
-        'm-0 flex items-center bg-sap-object-header-background p-0 font-sap-font-family text-sap-font-size text-sap-content-label-color shadow-sap-content-header-shadow',
+        'm-0 flex items-center bg-sap-object-header-background p-0 font-sap-font-family text-sap-font-size text-sap-content-label-color [box-shadow:var(--sapContent_HeaderShadow)]',
         size === 's' ? 'px-4' : size === 'xl' || size === 'xxl' ? 'px-12' : 'px-8',
         userClass
     );

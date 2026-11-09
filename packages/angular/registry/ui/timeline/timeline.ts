@@ -405,8 +405,9 @@ export class Timeline<T = unknown> {
         const start = (rect: DOMRect): number => (axis === 'vertical' ? rect.top : rtl ? -rect.right : rect.left);
         const markerStart = (node: TimelineNode): number => start(node.marker().getBoundingClientRect());
 
+        // from scratch: no margins of an earlier double vertical layout (also after an axis switch)
+        nodes.forEach((node) => (node.host.style.marginTop = ''));
         if (axis === 'vertical' && double) {
-            order.forEach((node) => (node.host.style.marginTop = ''));
             order.forEach((node, i) => {
                 const previous = order[i - 1]?.marker().getBoundingClientRect();
                 const gap = previous ? previous.bottom + DOUBLE_OFFSET - markerStart(node) : 0;
@@ -415,6 +416,8 @@ export class Timeline<T = unknown> {
         }
         order.forEach((node, i) => {
             const line = node.line();
+            // no length along the other axis (an axis switch keeps the nodes and their lines)
+            line.style[axis === 'vertical' ? 'width' : 'height'] = '';
             const next = order[i + 1];
             line.style.opacity = next ? '' : '0';
             if (!next) return;

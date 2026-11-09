@@ -226,3 +226,27 @@ describe('ObjectNumber', () => {
         expect(unit().getBoundingClientRect().right).toBeLessThan(number().getBoundingClientRect().left);
     });
 });
+
+@Component({
+    imports: [ObjectNumber],
+    template: `
+        <fd-object-number id="regular" [number]="12" unit="EUR" />
+        <fd-object-number id="inverted" [number]="12" unit="EUR" status="positive" inverted />
+        <fd-object-number id="large" [number]="12" unit="EUR" large />
+    `
+})
+class LineHeightHost {}
+
+describe('ObjectNumber line height', () => {
+    it('regular and inverted numbers keep a 1rem line height, large ones 2rem', async () => {
+        const fixture = TestBed.createComponent(LineHeightHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const line = (id: string) => getComputedStyle(root.querySelector<HTMLElement>(`#${id}`)!).lineHeight;
+        expect(line('regular')).toBe('16px');
+        expect(line('inverted')).toBe('16px');
+        expect(line('large')).toBe('32px');
+        fixture.nativeElement.remove();
+    });
+});

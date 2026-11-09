@@ -66,7 +66,7 @@ import { Popover, PopoverBody, PopoverControl } from '@/ui/popover/popover';
             <span class="w-full min-w-0 truncate select-none"><ng-content /></span>
             @if (!readOnly()) {
                 <span aria-hidden="true" [class]="closeClass" (click)="closeClickHandler($event)">
-                    <fd-icon glyph="decline" class="text-[length:inherit]" />
+                    <fd-icon glyph="decline" class="text-[length:inherit] leading-none" />
                 </span>
             }
         </span>
@@ -168,7 +168,7 @@ export class Token {
 @Directive({
     selector: 'input[fdTokenizerInput], input[fd-tokenizer-input]',
     host: {
-        class: 'm-0 box-border min-w-12 flex-1 basis-full self-stretch rounded-sap-field-border-corner-radius border-none bg-transparent px-[0.3125rem] py-0 shadow-none outline-none compact:min-w-8 compact:px-1 font-sap-font-family text-sap-font-size text-sap-field-text-color placeholder:italic placeholder:text-sap-field-placeholder-text-color hc:placeholder:not-italic  '
+        class: 'm-0 box-border min-w-12 flex-1 basis-full self-stretch rounded-sap-field-border-corner-radius border-none bg-transparent px-[0.3125rem] py-0 [box-shadow:none] outline-none compact:min-w-8 compact:px-1 font-sap-font-family text-sap-font-size text-sap-field-text-color placeholder:italic placeholder:text-sap-field-placeholder-text-color hc:placeholder:not-italic  '
     }
 })
 export class TokenizerInput {

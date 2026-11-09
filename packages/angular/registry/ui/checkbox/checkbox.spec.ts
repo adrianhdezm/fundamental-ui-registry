@@ -417,3 +417,24 @@ describe('Checkbox styles', () => {
         });
     }
 });
+
+@Component({
+    imports: [Checkbox, FormsModule],
+    template: `<fd-checkbox [(ngModel)]="value" displayOnly label="Display only" />`
+})
+class DisplayOnlyHost {
+    value = true;
+}
+
+describe('Checkbox display-only line height', () => {
+    it('the display-only box keeps a normal line height', async () => {
+        const fixture = TestBed.createComponent(DisplayOnlyHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const box = [...root.querySelectorAll<HTMLElement>('*')].find((el) => el.className.includes('size-4'))!;
+        expect(box).toBeTruthy();
+        expect(getComputedStyle(box).lineHeight).toBe('normal');
+        fixture.nativeElement.remove();
+    });
+});

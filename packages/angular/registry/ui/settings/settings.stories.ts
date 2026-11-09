@@ -75,7 +75,7 @@ const IMPORTS = [
     template: `
         @if (inline()) {
             <div
-                class="h-[42.5rem] max-w-[60rem] overflow-hidden rounded-sap-element-border-corner-radius bg-sap-group-content-background shadow-sap-content-shadow1"
+                class="h-[42.5rem] max-w-[60rem] overflow-hidden rounded-sap-element-border-corner-radius bg-sap-group-content-background [box-shadow:var(--sapContent_Shadow1)]"
             >
                 <ng-container *ngTemplateOutlet="settings" />
             </div>

@@ -27,7 +27,7 @@ const DOTS: Record<BusyIndicatorSize, string> = {
 };
 
 const DOT =
-    'relative inline-block size-(--dot) rounded-full bg-current animate-sap-busy me-(--dot-gap) motion-reduce:animate-none';
+    'relative inline-block size-(--dot) rounded-[50%] bg-current animate-sap-busy me-(--dot-gap) motion-reduce:animate-none';
 
 /**
  * Busy indicator: three pulsing dots that show that content is loading. Wrapping content

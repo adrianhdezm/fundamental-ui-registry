@@ -282,7 +282,7 @@ export class DynamicPageHeader {
             'relative z-1 m-0 box-border flex min-h-12 flex-col justify-between bg-sap-object-header-background px-(--dp-px) py-2 [overflow-wrap:break-word]',
             'peer-focus-visible:outline-sap peer-focus-visible:-outline-offset-4',
             page?.collapsible() &&
-                'cursor-pointer hover:bg-sap-object-header-hover-background hc:hover:border-b hc:hover:border-solid hc:hover:border-sap-object-header-border-color',
+                'hover:cursor-pointer hover:bg-sap-object-header-hover-background hc:hover:border-b hc:hover:border-solid hc:hover:border-sap-object-header-border-color',
             page?.collapsed() && 'pb-4',
             page?.background() === 'transparent' && 'bg-transparent hc:bg-sap-object-header-background',
             this.userClass()
@@ -310,7 +310,7 @@ export class DynamicPageHeader {
         @if (collapsible()) {
             <div [class]="visibilityClass()">
                 <div
-                    class="h-px w-16 bg-linear-to-l from-sap-object-header-border-color to-transparent rtl:bg-linear-to-r"
+                    class="h-px w-16 [background-image:linear-gradient(to_left,var(--sapObjectHeader_BorderColor),transparent)] rtl:[background-image:linear-gradient(to_right,var(--sapObjectHeader_BorderColor),transparent)]"
                 ></div>
                 <div
                     role="toolbar"
@@ -340,7 +340,7 @@ export class DynamicPageHeader {
                     }
                 </div>
                 <div
-                    class="h-px w-16 bg-linear-to-r from-sap-object-header-border-color to-transparent rtl:bg-linear-to-l"
+                    class="h-px w-16 [background-image:linear-gradient(to_right,var(--sapObjectHeader_BorderColor),transparent)] rtl:[background-image:linear-gradient(to_left,var(--sapObjectHeader_BorderColor),transparent)]"
                 ></div>
             </div>
         }
@@ -385,8 +385,11 @@ export class DynamicPageSubheader {
         this.pinned.update((pinned) => !pinned);
     }
 
+    // the size in both densities: the button's compact height, padding and minimum width are compact: variants;
+    // on the header background, as fundamental-styles
     protected readonly buttonClass =
-        "relative mx-1 my-0 h-6 w-6 min-w-6 p-0 before:absolute before:inset-x-0 before:-inset-y-1 before:content-['']";
+        "relative mx-1 my-0 h-6 w-6 min-w-6 bg-sap-object-header-background p-0 before:absolute before:inset-x-0 before:-inset-y-1 before:content-[''] " +
+        'compact:h-6 compact:max-h-6 compact:w-6 compact:min-w-6 compact:px-0';
 
     protected readonly contentClass = computed(() =>
         cn(
@@ -398,7 +401,7 @@ export class DynamicPageSubheader {
     protected readonly visibilityClass = computed(() =>
         cn(
             'relative z-2 m-0 flex min-h-px items-center justify-center bg-sap-object-header-background p-0',
-            !this.page?.hasTabs() && 'shadow-sap-content-header-shadow'
+            !this.page?.hasTabs() && '[box-shadow:var(--sapContent_HeaderShadow)]'
         )
     );
 }
@@ -479,7 +482,9 @@ export class DynamicPageFooter {
 /** Tabs (or another navigation) between the header and the content. */
 @Directive({
     selector: '[fd-dynamic-page-tabs], [fdDynamicPageTabs]',
-    host: { class: 'relative z-1 block px-(--dp-px) shadow-sap-content-header-shadow bg-sap-object-header-background' }
+    host: {
+        class: 'relative z-1 block px-(--dp-px) [box-shadow:var(--sapContent_HeaderShadow)] bg-sap-object-header-background'
+    }
 })
 export class DynamicPageTabs {}
 
@@ -644,7 +649,7 @@ export class DynamicPage {
     protected readonly headerClass = computed(() =>
         cn(
             'relative z-15 m-0 flex flex-col justify-between p-0',
-            !this.collapsible() && !this.hasTabs() && 'shadow-sap-content-header-shadow'
+            !this.collapsible() && !this.hasTabs() && '[box-shadow:var(--sapContent_HeaderShadow)]'
         )
     );
 

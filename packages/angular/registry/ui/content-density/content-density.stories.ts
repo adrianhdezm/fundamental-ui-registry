@@ -105,3 +105,31 @@ export const Toggle: Story = {
             </div>`
     })
 };
+
+export const NestedDensities: Story = {
+    name: 'Nested densities',
+    parameters: {
+        docs: {
+            description: {
+                story: 'A section in the other density with a section in the toolbar density inside: the visual check against fundamental-styles (the button and input match its button and input of the toolbar density only if both overrides work).'
+            }
+        }
+    },
+    render: (_, { globals }) => {
+        const density = globals['density'] === 'compact' ? 'compact' : 'cozy';
+        return {
+            props: { outer: density === 'compact' ? 'cozy' : 'compact', inner: density },
+            template: `
+                <div [fdContentDensity]="outer" class="${box}">
+                    <span>The other density</span>
+                    <div [fdContentDensity]="inner" class="${box}" data-testid="nested">
+                        <span>The toolbar density again</span>
+                        <div class="${row}">
+                            <button fdButton label="Default Button"></button>
+                            <input fdFormControl aria-label="Nested input" placeholder="e.g., Jane Doe" />
+                        </div>
+                    </div>
+                </div>`
+        };
+    }
+};

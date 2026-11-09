@@ -81,11 +81,11 @@ const INDICATION: Record<MessageStripIndicationColor, string> = {
     '9b': '[--ms-bg:var(--sapIndicationColor_9b_Background)] [--ms-bc:var(--sapIndicationColor_9b_BorderColor)]',
     '10b': '[--ms-bg:var(--sapIndicationColor_10b_Background)] [--ms-bc:var(--sapIndicationColor_10b_BorderColor)]'
 };
-/** Text and icon colours on a strong (1-10) or light (1b-10b) indication background. */
+/** Text, icon and link colours on a strong (1-10) or light (1b-10b) indication background. */
 const INDICATION_STRONG =
-    '[--ms-tc:var(--sapContent_ContrastTextColor)] [--ms-ic:var(--sapContent_ContrastTextColor)] [--ms-btn:var(--sapContent_ContrastIconColor)] [--ms-focus:var(--sapContent_ContrastFocusColor)] [text-shadow:var(--sapContent_ContrastTextShadow)]';
+    '[--ms-tc:var(--sapContent_ContrastTextColor)] [--ms-ic:var(--sapContent_ContrastTextColor)] [--ms-btn:var(--sapContent_ContrastIconColor)] [--ms-focus:var(--sapContent_ContrastFocusColor)] [text-shadow:var(--sapContent_ContrastTextShadow)] [&_a]:[text-shadow:var(--sapContent_ContrastTextShadow)] [&_a]:text-sap-content-contrast-text-color [&_a:hover]:text-sap-content-contrast-text-color';
 const INDICATION_LIGHT =
-    '[--ms-tc:var(--sapTextColor)] [--ms-ic:var(--sapContent_IconColor)] [--ms-btn:var(--sapContent_IconColor)] [--ms-focus:var(--sapContent_FocusColor)] [text-shadow:none]';
+    '[--ms-tc:var(--sapTextColor)] [--ms-ic:var(--sapContent_IconColor)] [--ms-btn:var(--sapContent_IconColor)] [--ms-focus:var(--sapContent_FocusColor)] [text-shadow:none] [&_a]:[text-shadow:none] [&_a]:text-sap-link-subtle-color [&_a:hover]:text-sap-link-subtle-color';
 
 const GLYPH: Record<MessageStripType, string> = {
     warning: 'alert',
@@ -135,7 +135,7 @@ let nextId = 0;
     template: `
         @if (showIcon()) {
             <div
-                class="absolute start-0 top-[0.4375rem] m-0 flex w-10 items-center justify-center p-0 text-base text-(--ms-ic) [&_fd-icon]:flex [&_fd-icon]:size-4 [&_fd-icon]:items-center [&_fd-icon]:justify-center [&_fd-icon]:leading-none"
+                class="absolute start-0 top-[0.4375rem] m-0 flex w-10 items-center justify-center p-0 text-[1rem] leading-[normal] text-(--ms-ic) [&_fd-icon]:flex [&_fd-icon]:size-4 [&_fd-icon]:items-center [&_fd-icon]:justify-center [&_fd-icon]:leading-none"
                 aria-hidden="true"
             >
                 @if (icon(); as icon) {
@@ -146,7 +146,11 @@ let nextId = 0;
             </div>
         }
         <span class="sr-only-sap" [id]="id() + '-hidden-text'">{{ hiddenText() }}</span>
-        <p class="m-0 p-0 leading-4 break-words whitespace-normal text-(--ms-tc)" [id]="id() + '-content-text'">
+        <!-- links: fundamental-styles' fd-message-strip--link spacing -->
+        <p
+            class="m-0 p-0 leading-4 break-words whitespace-normal text-(--ms-tc) [&_a]:ms-1 [&_a]:px-1"
+            [id]="id() + '-content-text'"
+        >
             <ng-content />
         </p>
         @if (dismissible()) {
@@ -234,7 +238,10 @@ export class MessageStrip {
                 'text-(--ms-btn) enabled-hover:text-(--ms-btn) enabled-active:text-(--ms-btn)',
                 'enabled-hover:bg-sap-message-button-hover-background enabled-hover:border-(--ms-btn)',
                 'enabled-active:bg-sap-message-button-hover-background enabled-active:border-(--ms-btn)',
-                'focus:after:border-(--ms-focus)'
+                'focus:after:border-(--ms-focus)',
+                // focused: no background or border, unless hovered (fundamental-styles; visible in HC)
+                'focus:bg-transparent focus:border-transparent',
+                'focus:enabled-hover:bg-sap-message-button-hover-background focus:enabled-hover:border-(--ms-btn)'
             ]
         )
     );

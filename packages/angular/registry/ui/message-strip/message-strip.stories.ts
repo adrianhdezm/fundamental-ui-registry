@@ -3,6 +3,7 @@ import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@analo
 import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
 import { Icon } from '@/ui/icon/icon';
+import { Link } from '@/ui/link/link';
 import { AutoDismissMessageStrip, MessageStrip, MessageStripIcon } from './message-strip';
 import { MessageStripAlertRef, MessageStripAlertService, type MessageStripAlertPosition } from './message-strip-alert';
 
@@ -85,7 +86,9 @@ const meta: Meta<MessageStrip> = {
     title: 'Components/Message Strip',
     component: MessageStrip,
     decorators: [
-        moduleMetadata({ imports: [MessageStrip, MessageStripIcon, AutoDismissMessageStrip, Icon, Button, AlertsDemo] })
+        moduleMetadata({
+            imports: [MessageStrip, MessageStripIcon, AutoDismissMessageStrip, Icon, Button, Link, AlertsDemo]
+        })
     ],
     parameters: {
         docs: {
@@ -168,6 +171,24 @@ export const IndicationColors: Story = {
                         Message strip with indication color "{{ color }}"
                     </fd-message-strip>
                 }
+            </div>`
+    })
+};
+
+export const Links: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "Links in the text get a 0.25rem start margin and inline padding, and on indication colours the contrast text colour (1-10) or the subtle link colour (1b-10b), as fundamental-styles' message strip links."
+            }
+        }
+    },
+    render: () => ({
+        template: `
+            <div class="${col}">
+                <fd-message-strip type="information">An information message strip with a <a fdLink href="#">link</a></fd-message-strip>
+                <fd-message-strip indicationColor="1">Indication color 1 with a <a fdLink href="#">link</a></fd-message-strip>
+                <fd-message-strip indicationColor="1b">Indication color 1b with a <a fdLink href="#">link</a></fd-message-strip>
             </div>`
     })
 };

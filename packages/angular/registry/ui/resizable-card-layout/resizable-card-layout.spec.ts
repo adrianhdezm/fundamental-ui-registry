@@ -522,3 +522,53 @@ describe('ResizableCardLayout', () => {
         expect(wide.querySelector('.cursor-ew-resize')).not.toBeNull();
     });
 });
+
+describe('ResizableCardLayout corner and RTL', () => {
+    /** Shows the corner of card A by hovering it; returns the corner box, its icon and the card's content area. */
+    async function corner(rtl = false) {
+        if (rtl) document.documentElement.setAttribute('dir', 'rtl');
+        const env = await setup();
+        await userEvent.hover(env.item('A').querySelector<HTMLElement>('.order-1')!);
+        await env.stable();
+        const icon = env.handle('A', 'nwse')!;
+        return { ...env, icon, box: icon.parentElement!, area: env.item('A').querySelector<HTMLElement>('.order-1')! };
+    }
+
+    it('the resize corner is a 1.5rem box at the bottom end, not as tall as the card', async () => {
+        const { box, area } = await corner();
+        const b = box.getBoundingClientRect();
+        const a = area.getBoundingClientRect();
+        expect(b.height).toBe(24);
+        expect(Math.round(b.bottom - a.bottom)).toBe(6);
+        expect(Math.round(a.right - b.right)).toBe(0);
+    });
+
+    it('in RTL the resize corner sits at the bottom left, 0.25rem out', async () => {
+        const { box, area } = await corner(true);
+        const b = box.getBoundingClientRect();
+        const a = area.getBoundingClientRect();
+        expect(Math.round(a.left - b.left)).toBe(4);
+        expect(b.right).toBeLessThan(a.left + 24);
+    });
+
+    it('in RTL the corner icon turns with transform, not rotate (computed style)', async () => {
+        const { icon } = await corner(true);
+        const style = getComputedStyle(icon);
+        expect(style.rotate).toBe('none');
+        expect(style.transform).toBe('matrix(0, 1, -1, 0, 0, 0)');
+    });
+
+    it('in RTL growing a card past half a column moves the card at the end of its row down', async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        const { handle, position, stable, host } = await setup();
+        expect(position('D')[1]).toBe(0);
+        const gesture = await drag(handle('A', 'ew')!, -200, 0, 10, false);
+        await stable();
+        // as in LTR: D (end of the row) moves down, after E
+        const ranks = (config: ResizableCardLayoutConfig) => config.map((c) => `${c.title}${c.rank}`);
+        expect(ranks(host.layouts.at(-1)!)).toEqual(['A1', 'B2', 'C3', 'D5', 'E4']);
+        expect(position('D')[1]).toBe(176);
+        await gesture.up();
+        await stable();
+    });
+});

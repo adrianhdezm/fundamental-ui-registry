@@ -120,3 +120,30 @@ describe('Scrollbar', () => {
         expect(element.scrollLeft).toBe(80);
     });
 });
+
+@Component({
+    imports: [Scrollbar],
+    template: `
+        <div style="font-family: serif; font-size: 20px; line-height: 30px; font-weight: 700; color: rgb(255, 0, 0)">
+            <div fdScrollbar id="typo" style="height: 50px">Text</div>
+            <span id="probe" class="text-sap-text-color"></span>
+        </div>
+    `
+})
+class TypographyHost {}
+
+describe('Scrollbar typography', () => {
+    it("sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-scrollbar (computed style)", async () => {
+        const fixture = TestBed.createComponent(TypographyHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const el = getComputedStyle(root.querySelector('#typo')!);
+        expect(el.fontFamily.split(',')[0].replace(/["']/g, '').trim()).toBe('72');
+        expect(el.fontSize).toBe('14px');
+        expect(el.lineHeight).toBe('normal');
+        expect(el.fontWeight).toBe('400');
+        expect(el.color).toBe(getComputedStyle(root.querySelector('#probe')!).color);
+        fixture.destroy();
+    });
+});

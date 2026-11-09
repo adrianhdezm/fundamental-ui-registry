@@ -261,7 +261,7 @@ export class Checkbox implements ControlValueAccessor {
             'font-sap-content-icon-font-family text-sap-font-size leading-[normal] text-(--cb-mark)',
             'before:content-[attr(data-glyph)] rounded-sap-field-border-corner-radius',
             display
-                ? 'size-4 min-w-4 bg-transparent border-0 text-[1rem]'
+                ? 'size-4 min-w-4 bg-transparent border-0 text-[1rem] leading-[normal]'
                 : [
                       'bg-(--cb-bg) border-(length:--cb-bw) [border-style:var(--cb-bs)] border-(--cb-bc)',
                       'group-hover/cb:bg-(--cb-hover-bg) group-hover/cb:border-(--cb-hover-bc)',

@@ -46,7 +46,22 @@ async function setup(mobile = false, change?: (host: Host) => void) {
     return { fixture, host: fixture.componentInstance, control };
 }
 
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
 describe('ActionSheet', () => {
+    it('the shadows are the theme shadows only, without transparent ring layers', async () => {
+        await setup();
+        const shadows = [...document.querySelectorAll('.cdk-overlay-container *')].filter(
+            (el) => getComputedStyle(el).boxShadow !== 'none'
+        );
+        expect(shadows.length).toBeGreaterThan(0);
+        expect(ringLayers(document.querySelector('.cdk-overlay-container')!)).toEqual([]);
+    });
+
     for (const mobile of [false, true]) {
         describe(mobile ? 'mobile' : 'popover', () => {
             it('opens a menu of actions and focuses the first one', async () => {
@@ -111,5 +126,37 @@ describe('ActionSheet', () => {
     it('shows no title bar in the popover', async () => {
         await setup(false, (host) => host.title.set('Choose an action'));
         expect(document.querySelector('[data-sheet-bar]')).toBeNull();
+    });
+});
+
+describe('ActionSheet styles', () => {
+    const list = () => document.querySelector<HTMLElement>('[role=menu]')!;
+    const radius = (el: HTMLElement) => {
+        const style = getComputedStyle(el);
+        return [style.borderTopLeftRadius, style.borderTopRightRadius, style.borderBottomLeftRadius];
+    };
+
+    it('the mobile list under the title bar has square top corners (computed style)', async () => {
+        await setup(true, (h) => h.title.set('Pick an action'));
+        expect(radius(list())).toEqual(['0px', '0px', '8px']);
+    });
+
+    it('the mobile title bar lies under the list, so its shadow does not fall on the first action', async () => {
+        await setup(true, (h) => h.title.set('Pick an action'));
+        const bar = document.querySelector<HTMLElement>('[data-sheet-bar]')!;
+        const first = list().querySelector<HTMLElement>('[role=menuitem]')!;
+        // the list paints over the bar: the point just below the bar is the list's
+        const bottom = bar.getBoundingClientRect().bottom;
+        const x = first.getBoundingClientRect().left + 10;
+        expect(list().contains(document.elementFromPoint(x, bottom + 1))).toBe(true);
+        const z = (el: HTMLElement) => Number(getComputedStyle(el).zIndex) || 0;
+        // no higher than the list, which comes later and so paints over it
+        expect(z(bar)).toBeLessThanOrEqual(z(list()));
+        expect(bar.compareDocumentPosition(list()) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
+    it('the popover list has the popover corner radius, as fundamental-styles (computed style)', async () => {
+        await setup(false);
+        expect(radius(list())).toEqual(['8px', '8px', '8px']);
     });
 });

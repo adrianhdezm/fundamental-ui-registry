@@ -72,7 +72,7 @@ export class Link {
             'text-sap-link-color text-shadow-sap-content-text-shadow transition-all duration-[125ms] ease-in',
             'visited:text-sap-link-visited-color hover:text-sap-link-hover-color active:text-sap-link-active-color',
             // Horizon: filled focus; high contrast: outline
-            'focus:outline-none focus:shadow-none focus:z-[5] focus:text-sap-content-contrast-text-color focus:[text-shadow:none]',
+            'focus:outline-none focus:[box-shadow:none] focus:z-[5] focus:text-sap-content-contrast-text-color focus:[text-shadow:none]',
             'focus:bg-sap-content-focus-color focus:rounded-[0.125rem] active:focus:bg-transparent',
             'hc:focus:bg-transparent hc:focus:rounded-none hc:focus:outline-(length:--sapContent_FocusWidth) hc:focus:outline-offset-[0.125rem]',
             'hc:focus:[outline-style:var(--sapContent_FocusStyle)] hc:focus:outline-sap-content-focus-color',

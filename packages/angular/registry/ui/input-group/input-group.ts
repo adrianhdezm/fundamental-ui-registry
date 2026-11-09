@@ -55,7 +55,7 @@ export const INPUT_GROUP_BUTTON_VARS = [
     '[--sapButton_BorderCornerRadius:var(--sapField_BorderCornerRadius)]',
     // no button border, as fundamental-styles' .fd-input-group__button (border: none)
     '[&_button]:border-0',
-    '[&_button:hover:not(:disabled)]:shadow-(--igBtnShadow,var(--sapField_Hover_Shadow)) [&_button:active]:shadow-(--igBtnShadow,var(--sapField_Hover_Shadow))'
+    '[&_button:hover:not(:disabled)]:[box-shadow:var(--igBtnShadow,var(--sapField_Hover_Shadow))] [&_button:active]:[box-shadow:var(--igBtnShadow,var(--sapField_Hover_Shadow))]'
 ].join(' ');
 
 /** Colour of the focus frame per value state. */
@@ -239,16 +239,16 @@ export class InputGroup implements ControlValueAccessor {
             STATE_BUTTON_VARS[state],
             this.showFocus() && [
                 'has-[:is(input,textarea):focus]:[background:var(--sapField_Focus_Background)] has-[:is(input,textarea):focus]:hover:[background:var(--sapField_Focus_Background)]',
-                'has-[:is(input,textarea):focus]:shadow-none has-[:is(input,textarea):focus]:hover:shadow-none',
+                'has-[:is(input,textarea):focus]:[box-shadow:none] has-[:is(input,textarea):focus]:hover:[box-shadow:none]',
                 'after:pointer-events-none after:absolute after:inset-0 hc:after:inset-px after:hidden has-[:is(input,textarea):focus]:after:block',
                 'after:rounded-sap-field-border-corner-radius after:border-(length:--sapContent_FocusWidth) after:[border-style:var(--sapContent_FocusStyle)]',
                 STATE_FOCUS_COLOR[state]
             ],
             this.inline() && 'inline-flex w-auto align-bottom',
             this.readonly() && [
-                'overflow-visible shadow-none border-sap-field-read-only-border-color',
+                'overflow-visible [box-shadow:none] border-sap-field-read-only-border-color',
                 '[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)]',
-                'hover:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] hover:border-sap-field-read-only-border-color hover:shadow-none'
+                'hover:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] hover:border-sap-field-read-only-border-color hover:[box-shadow:none]'
             ],
             // the group is dimmed, so its disabled parts are not dimmed again
             this.disabledState() &&
@@ -330,7 +330,7 @@ export class InputGroupInput {
             'relative z-[1] m-0 box-border h-full min-h-0 w-full min-w-0 flex-[1_1_10rem] appearance-none self-stretch truncate border-0 bg-transparent px-1 py-0 first:ps-2.5 last:pe-2.5',
             // compact inputs keep fundamental-styles' compact field padding (0.5rem), at the group's edges too
             'compact:px-2 compact:first:ps-2 compact:last:pe-2',
-            'font-sap-font-family text-sap-font-size leading-[normal] font-normal text-sap-field-text-color shadow-none outline-none',
+            'font-sap-font-family text-sap-font-size leading-[normal] font-normal text-sap-field-text-color [box-shadow:none] outline-none',
             'placeholder:italic placeholder:text-sap-field-placeholder-text-color rtl:placeholder:indent-[0.125rem]',
             'selection:bg-sap-selected-color selection:text-sap-content-contrast-text-color',
             'disabled:placeholder:opacity-0 readonly:placeholder:opacity-0',
@@ -366,7 +366,7 @@ export class InputGroupAddon {
                 'overflow-visible p-0',
                 INPUT_GROUP_BUTTON_VARS,
                 'group-has-[:is(input,textarea):focus]/ig:[--sapButton_Lite_TextColor:var(--igBtnFocusColor,var(--sapField_TextColor))]',
-                'group-has-[:is(input,textarea):focus]/ig:[&_button]:shadow-(--igBtnShadow,none)'
+                'group-has-[:is(input,textarea):focus]/ig:[&_button]:[box-shadow:var(--igBtnShadow,none)]'
             ],
             this.type() === 'textarea' && '[&>*]:h-full [&>*]:max-h-full',
             this.userClass()

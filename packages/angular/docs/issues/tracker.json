@@ -17,11 +17,11 @@
         "panel-2",
         "object-number-1"
       ],
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Logged every class tailwind-merge drops in cn() while running all stories (a11y:sap_horizon) and all specs: 30+ places lost a leading-* to a later text-* size, among them every fd-icon (icon-1) and the rows of this pattern; each row is reproduced by its spec.",
+      "test": "The spec of each row (icon, menu, list, rating-indicator, checkbox, switch, object-status, tabs, panel, object-number), each failing before the fix.",
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-rounded-full",
@@ -29,11 +29,11 @@
       "cause": "Tailwind v4's `rounded-full` is `calc(infinity * 1px)` (3.35544e+07px computed); fundamental-styles uses `50%`.",
       "rule": "Use `rounded-[50%]` where fundamental-styles has 50% (and `100%` where it has that).",
       "issues": ["avatar-4", "wizard-1", "tabs-4", "shellbar-6", "micro-process-flow-2", "carousel-4"],
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Every row's spec measures getComputedStyle(…).borderTopLeftRadius: 3.35544e+07px (calc(infinity * 1px)) before the fix. The specs also check that no element in the component has that length.",
+      "test": "The spec of each row (avatar, wizard, tabs, shellbar, micro-process-flow, carousel), each failing before the fix.",
+      "fix": "fc14b61",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-shadow-ring",
@@ -41,11 +41,11 @@
       "cause": "Tailwind's `shadow-*` utilities compose `--tw-inset-shadow`, `--tw-inset-ring-shadow`, `--tw-ring-offset-shadow` and `--tw-ring-shadow` with the shadow, so the computed `box-shadow` has extra transparent layers that fundamental-styles' has not.",
       "rule": "Write shadows as `[box-shadow:var(--sap…)]`.",
       "issues": ["action-sheet-3", "wizard-3", "shellbar-5", "card-4", "slider-1", "fixed-card-layout-2"],
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Every row's spec scans the component for a computed box-shadow containing 'rgba(0, 0, 0, 0) 0px 0px 0px 0px' (Tailwind's --tw-inset-shadow, --tw-inset-ring-shadow, --tw-ring-offset-shadow, --tw-ring-shadow); each failed before the fix.",
+      "test": "The spec of each row (action-sheet, wizard, shellbar, card, slider, fixed-card-layout), each failing before the fix.",
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-synthetic-bold",
@@ -53,11 +53,11 @@
       "cause": "The 72-Bold face is registered with a normal weight; `font-bold` on top of it makes the browser embolden it again.",
       "rule": "Use `font-normal` with the bold font family, as fundamental-styles.",
       "issues": ["layout-panel-1", "card-1", "panel-1", "feed-list-3"],
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Each row's spec reads the computed font-family (72-Bold) and font-weight (700 before the fix, 400 in fundamental-styles).",
+      "test": "The spec of each row (layout-panel, card, panel, feed-list), each failing before the fix.",
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-rtl-double-mirror",
@@ -65,11 +65,11 @@
       "cause": "The icon component mirrors directional glyphs in RTL by itself; choosing the opposite glyph in RTL or rotating it again flips it back.",
       "rule": "Keep the LTR glyph and let the icon mirror it; no extra RTL rotation or glyph swap.",
       "issues": ["nested-list-2", "shellbar-2", "user-menu-1", "grid-list-4", "settings-2"],
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Each row's spec, in dir=rtl, checks the glyph is the LTR one and counts the horizontal flips (transform, scale, rotate) of the icon and its ancestors: an even number before the fix.",
+      "test": "The spec of each row (nested-list, shellbar, user-menu, grid-list, settings), each failing before the fix.",
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-compact-button-size",
@@ -77,11 +77,11 @@
       "cause": "Button's `compact:min-w-8`, `compact:h-*` and `compact:px-*` are variant classes, so tailwind-merge keeps them next to a caller's unprefixed `min-w-*`, `h-*`, `w-*` or `p-0`, and they win in compact density.",
       "rule": "Pass the size for both densities (also `compact:`-prefixed), or have Button drop its compact sizes when a size is given.",
       "issues": ["button-1", "dynamic-page-1", "flexible-column-layout-1", "carousel-3"],
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Each row's spec measures the button (size, min-width or padding) with data-density=compact on the document; each failed before the fix.",
+      "test": "The spec of each row (button, dynamic-page, flexible-column-layout, carousel), each failing before the fix.",
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-oklab-gradient",
@@ -89,11 +89,11 @@
       "cause": "Tailwind v4's `bg-linear-to-*` interpolates `in oklab`; fundamental-styles' gradients use the default sRGB.",
       "rule": "Use `bg-linear-[to_top,…]`-style arbitrary gradients (sRGB) or `bg-linear-to-*/srgb`.",
       "issues": ["dynamic-page-3", "flexible-column-layout-2"],
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Each row's spec reads the computed background-image of the gradient lines: 'in oklab' before the fix.",
+      "test": "The spec of each row (dynamic-page, flexible-column-layout), each failing before the fix.",
+      "fix": "9c597b7",
+      "notes": "Verified: the spec passes and pnpm check passes."
     }
   ],
   "issues": [
@@ -105,11 +105,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reproduced",
+      "status": "verified",
       "repro": "`pnpm visual icon` (components-icon--sizes, --colors against fundamental-styles icons-sap-icons--sizes, --colors), 16 of 16 combinations: the md icon box is 35px high with `line-height: normal` (fundamental-styles: 32px, line-height 32px); xxl 87px against 80px.",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "test": "icon.spec.ts › Icon › every size keeps line-height 1, so the box is as high as the font size (32px at md)",
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual icon: size md and xxl boxes are 32px and 80px high in 16/16 combinations; the remaining width difference is icon-2."
     },
     {
       "id": "icon-2",
@@ -157,11 +157,11 @@
       "source": "../../../react/docs/parity/components/layout-grid.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (TypographyHost: a grid in a serif 20px/30px bold red ancestor): a column computes font-family serif, 20px, 30px line height, weight 700, red; fundamental-styles' .fd-container/.fd-row/.fd-col set 72, 14px, normal, 400 and --sapTextColor.",
+      "test": "layout-grid.spec.ts › LayoutGrid typography › sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-container (computed style)",
+      "fix": "0d5f534",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual layout-grid: the grid and a column match fundamental-styles' Different Size Columns by computed style (typography) in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "checkbox-1",
@@ -197,11 +197,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "checkbox.spec.ts, a checked displayOnly checkbox: the 16px box's computed line-height is 16px (inherited) instead of normal; text-[1rem] drops leading-[normal].",
+      "test": "checkbox.spec.ts › Checkbox display-only line height › the display-only box keeps a normal line height",
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "input-1",
@@ -224,11 +224,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-synthetic-bold",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "layout-panel.spec.ts, the default panel: the [fd-layout-panel-title] has font-family 72-Bold and computed font-weight 700 (synthetic bold); fundamental-styles has 400.",
+      "test": "layout-panel.spec.ts › LayoutPanel › the title uses the 72-Bold face with a normal weight, so no synthetic bold is added",
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual layout-panel: title matches by styles in 16/16."
     },
     {
       "id": "layout-panel-2",
@@ -237,11 +237,11 @@
       "source": "../../../react/docs/parity/components/layout-panel.md",
       "kind": "visual",
       "confirmed": "read from the code",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Built Storybook, components-layout-panel--default at a 120px panel: the head shrinks to 29px while the title's widest word needs 52px, so it runs under the 59px actions (spec NarrowHost: title scrollWidth 52 > head 29). One-line flex header with a min-w-0 head.",
+      "test": "layout-panel.spec.ts › LayoutPanel in a narrow column › the head keeps room for the title, which does not run under the actions",
+      "fix": "9e90622",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual layout-panel: the title still matches in all 16 (the narrow case is the spec's: no story is that narrow); pnpm angular check passes."
     },
     {
       "id": "popover-1",
@@ -250,11 +250,11 @@
       "source": "../../../react/docs/parity/components/popover.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (OptionsHost, resizable): the open body's resize handle has data-glyph=\"\", its ::after content is \"\" (no glyph); fundamental-styles shows SAP-icons' resize-corner.",
+      "test": "popover.spec.ts › Popover › body options › the resize handle shows the resize-corner glyph",
+      "fix": "53872ce, 3e17bf0",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual popover: the resize handle (glyph and box) matches fundamental-styles' Resizable story in the 8 RTL combinations; in LTR the styles are equal and the glyph is the same, 1px off (6.9–8.3% pixels) because the reference handle sits at a fractional x (a 25px capture against 24px); pnpm angular check passes."
     },
     {
       "id": "popover-2",
@@ -263,11 +263,11 @@
       "source": "../../../react/docs/parity/components/popover.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (OptionsHost, resizable, 300px down): with placements bottom-end, top-end, left-start and right-end the handle stays at the bottom-end corner (cursor se-resize; top-end with -rotate-90 above), on the trigger's side; fundamental-styles puts it in the corner away from the trigger.",
+      "test": "popover.spec.ts › Popover › body options › the resize handle sits in the corner away from the trigger, as in fundamental-styles",
+      "fix": "4ea881a",
+      "notes": "Verified: the test fails before the fix (bottom-end: se-resize) and passes after for six placements; pnpm visual popover: the bottom-start handle sits at the body's bottom inline-end corner as fundamental-styles' (same caveat as popover-1 in LTR); pnpm angular check passes."
     },
     {
       "id": "radio-1",
@@ -329,11 +329,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "switch.spec.ts, a switch with icons and one with activeText/inactiveText: the icons' computed line-height is normal instead of 22px (and the texts lose their leading-none); text-sap-font-large-size and text-sap-font-small-size drop the leading-* that come before them.",
+      "test": "switch.spec.ts › Switch line height › the on/off icons are 22px and the texts 1 line high (computed line height)",
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "switch-3",
@@ -408,11 +408,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "The badge line height (second half) is not part of the pattern."
+      "status": "verified",
+      "repro": "avatar.spec.ts, a circle avatar with zoomGlyph: the avatar and its badge have a computed border-radius of 3.35544e+07px instead of 100%. The badge line height (second half) is fixed by pattern-leading-merge: the badge class now has leading-none after its font size.",
+      "test": "avatar.spec.ts › Avatar › a circle avatar and its badge are rounded with 100%, as fundamental-styles",
+      "fix": "fc14b61",
+      "notes": "The badge line height (second half) is not part of the pattern. Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "list-1",
@@ -422,11 +422,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "The unread dot is part of the same row; check it separately from the icon."
+      "status": "verified",
+      "repro": "list.spec.ts, a byline list with an unread item and fd-list-icon: the icon's computed line-height is normal instead of 18px, and the unread dot loses leading-none too (text-(length:--li-ifs) and text-[0.375rem] drop the icon's leading-none).",
+      "test": "list.spec.ts › List › icons and the unread dot keep line-height 1 (18px and 6px high)",
+      "fix": "115fbfa",
+      "notes": "The unread dot is part of the same row; check it separately from the icon. Verified: the spec passes and pnpm check passes. pnpm visual list: icon before/after and the byline unread dot match by styles in 16/16; the dot differs by 11–24% of pixels in the 8 HC combinations only, fundamental-styles' dot sitting at a fractional y (anti-aliasing, as the React report found)."
     },
     {
       "id": "list-2",
@@ -435,11 +435,11 @@
       "source": "../../../react/docs/parity/components/list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ThumbnailHost): an fd-list-icon in a byline thumbnail computes font-size 18px (the list icon size) and an fd-icon 16px; fundamental-styles' thumbnail icons are 2rem.",
+      "test": "list.spec.ts › List styles › icons in a thumbnail take its 2rem size (computed style)",
+      "fix": "ccd3559",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual list: the thumbnail icon (the same activate glyph) matches fundamental-styles' Byline Standard story by computed style (32px) in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "list-3",
@@ -448,11 +448,11 @@
       "source": "../../../react/docs/parity/components/list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ThumbnailHost): a hovered fd-list-link computes border-bottom-color rgba(0, 0, 0, 0); fundamental-styles' hovered link shows the list border colour (rgb(229, 229, 229) in Horizon).",
+      "test": "list.spec.ts › List styles › a hovered link shows the list border colour at its bottom (computed style)",
+      "fix": "a37b2c2",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual list: the hovered link matches fundamental-styles' Navigation story by computed style (bottom border colour) in all 16; pnpm angular check passes."
     },
     {
       "id": "object-status-1",
@@ -501,11 +501,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "object-status.spec.ts, a positive status with a label: the root's computed line-height is normal instead of 16px; text-(length:--os-font) drops leading-(--os-h).",
+      "test": "object-status.spec.ts › ObjectStatus line height › the root keeps its 1rem line height",
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "tree-1",
@@ -514,11 +514,11 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (WrapHost): an item with wrapContent computes padding-top and -bottom 4px (py-1), so wrapping rows are 8px taller; fundamental-styles pads only rows of an fd-tree--wrap tree, not an item's fd-tree__content--wrap.",
+      "test": "tree.spec.ts › Tree styles › wrapping items have no extra block padding (computed style)",
+      "fix": "93f40e6",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (a wrapping item shows in no reference story: covered by the spec)"
     },
     {
       "id": "tree-2",
@@ -527,11 +527,11 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (FeaturesHost): the fdTreeItemButton of item B computes margin-inline-start 2px (ms-(--fdList_Button_Spacing,0.125rem)); fundamental-styles' --fdTree_Button_Spacing is var(--fdList_Button_Spacing), undefined in a tree, so 0.",
+      "test": "tree.spec.ts › Tree styles › item buttons have no start margin, as fundamental-styles (computed style)",
+      "fix": "7348d50",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual tree: the item button matches fundamental-styles' Borderless story by computed style (margins) in all 16; pnpm angular check passes."
     },
     {
       "id": "tree-3",
@@ -540,11 +540,11 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (DataHost, empty data): the No data row is 44px high (its text has a normal line height); fundamental-styles' text takes the item height, plus the 1px border: 45px (33px compact).",
+      "test": "tree.spec.ts › Tree styles › the No data row is as high as an item plus its border (45px)",
+      "fix": "c6c73ee",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no Angular story shows an empty tree: covered by the spec)"
     },
     {
       "id": "tree-4",
@@ -553,11 +553,11 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (FeaturesHost): the expander of item A computes border-radius 0px; fundamental-styles' expander has the button corner radius (8px in Horizon), visible with a focus outline.",
+      "test": "tree.spec.ts › Tree styles › the expander has the button corner radius, for its focus outline (computed style)",
+      "fix": "071e2a9",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual tree: the expander matches fundamental-styles' Primary story by computed style (radius) in all 16; pnpm angular check passes."
     },
     {
       "id": "bar-1",
@@ -579,11 +579,11 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost): the icon box of an information strip computes line-height 24px (text-base's 1.5rem); fundamental-styles' icon box has normal.",
+      "test": "message-strip.spec.ts › MessageStrip styles › the icon box has a normal line height, as fundamental-styles (computed style)",
+      "fix": "b1363b3",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual message-strip: the icon box matches by computed style in all 16 (the warning glyph is fundamental-ngx's alert, fundamental-styles' message-warning, kept as React); pnpm angular check passes."
     },
     {
       "id": "message-strip-2",
@@ -592,11 +592,11 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost) in sap_horizon_hcb: the focused close button of an indication colour 1 strip computes background rgb(0, 0, 0) and a non-transparent border (the button's); fundamental-styles clears both on focus unless hovered.",
+      "test": "message-strip.spec.ts › MessageStrip styles › in HC the focused close button of an indication colour strip has no background or border (computed style)",
+      "fix": "32976b9",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual message-strip: the focused close buttons of indication 4 and 4b match in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "message-strip-3",
@@ -605,11 +605,11 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost): an <a> in strips with indication colour 1, 1b and type information computes margin-inline-start and padding-inline 0px, and on colour 1 the link colour instead of --sapContent_ContrastTextColor (1b: not --sapLink_SubtleColor); fundamental-styles' fd-message-strip--link has a 0.25rem start margin and padding and those colours.",
+      "test": "message-strip.spec.ts › MessageStrip styles › links get fundamental-styles' message strip link spacing and colours (computed style)",
+      "fix": "c3f150b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual message-strip: links on a plain strip and on indication 1 and 1b match by computed style (margins, padding, colour, text shadow) in all 16, except text-underline-offset (link-1) and the reference's first link being emphasized (72-Bold); pnpm angular check passes."
     },
     {
       "id": "tile-1",
@@ -657,11 +657,11 @@
       "source": "../../../react/docs/parity/components/dialog.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (DialogService, draggable): with the pointer outside the window the header computes cursor: grab ([@media(hover:hover)] applies at rest on any hover-capable device); fundamental-styles shows it only while the window is hovered.",
+      "test": "dialog.spec.ts › Dialog › shows the grab cursor on a draggable header only while the window is hovered (computed style)",
+      "fix": "624d36b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual dialog: the draggable header at rest and hovered matches fundamental-styles' Draggable story by computed style (cursor included) in all 16 combinations, except box-shadow ring layers (pattern-shadow-ring); pnpm angular check passes."
     },
     {
       "id": "dialog-2",
@@ -683,11 +683,11 @@
       "source": "../../../react/docs/parity/components/dialog.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "not-reproducible",
+      "repro": "Not in Angular: the title's fd-bar-element is as wide as the title in every open dialog story of the built Storybook (open-template 187px of a 1152px bar, open-component 154/400, open-object 82/400, open-complex 99/384, open-mobile 220/1280, open-form 187/480, open-position 220/400) and in the spec (33px of a 480px dialog): fullWidth's w-full resolves against the content-sized fd-bar-left. The 592px was the React port's element (its bar-left grows).",
+      "test": "dialog.spec.ts › Dialog › the title bar element is as wide as the title, not the whole bar (computed style) — passes before any change; kept as a guard",
       "fix": "",
-      "notes": ""
+      "notes": "Not reproducible: measured in Storybook and in a spec."
     },
     {
       "id": "token-1",
@@ -826,11 +826,11 @@
       "source": "../../../react/docs/parity/components/menu.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ConfigHost, mobile, hideOnMobile false) in compact density: the shortcut computes padding-inline-end 16px; MOBILE_VARS sets [--mi-sc-pr:1rem]! for every density, where fundamental-styles' compact mobile shortcut has 0.5rem.",
+      "test": "menu.spec.ts › Menu options › a mobile shortcut keeps the compact end padding in compact density (computed style)",
+      "fix": "534684f",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no story shows a mobile shortcut, hidden on mobile by default: covered by the spec)"
     },
     {
       "id": "menu-2",
@@ -840,11 +840,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Same cause as icon-1: may be fixed by it."
+      "status": "verified",
+      "repro": "menu.spec.ts, a toggle that is on and a submenu parent: the check mark and arrow fd-icon have line-height normal instead of 16px (17px high); text-[1rem] from the menu drops the icon's leading-none.",
+      "test": "menu.spec.ts › Menu › keeps the line height of the toggle check mark and the submenu arrow at 1 (16px high)",
+      "fix": "115fbfa",
+      "notes": "Same cause as icon-1: may be fixed by it. Verified: the spec passes and pnpm check passes. No visual case: the menu renders in the CDK overlay, outside #storybook-root where scripts/visual.mjs looks; the spec measures 16px."
     },
     {
       "id": "calendar-1",
@@ -892,11 +892,11 @@
       "source": "../../../react/docs/parity/components/message-page.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Decided: start-aligned, as fundamental-styles (and React)."
+      "status": "verified",
+      "repro": "Spec (PartsHost): fd-message-page-subtitle computes text-align: center, so every line of a multi-line subtitle is centred; fundamental-styles' subtitle has no alignment (start), the column centres a short one.",
+      "test": "message-page.spec.ts › MessagePage › start-aligns the lines of a long subtitle, as fundamental-styles (computed style)",
+      "fix": "adc4916",
+      "notes": "Decided: start-aligned, as fundamental-styles (and React). Verified: the test fails before the fix and passes after; pnpm visual message-page: the subtitle matches fundamental-styles' Filter story in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "time-1",
@@ -1036,11 +1036,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-compact-button-size",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "button.spec.ts, a decisive button in data-density=compact: computed min-width 32px instead of 64px (compact:min-w-8 wins over min-w-16); fullWidth's min-w-full loses the same way.",
+      "test": "button.spec.ts › Button › decisive and fullWidth keep their minimum widths in compact density",
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: no story shows a compact decisive button; the spec measures a 64px minimum width in compact."
     },
     {
       "id": "combobox-1",
@@ -1102,11 +1102,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "nested-list.spec.ts with dir=rtl: the collapsed expand icon has the navigation-left-arrow glyph and Icon mirrors it (scale -1), so it points right; LTR glyph mirrored once points left.",
+      "test": "nested-list.spec.ts › NestedList › in RTL the collapsed arrow is the right arrow, mirrored once by the icon (it points left)",
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual nested-list: the collapsed and expanded expand buttons match by pixels in 16/16, RTL included."
     },
     {
       "id": "time-picker-1",
@@ -1271,11 +1271,11 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, mobile with controlTitle): the list computes border-top-left/right-radius 8px under the title bar: its [[data-sheet-bar]+&]:rounded-t-none never matches, the list being inside fd-action-sheet-body, not the bar's sibling.",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the mobile list under the title bar has square top corners (computed style)",
+      "fix": "728e353",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual action-sheet: the mobile list matches fundamental-styles' mobile story by computed style (radius included) in all 16, except box-shadow ring layers (action-sheet-3); pnpm angular check passes."
     },
     {
       "id": "action-sheet-2",
@@ -1284,11 +1284,11 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, mobile with controlTitle): the title bar computes z-index 2 over the list's 1, so the bar (and its Shadow2) paints over the first action; in fundamental-styles the list is on top.",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the mobile title bar lies under the list, so its shadow does not fall on the first action",
+      "fix": "f7cacf7",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual action-sheet: the mobile title bar matches by computed style in all 16 except the box-shadow ring layers (action-sheet-3); pnpm angular check passes."
     },
     {
       "id": "action-sheet-3",
@@ -1298,11 +1298,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "action-sheet.spec.ts, the open desktop action sheet: the popover body's computed box-shadow starts with four 'rgba(0, 0, 0, 0) 0px 0px 0px 0px' layers before --sapContent_Shadow1/2.",
+      "test": "action-sheet.spec.ts › ActionSheet › the shadows are the theme shadows only, without transparent ring layers",
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "action-sheet-4",
@@ -1311,11 +1311,11 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, popover): the open list computes border-radius 0px; fundamental-styles' action sheet list has the popover corner radius (8px, 4px in HC).",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the popover list has the popover corner radius, as fundamental-styles (computed style)",
+      "fix": "22029f4",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual action-sheet: the popover list matches fundamental-styles' Default story by computed style in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "overflow-layout-1",
@@ -1338,11 +1338,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "wizard.spec.ts, the default wizard: every step indicator's computed border-radius is 3.35544e+07px instead of 50%.",
+      "test": "wizard.spec.ts › Wizard › the step indicators are rounded with 50%, as fundamental-styles",
+      "fix": "fc14b61",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "wizard-2",
@@ -1365,11 +1365,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "wizard.spec.ts, the default wizard: the progress bar's computed box-shadow has four transparent ring layers before --sapContent_HeaderShadow.",
+      "test": "wizard.spec.ts › Wizard › the progress bar shadow is the header shadow, without transparent ring layers",
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "wizard-4",
@@ -1418,11 +1418,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "tabs.spec.ts, fdTabCount in a filter-mode tab list: font-size 12px and line-height normal instead of 16px; text-sap-font-small-size drops leading-4.",
+      "test": "tabs.spec.ts › TabCount line height › keeps its 1rem line height in a mode, where it takes the small font size",
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual tabs: icon count matches by styles in 16/16."
     },
     {
       "id": "tabs-4",
@@ -1432,11 +1432,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "The 16px line height (first half) is not part of the pattern."
+      "status": "verified",
+      "repro": "tabs.spec.ts, an icon-only tab list: the fd-tab-icon's computed border-radius is 3.35544e+07px instead of 50%. The 16px line height (first half) is not part of this pattern.",
+      "test": "tabs.spec.ts › TabList with changing tabs › the round tab icon is rounded with 50%, as fundamental-styles",
+      "fix": "fc14b61",
+      "notes": "The 16px line height (first half) is not part of the pattern. Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "side-navigation-1",
@@ -1511,11 +1511,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "shellbar.spec.ts with dir=rtl and showBackButton: the back button's icon is slim-arrow-right, which Icon mirrors, so it points left.",
+      "test": "shellbar.spec.ts › Shellbar › in RTL the back button keeps the nav-back glyph, mirrored once by the icon (it points right)",
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: no fundamental-styles shellbar story has a back button to compare with; the spec checks the glyph and a single flip."
     },
     {
       "id": "shellbar-3",
@@ -1551,11 +1551,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "shellbar.spec.ts, the default shellbar: the bar's inset border shadow and the search field's --sapField_Shadow have four transparent ring layers each.",
+      "test": "shellbar.spec.ts › Shellbar › the bar and search shadows have no transparent ring layers",
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "shellbar-6",
@@ -1565,11 +1565,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "shellbar.spec.ts, a shellbar with [user]: the user menu button's computed border-radius is 3.35544e+07px; fundamental-styles has 20rem (320px).",
+      "test": "shellbar.spec.ts › Shellbar › the user menu button has a 20rem radius, not rounded-full (a 3.35544e+07px length)",
+      "fix": "fc14b61",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "shellbar-7",
@@ -1643,11 +1643,11 @@
       "source": "../../../react/docs/parity/components/inline-help.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (FormLabelHost: label for=\"vat\" with inlineHelpContent): a tap on the help icon (pointerdown, focus, click) opens the help on focus, the click's toggle closes it again, and the click activates the label, moving the focus to the field; no help shows.",
+      "test": "inline-help.spec.ts › InlineHelp in a form label › a press on the help icon shows the help and does not activate the label (also as a tap)",
+      "fix": "21ad201",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "product-switch-1",
@@ -1709,11 +1709,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "user-menu.spec.ts, mobile mode with dir=rtl, opening the Language submenu: the Go back button's icon is navigation-right-arrow, which Icon mirrors, so it points left.",
+      "test": "user-menu.spec.ts › UserMenu › in RTL the mobile back button keeps the left arrow, mirrored once by the icon (it points right)",
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: the mobile user menu is a dialog in the overlay, outside #storybook-root; the spec checks the glyph and a single flip."
     },
     {
       "id": "object-marker-1",
@@ -1749,11 +1749,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "object-number.spec.ts, regular, inverted and large numbers: regular and inverted have line-height normal instead of 16px (large is 32px); the size classes drop leading-4.",
+      "test": "object-number.spec.ts › ObjectNumber line height › regular and inverted numbers keep a 1rem line height, large ones 2rem",
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual object-number: positive and large positive match by styles in 16/16 (other digits than fundamental-styles', so no pixels)."
     },
     {
       "id": "card-1",
@@ -1763,11 +1763,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-synthetic-bold",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "card.spec.ts, a card with a title: the [fd-card-title] has font-family 72-Bold and computed font-weight 700 (synthetic bold); fundamental-styles has 400.",
+      "test": "card.spec.ts › Card › the title uses the 72-Bold face with a normal weight, so no synthetic bold is added",
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual card: title matches by styles in 16/16."
     },
     {
       "id": "card-2",
@@ -1776,11 +1776,11 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StandardHost): the header counter computes line-height normal and is 14px high; fundamental-styles' counter is an object status: flex with a 1rem line height and min height (16px), so the header was 2px shorter.",
+      "test": "card.spec.ts › Card styles › the counter has a 1rem line height and minimum height, as the object status (computed style)",
+      "fix": "adedca4",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual card: the counter matches fundamental-styles' Card Anatomy by computed style (height and line height) in all 16 (our first counter is positive and interactive: colour and cursor ignored); pnpm angular check passes."
     },
     {
       "id": "card-3",
@@ -1789,11 +1789,11 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StandardHost): the badge computes min-height 0px and is 16px high (min-h-0 and a 0.875rem text line height); fundamental-styles' badge has a 0.875rem minimum height and the object status' 1rem line height: 18px.",
+      "test": "card.spec.ts › Card styles › badges are 18px high: a 0.875rem minimum height and the object status line height (computed style)",
+      "fix": "5330b80",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual card: the badge matches by computed style (min height, line height, height) in all 16; pnpm angular check passes."
     },
     {
       "id": "card-4",
@@ -1803,11 +1803,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "card.spec.ts, a card: its computed box-shadow (shadow-(--card-shadow)) has four transparent ring layers before the card shadow.",
+      "test": "card.spec.ts › Card › the card shadow has no transparent ring layers",
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "card-5",
@@ -1816,11 +1816,11 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (MediaHost) in sap_horizon_hcb: the banner card computes box-shadow none (hc:[--card-shadow:none] applies to every card); fundamental-styles' fd-card--banner keeps var(--sapContent_Shadow0), a 1px ring.",
+      "test": "card.spec.ts › Card styles › in HC banner cards keep their 1px ring, other cards have no shadow (computed style)",
+      "fix": "d617134",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual card: the banner matches fundamental-styles' Media Banner by computed style (box-shadow included) in all 16; pnpm angular check passes."
     },
     {
       "id": "card-6",
@@ -1829,11 +1829,11 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (OverlayHost: a banner with isOverlay text over an image, viewport 900px): the image container is 50% of the media (banner's has-image rule; 20% below 1024px) and the text 50% − 3rem; fundamental-styles' overlay rule gives the image the whole width and the text 80% − 3rem below 1024px.",
+      "test": "card.spec.ts › Card styles › an overlay banner has a full-width image, and its text is 80% − 3rem below 1024px",
+      "fix": "5b09dd9",
+      "notes": "Verified: the test fails before the fix and passes after; no Angular story shows an overlay banner (as React, covered by the spec); pnpm angular check passes."
     },
     {
       "id": "generic-tag-1",
@@ -1895,11 +1895,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-synthetic-bold",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "panel.spec.ts, the default panel: the [fd-panel-title] has font-family 72-Bold and computed font-weight 700 (synthetic bold); fundamental-styles has 400.",
+      "test": "panel.spec.ts › Panel › the title uses the 72-Bold face with a normal weight, so no synthetic bold is added",
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual panel: title (styles) and expand button (styles and pixels) match in 16/16."
     },
     {
       "id": "panel-2",
@@ -1909,11 +1909,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "panel.spec.ts, an expandable panel: the expand button's computed line-height is 24px (inherited) instead of normal; the panel's text-base drops the button's leading-[normal].",
+      "test": "panel.spec.ts › Panel expand button line height › the expand button keeps a normal line height",
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual panel: expand button matches in 16/16."
     },
     {
       "id": "panel-3",
@@ -1922,11 +1922,11 @@
       "source": "../../../react/docs/parity/components/panel.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): an expanded panel with transparent computes its header background rgba(0, 0, 0, 0); fundamental-styles' fd-panel--transparent clears the content background only, the header keeps --sapGroup_TitleBackground (visible in Horizon Dark and HC).",
+      "test": "panel.spec.ts › Panel › header and content corners follow the expanded state; a transparent panel keeps the header background",
+      "fix": "a4217bf, 5cdad13",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual panel: the transparent panel's header matches fundamental-styles' Transparent story by computed style in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "scrollbar-1",
@@ -1935,11 +1935,11 @@
       "source": "../../../react/docs/parity/components/scrollbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (TypographyHost: an fdScrollbar in a serif 20px/30px bold red ancestor): it computes serif, 20px, 30px, 700, red; fundamental-styles' .fd-scrollbar sets 72, 14px, normal line height, 400 and --sapTextColor.",
+      "test": "scrollbar.spec.ts › Scrollbar typography › sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-scrollbar (computed style)",
+      "fix": "f1160a9",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual scrollbar: the scroll container matches fundamental-styles' example by computed style in all 16 (our story's frame ignored); pnpm angular check passes."
     },
     {
       "id": "status-indicator-1",
@@ -2039,11 +2039,11 @@
       "source": "../../../react/docs/parity/components/quick-view.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host: a subheader with a title alone): the subheader bar computes min-height 0px (min-h-0); fundamental-styles keeps the bar's 44px (40px compact).",
+      "test": "quick-view.spec.ts › QuickView › the subheader keeps the bar's minimum height, as fundamental-styles (computed style)",
+      "fix": "7c08f23",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual quick-view: the subheader bar's minimum height matches in all 16; it differs in align-items (center vs normal, the bar's own, not this issue); pnpm angular check passes."
     },
     {
       "id": "avatar-group-1",
@@ -2105,11 +2105,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "slider.spec.ts, a slider in sap_horizon_hcb: the track's and the progress's hc box-shadows have four transparent ring layers.",
+      "test": "slider.spec.ts › Slider › the high-contrast track and progress shadows have no transparent ring layers",
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "rating-indicator-1",
@@ -2132,11 +2132,11 @@
       "kind": "visual",
       "confirmed": "read from the code",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Same cause as icon-1: may be fixed by it."
+      "status": "verified",
+      "repro": "rating-indicator.spec.ts, allowHalves with value 2.5 at md: every half-star fd-icon has line-height normal instead of 24px (text-(length:--ri-size) drops the icon's leading-none).",
+      "test": "rating-indicator.spec.ts › RatingIndicator line height › the half-star icons keep line-height 1 (24px at md)",
+      "fix": "115fbfa",
+      "notes": "Same cause as icon-1: may be fixed by it. Verified: the spec passes and pnpm check passes. pnpm visual rating-indicator: halves md matches in 16/16."
     },
     {
       "id": "datetime-picker-1",
@@ -2237,11 +2237,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-compact-button-size",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "dynamic-page.spec.ts, the subheader toolbar buttons in data-density=compact: 32×26px instead of 24×24px (the button's compact: height, padding and min-width win over h-6 w-6 min-w-6 p-0).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the collapse and pin buttons are 24×24px in both densities",
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual dynamic-page: collapse and pin buttons match by pixels in 16/16 (background-color ignored: dynamic-page-2)."
     },
     {
       "id": "dynamic-page-2",
@@ -2250,11 +2250,11 @@
       "source": "../../../react/docs/parity/components/dynamic-page.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host) in sap_horizon_dark: the collapse and pin buttons compute background rgb(28, 36, 44) (--sapButton_Background); fundamental-styles uses --sapObjectHeader_Background, rgb(29, 35, 42).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the collapse and pin buttons are on the object header background (computed style)",
+      "fix": "a280481",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual dynamic-page: the collapse and pin buttons match fundamental-styles' Desktop story in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "dynamic-page-3",
@@ -2264,11 +2264,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-oklab-gradient",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "dynamic-page.spec.ts, the default page: the gradient lines on both sides of the header toolbar compute to 'linear-gradient(to left in oklab, …)'; fundamental-styles' have no interpolation space (sRGB).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the gradient lines next to the header buttons blend in sRGB, as fundamental-styles",
+      "fix": "9c597b7",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual dynamic-page: start and end gradients match by computed styles in 16/16."
     },
     {
       "id": "dynamic-page-4",
@@ -2277,11 +2277,11 @@
       "source": "../../../react/docs/parity/components/dynamic-page.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): with the pointer outside the page, the collapsible title area computes cursor: pointer; fundamental-styles sets the pointer on :hover only (computed only, a cursor shows only under the pointer).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the title area shows the pointer cursor on hover only (computed style)",
+      "fix": "6a538b5",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual dynamic-page: the title area at rest matches by computed style (cursor included) in all 16; pnpm angular check passes."
     },
     {
       "id": "timeline-1",
@@ -2290,11 +2290,11 @@
       "source": "../../../react/docs/parity/components/timeline.md",
       "kind": "behaviour",
       "confirmed": "read from the code",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, layout double): from the vertical axis (nodes 2 and 5 get margin-top 14px and 17px) switch to horizontal: the margins stay ['', '14px', '', '', '17px'], and the lines keep their vertical height (layoutLines only set the new axis' size and reset margins for double vertical layouts).",
+      "test": "timeline.spec.ts › Timeline › switching the axis drops the old axis' line length and the double layout's node margins",
+      "fix": "58c98ef",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "micro-process-flow-1",
@@ -2303,11 +2303,11 @@
       "source": "../../../react/docs/parity/components/micro-process-flow.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): fd-micro-process-flow computes line-height 21px (leading-(--sapContent_LineHeight)), inherited by every part; fundamental-styles' root has normal (computed only).",
+      "test": "micro-process-flow.spec.ts › MicroProcessFlow › the root has a normal line height, as fundamental-styles (computed style)",
+      "fix": "65ccb5b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "micro-process-flow-2",
@@ -2317,11 +2317,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "micro-process-flow.spec.ts, three steps: each step icon's computed border-radius is 3.35544e+07px instead of 50%.",
+      "test": "micro-process-flow.spec.ts › MicroProcessFlow › the step icons are rounded with 50%, as fundamental-styles",
+      "fix": "fc14b61",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "multi-combobox-1",
@@ -2447,11 +2447,11 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): the form facet's title computes margin-bottom 0px, so the content sits right on it; fundamental-styles' title has a 1rem bottom margin (on the subtitle of a rating facet).",
+      "test": "facets.spec.ts › Facets › the title (or a rating facet's subtitle) has a 1rem bottom margin above the content (computed style)",
+      "fix": "7c74f48",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual facets: the form facet title matches fundamental-styles' Combined story by computed style (1rem bottom margin) in all 16; pnpm angular check passes."
     },
     {
       "id": "facets-2",
@@ -2460,11 +2460,11 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): a form facet row computes column-gap 4px (gap-1) on top of the label's or icon's 0.5rem end margin; fundamental-styles' rows have no gap. The existing spec asserted the 4px gap.",
+      "test": "facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin",
+      "fix": "1b5ad8a",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual facets: the form facet row matches by computed style (no gap) in all 16; pnpm angular check passes."
     },
     {
       "id": "facets-3",
@@ -2473,11 +2473,11 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): form facet rows compute align-items baseline (items-baseline), which makes icon rows 18px high and puts links 2px below their icon; fundamental-styles' rows stretch. The existing spec asserted baseline.",
+      "test": "facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin",
+      "fix": "3887b2b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual facets: the form facet row matches by computed style (align-items) in all 16; pnpm angular check passes."
     },
     {
       "id": "flexible-column-layout-1",
@@ -2487,11 +2487,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-compact-button-size",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "flexible-column-layout.spec.ts, ThreeColumnsMidExpanded: the separator buttons are 32px wide and 26px high in cozy (data-density=compact on the button), against 24×32px in fundamental-styles.",
+      "test": "flexible-column-layout.spec.ts › FlexibleColumnLayout › the separator buttons are 32×24px in cozy and 26×24px in compact density",
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual flexible-column-layout: the separator button matches by styles in 16/16 (24×32px cozy, 24×26px compact)."
     },
     {
       "id": "flexible-column-layout-2",
@@ -2501,11 +2501,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-oklab-gradient",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "flexible-column-layout.spec.ts, ThreeColumnsMidExpanded: the separators' ::before/::after compute to 'linear-gradient(to top in oklab, …)' / 'to bottom in oklab'; fundamental-styles blends in sRGB.",
+      "test": "flexible-column-layout.spec.ts › FlexibleColumnLayout › the separator gradient lines blend in sRGB, as fundamental-styles",
+      "fix": "9c597b7",
+      "notes": "Verified: the spec passes and pnpm check passes. Computed background-image checked by the spec; the visual tool does not compare pseudo-elements."
     },
     {
       "id": "flexible-column-layout-3",
@@ -2514,11 +2514,11 @@
       "source": "../../../react/docs/parity/components/flexible-column-layout.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, ThreeColumnsMidExpanded at 1400px) in sap_horizon_hcb and _hcw: the mid column computes 1px left and right borders (--sapGroup_ContentBorderColor); fundamental-styles' columns have none in HC.",
+      "test": "flexible-column-layout.spec.ts › FlexibleColumnLayout › the columns have no borders in high contrast, as fundamental-styles (computed style)",
+      "fix": "7b486ce",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual flexible-column-layout: the mid column matches fundamental-styles' Three Columns Layout by computed style (borders) in all 16; pnpm angular check passes."
     },
     {
       "id": "fixed-card-layout-1",
@@ -2527,11 +2527,11 @@
       "source": "../../../react/docs/parity/components/fixed-card-layout.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): the layout's flex container computes align-items: flex-start; fundamental-styles' fixed card layout has center (computed only: the columns fill the width).",
+      "test": "fixed-card-layout.spec.ts › FixedCardLayout › the columns are centred, as fundamental-styles (align-items: center, computed style)",
+      "fix": "c44e800",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "fixed-card-layout-2",
@@ -2541,11 +2541,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "fixed-card-layout.spec.ts, dragging the first card past the threshold: the .cdk-drag-preview's computed box-shadow has four transparent ring layers before --sapContent_Shadow2.",
+      "test": "fixed-card-layout.spec.ts › FixedCardLayout › the drag preview has the theme shadow without transparent ring layers",
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "resizable-card-layout-1",
@@ -2554,11 +2554,11 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, hover card A): the resize corner box computes 159px high (the card area's [&>*]:h-full applies to it), so its glyph sits in the middle of the end edge; fundamental-styles' corner is 1.5rem at the bottom end.",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › the resize corner is a 1.5rem box at the bottom end, not as tall as the card",
+      "fix": "aea2c92",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual resizable-card-layout: the corner (box, bottom, inline end) and its icon match fundamental-styles' resizing story by computed style in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "resizable-card-layout-2",
@@ -2567,11 +2567,11 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host in RTL, hover card A): the corner box sits 295px right of the card area's left edge (rtl:-start-0 puts it at the right); fundamental-styles puts it at the bottom left, 0.25rem out.",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › in RTL the resize corner sits at the bottom left, 0.25rem out",
+      "fix": "54a7f7b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual resizable-card-layout: the corner's inset-inline-end and bottom match in the 8 RTL combinations; pnpm angular check passes."
     },
     {
       "id": "resizable-card-layout-3",
@@ -2580,11 +2580,11 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host in RTL, hover card A): the corner icon computes rotate: 90deg and transform: none; fundamental-styles turns it with transform: rotate(90deg) (computed only, same pixels).",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › in RTL the corner icon turns with transform, not rotate (computed style)",
+      "fix": "ac9c46c",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual resizable-card-layout: the icon's transform and rotate match in all 16; pnpm angular check passes."
     },
     {
       "id": "resizable-card-layout-4",
@@ -2593,11 +2593,11 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host in RTL): dragging card A's edge 200px to the left (growing it past half a column) keeps the ranks A1 B2 C3 D4 E5: cardState is -1 for a leftward move, read as shrinking, so D (end of the row) never moves down; in LTR the same growth gives D5 E4.",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › in RTL growing a card past half a column moves the card at the end of its row down",
+      "fix": "1507e5f",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "feed-list-1",
@@ -2606,11 +2606,11 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost, dir=rtl): the desktop action sits 540px from the item's left edge, at the right (start); rtl:float-start is added on top of float-end, which Tailwind v4 already compiles to the logical float: inline-end.",
+      "test": "feed-list.spec.ts › FeedList styles › in RTL the desktop actions sit at the end (left)",
+      "fix": "9815476",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "feed-list-2",
@@ -2619,11 +2619,11 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (OptionsHost, borderLess): the last item computes padding-bottom 12px; [&+&]:py-3 has a higher specificity than last:pb-4, where fundamental-styles has 16px.",
+      "test": "feed-list.spec.ts › FeedList styles › the last item of a borderless list has a 16px bottom padding (computed style)",
+      "fix": "5ed187c",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual feed-list: the borderless last item matches fundamental-styles' Borderless story by computed style (16px bottom padding) in all 16; pnpm angular check passes."
     },
     {
       "id": "feed-list-3",
@@ -2633,11 +2633,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-synthetic-bold",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "feed-list.spec.ts, an item with authorLink: the emphasized author link (72-Bold) inherits font-bold from the author span, computed font-weight 700; fundamental-styles has 400.",
+      "test": "feed-list.spec.ts › FeedList › the author link uses the 72-Bold face with a normal weight, so no synthetic bold is added",
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual feed-list: author link matches by styles in 16/16 (text-underline-offset ignored: link-1)."
     },
     {
       "id": "feed-list-4",
@@ -2646,11 +2646,11 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost): a footer with a Reply fdLink is 22px high (the link keeps its 1rem line height) and the date byline computes 9.6px (preflight's small at 80%); fundamental-styles' footer is 17px and its bylines 10px (smaller).",
+      "test": "feed-list.spec.ts › FeedList styles › a footer with a Reply link is 17px high and the bylines are 10px (computed style)",
+      "fix": "628dd97",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no Angular story has a Reply link in the footer: covered by the spec)"
     },
     {
       "id": "grid-list-1",
@@ -2659,11 +2659,11 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (GroupsHost): the grid list item title computes font-family 72-Bold (font-sap-font-header-family); fundamental-styles' item title is in --sapFontFamily (72), weight normal.",
+      "test": "grid-list.spec.ts › GridList styles › the item title uses the regular SAP font, as fundamental-styles (computed style)",
+      "fix": "db22e7d",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual grid-list: the item title matches fundamental-styles' States story by computed style (72) in all 16; pnpm angular check passes."
     },
     {
       "id": "grid-list-2",
@@ -2672,11 +2672,11 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (GroupsHost): the title bar heading computes color rgb(85, 107, 130) (the toolbar label colour, --sapContent_LabelColor); fundamental-styles' title bar text is plain toolbar text in --sapTextColor, rgb(19, 30, 41).",
+      "test": "grid-list.spec.ts › GridList styles › the title bar text has the text colour (computed style)",
+      "fix": "2a8adf6",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual grid-list: the title bar title matches fundamental-styles' multi-select story by computed style (text colour) in all 16; pnpm angular check passes."
     },
     {
       "id": "grid-list-3",
@@ -2685,11 +2685,11 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (GroupsHost): the group header after an item computes margin-top 0px; fundamental-styles' group headers have a 0.75rem top margin except the first (--no-margin).",
+      "test": "grid-list.spec.ts › GridList styles › group headers after items have a 0.75rem top margin, the first one none (computed style)",
+      "fix": "457e720",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual grid-list: the group header after items matches fundamental-styles' States story (0.75rem top margin) in all 16; pnpm angular check passes."
     },
     {
       "id": "grid-list-4",
@@ -2699,11 +2699,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "grid-list.spec.ts, a navigation item with dir=rtl: the arrow's span has rtl:rotate-180 and Icon mirrors navigation-right-arrow again, two flips, so it points right.",
+      "test": "grid-list.spec.ts › GridList parts › in RTL the navigation arrow is mirrored once, by the icon (it points left)",
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual grid-list: the item toolbar with the navigation arrow matches by pixels in 16/16, RTL included (min-height ignored, not a row)."
     },
     {
       "id": "carousel-1",
@@ -2712,11 +2712,11 @@
       "source": "../../../react/docs/parity/components/carousel.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ResizeHost, visibleSlidesCount 1, 300px): Next shows slide 2 at translateX(-300px); after the width becomes 260px the track stays at -300px (another slide shows); after visibleSlidesCount 2 it stays at -300px instead of -150px. Only auto was moved back.",
+      "test": "carousel.spec.ts › Carousel resizing › keeps the shown slide in place when the carousel is resized; carousel.spec.ts › Carousel resizing › keeps the shown slides in place when visibleSlidesCount changes",
+      "fix": "4519aad",
+      "notes": "Verified: both tests fail before the fix and pass after; pnpm angular check passes."
     },
     {
       "id": "carousel-2",
@@ -2739,11 +2739,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-compact-button-size",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "carousel.spec.ts in data-density=compact: the previous/next buttons have 7px left and right padding (p-0 does not override compact:px-…).",
+      "test": "carousel.spec.ts › Carousel › the navigation buttons have no padding in compact density either",
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "carousel-4",
@@ -2753,11 +2753,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "The missing minimum heights (second half) are not part of the pattern."
+      "status": "verified",
+      "repro": "carousel.spec.ts, the default carousel: the previous/next buttons and page dots have a computed border-radius of 3.35544e+07px instead of 50%. The missing minimum heights (second half) are not part of this pattern.",
+      "test": "carousel.spec.ts › Carousel › the navigation buttons and page dots are rounded with 50%, as fundamental-styles",
+      "fix": "fc14b61",
+      "notes": "The missing minimum heights (second half) are not part of the pattern. Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "file-uploader-1",
@@ -2870,11 +2870,11 @@
       "source": "../../../react/docs/parity/components/notification.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (GroupHost): fd-notification-group-header computes border-bottom-width 0px; fundamental-styles' group header has a 1px (--sapList_BorderWidth) solid transparent bottom border.",
+      "test": "notification.spec.ts › Notification › the group header has fundamental-styles' transparent bottom border (computed style)",
+      "fix": "2b84756",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "notification-2",
@@ -2896,11 +2896,11 @@
       "source": "../../../react/docs/parity/components/settings.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ProfileHost): the profile card name computes font-family 72-SemiboldDuplex and line-height 22.4px (1.4rem); fundamental-styles' name is 72 Bold with a normal line height.",
+      "test": "settings.spec.ts › SettingsProfileCard › the name uses fundamental-styles' 72 Bold with a normal line height (computed style)",
+      "fix": "f44ad68",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual settings: the profile card name matches fundamental-styles' User Account story by computed style in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "settings-2",
@@ -2910,11 +2910,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "settings.spec.ts with dir=rtl, after pushView: the back button's icon is navigation-right-arrow, which Icon mirrors, so it points left.",
+      "test": "settings.spec.ts › SettingsContainer › in RTL the back button keeps the left arrow, mirrored once by the icon (it points right)",
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: the back button appears only after pushView (no story state shows it); the spec checks the glyph and a single flip."
     },
     {
       "id": "content-density-1",
@@ -2923,11 +2923,11 @@
       "source": "../../../react/docs/parity/components/content-density.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "fixed",
+      "status": "verified",
       "repro": "Spec: a button in compact > cozy > compact > cozy sections (fdCompact/fdCozy) measures 26, 36, 36, 36px instead of 26, 36, 26, 36px: the compact section inside the cozy island stays cozy. Storybook: components-content-density--directives under a compact global density shows the same.",
       "test": "ContentDensity › the nearest density wins through alternating levels (compact, cozy, compact, cozy)",
       "fix": "daa80fc",
-      "notes": "Shared styles (`registry/styles/fundamental.css`): every component is affected. Fixed; to be verified against fundamental-styles in all 16 combinations once the visual comparison script exists."
+      "notes": "Shared styles (`registry/styles/fundamental.css`): every component is affected. Fixed; to be verified against fundamental-styles in all 16 combinations once the visual comparison script exists. Verified: Nested densities story and scripts/visual/content-density.mjs added (as React); pnpm visual content-density: the button and its hover in a section of the toolbar density inside one of the other density match fundamental-styles' button in all 16 combinations, the input by computed style except the box-shadow ring layers (pattern-shadow-ring, the input's); pnpm angular check passes."
     }
   ]
 }

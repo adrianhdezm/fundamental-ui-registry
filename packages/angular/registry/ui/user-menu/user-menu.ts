@@ -195,7 +195,7 @@ abstract class UserMenuListBase {
                                 <button
                                     fdButton
                                     variant="transparent"
-                                    [glyph]="rtl() ? 'navigation-right-arrow' : 'navigation-left-arrow'"
+                                    glyph="navigation-left-arrow"
                                     [ariaLabel]="backLabel()"
                                     (click)="body()?.back()"
                                 ></button>
@@ -250,11 +250,9 @@ export class UserMenu {
     );
     private readonly dialogTpl = viewChild.required<TemplateRef<unknown>>('dialogTpl');
     private readonly dialogs = inject(DialogService);
-    private readonly direction = inject(Directionality, { optional: true });
     private readonly injector = inject(Injector);
     private dialogRef: DialogRef | null = null;
 
-    readonly rtl = computed(() => this.direction?.valueSignal() === 'rtl');
     /** Items of the main list. */
     private readonly rootItems = computed(() => this.items().filter((i) => !i.list.parentItem));
 
@@ -686,7 +684,7 @@ let nextItemId = 0;
             }
             @if (hasSubmenu()) {
                 <span class="${ADDON} text-[1rem] text-(--um-ic)" aria-hidden="true">
-                    <fd-icon glyph="navigation-right-arrow" class="rtl:-scale-x-100" />
+                    <fd-icon glyph="navigation-right-arrow" />
                 </span>
             }
         </button>

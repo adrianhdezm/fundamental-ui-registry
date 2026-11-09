@@ -98,6 +98,11 @@ describe('MessagePage', () => {
         expect(status.textContent).toContain('Check the address');
     });
 
+    it('start-aligns the lines of a long subtitle, as fundamental-styles (computed style)', async () => {
+        const { subtitle } = await setupParts();
+        expect(getComputedStyle(subtitle).textAlign).toBe('start');
+    });
+
     it('renders actions and the more area after the subtitle', async () => {
         const { status, subtitle, actions, more, part } = await setupParts();
         expect([...status.children].slice(2)).toEqual([actions, more]);

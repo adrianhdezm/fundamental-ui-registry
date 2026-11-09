@@ -117,7 +117,7 @@ export const Extended: Story = {
     name: 'With label (extended)',
     render: () => ({
         template: `
-            <div fdBusyIndicatorExtended class="w-[23.125rem] rounded-sap-element-border-corner-radius bg-sap-page-footer-background shadow-sap-content-shadow2">
+            <div fdBusyIndicatorExtended class="w-[23.125rem] rounded-sap-element-border-corner-radius bg-sap-page-footer-background [box-shadow:var(--sapContent_Shadow2)]">
                 <fd-busy-indicator loading ariaLabel="Loading" label="Loading data..." ariaValueText="Busy" />
             </div>`
     })

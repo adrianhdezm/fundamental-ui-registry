@@ -71,7 +71,22 @@ async function setup(count = 3) {
     };
 }
 
+/** Elements whose radius is rounded-full's computed length (3.35544e+07px) instead of a percentage. */
+const hugeRadius = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
+
 describe('MicroProcessFlow', () => {
+    it('the step icons are rounded with 50%, as fundamental-styles', async () => {
+        const { root, icons } = await setup();
+        for (const icon of icons()) expect(getComputedStyle(icon).borderTopLeftRadius).toBe('50%');
+        expect(hugeRadius(root)).toEqual([]);
+    });
+
+    it('the root has a normal line height, as fundamental-styles (computed style)', async () => {
+        const { root } = await setup();
+        expect(getComputedStyle(root.querySelector('fd-micro-process-flow')!).lineHeight).toBe('normal');
+    });
+
     it('joins the steps with connectors, but not after the last', async () => {
         const { root, fixture } = await setup();
         const items = root.querySelectorAll('fd-micro-process-flow-item');

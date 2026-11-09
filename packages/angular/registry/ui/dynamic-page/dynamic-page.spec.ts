@@ -245,6 +245,66 @@ async function scroll(fixture: { whenStable(): Promise<unknown> }, element: HTML
 }
 
 describe('DynamicPage', () => {
+    it('the gradient lines next to the header buttons blend in sRGB, as fundamental-styles', async () => {
+        const { root } = await setup();
+        const toolbar = root.querySelector<HTMLElement>('[role=toolbar]')!;
+        const lines = [toolbar.previousElementSibling!, toolbar.nextElementSibling!].map(
+            (el) => getComputedStyle(el).backgroundImage
+        );
+        for (const line of lines) {
+            expect(line).toMatch(/^linear-gradient\(to (left|right), /);
+            expect(line).not.toContain('oklab');
+        }
+    });
+
+    it('the collapse and pin buttons are 24×24px in both densities', async () => {
+        const { root } = await setup();
+        const buttons = [...root.querySelectorAll<HTMLElement>('[role=toolbar] button')];
+        expect(buttons.length).toBeGreaterThan(0);
+        try {
+            for (const density of ['cozy', 'compact']) {
+                document.documentElement.setAttribute('data-density', density);
+                for (const button of buttons) {
+                    const { width, height } = button.getBoundingClientRect();
+                    expect([width, height]).toEqual([24, 24]);
+                }
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
+    it('the collapse and pin buttons are on the object header background (computed style)', async () => {
+        const { root } = await setup();
+        const probe = document.createElement('div');
+        probe.style.backgroundColor = 'var(--sapObjectHeader_Background)';
+        document.body.appendChild(probe);
+        try {
+            document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_dark');
+            for (const button of root.querySelectorAll<HTMLElement>('[role=toolbar] button')) {
+                expect(getComputedStyle(button).backgroundColor).toBe(getComputedStyle(probe).backgroundColor);
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+            probe.remove();
+        }
+    });
+
+    it('the title area shows the pointer cursor on hover only (computed style)', async () => {
+        const { root } = await setup();
+        const area = root.querySelector<HTMLElement>('[class*="hover:bg-sap-object-header-hover-background"]')!;
+        // the pointer on an element outside the page
+        const outside = document.createElement('div');
+        outside.style.cssText = 'position: fixed; right: 0; bottom: 0; width: 20px; height: 20px; z-index: 9999';
+        document.body.appendChild(outside);
+        await userEvent.hover(outside);
+        outside.remove();
+        expect(area.matches(':hover')).toBe(false);
+        expect(getComputedStyle(area).cursor).not.toBe('pointer');
+        await userEvent.hover(area);
+        expect(getComputedStyle(area).cursor).toBe('pointer');
+    });
+
     it('moves the global actions of a toolbar into its overflow when the page is small', async () => {
         const fixture = TestBed.createComponent(OverflowHost);
         document.body.appendChild(fixture.nativeElement);

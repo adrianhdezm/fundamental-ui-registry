@@ -721,6 +721,41 @@ describe('Popover', () => {
             near(rect(surface()).height, before.height + 40);
         });
 
+        it('the resize handle shows the resize-corner glyph', async () => {
+            const { stable, control, surface } = await setupOptions({ resizable: true });
+            await userEvent.click(control());
+            await stable();
+            const handle = surface().querySelector<HTMLElement>('[role="presentation"]')!;
+            // SAP-icons' resize-corner is U+E24F
+            expect(getComputedStyle(handle, '::after').content).toBe('"\ue24f"');
+        });
+
+        it('the resize handle sits in the corner away from the trigger, as in fundamental-styles', async () => {
+            const { fixture, host, stable, surface } = await setupOptions({ resizable: true, offsetTop: '300px' });
+            const cases: [Placement, string, string][] = [
+                ['bottom-start', 'bottom-right', 'se-resize'],
+                ['bottom-end', 'bottom-left', 'sw-resize'],
+                ['top', 'top-right', 'ne-resize'],
+                ['top-end', 'top-left', 'nw-resize'],
+                ['left-start', 'bottom-left', 'sw-resize'],
+                ['right-end', 'top-right', 'ne-resize']
+            ];
+            for (const [placement, corner, cursor] of cases) {
+                host.open.set(false);
+                await stable();
+                host.placement.set(placement);
+                host.open.set(true);
+                await fixture.whenStable();
+                await stable();
+                await wait(50);
+                const handle = surface().querySelector<HTMLElement>('[role="presentation"]')!;
+                expect(getComputedStyle(handle).cursor, placement).toBe(cursor);
+                const [v, h] = corner.split('-') as ['top' | 'bottom', 'left' | 'right'];
+                near(rect(handle)[v], rect(surface())[v] + (v === 'top' ? -8 : 8));
+                near(rect(handle)[h], rect(surface())[h] + (h === 'left' ? -8 : 8));
+            }
+        });
+
         it('disableScrollbar removes the scroll wrapper', async () => {
             const { fixture, host, stable, el, control, surface } = await setupOptions();
             await userEvent.click(control());

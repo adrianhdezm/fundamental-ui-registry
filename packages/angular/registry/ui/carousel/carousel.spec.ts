@@ -102,7 +102,30 @@ function drag(track: HTMLElement, axis: 'x' | 'y', from: number, to: number): vo
     fire('pointerup', document, to);
 }
 
+/** Elements whose radius is rounded-full's computed length (3.35544e+07px) instead of a percentage. */
+const hugeRadius = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
+
 describe('Carousel', () => {
+    it('the navigation buttons have no padding in compact density either', async () => {
+        const { previous, next } = await setup();
+        document.documentElement.setAttribute('data-density', 'compact');
+        try {
+            for (const button of [previous(), next()]) {
+                expect(getComputedStyle(button).paddingLeft).toBe('0px');
+                expect(getComputedStyle(button).paddingRight).toBe('0px');
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
+    it('the navigation buttons and page dots are rounded with 50%, as fundamental-styles', async () => {
+        const { root, previous, next } = await setup();
+        for (const button of [previous(), next()]) expect(getComputedStyle(button).borderTopLeftRadius).toBe('50%');
+        expect(hugeRadius(root)).toEqual([]);
+    });
+
     it('is a listbox of slides with page indicators', async () => {
         const { root, listbox, selected, live, previous, next } = await setup();
         expect(listbox.getAttribute('aria-roledescription')).toBe('Carousel');
@@ -361,5 +384,67 @@ describe('CarouselDirective', () => {
         carousel.pickPrevious();
         expect(carousel.engine.active?.value()).toBe(4);
         expect(order()).toEqual([2, 3, 4, 0, 1]);
+    });
+});
+
+@Component({
+    imports: [Carousel, CarouselItem],
+    template: `
+        <fd-carousel ariaLabel="Slides" [width]="width()" [visibleSlidesCount]="count()" [slideTransitionDuration]="0">
+            @for (slide of [1, 2, 3, 4]; track slide) {
+                <fd-carousel-item
+                    ><div style="height: 100px">Slide {{ slide }}</div></fd-carousel-item
+                >
+            }
+        </fd-carousel>
+    `
+})
+class ResizeHost {
+    readonly width = signal('300px');
+    readonly count = signal<number | 'auto'>(1);
+}
+
+describe('Carousel resizing', () => {
+    async function setupResize() {
+        const fixture = TestBed.createComponent(ResizeHost);
+        document.body.appendChild(fixture.nativeElement);
+        const root = fixture.nativeElement as HTMLElement;
+        const settle = async () => {
+            await fixture.whenStable();
+            for (let i = 0; i < 3; i++) await new Promise((resolve) => requestAnimationFrame(resolve));
+            await fixture.whenStable();
+        };
+        await settle();
+        return {
+            host: fixture.componentInstance,
+            settle,
+            next: () => root.querySelector<HTMLButtonElement>('button[aria-label="Go to next item"]')!,
+            transform: () => root.querySelector<HTMLElement>('[style*="--carousel-count"]')!.style.transform,
+            selected: () =>
+                [...root.querySelectorAll('[role=option][aria-selected=true]')].map((o) => o.textContent!.trim())
+        };
+    }
+
+    it('keeps the shown slide in place when the carousel is resized', async () => {
+        const { host, settle, next, transform, selected } = await setupResize();
+        await userEvent.click(next());
+        await settle();
+        expect(transform()).toBe('translateX(-300px)');
+        host.width.set('260px');
+        await settle();
+        expect(transform()).toBe('translateX(-260px)');
+        expect(selected()).toEqual(['Slide 2']);
+    });
+
+    it('keeps the shown slides in place when visibleSlidesCount changes', async () => {
+        const { host, settle, next, transform, selected } = await setupResize();
+        await userEvent.click(next());
+        await settle();
+        expect(transform()).toBe('translateX(-300px)');
+        host.count.set(2);
+        await settle();
+        // two slides of 150px: the second slide first
+        expect(transform()).toBe('translateX(-150px)');
+        expect(selected()).toEqual(['Slide 2', 'Slide 3']);
     });
 });

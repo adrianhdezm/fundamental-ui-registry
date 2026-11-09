@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { Icon } from '@/ui/icon/icon';
 import { Checkbox } from '@/ui/checkbox/checkbox';
 import { RadioButton } from '@/ui/radio/radio';
 import {
@@ -271,6 +272,19 @@ class ContentHost {
     `
 })
 class UserClassHost {}
+
+@Component({
+    imports: IMPORTS,
+    template: `
+        <ul fd-list byline unreadIndicator aria-label="Line heights">
+            <li fd-list-item unread data-testid="unread">
+                <i fd-list-icon glyph="cart" data-testid="icon"></i>
+                <div fd-list-content><div fd-list-title>Unread</div></div>
+            </li>
+        </ul>
+    `
+})
+class LineHeightHost {}
 
 async function render<T>(type: new () => T) {
     const fixture = TestBed.createComponent(type);
@@ -758,5 +772,49 @@ describe('List', () => {
                 document.documentElement.removeAttribute('data-sap-theme');
             }
         });
+    });
+
+    it('icons and the unread dot keep line-height 1 (18px and 6px high)', async () => {
+        const { el } = await render(LineHeightHost);
+        const dot = el('unread').querySelector<HTMLElement>(':scope > fd-icon')!;
+        expect(getComputedStyle(el('icon')).lineHeight).toBe('18px');
+        expect(getComputedStyle(dot).lineHeight).toBe('6px');
+        expect(rect(dot).height).toBe(6);
+    });
+});
+
+@Component({
+    imports: [...IMPORTS, Icon],
+    template: `
+        <ul fd-list byline aria-label="Thumbnails" style="width: 400px">
+            <li fd-list-item>
+                <span fd-list-thumbnail><i fd-list-icon glyph="activate" data-testid="list-icon"></i></span>
+                <div fd-list-content><div fd-list-title>List icon</div></div>
+            </li>
+            <li fd-list-item>
+                <span fd-list-thumbnail><fd-icon glyph="activate" data-testid="icon" /></span>
+                <div fd-list-content><div fd-list-title>Icon</div></div>
+            </li>
+        </ul>
+        <ul fd-list aria-label="Links" style="width: 400px">
+            <li fd-list-item>
+                <a fd-list-link href="#a" data-testid="link"><span fd-list-title>A</span></a>
+            </li>
+        </ul>
+    `
+})
+class ThumbnailHost {}
+
+describe('List styles', () => {
+    it('icons in a thumbnail take its 2rem size (computed style)', async () => {
+        const { el } = await render(ThumbnailHost);
+        expect(getComputedStyle(el('list-icon')).fontSize).toBe('32px');
+        expect(getComputedStyle(el('icon')).fontSize).toBe('32px');
+    });
+
+    it('a hovered link shows the list border colour at its bottom (computed style)', async () => {
+        const { el } = await render(ThumbnailHost);
+        await userEvent.hover(el('link'));
+        expect(getComputedStyle(el('link')).borderBottomColor).toBe(themed('color', 'var(--sapList_BorderColor)'));
     });
 });

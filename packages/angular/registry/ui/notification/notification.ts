@@ -336,7 +336,7 @@ export class Notification {
             // room for the action buttons next to the title
             'has-[[data-nt-actions]_button]:[&_[data-nt-title]]:pe-8 compact:has-[[data-nt-actions]_button]:[&_[data-nt-title]]:pe-11',
             'has-[[data-nt-actions]_button+button]:[&_[data-nt-title]]:pe-[4.375rem] compact:has-[[data-nt-actions]_button+button]:[&_[data-nt-title]]:pe-[4.875rem]',
-            this.config && 'shadow-sap-content-shadow2',
+            this.config && '[box-shadow:var(--sapContent_Shadow2)]',
             this.userClass()
         )
     );
@@ -453,7 +453,7 @@ export class NotificationGroupHeaderTitle {
         '[attr.title]': 'title()',
         '[attr.aria-controls]': 'controls()',
         '[attr.aria-expanded]': 'expanded()',
-        class: 'sticky top-0 z-10 m-0 mt-3 mb-2 box-border flex h-sap-element-line-height cursor-pointer items-center gap-3 p-0 px-2 bg-sap-list-group-header-background focus:outline-sap focus:-outline-offset-4',
+        class: 'sticky top-0 z-10 m-0 mt-3 mb-2 box-border flex h-sap-element-line-height cursor-pointer items-center gap-3 p-0 px-2 bg-sap-list-group-header-background focus:outline-sap focus:-outline-offset-4 border-0 border-b-(length:--sapList_BorderWidth) border-solid border-transparent',
         '(click)': 'toggle()',
         '(keydown.enter)': 'onKey($event)',
         '(keydown.space)': 'onKey($event)'

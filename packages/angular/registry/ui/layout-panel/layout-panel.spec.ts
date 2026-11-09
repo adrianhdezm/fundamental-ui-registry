@@ -71,6 +71,13 @@ function cssColor(variable: string): string {
 }
 
 describe('LayoutPanel', () => {
+    it('the title uses the 72-Bold face with a normal weight, so no synthetic bold is added', async () => {
+        const { q } = await setup();
+        const title = getComputedStyle(q('[fd-layout-panel-title]'));
+        expect(title.fontFamily).toMatch(/^"?72-Bold/);
+        expect(title.fontWeight).toBe('400');
+    });
+
     it('places header, filters, body and footer in that order whatever the projected order', async () => {
         const { q } = await setup();
         const panel = q('fd-layout-panel');
@@ -96,7 +103,8 @@ describe('LayoutPanel', () => {
         expect(actions.right).toBeCloseTo(header.getBoundingClientRect().right - 16, 0);
         const title = q('[fd-layout-panel-title]');
         expect(title.tagName).toBe('H3');
-        expect(getComputedStyle(title).fontWeight).toBe('700');
+        // the 72-Bold face at a normal weight, as fundamental-styles (no synthetic bold)
+        expect(getComputedStyle(title).fontWeight).toBe('400');
         const description = q('fd-layout-panel-description p');
         expect(description.textContent).toBe('Per quarter');
         expect(description.getBoundingClientRect().top).toBeGreaterThanOrEqual(title.getBoundingClientRect().bottom);
@@ -151,5 +159,42 @@ describe('LayoutPanel', () => {
         host.image.set(null);
         await stable();
         expect(panel.style.backgroundImage).toBe('');
+    });
+});
+
+@Component({
+    imports: [LayoutPanel, LayoutPanelHeader, LayoutPanelHead, LayoutPanelTitle, LayoutPanelActions],
+    template: `
+        <div style="width: 120px">
+            <fd-layout-panel>
+                <fd-layout-panel-header>
+                    <fd-layout-panel-head>
+                        <h3 fd-layout-panel-title>Layout Panel Title</h3>
+                    </fd-layout-panel-head>
+                    <fd-layout-panel-actions><button style="width: 59px">Action</button></fd-layout-panel-actions>
+                </fd-layout-panel-header>
+            </fd-layout-panel>
+        </div>
+    `
+})
+class NarrowHost {}
+
+describe('LayoutPanel in a narrow column', () => {
+    it('the head keeps room for the title, which does not run under the actions', async () => {
+        const fixture = TestBed.createComponent(NarrowHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const head = root.querySelector<HTMLElement>('fd-layout-panel-head')!;
+        const title = root.querySelector<HTMLElement>('[fd-layout-panel-title]')!;
+        const actions = root.querySelector<HTMLElement>('fd-layout-panel-actions')!;
+        // the whole title fits its head
+        expect(title.scrollWidth).toBeLessThanOrEqual(head.clientWidth);
+        // and nothing of it overlaps the actions
+        const t = title.getBoundingClientRect();
+        const a = actions.getBoundingClientRect();
+        const overlap = t.right > a.left && t.left < a.right && t.bottom > a.top && t.top < a.bottom;
+        expect(overlap).toBe(false);
+        fixture.destroy();
     });
 });

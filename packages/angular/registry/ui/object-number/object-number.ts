@@ -146,11 +146,11 @@ export class ObjectNumber {
         const interactive = this.interactive();
         return cn(
             'group/on relative m-0 box-border inline-block max-w-full p-0 align-middle',
-            'min-h-4 leading-4 text-sap-font-size font-sap-font-family text-(--on-c) [--on-c:var(--sapNeutralTextColor)]',
+            'min-h-4 text-sap-font-size leading-4 font-sap-font-family text-(--on-c) [--on-c:var(--sapNeutralTextColor)]',
             status && COLOR[status],
-            this.large() && 'min-h-8 leading-8 text-2xl font-sap-font-light-family',
+            this.large() && 'min-h-8 text-2xl leading-8 font-sap-font-light-family',
             inverted && [
-                'min-h-4 leading-4 px-1 py-[0.1875rem] text-sap-font-small-size font-sap-font-bold-family',
+                'min-h-4 px-1 py-[0.1875rem] text-sap-font-small-size leading-4 font-sap-font-bold-family',
                 'border border-solid border-(--on-bc) bg-(--on-bg) rounded-sap-button-border-corner-radius',
                 INVERTED[status ?? 'neutral']
             ],

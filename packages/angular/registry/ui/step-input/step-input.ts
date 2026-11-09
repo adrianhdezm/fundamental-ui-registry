@@ -438,9 +438,9 @@ export class StepInput implements ControlValueAccessor {
             STATE_FOCUS_COLOR[state],
             this.isFullWidth() && 'w-full',
             this.readonly() && [
-                'shadow-none border-sap-field-read-only-border-color',
+                '[box-shadow:none] border-sap-field-read-only-border-color',
                 '[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)]',
-                'hover:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] hover:border-sap-field-read-only-border-color hover:shadow-none'
+                'hover:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] hover:border-sap-field-read-only-border-color hover:[box-shadow:none]'
             ],
             this.disabledState() &&
                 'pointer-events-none opacity-(--sapContent_DisabledOpacity) [&_:disabled]:opacity-100!'
@@ -451,7 +451,7 @@ export class StepInput implements ControlValueAccessor {
         cn(
             'm-0 box-border h-full min-w-0 flex-1 appearance-none border-0 bg-transparent px-1 py-0 text-end rtl:text-start',
             // regular in every state (the HC states make the field italic and bold), as fundamental-styles
-            'font-sap-font-family text-sap-font-size font-normal not-italic text-sap-field-text-color shadow-none outline-none',
+            'font-sap-font-family text-sap-font-size font-normal not-italic text-sap-field-text-color [box-shadow:none] outline-none',
             'placeholder:italic placeholder:text-sap-field-placeholder-text-color',
             (this.readonly() || !this.hasStepButtons()) && 'px-2.5 compact:px-2'
         )

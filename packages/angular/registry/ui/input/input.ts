@@ -17,20 +17,20 @@ export const fieldBase = [
     'relative z-[1] box-border m-0 my-1 w-full min-w-11 h-sap-element-height min-h-sap-element-height px-2.5 py-0',
     'compact:my-[0.1875rem] compact:min-w-8 compact:h-sap-element-compact-height compact:min-h-sap-element-compact-height compact:px-2',
     'font-sap-font-family text-sap-font-size font-normal leading-[normal] text-sap-field-text-color truncate',
-    'rounded-sap-field-border-corner-radius shadow-sap-field-shadow outline-none appearance-none cursor-text [forced-color-adjust:none]',
+    'rounded-sap-field-border-corner-radius [box-shadow:var(--sapField_Shadow)] outline-none appearance-none cursor-text [forced-color-adjust:none]',
     'border-width-sap-field-border-width [border-style:var(--sapField_BorderStyle)] border-sap-field-border-color',
     '[background:var(--sapField_BackgroundStyle)_var(--sapField_Background)]',
     'placeholder:italic placeholder:text-sap-field-placeholder-text-color hc:placeholder:not-italic rtl:placeholder:indent-[0.125rem]',
     'selection:bg-sap-selected-color selection:text-sap-content-contrast-text-color',
-    'hover:[background:var(--sapField_Hover_BackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-hover-border-color hover:shadow-sap-field-hover-shadow',
-    'focus:z-[5] focus:[background:var(--sapField_Focus_Background)] focus:shadow-none focus:outline-sap focus:outline-sap-field-active-border-color',
+    'hover:[background:var(--sapField_Hover_BackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-hover-border-color hover:[box-shadow:var(--sapField_Hover_Shadow)]',
+    'focus:z-[5] focus:[background:var(--sapField_Focus_Background)] focus:[box-shadow:none] focus:outline-sap focus:outline-sap-field-active-border-color',
     'focus:outline-offset-[-0.125rem] hc:focus:outline-offset-[-0.25rem]',
     'aria-expanded:z-[4]',
     'disabled:pointer-events-none disabled:opacity-(--sapContent_DisabledOpacity) disabled:placeholder:opacity-0',
     'aria-disabled:pointer-events-none aria-disabled:opacity-(--sapContent_DisabledOpacity) aria-disabled:placeholder:opacity-0',
-    'readonly:shadow-none readonly:border-sap-field-read-only-border-color readonly:placeholder:opacity-0',
+    'readonly:[box-shadow:none] readonly:border-sap-field-read-only-border-color readonly:placeholder:opacity-0',
     'readonly:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)]',
-    'readonly:hover:shadow-none readonly:hover:border-sap-field-read-only-border-color',
+    'readonly:hover:[box-shadow:none] readonly:hover:border-sap-field-read-only-border-color',
     'readonly:hover:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)]',
     'readonly:focus:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] readonly:focus:outline-offset-[-0.25rem]'
 ].join(' ');
@@ -39,30 +39,30 @@ export const fieldBase = [
 export const fieldStates: Record<FormState, string> = {
     default: '',
     error: [
-        '[background:var(--sapField_InvalidBackgroundStyle)_var(--sapField_InvalidBackground)] shadow-sap-field-invalid-shadow',
+        '[background:var(--sapField_InvalidBackgroundStyle)_var(--sapField_InvalidBackground)] [box-shadow:var(--sapField_InvalidShadow)]',
         'border-sap-field-invalid-color border-width-sap-field-invalid-border-width [border-style:var(--sapField_InvalidBorderStyle)]',
-        'hover:[background:var(--sapField_InvalidBackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-invalid-color hover:shadow-sap-field-invalid-shadow',
-        'focus:[background:var(--sapField_Focus_Background)] focus:outline-sap-field-invalid-color focus:shadow-sap-field-invalid-shadow focus:hover:shadow-none',
+        'hover:[background:var(--sapField_InvalidBackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-invalid-color hover:[box-shadow:var(--sapField_InvalidShadow)]',
+        'focus:[background:var(--sapField_Focus_Background)] focus:outline-sap-field-invalid-color focus:[box-shadow:var(--sapField_InvalidShadow)] focus:hover:[box-shadow:none]',
         'placeholder:text-sap-field-text-color hc:italic hc:font-bold hc:placeholder:font-bold'
     ].join(' '),
     warning: [
-        '[background:var(--sapField_WarningBackgroundStyle)_var(--sapField_WarningBackground)] shadow-sap-field-warning-shadow',
+        '[background:var(--sapField_WarningBackgroundStyle)_var(--sapField_WarningBackground)] [box-shadow:var(--sapField_WarningShadow)]',
         'border-sap-field-warning-color border-width-sap-field-warning-border-width [border-style:var(--sapField_WarningBorderStyle)]',
-        'hover:[background:var(--sapField_WarningBackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-warning-color hover:shadow-sap-content-critical-shadow',
-        'focus:[background:var(--sapField_Focus_Background)] focus:outline-sap-field-warning-color focus:shadow-sap-field-warning-shadow focus:hover:shadow-none',
+        'hover:[background:var(--sapField_WarningBackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-warning-color hover:[box-shadow:var(--sapContent_Critical_Shadow)]',
+        'focus:[background:var(--sapField_Focus_Background)] focus:outline-sap-field-warning-color focus:[box-shadow:var(--sapField_WarningShadow)] focus:hover:[box-shadow:none]',
         'hc:italic hc:font-bold hc:placeholder:font-bold'
     ].join(' '),
     success: [
-        '[background:var(--sapField_SuccessBackgroundStyle)_var(--sapField_SuccessBackground)] shadow-sap-field-success-shadow',
+        '[background:var(--sapField_SuccessBackgroundStyle)_var(--sapField_SuccessBackground)] [box-shadow:var(--sapField_SuccessShadow)]',
         'border-sap-field-success-color border-width-sap-field-success-border-width [border-style:var(--sapField_SuccessBorderStyle)]',
-        'hover:[background:var(--sapField_SuccessBackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-success-color hover:shadow-sap-content-positive-shadow',
-        'focus:[background:var(--sapField_Focus_Background)] focus:outline-sap-field-success-color focus:shadow-sap-field-success-shadow focus:hover:shadow-none'
+        'hover:[background:var(--sapField_SuccessBackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-success-color hover:[box-shadow:var(--sapContent_Positive_Shadow)]',
+        'focus:[background:var(--sapField_Focus_Background)] focus:outline-sap-field-success-color focus:[box-shadow:var(--sapField_SuccessShadow)] focus:hover:[box-shadow:none]'
     ].join(' '),
     information: [
-        '[background:var(--sapField_InformationBackgroundStyle)_var(--sapField_InformationBackground)] shadow-sap-field-information-shadow',
+        '[background:var(--sapField_InformationBackgroundStyle)_var(--sapField_InformationBackground)] [box-shadow:var(--sapField_InformationShadow)]',
         'border-sap-field-information-color border-width-sap-field-information-border-width [border-style:var(--sapField_InformationBorderStyle)]',
-        'hover:[background:var(--sapField_InformationBackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-information-color hover:shadow-sap-content-informative-shadow',
-        'focus:[background:var(--sapField_Focus_Background)] focus:outline-sap-field-information-color focus:shadow-sap-field-information-shadow focus:hover:shadow-none'
+        'hover:[background:var(--sapField_InformationBackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-information-color hover:[box-shadow:var(--sapContent_Informative_Shadow)]',
+        'focus:[background:var(--sapField_Focus_Background)] focus:outline-sap-field-information-color focus:[box-shadow:var(--sapField_InformationShadow)] focus:hover:[box-shadow:none]'
     ].join(' ')
 };
 

@@ -11,6 +11,7 @@ import {
     DestroyRef,
     Directive,
     ElementRef,
+    Injector,
     afterNextRender,
     booleanAttribute,
     computed,
@@ -645,6 +646,7 @@ export class Carousel {
 
     constructor() {
         const destroyRef = inject(DestroyRef);
+        const injector = inject(Injector);
         afterNextRender(() => {
             const engine = new CarouselEngine<CarouselItem>(this.slidesElement().nativeElement);
             engine.onActiveChange = (event) => this.onSwipe(event);
@@ -680,6 +682,8 @@ export class Carousel {
                 const last = Math.max(0, this.pages() - 1);
                 if (!this.loop() && this.start() > last) this.moveTo(last);
                 this.notify('None');
+                // the slides take their new size in the next render: move the offset with them
+                afterNextRender(() => this.onResize(), { injector });
             });
         });
         // new slides: back to the first
@@ -788,6 +792,11 @@ export class Carousel {
             this.start.set(start);
             this.engine?.goToItem(slides[start]);
             if (this.engine) this.engine.active = slides[start];
+        } else if (slides.length && this.engine) {
+            // a fixed count: the offset is in pixels, so move it to the shown slide at the new slide size
+            const start = slides[this.start()] ?? slides[0];
+            this.engine.goToItem(start);
+            this.engine.active = start;
         }
     }
 
@@ -844,9 +853,9 @@ export class Carousel {
 
     protected buttonClass(inContent: boolean, which: 'previous' | 'next'): string {
         return cn(
-            'm-1 size-[2.125rem] min-w-0 shrink-0 rounded-full p-0 focus:after:rounded-full [&+button]:ms-2',
+            'm-1 size-[2.125rem] min-w-0 shrink-0 rounded-[50%] p-0 compact:p-0 focus:after:rounded-[50%] [&+button]:ms-2',
             inContent && [
-                'absolute z-1 m-0 hidden shadow-sap-content-shadow0 group-hover/carousel:flex',
+                'absolute z-1 m-0 hidden [box-shadow:var(--sapContent_Shadow0)] group-hover/carousel:flex',
                 this.vertical()
                     ? ['start-1/2 -translate-x-1/2 rtl:translate-x-1/2', which === 'previous' ? 'top-2' : 'bottom-2']
                     : ['top-1/2 -translate-y-1/2', which === 'previous' ? 'start-2' : 'end-2']
@@ -855,7 +864,7 @@ export class Carousel {
     }
 
     protected readonly dotClass =
-        'm-0 mx-1.5 box-border size-1 shrink-0 rounded-full border border-solid border-sap-content-foreground-border-color bg-sap-content-foreground-border-color p-0 hc:mx-1 hc:size-2 hc:bg-transparent';
+        'm-0 mx-1.5 box-border size-1 shrink-0 rounded-[50%] border border-solid border-sap-content-foreground-border-color bg-sap-content-foreground-border-color p-0 hc:mx-1 hc:size-2 hc:bg-transparent';
     protected readonly activeDotClass =
-        'm-0 mx-1 box-border size-2 shrink-0 rounded-full border border-solid border-sap-content-selected-foreground-color bg-sap-content-selected-foreground-color p-0';
+        'm-0 mx-1 box-border size-2 shrink-0 rounded-[50%] border border-solid border-sap-content-selected-foreground-color bg-sap-content-selected-foreground-color p-0';
 }

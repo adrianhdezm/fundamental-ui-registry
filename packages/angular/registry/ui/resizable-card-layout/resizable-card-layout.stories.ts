@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, input, signal } from '@angular/core';
 import { moduleMetadata, type Meta, type StoryObj } from '@analogjs/storybook-angular';
+import { expect, waitFor } from 'storybook/test';
 import { Card, CardContent, CardCounter, CardHeader, CardMainHeader, CardSubtitle, CardTitle } from '@/ui/card/card';
 import { List, ListItem, ListTitle } from '@/ui/list/list';
 import {
@@ -224,4 +225,36 @@ export const ItemInputs: Story = {
         }
     },
     render: () => ({ template: `<story-resizable-card-layout mode="inputs" />` })
+};
+
+export const Resizing: Story = {
+    name: 'State: resizing',
+    tags: ['!autodocs'],
+    parameters: {
+        docs: {
+            description: {
+                story: 'The first card in the middle of a resize: the dashed frame, the corner handle and the indication of the next column.'
+            }
+        }
+    },
+    render: () => ({ template: `<story-resizable-card-layout />` }),
+    // a pointer that is not the mouse (pointerId 99) presses the end edge of the first card and moves 200px
+    play: async ({ canvasElement }) => {
+        const edge = await waitFor(() => {
+            const found = canvasElement.querySelector<HTMLElement>('.cursor-ew-resize');
+            expect(found).not.toBeNull();
+            return found!;
+        });
+        const rect = edge.getBoundingClientRect();
+        const rtl = getComputedStyle(edge).direction === 'rtl';
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const fire = (target: EventTarget, type: string, clientX: number) =>
+            target.dispatchEvent(
+                new PointerEvent(type, { bubbles: true, cancelable: true, clientX, clientY: y, pointerId: 99 })
+            );
+        fire(edge, 'pointerdown', x);
+        for (let step = 1; step <= 10; step++) fire(document, 'pointermove', x + (rtl ? -20 : 20) * step);
+        await waitFor(() => expect(canvasElement.querySelector('[data-resize-corner]')).not.toBeNull());
+    }
 };

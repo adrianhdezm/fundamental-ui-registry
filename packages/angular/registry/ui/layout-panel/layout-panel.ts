@@ -59,7 +59,8 @@ export class LayoutPanel {
 @Component({
     selector: 'fd-layout-panel-header',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: { class: `m-0 box-border flex min-h-10 items-center justify-between border-b p-4 ${BORDER}` },
+    // wraps the actions under the head when the panel is too narrow for both
+    host: { class: `m-0 box-border flex min-h-10 flex-wrap items-center justify-between gap-2 border-b p-4 ${BORDER}` },
     template: `<ng-content select="fd-layout-panel-head" /><ng-content
             select="fd-layout-panel-actions"
         /><ng-content />`
@@ -70,7 +71,7 @@ export class LayoutPanelHeader {}
     selector: 'fd-layout-panel-head',
     template: '<ng-content />',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: { class: 'm-0 block min-w-0 p-0' }
+    host: { class: 'm-0 block min-w-0 p-0 break-words' }
 })
 export class LayoutPanelHead {}
 
@@ -78,7 +79,7 @@ export class LayoutPanelHead {}
 @Directive({
     selector: '[fd-layout-panel-title], [fdLayoutPanelTitle]',
     host: {
-        class: 'm-0 flex-1 p-0 font-sap-font-header-family text-sap-group-title-font-size font-bold text-sap-group-title-text-color'
+        class: 'm-0 flex-1 p-0 font-sap-font-header-family text-sap-group-title-font-size font-normal text-sap-group-title-text-color'
     }
 })
 export class LayoutPanelTitle {}
