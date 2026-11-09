@@ -2277,9 +2277,9 @@
       "source": "../../../react/docs/parity/components/dynamic-page.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host): with the pointer outside the page, the collapsible title area computes cursor: pointer; fundamental-styles sets the pointer on :hover only (computed only, a cursor shows only under the pointer).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the title area shows the pointer cursor on hover only (computed style)",
       "fix": "",
       "notes": ""
     },

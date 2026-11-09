@@ -282,7 +282,7 @@ export class DynamicPageHeader {
             'relative z-1 m-0 box-border flex min-h-12 flex-col justify-between bg-sap-object-header-background px-(--dp-px) py-2 [overflow-wrap:break-word]',
             'peer-focus-visible:outline-sap peer-focus-visible:-outline-offset-4',
             page?.collapsible() &&
-                'cursor-pointer hover:bg-sap-object-header-hover-background hc:hover:border-b hc:hover:border-solid hc:hover:border-sap-object-header-border-color',
+                'hover:cursor-pointer hover:bg-sap-object-header-hover-background hc:hover:border-b hc:hover:border-solid hc:hover:border-sap-object-header-border-color',
             page?.collapsed() && 'pb-4',
             page?.background() === 'transparent' && 'bg-transparent hc:bg-sap-object-header-background',
             this.userClass()

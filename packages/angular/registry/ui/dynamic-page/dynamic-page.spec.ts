@@ -290,6 +290,21 @@ describe('DynamicPage', () => {
         }
     });
 
+    it('the title area shows the pointer cursor on hover only (computed style)', async () => {
+        const { root } = await setup();
+        const area = root.querySelector<HTMLElement>('[class*="hover:bg-sap-object-header-hover-background"]')!;
+        // the pointer on an element outside the page
+        const outside = document.createElement('div');
+        outside.style.cssText = 'position: fixed; right: 0; bottom: 0; width: 20px; height: 20px; z-index: 9999';
+        document.body.appendChild(outside);
+        await userEvent.hover(outside);
+        outside.remove();
+        expect(area.matches(':hover')).toBe(false);
+        expect(getComputedStyle(area).cursor).not.toBe('pointer');
+        await userEvent.hover(area);
+        expect(getComputedStyle(area).cursor).toBe('pointer');
+    });
+
     it('moves the global actions of a toolbar into its overflow when the page is small', async () => {
         const fixture = TestBed.createComponent(OverflowHost);
         document.body.appendChild(fixture.nativeElement);
