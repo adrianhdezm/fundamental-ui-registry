@@ -357,6 +357,19 @@ describe('Dialog', () => {
         near(after.top - before.top, 30);
     });
 
+    it('shows the grab cursor on a draggable header only while the window is hovered (computed style)', async () => {
+        const { open } = await setup();
+        await open({ width: '20rem', draggable: true });
+        const win = windows()[0];
+        const header = win.querySelector<HTMLElement>('[data-dialog-header]')!;
+        // the pointer outside the window
+        await userEvent.hover(document.body, { position: { x: 1, y: 1 } });
+        expect(win.matches(':hover')).toBe(false);
+        expect(getComputedStyle(header).cursor).not.toBe('grab');
+        await userEvent.hover(win.querySelector<HTMLElement>('fd-dialog-body')!);
+        expect(getComputedStyle(header).cursor).toBe('grab');
+    });
+
     it('resizes with the handle when resizable and announces it', async () => {
         const { open } = await setup();
         await open({ width: '20rem' });

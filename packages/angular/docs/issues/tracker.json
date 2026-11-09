@@ -657,9 +657,9 @@
       "source": "../../../react/docs/parity/components/dialog.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (DialogService, draggable): with the pointer outside the window the header computes cursor: grab ([@media(hover:hover)] applies at rest on any hover-capable device); fundamental-styles shows it only while the window is hovered.",
+      "test": "dialog.spec.ts › … › shows the grab cursor on a draggable header only while the window is hovered (computed style)",
       "fix": "",
       "notes": ""
     },

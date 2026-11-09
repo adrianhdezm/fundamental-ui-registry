@@ -612,7 +612,8 @@ export class Dialog {
             this.draggable() &&
                 (this.dragging()
                     ? 'enabled-hover:[&_[data-dialog-header]]:cursor-grabbing'
-                    : '[@media(hover:hover)]:[&_[data-dialog-header]]:cursor-grab'),
+                    : // only while the window is hovered, as fundamental-styles
+                      'hover:[&_[data-dialog-header]]:cursor-grab'),
             config.dialogPanelClass,
             this.windowClass_()
         );
