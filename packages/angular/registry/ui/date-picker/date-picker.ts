@@ -534,6 +534,13 @@ export class DatePicker<D> implements ControlValueAccessor, Validator {
     }
 
     protected pickRange(range: DateRange<D> | null | undefined): void {
+        // months or years of a single date picker: the calendar picks ranges, the picker takes their start, and
+        // each pick starts a new one
+        if (this.type() === 'single') {
+            this.calendar()?.selectedRangeDate.set(null);
+            if (range?.start) this.pickDate(range.start);
+            return;
+        }
         // the first click only starts the range
         if (!range?.end) return;
         if (this.sameValue(range, this.selectedRangeDate())) return;

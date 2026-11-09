@@ -996,9 +996,9 @@
       "source": "../../../react/docs/parity/components/date-picker.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host: a single date picker with dateRangeFormat=\"month\" on 2024-03-09; open, pick June: the value stays 2024-03-09 (the calendar only started a range); a second pick then wrote a DateRange into selectedDate.",
+      "test": "date-picker.spec.ts › DatePicker dateRangeFormat › picks months of a single date with dateRangeFormat",
       "fix": "",
       "notes": ""
     },
