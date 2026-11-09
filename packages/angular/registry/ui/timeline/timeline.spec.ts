@@ -262,6 +262,19 @@ describe('Timeline', () => {
             });
     });
 
+    it("switching the axis drops the old axis' line length and the double layout's node margins", async () => {
+        const { host, stable, nodes, parts } = await setup({ layout: 'double' });
+        expect(nodes().some((node) => node.style.marginTop !== '')).toBe(true);
+        host.axis.set('horizontal');
+        await stable();
+        expect(nodes().map((node) => node.style.marginTop)).toEqual(nodes().map(() => ''));
+        // the lines are horizontal now: no height of the vertical axis left on them
+        expect(nodes().map((node) => parts(node).line.style.height)).toEqual(nodes().map(() => ''));
+        host.axis.set('vertical');
+        await stable();
+        expect(nodes().map((node) => parts(node).line.style.width)).toEqual(nodes().map(() => ''));
+    });
+
     it('lines update when a post resizes (e.g. More/Less in the body) or the timeline resizes', async () => {
         const { host, stable, nodes, parts } = await setup();
         const lineToNext = () => parts(nodes()[1]).line.getBoundingClientRect().height;

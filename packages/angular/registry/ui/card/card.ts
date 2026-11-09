@@ -270,7 +270,8 @@ export class Card {
     );
 
     protected readonly badgeClass =
-        'max-w-full min-h-0 rounded-lg px-1 py-0 [&>span]:truncate [&>span]:leading-[0.875rem] [&>*]:leading-[0.875rem]';
+        // fundamental-styles' 0.875rem minimum height, with the object status' own line height
+        'max-w-full min-h-[0.875rem] rounded-lg px-1 py-0 [&>span]:truncate';
 
     protected readonly roleDescription = computed(() => {
         const type = this.cardType();
@@ -308,7 +309,8 @@ export class Card {
                 "data-selected:before:pointer-events-none data-selected:before:absolute data-selected:before:inset-px data-selected:before:z-[3] data-selected:before:rounded-(--card-r) data-selected:before:content-['']",
                 'data-selected:before:border-(length:--sapContent_FocusWidth) data-selected:before:[border-style:var(--sapContent_FocusStyle)] data-selected:before:border-sap-content-focus-color'
             ],
-            this.cardType() === 'banner' && 'h-full',
+            // banners keep their 1px ring in HC (fundamental-styles' fd-card--banner)
+            this.cardType() === 'banner' && 'h-full hc:[--card-shadow:var(--sapContent_Shadow0)]',
             this.userClass()
         );
     });
@@ -518,7 +520,8 @@ export class CardCounter {
     readonly status = input<CardKpiStatus | 'neutral' | null | undefined>('neutral');
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 ms-4 mt-[0.125rem] p-0 text-sap-font-small-size whitespace-nowrap',
+            // an object status: flex, with a 1rem line height and minimum height
+            'm-0 ms-4 mt-[0.125rem] flex min-h-4 p-0 text-sap-font-small-size leading-4 whitespace-nowrap',
             TEXT_STATUS[this.status() ?? 'neutral']
         )
     );
@@ -731,7 +734,9 @@ export class CardMedia {
                 '[--cm-cw:80%] [--cm-cp:3rem] has-[[data-card-media-image]]:[--cm-cw:50%] has-[[data-card-media-image]]:[--cm-iw:50%]',
                 'max-lg:has-[[data-card-media-image]]:[--cm-cw:80%] max-lg:has-[[data-card-media-image]]:[--cm-iw:20%]',
                 'max-sm:[--cm-cw:100%] max-sm:has-[[data-card-media-image]]:[--cm-dir:column-reverse] max-sm:has-[[data-card-media-image]]:[--cm-iw:100%]',
-                'max-sm:has-[[data-card-media-image]]:[--cm-cw:100%] max-sm:has-[[data-card-media-image]]:[--cm-ih:10rem] max-sm:has-[[data-card-media-image]]:[--cm-ch:auto]'
+                'max-sm:has-[[data-card-media-image]]:[--cm-cw:100%] max-sm:has-[[data-card-media-image]]:[--cm-ih:10rem] max-sm:has-[[data-card-media-image]]:[--cm-ch:auto]',
+                // text over the image: the image takes the whole width
+                'has-[[data-card-media-overlay]]:has-[[data-card-media-image]]:[--cm-iw:100%]'
             ]
         );
     });
@@ -752,7 +757,7 @@ export class CardMediaImage {}
 /** Text block of a media card, optionally overlaying the image. */
 @Directive({
     selector: '[fd-card-media-content-container], [fdCardMediaContentContainer]',
-    host: { '[class]': 'computedClass()' }
+    host: { '[class]': 'computedClass()', '[attr.data-card-media-overlay]': 'isOverlay() ? "" : null' }
 })
 export class CardMediaContentContainer {
     /** Positions the text over the image. */
@@ -766,7 +771,7 @@ export class CardMediaContentContainer {
             'relative z-[3] m-0 box-border flex h-(--cm-ch) max-h-full w-(--cm-cw) flex-col items-start justify-center gap-4',
             'bg-(--cm-cbg) px-(--cm-cp) py-(--cm-cp)',
             this.isOverlay() &&
-                'absolute start-12 top-1/2 h-fit w-[calc(50%_-_3rem)] -translate-y-1/2 max-sm:end-12 max-sm:w-auto max-sm:p-4',
+                'absolute start-12 top-1/2 h-fit w-[calc(50%_-_3rem)] -translate-y-1/2 max-lg:w-[calc(80%_-_3rem)] max-sm:end-12 max-sm:w-auto max-sm:p-4',
             shell && CONTAINER_SHELL_COLOR[shell],
             legend && CONTAINER_LEGEND_COLOR[legend]
         );

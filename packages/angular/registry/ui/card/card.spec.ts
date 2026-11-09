@@ -877,3 +877,54 @@ describe('Card', () => {
         expect(Math.abs(rect(q('#end-column')).top - rect(q('#start-column')).top)).toBeLessThan(1);
     });
 });
+
+@Component({
+    imports: [Card, CardMedia, CardMediaImageContainer, CardMediaImage, CardMediaContentContainer, CardMediaHeading],
+    template: `
+        <fd-card id="overlay-banner" cardType="banner" style="height: 288px">
+            <fd-card-media>
+                <div fd-card-media-content-container isOverlay [legendColor]="13">
+                    <div fd-card-media-heading [level]="3">Overlay</div>
+                </div>
+                <div fd-card-media-image-container><img fd-card-media-image [src]="img" alt="Landscape" /></div>
+            </fd-card-media>
+        </fd-card>
+    `
+})
+class OverlayHost {
+    readonly img = IMG;
+}
+
+describe('Card styles', () => {
+    afterEach(() => document.documentElement.removeAttribute('data-sap-theme'));
+
+    it('the counter has a 1rem line height and minimum height, as the object status (computed style)', async () => {
+        const { q } = await render(StandardHost);
+        const counter = q('#counter');
+        expect(style(counter).lineHeight).toBe('16px');
+        expect(rect(counter).height).toBe(16);
+    });
+
+    it('badges are 18px high: a 0.875rem minimum height and the object status line height (computed style)', async () => {
+        const { q } = await render(StandardHost);
+        const badge = q('#card-badge');
+        expect(style(badge).minHeight).toBe('14px');
+        expect(rect(badge).height).toBe(18);
+    });
+
+    it('in HC banner cards keep their 1px ring, other cards have no shadow (computed style)', async () => {
+        const { q } = await render(MediaHost);
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        expect(style(q('#banner')).boxShadow).not.toBe('none');
+        expect(style(q('#banner')).boxShadow).toMatch(/0px 0px 0px 1px/);
+        expect(style(q('#image-card')).boxShadow).toBe('none');
+    });
+
+    it('an overlay banner has a full-width image, and its text is 80% − 3rem below 1024px', async () => {
+        await page.viewport(900, 800);
+        const { q } = await render(OverlayHost);
+        const media = rect(q('fd-card-media'));
+        expect(rect(q('[fd-card-media-image-container]')).width).toBeCloseTo(media.width, 0);
+        expect(rect(q('[fd-card-media-content-container]')).width).toBeCloseTo(media.width * 0.8 - 48, 0);
+    });
+});

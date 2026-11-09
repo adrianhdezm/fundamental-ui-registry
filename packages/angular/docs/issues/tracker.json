@@ -157,11 +157,11 @@
       "source": "../../../react/docs/parity/components/layout-grid.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (TypographyHost: a grid in a serif 20px/30px bold red ancestor): a column computes font-family serif, 20px, 30px line height, weight 700, red; fundamental-styles' .fd-container/.fd-row/.fd-col set 72, 14px, normal, 400 and --sapTextColor.",
+      "test": "layout-grid.spec.ts › LayoutGrid typography › sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-container (computed style)",
+      "fix": "0d5f534",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual layout-grid: the grid and a column match fundamental-styles' Different Size Columns by computed style (typography) in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "checkbox-1",
@@ -237,11 +237,11 @@
       "source": "../../../react/docs/parity/components/layout-panel.md",
       "kind": "visual",
       "confirmed": "read from the code",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Built Storybook, components-layout-panel--default at a 120px panel: the head shrinks to 29px while the title's widest word needs 52px, so it runs under the 59px actions (spec NarrowHost: title scrollWidth 52 > head 29). One-line flex header with a min-w-0 head.",
+      "test": "layout-panel.spec.ts › LayoutPanel in a narrow column › the head keeps room for the title, which does not run under the actions",
+      "fix": "9e90622",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual layout-panel: the title still matches in all 16 (the narrow case is the spec's: no story is that narrow); pnpm angular check passes."
     },
     {
       "id": "popover-1",
@@ -1776,11 +1776,11 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StandardHost): the header counter computes line-height normal and is 14px high; fundamental-styles' counter is an object status: flex with a 1rem line height and min height (16px), so the header was 2px shorter.",
+      "test": "card.spec.ts › Card styles › the counter has a 1rem line height and minimum height, as the object status (computed style)",
+      "fix": "adedca4",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual card: the counter matches fundamental-styles' Card Anatomy by computed style (height and line height) in all 16 (our first counter is positive and interactive: colour and cursor ignored); pnpm angular check passes."
     },
     {
       "id": "card-3",
@@ -1789,11 +1789,11 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StandardHost): the badge computes min-height 0px and is 16px high (min-h-0 and a 0.875rem text line height); fundamental-styles' badge has a 0.875rem minimum height and the object status' 1rem line height: 18px.",
+      "test": "card.spec.ts › Card styles › badges are 18px high: a 0.875rem minimum height and the object status line height (computed style)",
+      "fix": "5330b80",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual card: the badge matches by computed style (min height, line height, height) in all 16; pnpm angular check passes."
     },
     {
       "id": "card-4",
@@ -1816,11 +1816,11 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (MediaHost) in sap_horizon_hcb: the banner card computes box-shadow none (hc:[--card-shadow:none] applies to every card); fundamental-styles' fd-card--banner keeps var(--sapContent_Shadow0), a 1px ring.",
+      "test": "card.spec.ts › Card styles › in HC banner cards keep their 1px ring, other cards have no shadow (computed style)",
+      "fix": "d617134",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual card: the banner matches fundamental-styles' Media Banner by computed style (box-shadow included) in all 16; pnpm angular check passes."
     },
     {
       "id": "card-6",
@@ -1829,11 +1829,11 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (OverlayHost: a banner with isOverlay text over an image, viewport 900px): the image container is 50% of the media (banner's has-image rule; 20% below 1024px) and the text 50% − 3rem; fundamental-styles' overlay rule gives the image the whole width and the text 80% − 3rem below 1024px.",
+      "test": "card.spec.ts › Card styles › an overlay banner has a full-width image, and its text is 80% − 3rem below 1024px",
+      "fix": "5b09dd9",
+      "notes": "Verified: the test fails before the fix and passes after; no Angular story shows an overlay banner (as React, covered by the spec); pnpm angular check passes."
     },
     {
       "id": "generic-tag-1",
@@ -1922,11 +1922,11 @@
       "source": "../../../react/docs/parity/components/panel.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): an expanded panel with transparent computes its header background rgba(0, 0, 0, 0); fundamental-styles' fd-panel--transparent clears the content background only, the header keeps --sapGroup_TitleBackground (visible in Horizon Dark and HC).",
+      "test": "panel.spec.ts › Panel › header and content corners follow the expanded state; a transparent panel keeps the header background",
+      "fix": "a4217bf, 5cdad13",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual panel: the transparent panel's header matches fundamental-styles' Transparent story by computed style in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "scrollbar-1",
@@ -1935,11 +1935,11 @@
       "source": "../../../react/docs/parity/components/scrollbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (TypographyHost: an fdScrollbar in a serif 20px/30px bold red ancestor): it computes serif, 20px, 30px, 700, red; fundamental-styles' .fd-scrollbar sets 72, 14px, normal line height, 400 and --sapTextColor.",
+      "test": "scrollbar.spec.ts › Scrollbar typography › sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-scrollbar (computed style)",
+      "fix": "f1160a9",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual scrollbar: the scroll container matches fundamental-styles' example by computed style in all 16 (our story's frame ignored); pnpm angular check passes."
     },
     {
       "id": "status-indicator-1",
@@ -2039,11 +2039,11 @@
       "source": "../../../react/docs/parity/components/quick-view.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host: a subheader with a title alone): the subheader bar computes min-height 0px (min-h-0); fundamental-styles keeps the bar's 44px (40px compact).",
+      "test": "quick-view.spec.ts › QuickView › the subheader keeps the bar's minimum height, as fundamental-styles (computed style)",
+      "fix": "7c08f23",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual quick-view: the subheader bar's minimum height matches in all 16; it differs in align-items (center vs normal, the bar's own, not this issue); pnpm angular check passes."
     },
     {
       "id": "avatar-group-1",
@@ -2250,11 +2250,11 @@
       "source": "../../../react/docs/parity/components/dynamic-page.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host) in sap_horizon_dark: the collapse and pin buttons compute background rgb(28, 36, 44) (--sapButton_Background); fundamental-styles uses --sapObjectHeader_Background, rgb(29, 35, 42).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the collapse and pin buttons are on the object header background (computed style)",
+      "fix": "a280481",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual dynamic-page: the collapse and pin buttons match fundamental-styles' Desktop story in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "dynamic-page-3",
@@ -2277,11 +2277,11 @@
       "source": "../../../react/docs/parity/components/dynamic-page.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): with the pointer outside the page, the collapsible title area computes cursor: pointer; fundamental-styles sets the pointer on :hover only (computed only, a cursor shows only under the pointer).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the title area shows the pointer cursor on hover only (computed style)",
+      "fix": "6a538b5",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual dynamic-page: the title area at rest matches by computed style (cursor included) in all 16; pnpm angular check passes."
     },
     {
       "id": "timeline-1",
@@ -2290,11 +2290,11 @@
       "source": "../../../react/docs/parity/components/timeline.md",
       "kind": "behaviour",
       "confirmed": "read from the code",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, layout double): from the vertical axis (nodes 2 and 5 get margin-top 14px and 17px) switch to horizontal: the margins stay ['', '14px', '', '', '17px'], and the lines keep their vertical height (layoutLines only set the new axis' size and reset margins for double vertical layouts).",
+      "test": "timeline.spec.ts › Timeline › switching the axis drops the old axis' line length and the double layout's node margins",
+      "fix": "58c98ef",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "micro-process-flow-1",
@@ -2303,11 +2303,11 @@
       "source": "../../../react/docs/parity/components/micro-process-flow.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): fd-micro-process-flow computes line-height 21px (leading-(--sapContent_LineHeight)), inherited by every part; fundamental-styles' root has normal (computed only).",
+      "test": "micro-process-flow.spec.ts › MicroProcessFlow › the root has a normal line height, as fundamental-styles (computed style)",
+      "fix": "65ccb5b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "micro-process-flow-2",
@@ -2514,11 +2514,11 @@
       "source": "../../../react/docs/parity/components/flexible-column-layout.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, ThreeColumnsMidExpanded at 1400px) in sap_horizon_hcb and _hcw: the mid column computes 1px left and right borders (--sapGroup_ContentBorderColor); fundamental-styles' columns have none in HC.",
+      "test": "flexible-column-layout.spec.ts › FlexibleColumnLayout › the columns have no borders in high contrast, as fundamental-styles (computed style)",
+      "fix": "7b486ce",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual flexible-column-layout: the mid column matches fundamental-styles' Three Columns Layout by computed style (borders) in all 16; pnpm angular check passes."
     },
     {
       "id": "fixed-card-layout-1",
@@ -2527,11 +2527,11 @@
       "source": "../../../react/docs/parity/components/fixed-card-layout.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): the layout's flex container computes align-items: flex-start; fundamental-styles' fixed card layout has center (computed only: the columns fill the width).",
+      "test": "fixed-card-layout.spec.ts › FixedCardLayout › the columns are centred, as fundamental-styles (align-items: center, computed style)",
+      "fix": "c44e800",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "fixed-card-layout-2",
@@ -2554,11 +2554,11 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, hover card A): the resize corner box computes 159px high (the card area's [&>*]:h-full applies to it), so its glyph sits in the middle of the end edge; fundamental-styles' corner is 1.5rem at the bottom end.",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › the resize corner is a 1.5rem box at the bottom end, not as tall as the card",
+      "fix": "aea2c92",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual resizable-card-layout: the corner (box, bottom, inline end) and its icon match fundamental-styles' resizing story by computed style in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "resizable-card-layout-2",
@@ -2567,11 +2567,11 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host in RTL, hover card A): the corner box sits 295px right of the card area's left edge (rtl:-start-0 puts it at the right); fundamental-styles puts it at the bottom left, 0.25rem out.",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › in RTL the resize corner sits at the bottom left, 0.25rem out",
+      "fix": "54a7f7b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual resizable-card-layout: the corner's inset-inline-end and bottom match in the 8 RTL combinations; pnpm angular check passes."
     },
     {
       "id": "resizable-card-layout-3",
@@ -2580,11 +2580,11 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host in RTL, hover card A): the corner icon computes rotate: 90deg and transform: none; fundamental-styles turns it with transform: rotate(90deg) (computed only, same pixels).",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › in RTL the corner icon turns with transform, not rotate (computed style)",
+      "fix": "ac9c46c",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual resizable-card-layout: the icon's transform and rotate match in all 16; pnpm angular check passes."
     },
     {
       "id": "resizable-card-layout-4",
@@ -2593,11 +2593,11 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host in RTL): dragging card A's edge 200px to the left (growing it past half a column) keeps the ranks A1 B2 C3 D4 E5: cardState is -1 for a leftward move, read as shrinking, so D (end of the row) never moves down; in LTR the same growth gives D5 E4.",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › in RTL growing a card past half a column moves the card at the end of its row down",
+      "fix": "1507e5f",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "feed-list-1",
@@ -2923,11 +2923,11 @@
       "source": "../../../react/docs/parity/components/content-density.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "fixed",
+      "status": "verified",
       "repro": "Spec: a button in compact > cozy > compact > cozy sections (fdCompact/fdCozy) measures 26, 36, 36, 36px instead of 26, 36, 26, 36px: the compact section inside the cozy island stays cozy. Storybook: components-content-density--directives under a compact global density shows the same.",
       "test": "ContentDensity › the nearest density wins through alternating levels (compact, cozy, compact, cozy)",
       "fix": "daa80fc",
-      "notes": "Shared styles (`registry/styles/fundamental.css`): every component is affected. Fixed; to be verified against fundamental-styles in all 16 combinations once the visual comparison script exists."
+      "notes": "Shared styles (`registry/styles/fundamental.css`): every component is affected. Fixed; to be verified against fundamental-styles in all 16 combinations once the visual comparison script exists. Verified: Nested densities story and scripts/visual/content-density.mjs added (as React); pnpm visual content-density: the button and its hover in a section of the toolbar density inside one of the other density match fundamental-styles' button in all 16 combinations, the input by computed style except the box-shadow ring layers (pattern-shadow-ring, the input's); pnpm angular check passes."
     }
   ]
 }

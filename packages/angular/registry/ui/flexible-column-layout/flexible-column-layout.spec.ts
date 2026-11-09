@@ -285,6 +285,23 @@ describe('FlexibleColumnLayout', () => {
         expect(columns().map((c) => c.style.width)).toEqual(['67%', '33%', '0%']);
     });
 
+    it('the columns have no borders in high contrast, as fundamental-styles (computed style)', async () => {
+        const { columns } = await setup('ThreeColumnsMidExpanded', 1400);
+        const mid = columns()[1];
+        expect(getComputedStyle(mid).borderLeftWidth).toBe('1px');
+        try {
+            for (const theme of ['sap_horizon_hcb', 'sap_horizon_hcw']) {
+                document.documentElement.setAttribute('data-sap-theme', theme);
+                expect([getComputedStyle(mid).borderLeftWidth, getComputedStyle(mid).borderRightWidth]).toEqual([
+                    '0px',
+                    '0px'
+                ]);
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     it('backgroundDesign solid/translucent/transparent, including high contrast', async () => {
         const { host, stable, separators } = await setup('TwoColumnsMidExpanded', 1100);
         const background = () => getComputedStyle(separators()[0]).backgroundColor;

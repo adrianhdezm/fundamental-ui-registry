@@ -103,16 +103,18 @@ let nextId = 0;
                 (mouseleave)="hovered.set(false)"
             >
                 <div
-                    class="relative order-1 h-[calc(100%_-_0.0625rem)] flex-1 [&>*]:h-full [&>*]:overflow-hidden [&>*>*]:shrink-0"
+                    class="relative order-1 h-[calc(100%_-_0.0625rem)] flex-1 [&>:not([data-resize-corner])]:h-full [&>:not([data-resize-corner])]:overflow-hidden [&>:not([data-resize-corner])>*]:shrink-0"
                 >
                     <ng-content />
                     @if (resizable() && (hovered() || resizingNow())) {
+                        <!-- the corner keeps its own size: the card content fills the area, not the corner -->
                         <div
                             aria-hidden="true"
-                            class="absolute -end-0 -bottom-[0.35rem] z-2 flex size-6 items-start justify-start rtl:-start-0 rtl:-bottom-0.5"
+                            data-resize-corner
+                            class="absolute end-0 -bottom-[0.35rem] z-2 flex size-6 items-start justify-start rtl:-end-1 rtl:-bottom-0.5"
                         >
                             <div
-                                class="absolute z-2 flex size-full cursor-nwse-resize items-center justify-center font-sap-content-icon-font-family text-[1rem] leading-4 text-sap-button-lite-text-color before:content-[attr(data-glyph)] rtl:rotate-90 rtl:cursor-nesw-resize"
+                                class="absolute z-2 flex size-full cursor-nwse-resize items-center justify-center font-sap-content-icon-font-family text-[1rem] leading-4 text-sap-button-lite-text-color before:content-[attr(data-glyph)] rtl:[transform:rotate(90deg)] rtl:cursor-nesw-resize"
                                 [attr.data-glyph]="cornerGlyph"
                                 (pointerdown)="startResize($event, 'both')"
                             ></div>
@@ -277,7 +279,9 @@ export class ResizableCardItem implements FocusableOption {
         const span = Math.floor(width / horizontalResizeStep);
         const thresholdReached = width - (span * horizontalResizeStep + span * gap) > horizontalResizeOffset;
         if (clientX !== this.prevX) {
-            this.cardState = clientX > this.prevX ? 1 : -1;
+            // growing or shrinking, whatever the direction (in RTL a card grows to the left)
+            const rtl = getComputedStyle(this.element).direction === 'rtl';
+            this.cardState = clientX > this.prevX !== rtl ? 1 : -1;
             const future = (span + 1) * horizontalResizeStep + span * gap;
             this.indicationWidth.set(thresholdReached ? future - width : 0);
         }

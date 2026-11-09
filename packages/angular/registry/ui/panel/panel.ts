@@ -80,7 +80,7 @@ export class Panel {
     readonly expanded = model(false);
     readonly expandAriaLabel = input<string | null | undefined>();
     readonly expandAriaLabelledBy = input<string | null | undefined>();
-    /** Transparent header and content. */
+    /** Transparent content; the header keeps its background, as fundamental-styles. */
     readonly transparent = input(false, { transform: booleanAttribute });
     readonly noRadius = input(false, { transform: booleanAttribute });
     readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -103,7 +103,6 @@ export class Panel {
             'rounded-t-sap-element-border-corner-radius has-[fd-toolbar]:pe-0',
             !open && 'rounded-b-sap-element-border-corner-radius',
             this.fixed() && 'ps-3',
-            this.transparent() && 'bg-transparent',
             this.noRadius() && 'rounded-none'
         );
     });

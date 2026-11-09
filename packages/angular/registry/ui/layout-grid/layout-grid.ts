@@ -135,6 +135,8 @@ export class LayoutGrid {
         const vertical = !this.noGap() && !this.noVerticalGap();
         return cn(
             'relative m-0 box-border flex flex-[0_0_100%] flex-wrap px-1 py-0 min-[600px]:px-2',
+            // the SAP text typography, as fundamental-styles' .fd-container, .fd-row and .fd-col
+            'font-sap-font-family text-sap-font-size leading-[normal] font-normal text-sap-text-color',
             horizontal
                 ? [
                       '[&_[data-fd-row]]:-mx-1 [&_[data-fd-row]]:min-w-[calc(100%_+_0.5rem)]',
