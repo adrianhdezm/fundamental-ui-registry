@@ -439,7 +439,7 @@ export class Pagination {
 
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 box-border flex h-11 w-full items-center justify-between gap-4 px-4 py-0 font-sap-font-family',
+            'm-0 box-border flex h-11 w-full items-center justify-between px-4 py-0 font-sap-font-family',
             this.userClass()
         )
     );

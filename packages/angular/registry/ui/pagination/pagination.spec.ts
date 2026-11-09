@@ -290,4 +290,14 @@ describe('Pagination issues', () => {
         const labels = [...root.querySelectorAll<HTMLElement>('nav span[id]')];
         expect(labels.map((el) => getComputedStyle(el).marginInlineEnd)).toEqual(['8px', '8px']);
     });
+
+    it('centres the nav in the space next to the results text (pagination-3)', async () => {
+        const { fixture, host, root } = await setup({ total: 50 });
+        host.options.set([]);
+        await fixture.whenStable();
+        const outer = root.querySelector('fd-pagination')!.getBoundingClientRect();
+        const nav = root.querySelector('nav')!.getBoundingClientRect();
+        const total = root.querySelector('nav + span')!.getBoundingClientRect();
+        expect(nav.left - (outer.left + 16)).toBeCloseTo(total.left - nav.right, 0);
+    });
 });

@@ -1232,9 +1232,9 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "pagination.spec.ts Host (50 items, no items per page options): the space before the nav is 445.6px and after it 461.6px (16px apart, the nav 8px off centre), because of gap-4 on the root.",
+      "test": "Pagination issues > centres the nav in the space next to the results text (pagination-3)",
       "fix": "",
       "notes": ""
     },
