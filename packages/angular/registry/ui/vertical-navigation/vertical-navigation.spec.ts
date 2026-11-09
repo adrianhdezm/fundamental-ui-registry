@@ -261,4 +261,20 @@ describe('VerticalNavigation issues', () => {
         );
         expect(header.getBoundingClientRect().height).toBe(43);
     });
+
+    it('sets the vertical nav text style on the column (vertical-navigation-4)', async () => {
+        const fixture = TestBed.createComponent(Host);
+        const root = fixture.nativeElement as HTMLElement;
+        // a page text style the column must not take (Tailwind's preflight sets a 1.5 line height on html)
+        Object.assign(root.style, { lineHeight: '1.5', fontSize: '1.25rem', fontWeight: '700', color: 'red' });
+        document.body.appendChild(root);
+        await fixture.whenStable();
+        const column = getComputedStyle(root.querySelector('fd-vertical-navigation > div')!);
+        expect([column.fontSize, column.lineHeight, column.fontWeight, column.color]).toEqual([
+            themed('fontSize', 'var(--sapFontSize)'),
+            'normal',
+            '400',
+            themed('color', 'var(--sapTextColor)')
+        ]);
+    });
 });

@@ -2223,9 +2223,9 @@
       "source": "../../../react/docs/parity/components/vertical-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "vertical-navigation.spec.ts Host on a page with a 1.25rem, 1.5 line height, bold, red text style: the column takes 20px, 30px, 700 and red instead of fd-vertical-nav's --sapFontSize (14px), line-height normal, 400 and --sapTextColor; it set only the font family.",
+      "test": "VerticalNavigation issues > sets the vertical nav text style on the column (vertical-navigation-4)",
       "fix": "",
       "notes": ""
     },

@@ -88,7 +88,7 @@ export class VerticalNavigation {
 
     protected readonly navClass = computed(() =>
         cn(
-            'm-0 box-border flex h-full flex-col justify-between bg-sap-list-alternating-background p-0 font-sap-font-family [box-shadow:var(--sapContent_Shadow0)]',
+            'm-0 box-border flex h-full flex-col justify-between bg-sap-list-alternating-background p-0 font-sap-font-family text-sap-font-size leading-[normal] font-normal text-sap-text-color [box-shadow:var(--sapContent_Shadow0)]',
             this.condensed() ? 'w-[3.25rem]' : 'w-60',
             this.userClass()
         )
