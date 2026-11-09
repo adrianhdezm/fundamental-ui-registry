@@ -2197,9 +2197,9 @@
       "source": "../../../react/docs/parity/components/vertical-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "vertical-navigation.spec.ts Host: the 'Services' group header is one bold body-font text (no title span) with 16px side padding and 8px bottom padding, instead of fundamental-styles' list group header (0.9375rem padding, a title in the header font, --sapFontHeader6Size, 2rem line height, --sapList_TableGroupHeaderTextColor).",
+      "test": "VerticalNavigation issues > shows the group header as a list group header title (vertical-navigation-2)",
       "fix": "",
       "notes": ""
     },

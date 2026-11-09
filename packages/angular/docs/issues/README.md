@@ -671,12 +671,12 @@ None.
 
 #### vertical-navigation
 
-[React report](../../../react/docs/parity/components/vertical-navigation.md) · ⬜ reported: 3 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/vertical-navigation.md) · ⬜ reported: 2 · 🧪 covered: 2
 
 | ID                    | Issue                                                                                                                                             | Kind   | Confirmed | Pattern | Status      | Test                                                                                                                              | Fix | Notes |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
 | vertical-navigation-1 | Vertical-navigation has no space between icon and text, so first-level texts are 4px closer to the icon and out of line with second-level texts.  | visual | rendered  |         | 🧪 covered  | VerticalNavigation issues > lines first-level texts up with the second-level ones, 0.25rem after the icon (vertical-navigation-1) |     |       |
-| vertical-navigation-2 | The vertical-navigation group header is a single bold text, not fundamental-styles' list group header title.                                      | visual | rendered  |         | ⬜ reported |                                                                                                                                   |     |       |
+| vertical-navigation-2 | The vertical-navigation group header is a single bold text, not fundamental-styles' list group header title.                                      | visual | rendered  |         | 🧪 covered  | VerticalNavigation issues > shows the group header as a list group header title (vertical-navigation-2)                           |     |       |
 | vertical-navigation-3 | The condensed vertical-navigation panel has a padded header, 16px header text, second-level texts 8px further in, 12px corners and a 44px header. | visual | rendered  |         | ⬜ reported |                                                                                                                                   |     |       |
 | vertical-navigation-4 | The vertical-navigation column sets only the font family, not fundamental-styles' size, line height and colour.                                   | visual | rendered  |         | ⬜ reported |                                                                                                                                   |     |       |
 

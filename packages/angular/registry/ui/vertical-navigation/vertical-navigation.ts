@@ -392,12 +392,17 @@ export class ListNavigationItem implements FocusableOption {
     }
 }
 
-/** A group header between navigation items. */
-@Directive({
+/** A group header between navigation items, as fundamental-styles' list group header with its title. */
+@Component({
     selector: '[fd-vertical-navigation-group-header], [fdVerticalNavigationGroupHeader]',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         role: 'none',
-        class: 'm-0 box-border flex h-11 items-end truncate border-0 border-b border-solid border-sap-list-group-header-border-color bg-sap-list-alternating-background px-4 pb-2 font-sap-font-family text-sap-font-size font-bold text-sap-list-group-header-text-color'
-    }
+        class: 'm-0 box-border flex h-11 items-end overflow-hidden border-0 border-b border-solid border-sap-list-group-header-border-color bg-sap-list-alternating-background px-[0.9375rem] py-0 font-sap-font-family text-sap-font-size leading-[normal] font-normal text-sap-text-color'
+    },
+    template: `<span
+        class="m-0 min-w-0 truncate p-0 font-sap-font-header-family text-sap-font-header6-size leading-8 font-bold text-sap-list-table-group-header-text-color"
+        ><ng-content
+    /></span>`
 })
 export class VerticalNavigationGroupHeader {}

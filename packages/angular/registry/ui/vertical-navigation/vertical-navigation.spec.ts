@@ -229,4 +229,18 @@ describe('VerticalNavigation issues', () => {
         expect(getComputedStyle(icon).marginInlineEnd).toBe('4px');
         expect(textStart('Overview')).toBe(textStart('Today'));
     });
+
+    it('shows the group header as a list group header title (vertical-navigation-2)', async () => {
+        const { root } = await setup();
+        const header = root.querySelector<HTMLElement>('[fd-vertical-navigation-group-header]')!;
+        const title = header.querySelector<HTMLElement>(':scope > span')!;
+        expect(title.textContent!.trim()).toBe('Services');
+        const style = getComputedStyle(title);
+        expect([style.fontSize, style.lineHeight, style.color]).toEqual([
+            themed('fontSize', 'var(--sapFontHeader6Size)'),
+            '32px',
+            themed('color', 'var(--sapList_TableGroupHeaderTextColor)')
+        ]);
+        expect([getComputedStyle(header).paddingLeft, getComputedStyle(header).paddingBottom]).toEqual(['15px', '0px']);
+    });
 });
