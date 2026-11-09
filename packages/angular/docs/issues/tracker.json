@@ -1922,9 +1922,9 @@
       "source": "../../../react/docs/parity/components/panel.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host): an expanded panel with transparent computes its header background rgba(0, 0, 0, 0); fundamental-styles' fd-panel--transparent clears the content background only, the header keeps --sapGroup_TitleBackground (visible in Horizon Dark and HC).",
+      "test": "panel.spec.ts › Panel › header and content corners follow the expanded state; a transparent panel keeps the header background",
       "fix": "",
       "notes": ""
     },

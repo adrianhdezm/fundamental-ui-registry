@@ -103,7 +103,6 @@ export class Panel {
             'rounded-t-sap-element-border-corner-radius has-[fd-toolbar]:pe-0',
             !open && 'rounded-b-sap-element-border-corner-radius',
             this.fixed() && 'ps-3',
-            this.transparent() && 'bg-transparent',
             this.noRadius() && 'rounded-none'
         );
     });

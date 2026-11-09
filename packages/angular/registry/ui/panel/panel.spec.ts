@@ -162,7 +162,7 @@ describe('Panel', () => {
         expect(root.querySelector('fd-panel')!.id).toMatch(/^fd-panel-\d+$/);
     });
 
-    it('header and content corners follow the expanded state', async () => {
+    it('header and content corners follow the expanded state; a transparent panel keeps the header background', async () => {
         const { host, stable, header } = await setup();
         expect(getComputedStyle(header()).borderBottomLeftRadius).not.toBe('0px');
         host.expanded.set(true);
@@ -170,7 +170,12 @@ describe('Panel', () => {
         expect(getComputedStyle(header()).borderBottomLeftRadius).toBe('0px');
         host.transparent.set(true);
         await stable();
-        expect(getComputedStyle(header()).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+        // a transparent panel keeps its header background, as fundamental-styles' fd-panel--transparent
+        const probe = document.createElement('div');
+        probe.style.backgroundColor = 'var(--sapGroup_TitleBackground)';
+        document.body.appendChild(probe);
+        expect(getComputedStyle(header()).backgroundColor).toBe(getComputedStyle(probe).backgroundColor);
+        probe.remove();
     });
 
     it('compact density sizes', async () => {
