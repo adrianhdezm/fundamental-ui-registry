@@ -3,8 +3,12 @@ const FS = 'sap-design-components-';
 
 const ours = (story, selector) => ({ story: `components-tile--${story}`, selector });
 const ref = (story, selector) => ({ story: `${FS}generic-tiles--${story}`, selector });
-/** The parts of fundamental-styles' fd-button that ours do not set, around the action glyphs: their borders stay. */
+/**
+ * The parts of fundamental-styles' fd-button that ours do not set, around the action glyphs: their borders stay. The
+ * lite button background is the page colour in HC (transparent in Horizon), ours transparent: the same look.
+ */
 const BUTTON_BOX = [
+    'background-color',
     'padding-top',
     'padding-bottom',
     'min-height',
