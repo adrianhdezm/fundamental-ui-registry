@@ -2421,11 +2421,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "Spec: a mobile multi-combobox with stateMessage \"Pick at least one\", dialog opened: two elements with id <id>-message (the control template, which holds the description, is rendered for the page field and for the dialog field).",
       "test": "MultiCombobox › mobile › renders the state message description once for the page and the dialog field",
-      "fix": "",
-      "notes": ""
+      "fix": "dc26309",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "multi-combobox-9",
@@ -2434,11 +2434,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "Spec: a multi-combobox without a state message has no aria-live element; setting stateMessage creates <span aria-live=\"polite\"> together with its text (the region is inside @if (currentStateMessage() && !isOpen())), which screen readers often do not announce.",
       "test": "MultiCombobox › keeps the polite live region mounted, so a state message that appears is announced",
-      "fix": "",
-      "notes": ""
+      "fix": "5d1a4e0",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "facets-1",
