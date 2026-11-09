@@ -227,13 +227,13 @@ None.
 
 #### message-strip
 
-[React report](../../../react/docs/parity/components/message-strip.md) · ⬜ reported: 3
+[React report](../../../react/docs/parity/components/message-strip.md) · ⬜ reported: 2 · 🧪 covered: 1
 
-| ID              | Issue                                                                                                                                                             | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| message-strip-1 | The icon box gets a 1.5rem line height from `text-base`; fundamental-styles uses `normal`.                                                                        | visual | rendered  |         | ⬜ reported |      |     |       |
-| message-strip-2 | In HC themes the focused close button of an indication-colour strip keeps the button background and border.                                                       | visual | rendered  |         | ⬜ reported |      |     |       |
-| message-strip-3 | Links in the strip lack fundamental-styles' `fd-message-strip--link` styles (0.25rem start margin and padding, contrast or subtle colours on indication colours). | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID              | Issue                                                                                                                                                             | Kind   | Confirmed | Pattern | Status      | Test                                                                                                                        | Fix | Notes |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| message-strip-1 | The icon box gets a 1.5rem line height from `text-base`; fundamental-styles uses `normal`.                                                                        | visual | rendered  |         | 🧪 covered  | message-strip.spec.ts › MessageStrip styles › the icon box has a normal line height, as fundamental-styles (computed style) |     |       |
+| message-strip-2 | In HC themes the focused close button of an indication-colour strip keeps the button background and border.                                                       | visual | rendered  |         | ⬜ reported |                                                                                                                             |     |       |
+| message-strip-3 | Links in the strip lack fundamental-styles' `fd-message-strip--link` styles (0.25rem start margin and padding, contrast or subtle colours on indication colours). | visual | rendered  |         | ⬜ reported |                                                                                                                             |     |       |
 
 #### tile
 

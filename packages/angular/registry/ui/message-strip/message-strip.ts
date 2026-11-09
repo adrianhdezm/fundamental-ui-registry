@@ -135,7 +135,7 @@ let nextId = 0;
     template: `
         @if (showIcon()) {
             <div
-                class="absolute start-0 top-[0.4375rem] m-0 flex w-10 items-center justify-center p-0 text-base text-(--ms-ic) [&_fd-icon]:flex [&_fd-icon]:size-4 [&_fd-icon]:items-center [&_fd-icon]:justify-center [&_fd-icon]:leading-none"
+                class="absolute start-0 top-[0.4375rem] m-0 flex w-10 items-center justify-center p-0 text-[1rem] leading-[normal] text-(--ms-ic) [&_fd-icon]:flex [&_fd-icon]:size-4 [&_fd-icon]:items-center [&_fd-icon]:justify-center [&_fd-icon]:leading-none"
                 aria-hidden="true"
             >
                 @if (icon(); as icon) {

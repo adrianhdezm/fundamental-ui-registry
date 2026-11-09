@@ -579,9 +579,9 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (StylesHost): the icon box of an information strip computes line-height 24px (text-base's 1.5rem); fundamental-styles' icon box has normal.",
+      "test": "message-strip.spec.ts › MessageStrip styles › the icon box has a normal line height, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },

@@ -429,3 +429,42 @@ describe('MessageStrip', () => {
         });
     });
 });
+
+@Component({
+    imports: [MessageStrip],
+    template: `
+        <fd-message-strip id="strong" indicationColor="1">Strong <a href="#strong">Details</a></fd-message-strip>
+        <fd-message-strip id="light" indicationColor="1b">Light <a href="#light">Details</a></fd-message-strip>
+        <fd-message-strip id="plain" type="information" [dismissible]="false"
+            >Plain <a href="#plain">Details</a></fd-message-strip
+        >
+    `
+})
+class StylesHost {}
+
+describe('MessageStrip styles', () => {
+    afterEach(() => document.documentElement.removeAttribute('data-sap-theme'));
+
+    async function setupStyles() {
+        const fixture = TestBed.createComponent(StylesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        /** The computed value of a colour variable, as a colour. */
+        const colour = (variable: string) => {
+            const probe = document.createElement('span');
+            probe.style.color = `var(${variable})`;
+            root.appendChild(probe);
+            const value = getComputedStyle(probe).color;
+            probe.remove();
+            return value;
+        };
+        return { root, strip: (id: string) => root.querySelector<HTMLElement>(`#${id}`)!, colour };
+    }
+
+    it('the icon box has a normal line height, as fundamental-styles (computed style)', async () => {
+        const { strip } = await setupStyles();
+        const box = strip('plain').querySelector<HTMLElement>('[aria-hidden="true"]:has(fd-icon)')!;
+        expect(getComputedStyle(box).lineHeight).toBe('normal');
+    });
+});
