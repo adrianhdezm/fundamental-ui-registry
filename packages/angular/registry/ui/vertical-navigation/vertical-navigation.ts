@@ -156,7 +156,8 @@ export class ListNavigationItemText {
         const panel = !!item?.inPanel();
         return cn(
             'm-0 box-border inline-block max-w-36 truncate p-0 ps-1 align-middle font-sap-font-family text-(--vn-fg)',
-            child ? 'ps-0 text-sap-font-size' : 'text-sap-font-large-size',
+            // second-level texts and the parent's text in a condensed panel are the smaller size
+            child || item?.panelOpen() ? 'ps-0 text-sap-font-size' : 'text-sap-font-large-size',
             'leading-11',
             // second-level texts start after the parent's icon column, or 1rem in when it has none
             child && (panel ? 'ms-4' : item?.parent?.hasIcon() ? 'ms-11' : 'ms-4'),
@@ -283,11 +284,13 @@ export class ListNavigationItem implements FocusableOption {
                 (!this.expanded() && this.children().some((c) => c.indicated())))
     );
 
-    protected readonly panelClass = 'absolute start-[0.325rem] top-0 z-[3] flex cursor-default flex-col';
+    /** As fundamental-styles' popover: the header as high as the row, the popover radius. */
+    protected readonly panelClass = 'absolute start-[0.325rem] top-0 z-[3] flex h-full cursor-default flex-col';
+    /** The icon starts 0.875rem in, with 0.75rem to the text. */
     protected readonly panelHeaderClass =
-        'box-border flex h-11 w-[14.325rem] items-center whitespace-nowrap rounded-t-sap-element-border-corner-radius rounded-es-sap-element-border-corner-radius bg-sap-list-alternating-background ps-[0.875rem] [box-shadow:var(--sapContent_Shadow1)] rtl:ps-[0.875rem] [&>fd-icon]:mx-0! [&>fd-icon]:pe-2';
+        'box-border flex h-full min-h-0 w-[14.325rem] shrink-0 items-start whitespace-nowrap rounded-t-sap-popover-border-corner-radius rounded-es-sap-popover-border-corner-radius bg-sap-list-alternating-background [box-shadow:var(--sapContent_Shadow1)] [&>fd-icon]:ms-0! [&>fd-icon]:me-3! [&>fd-icon]:ps-[0.875rem]';
     protected readonly panelListClass =
-        'ms-[2.925rem] box-border block w-[11.4rem] overflow-hidden rounded-b-sap-element-border-corner-radius bg-sap-list-alternating-background [box-shadow:var(--sapContent_Shadow1)]';
+        'ms-[2.925rem] box-border block w-[11.4rem] shrink-0 overflow-hidden rounded-b-sap-popover-border-corner-radius bg-sap-list-alternating-background [box-shadow:var(--sapContent_Shadow1)]';
 
     protected readonly computedClass = computed(() => {
         const child = !!this.parent;
@@ -308,6 +311,8 @@ export class ListNavigationItem implements FocusableOption {
                 'hc:[--vn-fg:var(--sapContent_Selected_TextColor)] hc:[--vn-ic:var(--sapContent_Selected_TextColor)] hc:[--vn-arrow:var(--sapContent_Selected_TextColor)]'
             ],
             child ? 'w-full' : 'border-0 border-solid border-sap-list-border-color not-last:border-b first:border-t',
+            // in a condensed panel, second-level rows have no padding (their texts start 1rem in)
+            this.inPanel() && 'ps-0 pe-0',
             // expanded: the second-level list spans the full width below the row
             expanded &&
                 !condensed &&

@@ -243,4 +243,22 @@ describe('VerticalNavigation issues', () => {
         ]);
         expect([getComputedStyle(header).paddingLeft, getComputedStyle(header).paddingBottom]).toEqual(['15px', '0px']);
     });
+
+    it('lays the condensed panel out as fundamental-styles (vertical-navigation-3)', async () => {
+        const { fixture, host } = await setup(true);
+        host.expanded.set(true);
+        await fixture.whenStable();
+        await wait();
+        const parent = item('Calendar');
+        const header = parent.querySelector<HTMLElement>(':scope > div > div')!;
+        const icon = header.querySelector<HTMLElement>('fd-icon')!;
+        expect(getComputedStyle(header).paddingInlineStart).toBe('0px');
+        expect(getComputedStyle(icon).paddingInlineStart).toBe('14px');
+        expect(getComputedStyle(text('Calendar')).fontSize).toBe(themed('fontSize', 'var(--sapFontSize)'));
+        expect(getComputedStyle(item('Today')).paddingInlineStart).toBe('0px');
+        expect(getComputedStyle(header).borderTopLeftRadius).toBe(
+            themed('borderTopLeftRadius', 'var(--sapPopover_BorderCornerRadius)')
+        );
+        expect(header.getBoundingClientRect().height).toBe(43);
+    });
 });

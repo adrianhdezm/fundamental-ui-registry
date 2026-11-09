@@ -2210,9 +2210,9 @@
       "source": "../../../react/docs/parity/components/vertical-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "vertical-navigation.spec.ts Host, condensed, Calendar's panel open: the panel header has a 14px start padding (fundamental-styles: none, the icon 0.875rem in), its text is --sapFontLargeSize (16px) instead of --sapFontSize, the second-level rows keep the 8px start padding (texts 8px further in), the corners are --sapElement_BorderCornerRadius (12px) instead of the popover radius, and the header is 44px high instead of the row's 43px inner height.",
+      "test": "VerticalNavigation issues > lays the condensed panel out as fundamental-styles (vertical-navigation-3)",
       "fix": "",
       "notes": ""
     },
