@@ -215,12 +215,18 @@ export class SplitButton {
         cn(
             this.buttonClass(),
             'justify-start hc:rounded-e-none hc:-me-px',
+            // in HC the focus frame follows the square inner corners
+            'hc:focus:after:rounded-s-sap-button-border-corner-radius hc:focus:after:rounded-e-none',
             this.variant() === 'emphasized' && 'hc:-me-(--sapButton_Emphasized_BorderWidth)',
             '[&>span]:block [&>span]:max-w-34 compact:[&>span]:max-w-36 [&>span]:truncate'
         )
     );
     protected readonly arrowClass = computed(() =>
-        cn(this.buttonClass(), 'hc:rounded-s-none', this.menu()?.isOpen() && OPEN[this.variant()])
+        cn(
+            this.buttonClass(),
+            'hc:rounded-s-none hc:focus:after:rounded-s-none hc:focus:after:rounded-e-sap-button-border-corner-radius',
+            this.menu()?.isOpen() && OPEN[this.variant()]
+        )
     );
 
     constructor() {

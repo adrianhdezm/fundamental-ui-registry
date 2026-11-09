@@ -1695,9 +1695,9 @@
       "source": "../../../react/docs/parity/components/split-button.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "split-button.spec.ts Host in Horizon HC Black, each button focused: the ::after focus frame has 4px top-left and top-right radii on both buttons instead of the 6px corner radius outside and 0px at the inner end where the buttons are square.",
+      "test": "SplitButton issues > squares the inner corners of the focus frames in high contrast (split-button-2)",
       "fix": "",
       "notes": ""
     },

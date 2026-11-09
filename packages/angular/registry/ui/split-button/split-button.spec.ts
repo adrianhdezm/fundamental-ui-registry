@@ -196,4 +196,17 @@ describe('SplitButton issues', () => {
                 'rgba(0, 0, 0, 0)'
             ]);
         }));
+
+    it('squares the inner corners of the focus frames in high contrast (split-button-2)', async () =>
+        inHc(async () => {
+            const { main, arrow } = await setup();
+            const corners = (button: HTMLElement) => {
+                const frame = getComputedStyle(button, '::after');
+                return [frame.borderTopLeftRadius, frame.borderTopRightRadius];
+            };
+            main.focus();
+            expect(corners(main)).toEqual([radius(), '0px']);
+            arrow.focus();
+            expect(corners(arrow)).toEqual(['0px', radius()]);
+        }));
 });

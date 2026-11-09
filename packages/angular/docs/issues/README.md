@@ -514,12 +514,12 @@ None.
 
 #### split-button
 
-[React report](../../../react/docs/parity/components/split-button.md) · ⬜ reported: 1 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/split-button.md) · 🧪 covered: 2
 
-| ID             | Issue                                                                                                 | Kind          | Confirmed | Pattern | Status      | Test                                                                                             | Fix | Notes |
-| -------------- | ----------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ------------------------------------------------------------------------------------------------ | --- | ----- |
-| split-button-1 | In HC the split-button buttons get `hc:bg-…` instead of staying transparent on the pad (not visible). | computed-only | rendered  |         | 🧪 covered  | SplitButton issues > keeps both buttons transparent on the pad in high contrast (split-button-1) |     |       |
-| split-button-2 | In HC the split-button focus frame keeps rounded inner corners where the buttons are square.          | visual        | rendered  |         | ⬜ reported |                                                                                                  |     |       |
+| ID             | Issue                                                                                                 | Kind          | Confirmed | Pattern | Status     | Test                                                                                                 | Fix | Notes |
+| -------------- | ----------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ---------- | ---------------------------------------------------------------------------------------------------- | --- | ----- |
+| split-button-1 | In HC the split-button buttons get `hc:bg-…` instead of staying transparent on the pad (not visible). | computed-only | rendered  |         | 🧪 covered | SplitButton issues > keeps both buttons transparent on the pad in high contrast (split-button-1)     |     |       |
+| split-button-2 | In HC the split-button focus frame keeps rounded inner corners where the buttons are square.          | visual        | rendered  |         | 🧪 covered | SplitButton issues > squares the inner corners of the focus frames in high contrast (split-button-2) |     |       |
 
 #### user-menu
 
