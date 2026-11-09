@@ -1404,9 +1404,9 @@
       "source": "../../../react/docs/parity/components/tabs.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "tabs.spec.ts IssuesHost: an unselected tab's tag is rgb(85, 107, 130) (--sapContent_LabelColor) instead of rgb(19, 30, 41) (--sapTextColor) in Horizon.",
+      "test": "Tabs issues > shows the tag in the text colour (tabs-2)",
       "fix": "",
       "notes": ""
     },

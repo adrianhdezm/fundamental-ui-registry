@@ -76,7 +76,7 @@ export class TabTitle {
 })
 export class TabTag {
     protected readonly computedClass = cn(
-        'relative m-0 inline-block p-0 leading-4 whitespace-nowrap text-(--tab-tag,var(--sapContent_LabelColor)) group-aria-selected/tab:text-(--tab-tag-selected,var(--sapContent_Selected_ForegroundColor)) after:-bottom-[0.875rem]',
+        'relative m-0 inline-block p-0 leading-4 whitespace-nowrap text-(--tab-tag,var(--sapTextColor)) group-aria-selected/tab:text-(--tab-tag-selected,var(--sapContent_Selected_ForegroundColor)) after:-bottom-[0.875rem]',
         SELECTION_BAR,
         FOCUS_FRAME
     );

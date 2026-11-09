@@ -468,4 +468,15 @@ describe('Tabs issues', () => {
         expect(starts(await render())).toEqual(['0px 3px 0px', '4px 0px 12px', '4px 0px 12px']);
         expect(starts(await render('icon-only'))).toEqual(['0px 0px 0px', '4px 0px 12px', '4px 0px 12px']);
     });
+
+    it('shows the tag in the text colour (tabs-2)', async () => {
+        const root = await render();
+        const tag = tabs(root)[1].querySelector<HTMLElement>('[fd-tab-tag], [fdtabtag]')!;
+        const probe = document.createElement('div');
+        probe.style.color = 'var(--sapTextColor)';
+        document.body.appendChild(probe);
+        const text = getComputedStyle(probe).color;
+        probe.remove();
+        expect(getComputedStyle(tag).color).toBe(text);
+    });
 });
