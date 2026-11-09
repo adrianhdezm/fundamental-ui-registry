@@ -16,8 +16,8 @@ and own. The shadcn registry is published under
 [source](https://github.com/adrianhdezm/fundamental-ui-registry/tree/main/packages/react) is on GitHub.
 
 All 94 components are ported; the
-[component notes](https://github.com/adrianhdezm/fundamental-ui-registry/tree/main/packages/react/docs/components)
-give each component's sources, how its API maps to theirs, and the differences kept on purpose.
+[known gaps](https://github.com/adrianhdezm/fundamental-ui-registry/blob/main/packages/react/docs/known-gaps.md) list
+what is not ported.
 
 ## Toolbar
 
@@ -49,5 +49,23 @@ Set `data-sap-theme` on `<html>` (or any element, to theme a subtree) to `sap_ho
 `sap_horizon_hcb` or `sap_horizon_hcw`. Set `data-density="compact"` the same way. Set `dir="rtl"` for right-to-left
 layouts, and wrap the app in Base UI's `DirectionProvider` so popups follow it.
 
-Every `--sap*` variable of the theme is a Tailwind value: drop `sap`, split camelCase and `_`, kebab-case it, and
-prefix `sap-`, e.g. `--sapButton_Hover_Background` is `bg-sap-button-hover-background`.
+## Tokens as utilities
+
+Every `--sap*` variable of the theme is a Tailwind value, named by one rule: drop `sap`, split camelCase and `_`,
+kebab-case it, and prefix `sap-`.
+
+| SAP variable                    | Tailwind utility                         |
+| ------------------------------- | ---------------------------------------- |
+| `--sapButton_Hover_Background`  | `bg-sap-button-hover-background`         |
+| `--sapContent_Shadow1`          | `shadow-sap-content-shadow1`             |
+| `--sapElement_Compact_Height`   | `h-sap-element-compact-height`           |
+| `--sapFontSmallSize`            | `text-sap-font-small-size`               |
+| `--sapField_BorderCornerRadius` | `rounded-sap-field-border-corner-radius` |
+| `--sapFontBoldFamily`           | `font-sap-font-bold-family`              |
+| `--sapElement_BorderWidth`      | `border-width-sap-element-border-width`  |
+
+Tokens without a Tailwind namespace use the variable shorthand, e.g. `opacity-(--sapContent_DisabledOpacity)`.
+
+Variants: `compact:`, `condensed:`, `hc:` (high contrast themes), `toggled:` (`aria-pressed`/`aria-selected`, or
+`data-selected` where `aria-selected` is not allowed), `enabled-hover:` and `enabled-active:` (not while disabled),
+plus Tailwind's `rtl:` and `ltr:`.

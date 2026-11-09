@@ -8,10 +8,6 @@ visuals of fundamental-styles as Tailwind v4 utilities on the `@sap-theming/them
 Published at `https://adrianhdezm.github.io/fundamental-ui-registry/react/` (Storybook) and
 `https://adrianhdezm.github.io/fundamental-ui-registry/react/r/<name>.json` (registry).
 
-`docs/components/<name>.md` has the notes of each component: its sources, how its API maps to Angular's and
-fundamental-react's, and the differences kept on purpose. Read it before changing the component, and update it (or
-add one for a new component) when its API or one of those decisions changes.
-
 ## Commands
 
 Run in `packages/react/`, or from the repository root as `pnpm react <script>`.
@@ -50,6 +46,9 @@ pnpm storybook                              # http://localhost:6007
   - A size passed to a button is given for both densities (`h-6 compact:h-6`): its `compact:` sizes otherwise win.
   - Gradients as `bg-linear-[to_top,…]` (sRGB); `bg-linear-to-*` blends in oklab.
 - Visual reference is fundamental-styles: add cases in `scripts/visual/<name>.mjs` and run `pnpm visual <name>`.
+- A deliberate difference from the Angular package or fundamental-react is explained in a comment where the code
+  makes it (the prop's doc comment, or next to the line) and pinned by a test. A visual difference from fundamental-styles kept on
+  purpose is an `ignore` in `scripts/visual/<name>.mjs`, with the reason in a comment.
 
 ## Tests
 

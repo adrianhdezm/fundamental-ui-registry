@@ -49,6 +49,9 @@ pnpm build-storybook && pnpm visual icon    # compare with fundamental-styles, 1
 - Visual reference is fundamental-styles: add cases in `scripts/visual/<name>.mjs` (fields in
   `scripts/visual.config.mjs`) and run `pnpm visual <name>`; also compare in Storybook with the theme, density and RTL
   switchers.
+- A deliberate difference from `@fundamental-ngx/core` is explained in a comment where the code makes it (the
+  input's doc comment, or next to the line) and pinned by a test. A visual difference from fundamental-styles kept on
+  purpose is an `ignore` in `scripts/visual/<name>.mjs`, with the reason in a comment.
 
 ## Tests
 

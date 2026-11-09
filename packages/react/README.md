@@ -2,8 +2,7 @@
 
 SAP Fiori Horizon components for React, as copy-paste source files. This is the React package of the
 [fundamental-ui-registry](../../README.md) workspace. All 94 components are ported: the 45 of fundamental-react and
-the other components of the Angular package. [`docs/components/`](docs/components/README.md) has a note per
-component: its sources, how its API maps to theirs, and the differences kept on purpose.
+the other components of the Angular package; [`docs/known-gaps.md`](docs/known-gaps.md) lists what is not ported.
 
 **Storybook:** https://adrianhdezm.github.io/fundamental-ui-registry/react/ (the registry is served from the same site
 under `/react/r/<name>.json`).
@@ -29,7 +28,12 @@ Paths are relative to `packages/react/`.
 ```
 registry/
   lib/utils.ts            cn() (clsx + tailwind-merge aware of SAP tokens) and cva variants
-  styles/                 the SAP theme layer, generated (same rules as the Angular package)
+  styles/
+    fundamental.css       entry point: imports below + density/state variants + base styles
+    extensions.css        theme values taken from fundamental-styles
+    tokens.css            generated: every --sap* token as a Tailwind @theme value
+    themes/*.css          generated: the four Horizon themes
+    fonts.css, fonts/     generated: "72" and the SAP icon fonts
   ui/<component>/         one self-contained folder per component (+ its stories and spec)
 registry.json             shadcn registry definition (source of truth)
 scripts/
@@ -37,11 +41,17 @@ scripts/
   build-registry.mjs      builds public/r/*.json and checks each component's imports
   check-styles.mjs        compiles every class and flags unknown SAP tokens / broken var() names
   visual.mjs              compares components with the fundamental-styles Storybook (cases in visual/<name>.mjs)
-docs/                     Storybook introduction; components/ has a note per component
+docs/
+  introduction.mdx, testing.mdx, foundations.stories.*   Storybook pages
+  known-gaps.md           what is not ported yet, and why
 .storybook/, tests/       Storybook and Vitest setup
 ```
 
 ## Commands
+
+Requires Node `>=22.22.3` (see `.nvmrc`) and pnpm (settings in `pnpm-workspace.yaml` at the repository root). The
+tests use the Playwright and Chromium of the dev dependencies (`pnpm exec playwright install chromium` once, if
+Chromium is missing).
 
 Run `pnpm install` at the repository root, then these in `packages/react/` (or from the root as
 `pnpm react <script>`, e.g. `pnpm react storybook`):
@@ -120,8 +130,25 @@ Wrap the app in Base UI's `DirectionProvider` for right-to-left layouts, so popu
 
 ## Token utilities
 
-The same as the Angular package: every SAP theme token is a Tailwind utility, e.g. `bg-sap-button-hover-background`.
-See [Token utilities](../angular/README.md#token-utilities).
+Every SAP theme token is available as a Tailwind utility. To get the class name, drop the `--sap` prefix, split the
+name at camelCase and `_`, write it in kebab-case and prefix it with `sap-`:
+
+| Token                          | Utility                          |
+| ------------------------------ | -------------------------------- |
+| `--sapButton_Hover_Background` | `bg-sap-button-hover-background` |
+| `--sapContent_Shadow1`         | `shadow-sap-content-shadow1`     |
+| `--sapElement_Height`          | `h-sap-element-height`           |
+
+Tokens without a Tailwind namespace use the variable shorthand, for example `opacity-(--sapContent_DisabledOpacity)`.
+
+In arbitrary values Tailwind may turn the `_` in `--sap*_*` names into spaces. To avoid that:
+
+- write calc operators as `_-_` and `_+_`;
+- multiply on the right: `calc(var(--sapX_Y)*2)`;
+- in multi-part values, alias the tokens into local variables first, e.g. `[--bw:var(--sapList_BorderWidth)]`, then
+  use `shadow-[0_var(--bw)_0_var(--c)]`.
+
+`pnpm check:styles` catches all of these.
 
 ## License and attribution
 
