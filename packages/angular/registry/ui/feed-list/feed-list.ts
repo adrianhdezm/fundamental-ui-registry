@@ -91,7 +91,7 @@ export class FeedListAction {
     protected readonly computedClass = computed(() =>
         this.item?.isMobile()
             ? 'm-0 box-border block shrink-0 p-0 pb-1 ps-3'
-            : 'relative -end-4 -top-4 float-end m-2 box-border block p-0 rtl:float-start'
+            : 'relative -end-4 -top-4 float-end m-2 box-border block p-0'
     );
 }
 

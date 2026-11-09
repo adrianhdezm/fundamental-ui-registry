@@ -2606,9 +2606,9 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (StylesHost, dir=rtl): the desktop action sits 540px from the item's left edge, at the right (start); rtl:float-start is added on top of float-end, which Tailwind v4 already compiles to the logical float: inline-end.",
+      "test": "feed-list.spec.ts › FeedList styles › in RTL the desktop actions sit at the end (left)",
       "fix": "",
       "notes": ""
     },
