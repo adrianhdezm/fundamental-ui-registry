@@ -157,9 +157,9 @@
       "source": "../../../react/docs/parity/components/layout-grid.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (TypographyHost: a grid in a serif 20px/30px bold red ancestor): a column computes font-family serif, 20px, 30px line height, weight 700, red; fundamental-styles' .fd-container/.fd-row/.fd-col set 72, 14px, normal, 400 and --sapTextColor.",
+      "test": "layout-grid.spec.ts › LayoutGrid typography › sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-container (computed style)",
       "fix": "",
       "notes": ""
     },

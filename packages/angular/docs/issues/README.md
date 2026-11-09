@@ -104,11 +104,11 @@ None.
 
 #### layout-grid
 
-[React report](../../../react/docs/parity/components/layout-grid.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/layout-grid.md) · 🧪 covered: 1
 
-| ID            | Issue                                                                                                                     | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| layout-grid-1 | The grid sets no typography, so column text takes the page font instead of fundamental-styles' SAP font, size and colour. | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID            | Issue                                                                                                                     | Kind   | Confirmed | Pattern | Status     | Test                                                                                                                                                      | Fix | Notes |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| layout-grid-1 | The grid sets no typography, so column text takes the page font instead of fundamental-styles' SAP font, size and colour. | visual | rendered  |         | 🧪 covered | layout-grid.spec.ts › LayoutGrid typography › sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-container (computed style) |     |       |
 
 #### checkbox
 
