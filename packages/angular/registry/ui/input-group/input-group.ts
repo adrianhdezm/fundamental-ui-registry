@@ -51,6 +51,8 @@ export const INPUT_GROUP_BUTTON_VARS = [
     '[--sapButton_Lite_TextColor:var(--sapField_TextColor)] [--sapButton_Lite_Hover_TextColor:var(--sapField_TextColor)]',
     '[--sapButton_Active_TextColor:var(--igBtnFocusColor,var(--sapButton_Selected_TextColor))]',
     '[--sapButton_BorderCornerRadius:var(--sapField_BorderCornerRadius)]',
+    // no button border, as fundamental-styles' .fd-input-group__button (border: none)
+    '[&_button]:border-0',
     '[&_button:hover:not(:disabled)]:shadow-(--igBtnShadow,var(--sapField_Hover_Shadow)) [&_button:active]:shadow-(--igBtnShadow,var(--sapField_Hover_Shadow))'
 ].join(' ');
 
