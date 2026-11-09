@@ -350,13 +350,15 @@ export class Tokenizer {
     protected readonly fieldClass = computed(() =>
         cn(
             'relative box-border flex w-full min-h-sap-element-height items-center overflow-hidden p-0 compact:min-h-sap-element-compact-height',
-            'rounded-sap-field-border-corner-radius border-width-sap-field-border-width [border-style:var(--sapField_BorderStyle)] border-sap-field-border-color shadow-sap-field-shadow',
+            'rounded-sap-field-border-corner-radius border-width-sap-field-border-width [border-style:var(--sapField_BorderStyle)] border-sap-field-border-color [box-shadow:var(--sapField_Shadow)]',
             '[background:var(--sapField_BackgroundStyle)_var(--sapField_Background)]',
             'hover:[background:var(--sapField_Hover_BackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-hover-border-color',
             this.tokenizerFocusable() && 'has-[input:focus]:outline-sap has-[input:focus]:-outline-offset-1',
             fieldStates[this.state() ?? 'default'],
-            this.readonly() &&
-                'border-dashed border-sap-field-read-only-border-color bg-sap-field-read-only-background shadow-none',
+            this.readonly() && [
+                '[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] border-sap-field-read-only-border-color',
+                'hover:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] hover:border-sap-field-read-only-border-color'
+            ],
             this.disabled() &&
                 'pointer-events-none opacity-(--sapContent_DisabledOpacity) [&_:disabled]:opacity-100! [&_[aria-disabled=true]]:opacity-100!',
             this.userClass()
