@@ -1617,9 +1617,9 @@
       "source": "../../../react/docs/parity/components/toolbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "toolbar.spec.ts ActiveInfoHost, the toolbar focused: its ::after focus frame has top, right, bottom and left 2px (inset-0.5) instead of 1px.",
+      "test": "Toolbar issues > insets the focus frame of an active info toolbar by 1px (toolbar-3)",
       "fix": "",
       "notes": ""
     },

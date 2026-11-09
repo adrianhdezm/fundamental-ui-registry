@@ -490,4 +490,12 @@ describe('Toolbar issues', () => {
         const { root } = await render(ActiveInfoHost);
         expect(getComputedStyle(root.querySelector('fd-icon')!).color).toBe(themed('var(--sapList_TextColor)'));
     });
+
+    it('insets the focus frame of an active info toolbar by 1px (toolbar-3)', async () => {
+        const { root } = await render(ActiveInfoHost);
+        const toolbar = root.querySelector<HTMLElement>('fd-toolbar')!;
+        toolbar.focus();
+        const frame = getComputedStyle(toolbar, '::after');
+        expect([frame.top, frame.right, frame.bottom, frame.left]).toEqual(['1px', '1px', '1px', '1px']);
+    });
 });

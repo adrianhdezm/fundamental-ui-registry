@@ -417,7 +417,7 @@ export class Toolbar {
                 this.active() && [
                     'cursor-pointer outline-none bg-sap-infobar-background text-sap-infobar-text-color',
                     'enabled-hover:bg-sap-infobar-hover-background active:bg-sap-infobar-active-background',
-                    "focus:after:pointer-events-none focus:after:absolute focus:after:inset-0.5 focus:after:content-['']",
+                    "focus:after:pointer-events-none focus:after:absolute focus:after:inset-px focus:after:content-['']",
                     'focus:after:border-(length:--sapContent_FocusWidth) focus:after:[border-style:var(--sapContent_FocusStyle)] focus:after:border-sap-content-focus-color'
                 ],
             titled && '[--tb-h:2.75rem] compact:[--tb-h:2.75rem] [--tb-ps:1rem] bg-sap-group-title-background',
