@@ -43,6 +43,7 @@ import {
     type DialogRef
 } from '@/ui/dialog/dialog';
 import { type IconFont } from '@/ui/icon/icon';
+import { INPUT_GROUP_BUTTON_VARS, STATE_BUTTON_VARS } from '@/ui/input-group/input-group';
 import { type FormState } from '@/ui/input/input';
 import { Link } from '@/ui/link/link';
 import { LIST_CHECK_GLYPH, LIST_DROPDOWN_CHECK, LIST_DROPDOWN_ITEM } from '@/ui/list/list';
@@ -458,6 +459,10 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
     /** Classes of the tokenizer field: fundamental-styles' multi input is an input group around a tokenizer. */
     protected readonly tokenizerClass = computed(() =>
         cn(
+            // the addon button looks like an input group button (fundamental-styles' multi input is an input group
+            // around a tokenizer): the field text colour, no border, the field corner radius
+            INPUT_GROUP_BUTTON_VARS,
+            STATE_BUTTON_VARS[this.state() ?? 'default'],
             this.glyphMirrored() && '[&>div>button_fd-icon]:-scale-x-100',
             // in high contrast the addon button is as high as the field, over its border (an input group button)
             'hc:[&>button]:-my-(--sapField_BorderWidth)',

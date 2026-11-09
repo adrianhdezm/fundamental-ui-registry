@@ -8,9 +8,9 @@ visuals of fundamental-styles as Tailwind v4 utilities on the `@sap-theming/them
 Published at `https://adrianhdezm.github.io/fundamental-ui-registry/react/` (Storybook) and
 `https://adrianhdezm.github.io/fundamental-ui-registry/react/r/<name>.json` (registry).
 
-**The port is in progress**: `docs/parity/README.md` is the tracker (what is done, the definition of done, Angular
-issues found). Read it first, and update `docs/parity/tracker.json` (then `pnpm tracker`) and the component's report
-in `docs/parity/components/` with every component.
+**The port is complete** (94 of 94 components): `docs/parity/README.md` is the tracker (sources, the definition of
+done, Angular issues found). Read it first, and keep `docs/parity/tracker.json` (then `pnpm tracker`) and the
+component's report in `docs/parity/components/` up to date when a component changes or is added.
 
 ## Commands
 

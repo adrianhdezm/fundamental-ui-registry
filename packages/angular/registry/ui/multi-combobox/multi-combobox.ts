@@ -43,6 +43,7 @@ import {
     DialogSubheader,
     type DialogRef
 } from '@/ui/dialog/dialog';
+import { INPUT_GROUP_BUTTON_VARS, STATE_BUTTON_VARS } from '@/ui/input-group/input-group';
 import { type FormState } from '@/ui/input/input';
 import { LIST_CHECK_GLYPH, LIST_DROPDOWN_CHECK, LIST_DROPDOWN_ITEM, ListGroupHeader, ListTitle } from '@/ui/list/list';
 import { Popover, PopoverBody, PopoverControl, type PopoverFillMode } from '@/ui/popover/popover';
@@ -1053,6 +1054,10 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
     /** Classes of the tokenizer field: fundamental-styles' multi combobox is an input group around a tokenizer. */
     protected readonly tokenizerClass = computed(() =>
         cn(
+            // the addon button looks like an input group button (fundamental-styles' multi combobox is an input
+            // group around a tokenizer): the field text colour, no border, the field corner radius
+            INPUT_GROUP_BUTTON_VARS,
+            STATE_BUTTON_VARS[this.currentState() ?? 'default'],
             // in high contrast the addon button is as high as the field, over its border (an input group button)
             'hc:[&>button]:-my-(--sapField_BorderWidth)',
             // the input group's field hover shadow (value states keep their own); no shadow when read-only

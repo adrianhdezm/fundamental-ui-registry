@@ -1,0 +1,32 @@
+# Runs every package's `pnpm check` (typecheck, styles, registry, tracker, unit tests, a11y) on pull requests into
+# main, one package at a time as `pnpm check` does locally. The tests run in Vitest browser mode, so Chromium is
+# installed with Playwright first.
+name: Check
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# a new push to a pull request replaces its running check
+concurrency:
+  group: check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @fundamental-ui-registry/angular exec playwright install --with-deps chromium
+      - run: pnpm check
