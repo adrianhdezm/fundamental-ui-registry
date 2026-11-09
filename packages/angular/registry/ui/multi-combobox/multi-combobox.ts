@@ -1051,6 +1051,8 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
     /** Classes of the tokenizer field: fundamental-styles' multi combobox is an input group around a tokenizer. */
     protected readonly tokenizerClass = computed(() =>
         cn(
+            // in high contrast the addon button is as high as the field, over its border (an input group button)
+            'hc:[&>button]:-my-(--sapField_BorderWidth)',
             // the input group's field hover shadow (value states keep their own); no shadow when read-only
             this.readonly()
                 ? '[box-shadow:none] hover:[box-shadow:none]'
