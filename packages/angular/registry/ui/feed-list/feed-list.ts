@@ -100,7 +100,8 @@ export class FeedListAction {
     selector: 'fd-feed-list-footer',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'm-0 box-border flex p-0 pt-1.5 text-sap-font-small-size [&_[fdLink]]:[font-size:inherit]'
+        // links take the footer's size and line height (not the link's 1rem line height)
+        class: 'm-0 box-border flex p-0 pt-1.5 text-sap-font-small-size [&_a]:[font-size:inherit] [&_a]:[line-height:inherit]'
     },
     template: '<ng-content />'
 })
@@ -109,7 +110,8 @@ export class FeedListFooter {}
 /** A byline in the footer; bylines are separated by bullets. */
 @Directive({
     selector: '[fd-item-footer-byline], [fdItemFooterByline]',
-    host: { class: "text-sap-content-label-color not-last:after:px-1 not-last:after:content-['•']" }
+    // smaller, as fundamental-styles' small (Tailwind's preflight sets small to 80%)
+    host: { class: "[font-size:smaller] text-sap-content-label-color not-last:after:px-1 not-last:after:content-['•']" }
 })
 export class FeedListFooterByline {}
 

@@ -2646,9 +2646,9 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (StylesHost): a footer with a Reply fdLink is 22px high (the link keeps its 1rem line height) and the date byline computes 9.6px (preflight's small at 80%); fundamental-styles' footer is 17px and its bylines 10px (smaller).",
+      "test": "feed-list.spec.ts › FeedList styles › a footer with a Reply link is 17px high and the bylines are 10px (computed style)",
       "fix": "",
       "notes": ""
     },

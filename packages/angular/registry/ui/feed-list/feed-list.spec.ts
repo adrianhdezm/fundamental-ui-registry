@@ -196,4 +196,10 @@ describe('FeedList styles', () => {
         expect(getComputedStyle(items[items.length - 1]).paddingBottom).toBe('16px');
         expect(getComputedStyle(items[items.length - 1]).paddingTop).toBe('12px');
     });
+
+    it('a footer with a Reply link is 17px high and the bylines are 10px (computed style)', async () => {
+        const { el } = await setupStyles();
+        expect(el('footer').getBoundingClientRect().height).toBe(17);
+        expect(getComputedStyle(el('date')).fontSize).toBe('10px');
+    });
 });
