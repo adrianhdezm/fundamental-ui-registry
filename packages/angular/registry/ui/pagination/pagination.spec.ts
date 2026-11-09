@@ -276,3 +276,12 @@ describe('Pagination', () => {
         expect(host.page()).toBe(12);
     });
 });
+
+describe('Pagination issues', () => {
+    it('keeps the cozy button padding on page and current page buttons (pagination-1)', async () => {
+        const { root } = await setup({ total: 50, page: 2 });
+        const page = button(root, 'Page 1');
+        const current = root.querySelector<HTMLElement>('[aria-current=page]')!;
+        expect([page, current].map((el) => getComputedStyle(el).paddingInlineStart)).toEqual(['9px', '9px']);
+    });
+});

@@ -1206,9 +1206,9 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "pagination.spec.ts Host (50 items, page 2): the 'Page 1' button and the current page button have an 8px inline padding instead of the button's cozy 9px, because of px-2 on both.",
+      "test": "Pagination issues > keeps the cozy button padding on page and current page buttons (pagination-1)",
       "fix": "",
       "notes": ""
     },

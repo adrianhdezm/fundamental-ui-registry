@@ -453,10 +453,10 @@ export class Pagination {
     );
 
     protected readonly iconButtonClass = 'rtl:[&_fd-icon]:rotate-180';
-    protected readonly pageButtonClass = 'min-w-9 px-2 compact:min-w-8';
+    protected readonly pageButtonClass = 'min-w-9 compact:min-w-8';
     /** The current page in short paginations looks pressed. */
     protected readonly currentClass =
-        'min-w-9 px-2 compact:min-w-8 bg-sap-button-lite-active-background border-sap-button-lite-active-border-color text-sap-button-active-text-color';
+        'min-w-9 compact:min-w-8 bg-sap-button-lite-active-background border-sap-button-lite-active-border-color text-sap-button-active-text-color';
     /** "Page:" and "of N" around the page input, visible in the compact layout only (as fundamental-styles). */
     protected readonly inputLabelClass = computed(() =>
         cn('shrink-0 font-sap-font-family text-sap-font-size text-sap-content-label-color', !this.compact() && 'hidden')
