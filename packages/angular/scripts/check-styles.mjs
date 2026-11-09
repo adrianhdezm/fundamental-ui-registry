@@ -35,8 +35,8 @@ const compiler = await compile(
 // spec files are not shipped, and their test code names attributes such as data-sap-theme
 const scanner = new Scanner({
     sources: [
-        { base: resolve(root, 'registry'), pattern: '**/*.ts', negated: false },
-        { base: resolve(root, 'registry'), pattern: '**/*.spec.ts', negated: true }
+        { base: resolve(root, 'registry'), pattern: '**/*.{ts,tsx}', negated: false },
+        { base: resolve(root, 'registry'), pattern: '**/*.spec.{ts,tsx}', negated: true }
     ]
 });
 const candidates = scanner.scan().filter((c) => /sap|--sap/.test(c));

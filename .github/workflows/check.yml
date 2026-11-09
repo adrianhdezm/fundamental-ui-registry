@@ -1,4 +1,4 @@
-# Runs every package's `pnpm check` (typecheck, styles, registry, tracker, unit tests, a11y) on pull requests into
+# Runs every package's `pnpm check` (typecheck, styles, registry, unit tests, a11y) on pull requests into
 # main, one package at a time as `pnpm check` does locally. The tests run in Vitest browser mode, so Chromium is
 # installed with Playwright first.
 name: Check

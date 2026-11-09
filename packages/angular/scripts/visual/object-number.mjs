@@ -9,7 +9,7 @@ const ref = (mod) => `.fd-object-number--${mod}`;
 export default [
     {
         // a positive number: in RTL fundamental-styles lays a minus out after the digits (no bidi isolation), ours
-        // keeps it in front (a kept difference, see the React report)
+        // keeps it in front (kept on purpose)
         label: 'positive',
         // other digits than fundamental-styles': styles only
         pixels: false,

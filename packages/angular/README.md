@@ -22,16 +22,20 @@ registry/
   lib/utils.ts            cn() (clsx + tailwind-merge aware of SAP tokens) and cva variants
   styles/
     fundamental.css       entry point: imports below + density/state variants + base styles
+    extensions.css        theme values taken from fundamental-styles
     tokens.css            generated: every --sap* token as a Tailwind @theme value
     themes/*.css          generated: the four Horizon themes
     fonts.css, fonts/     generated: "72" and the SAP icon fonts
-  ui/<component>/         one self-contained folder per component (+ its *.stories.ts)
+  ui/<component>/         one self-contained folder per component (+ its stories and spec)
 registry.json             shadcn registry definition (source of truth)
 scripts/
   generate-tokens.mjs     regenerates styles/ and the icon glyph map from theming-base-content
   build-registry.mjs      builds public/r/*.json and checks each component's imports
   check-styles.mjs        compiles every class and flags unknown SAP tokens / broken var() names
-docs/                     Storybook introduction, foundations and testing pages; parity/ compares with upstream
+  visual.mjs              compares components with the fundamental-styles Storybook (cases in visual/<name>.mjs)
+docs/
+  introduction.mdx, testing.mdx, foundations.stories.*   Storybook pages
+  known-gaps.md           what is not ported yet, and why
 .storybook/, tests/       Storybook and Vitest setup
 ```
 
@@ -50,6 +54,7 @@ pnpm build-storybook    # dist/storybook, including the registry under /r (publi
 pnpm check              # typecheck (strict templates), style and registry checks, tests, a11y
 pnpm test               # component tests in Chromium (Vitest browser mode); specs next to each component
 pnpm test:a11y          # every story rendered by Vitest and checked with axe, in Horizon and Horizon HC Black
+pnpm visual <name>      # compare with fundamental-styles in 16 combinations (after pnpm build-storybook)
 pnpm tokens             # regenerate the theme layer after bumping theming-base-content
 ```
 

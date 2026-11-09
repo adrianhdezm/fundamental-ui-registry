@@ -201,7 +201,7 @@ export default [
         refFocus: true,
         pixels: false,
         // fundamental-styles has no focus style for launch, KPI, feed and slide tiles (the browser's auto outline);
-        // ours is the SAP focus outline inside the border, as Angular's (kept, see the report)
+        // ours is the SAP focus outline inside the border, as Angular's (kept on purpose)
         ignore: ['outline-style', 'outline-width', 'outline-color', 'outline-offset'],
         ours: ours('clickable', tile(0)),
         ref: ref('kpi-tile', '.fd-tile--kpi >> nth=0')

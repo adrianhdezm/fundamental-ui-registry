@@ -8,16 +8,12 @@ visuals of fundamental-styles as Tailwind v4 utilities on the `@sap-theming/them
 Published at `https://adrianhdezm.github.io/fundamental-ui-registry/react/` (Storybook) and
 `https://adrianhdezm.github.io/fundamental-ui-registry/react/r/<name>.json` (registry).
 
-**The port is complete** (94 of 94 components): `docs/parity/README.md` is the tracker (sources, the definition of
-done, Angular issues found). Read it first, and keep `docs/parity/tracker.json` (then `pnpm tracker`) and the
-component's report in `docs/parity/components/` up to date when a component changes or is added.
-
 ## Commands
 
 Run in `packages/react/`, or from the repository root as `pnpm react <script>`.
 
 ```sh
-pnpm check                                  # typecheck, styles, registry, tracker, tests, a11y
+pnpm check                                  # typecheck, styles, registry, tests, a11y
 pnpm typecheck && pnpm typecheck:tests      # sources; specs, stories and config
 pnpm test                                   # component tests (Vitest browser mode, project "unit")
 pnpm test:a11y                              # axe on every story, Horizon and Horizon HC Black
@@ -39,9 +35,20 @@ pnpm storybook                              # http://localhost:6007
   handling from the Angular package.
 - Every source file keeps its attribution header (ported from, copyright, Apache-2.0).
 - Styling: Tailwind classes on SAP tokens only, as in the Angular package. Class strings must be literal for Tailwind
-  to find them. Put `leading-*` after a `text-*` size in the same string or variant: `tailwind-merge` drops a
-  line-height that comes before a font size.
+  to find them.
+- Tailwind pitfalls (each one was a bug in the Angular package):
+  - Put `leading-*` after a `text-*` size in the same string or variant: `tailwind-merge` drops a line height that
+    comes before a font size.
+  - `rounded-[50%]`, not `rounded-full` (Tailwind's is `calc(infinity * 1px)`), where fundamental-styles has 50%.
+  - Shadows as `[box-shadow:var(--sap…)]`: `shadow-*` utilities add transparent ring layers.
+  - Bold text uses the bold font family with `font-normal`; `font-bold` on 72-Bold adds synthetic bold.
+  - Directional glyphs: keep the LTR glyph and let the icon mirror it in RTL; no `rtl:rotate-180` or glyph swap.
+  - A size passed to a button is given for both densities (`h-6 compact:h-6`): its `compact:` sizes otherwise win.
+  - Gradients as `bg-linear-[to_top,…]` (sRGB); `bg-linear-to-*` blends in oklab.
 - Visual reference is fundamental-styles: add cases in `scripts/visual/<name>.mjs` and run `pnpm visual <name>`.
+- A deliberate difference from the Angular package or fundamental-react is explained in a comment where the code
+  makes it (the prop's doc comment, or next to the line) and pinned by a test. A visual difference from fundamental-styles kept on
+  purpose is an `ignore` in `scripts/visual/<name>.mjs`, with the reason in a comment.
 
 ## Tests
 

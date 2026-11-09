@@ -7,7 +7,7 @@ const REF = `${FS}time-picker--tablet-mode`;
 const OURS = 'components-time-picker--reference';
 
 // fundamental-styles' story has its body open: in the HC themes its shadow falls on the bottom edge of the field,
-// the input and the button (React's report: 2.6–3.6% of the pixels); the computed styles are the same.
+// the input and the button (2.6–3.6% of the pixels); the computed styles are the same.
 const FIELD = { ours: 'fd-input-group:has(#tabletTimepicker)', ref: '.fd-input-group:has(> #tabletTimepicker)' };
 const INPUT = '#tabletTimepicker';
 const BUTTON = { ours: '#tabletTimepicker + span button', ref: '#tabletTimepicker + .fd-input-group__addon button' };

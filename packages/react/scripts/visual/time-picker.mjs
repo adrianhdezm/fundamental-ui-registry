@@ -22,7 +22,7 @@ const INPUT_IGNORE = [
     'border-bottom-left-radius'
 ];
 // In compact, fundamental-styles' compact values (32px) win over its tablet ones; ours stay touch-sized (46px) on
-// tablets, on purpose (Angular's tablet rule, kept in time's report too): the time and collapsed value cases differ
+// tablets, on purpose (Angular's tablet rule, as in time): the time and collapsed value cases differ
 // in height in the 8 compact combinations.
 
 export default [

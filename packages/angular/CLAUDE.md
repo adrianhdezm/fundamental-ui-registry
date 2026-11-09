@@ -18,7 +18,6 @@ pnpm check                                  # everything below; takes about 5 mi
 pnpm typecheck && pnpm typecheck:tests      # strict templates for sources and specs
 pnpm check:styles                           # SAP token classes
 pnpm registry:check                         # registry.json and each component's imports
-pnpm tracker:check                          # docs/issues/README.md is up to date with tracker.json (`pnpm tracker` rewrites it)
 pnpm test                                   # component and lib tests (Vitest browser mode, project "unit")
 pnpm test:a11y                              # axe on every story, Horizon and Horizon HC Black
 pnpm exec vitest run --project unit registry/ui/menu/   # one component; keep the trailing slash
@@ -38,23 +37,28 @@ pnpm build-storybook && pnpm visual icon    # compare with fundamental-styles, 1
   hard-coded colours or sizes where a token exists. Class strings must be literal for Tailwind to find them: no
   `${}` inside a class name (a module-level constant interpolated whole is fine, declared above the component). Dynamic
   values go through CSS variables. Variants: `compact:`, `condensed:`, `hc:`, `toggled:`, `rtl:`.
+- Tailwind pitfalls (each one was a bug here before):
+  - Put `leading-*` after a `text-*` size in the same string or variant: `tailwind-merge` drops a line height that
+    comes before a font size.
+  - `rounded-[50%]`, not `rounded-full` (Tailwind's is `calc(infinity * 1px)`), where fundamental-styles has 50%.
+  - Shadows as `[box-shadow:var(--sap…)]`: `shadow-*` utilities add transparent ring layers.
+  - Bold text uses the bold font family with `font-normal`; `font-bold` on 72-Bold adds synthetic bold.
+  - Directional glyphs: keep the LTR glyph and let the icon mirror it in RTL; no `rtl:rotate-180` or glyph swap.
+  - A size passed to a button is given for both densities (`h-6 compact:h-6`): its `compact:` sizes otherwise win.
+  - Gradients as `bg-linear-[to_top,…]` (sRGB); `bg-linear-to-*` blends in oklab.
 - Visual reference is fundamental-styles: add cases in `scripts/visual/<name>.mjs` (fields in
   `scripts/visual.config.mjs`) and run `pnpm visual <name>`; also compare in Storybook with the theme, density and RTL
   switchers.
-
-## Issues
-
-- `docs/issues/tracker.json` tracks the Angular issues found while porting to React, from reported to verified (see
-  `docs/issues/README.md` for the fields and statuses). Update it, then `pnpm tracker`, in every pull request that
-  works on one, and name the issue ids in the commit message. `pnpm issue set <id> --status … --fix HEAD` updates an
-  entry; `pnpm issue table <ids…>` prints the table for the pull request body.
+- A deliberate difference from `@fundamental-ngx/core` is explained in a comment where the code makes it (the
+  input's doc comment, or next to the line) and pinned by a test. A visual difference from fundamental-styles kept on
+  purpose is an `ignore` in `scripts/visual/<name>.mjs`, with the reason in a comment.
 
 ## Tests
 
 - Every behaviour change comes with a browser test in the component's spec (see `docs/testing.mdx`). Test hosts keep
   state in signals; await `fixture.whenStable()` (plus a frame for overlays). No `it.todo` or `it.skip` left behind
   without a reason.
-- Stories cover the upstream docs examples. Stories named "Open: …" open their overlay in `play`, so the a11y run
-  checks it. A story may turn off an axe rule only where the SAP theme itself is the cause, with a comment.
-- The React package's porting tracker counts each component's Angular stories: after adding or removing stories, run
-  `pnpm react tracker` (it rewrites only `packages/react/docs/parity/README.md`), or the root `pnpm check` fails.
+- Stories cover the upstream docs examples. `docs/known-gaps.md` lists the examples and behaviours of
+  `@fundamental-ngx/core` that are not covered yet and why; update it when a pull request closes or adds one.
+- Stories named "Open: …" open their overlay in `play`, so the a11y run checks it. A story may turn off an axe rule
+  only where the SAP theme itself is the cause, with a comment.

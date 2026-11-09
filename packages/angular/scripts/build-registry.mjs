@@ -73,7 +73,7 @@ function checkImports(item, file, content) {
         }
         if (spec.startsWith('.')) {
             const resolved = posix.normalize(posix.join(posix.dirname(file.path), spec));
-            if (!own.has(`${resolved}.ts`) && !own.has(resolved))
+            if (!own.has(`${resolved}.ts`) && !own.has(`${resolved}.tsx`) && !own.has(resolved))
                 errors.push(`${file.path}: relative import ${spec} is not a file of item "${item.name}"`);
             continue;
         }
@@ -95,8 +95,8 @@ for (const item of registry.items) {
             return null;
         }
         let content = readFileSync(abs, 'utf8');
-        if (file.path.endsWith('.ts')) checkImports(item, file, content);
-        if (file.path.endsWith('.ts')) content = headerAfterImports(content);
+        if (/\.tsx?$/.test(file.path)) checkImports(item, file, content);
+        if (/\.tsx?$/.test(file.path)) content = headerAfterImports(content);
         // fonts are binary: point the registry copy of fonts.css at the npm package on a CDN
         if (file.path.endsWith('styles/fonts.css')) {
             content = content.replace(/url\('\.\/fonts\/([^']+)'\)/g, (_, f) => {

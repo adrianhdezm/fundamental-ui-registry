@@ -72,7 +72,7 @@ export default [
         ref: { story: `${FS}feed-input--input-growth`, selector: REF_TEXTAREA }
     },
     // in RTL our paper plane is mirrored to point in the reading direction, as Angular and UI5 (fundamental-styles
-    // does not mirror it): the RTL pixels differ by about 4%, logged in the report
+    // does not mirror it): the RTL pixels differ by about 4%, kept on purpose
     {
         label: 'button disabled',
         ours: { story: DEFAULT, selector: BUTTON },

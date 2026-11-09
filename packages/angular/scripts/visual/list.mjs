@@ -10,8 +10,7 @@ export default [
     {
         label: 'icon before',
         props: ['margin-left', 'margin-right'],
-        // transparent where fundamental-styles' icon inherits the item background: same pixels (not a row; the
-        // React port sets bg-inherit)
+        // transparent where fundamental-styles' icon inherits the item background: same pixels
         ignore: ['background-color'],
         ours: { story: 'components-list--default', selector: `${item('Icons', 1)} [data-list-icon]` },
         ref: { story: `${FS}list-standard--icons`, selector: `${refItem(1)} .fd-list__icon` }

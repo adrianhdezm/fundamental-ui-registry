@@ -108,9 +108,6 @@ importers:
       pngjs:
         specifier: ^7.0.0
         version: 7.0.0
-      prettier:
-        specifier: ^3.9.10
-        version: 3.9.10
       remark-gfm:
         specifier: 4.0.1
         version: 4.0.1
@@ -199,9 +196,6 @@ importers:
       pngjs:
         specifier: ^7.0.0
         version: 7.0.0
-      prettier:
-        specifier: ^3.9.10
-        version: 3.9.10
       remark-gfm:
         specifier: 4.0.1
         version: 4.0.1

@@ -5,7 +5,7 @@ const FS = 'sap-design-components-grid-list-';
 // (John Li, the same address and e-mail), so the parts of a card compare by pixels. Whole cards compare by computed
 // styles only: fundamental-styles' avatars show a photo, ours an SVG. fundamental-styles hard-codes `is-compact` on
 // the toolbar rows of its Selection examples and on its title bars; ours follow the density (Angular, and SAPUI5's
-// grid list), so those cards and title bars compare without their height (see the report).
+// grid list), so those cards and title bars compare without their height.
 const ours = (story, selector) => ({ story: `components-grid-list--${story}`, selector });
 const ref = (story, selector) => ({ story: `${FS}${story}`, selector });
 const CARD = '[data-grid-list-item]';
