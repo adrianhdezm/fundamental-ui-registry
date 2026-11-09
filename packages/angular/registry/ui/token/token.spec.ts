@@ -413,6 +413,17 @@ describe('Tokenizer field styles', () => {
         expect(input.height).toBeGreaterThanOrEqual(fieldBox.height - 4);
     });
 
+    it('keeps the 1.5rem token line height and gives the field the text cursor and colour', async () => {
+        const { root, field } = await render();
+        expect(getComputedStyle(root.querySelector('#plain [role=option]')!).lineHeight).toBe('24px');
+        expect(getComputedStyle(field('plain')).cursor).toBe('text');
+        const probe = document.createElement('div');
+        probe.style.color = 'var(--sapField_TextColor)';
+        document.body.appendChild(probe);
+        expect(getComputedStyle(field('plain')).color).toBe(getComputedStyle(probe).color);
+        probe.remove();
+    });
+
     it('has the read-only field background and keeps the field shadow (token-2)', async () => {
         const { field, probe } = await render();
         const style = getComputedStyle(field('readonly'));
