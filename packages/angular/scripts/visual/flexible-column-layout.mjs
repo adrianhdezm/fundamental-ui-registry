@@ -14,5 +14,14 @@ export default [
         pixels: false,
         ours: ours('three-columns', `${BUTTON} >> nth=0`),
         ref: ref('three-columns-layout', '.fd-flexible-column-layout__button >> nth=0')
+    },
+    {
+        // no column borders in HC (flexible-column-layout-3)
+        label: 'mid column',
+        pixels: false,
+        props: ['visibility'],
+        ignore: ['width', 'height'],
+        ours: ours('three-columns', 'fd-flexible-column-layout > div:not(:has(> button)) >> nth=1'),
+        ref: ref('three-columns-layout', '.fd-flexible-column-layout__column >> nth=1')
     }
 ];
