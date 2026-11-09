@@ -273,7 +273,7 @@ let nextId = 0;
                                 class="m-0 list-none p-0"
                                 [attr.aria-labelledby]="comboboxId() + '-group-' + g"
                             >
-                                <li fdListGroupHeader role="presentation" [id]="comboboxId() + '-group-' + g">
+                                <li fdListGroupHeader role="presentation" class="cursor-default" [id]="comboboxId() + '-group-' + g">
                                     <span fdListTitle>{{ group.key }}</span>
                                 </li>
                                 @for (entry of group.items; track entry.index) {

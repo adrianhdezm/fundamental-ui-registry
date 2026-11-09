@@ -709,3 +709,40 @@ describe('Combobox', () => {
         });
     });
 });
+
+describe('Combobox issues', () => {
+    it('shows the default cursor on group headers (combobox-1)', async () => {
+        const fixture = TestBed.createComponent(GroupHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        (fixture.nativeElement as HTMLElement).querySelector<HTMLInputElement>('input')!.focus();
+        await userEvent.keyboard('{Alt>}{ArrowDown}{/Alt}');
+        await fixture.whenStable();
+        const header = document.querySelector<HTMLElement>('[role=listbox] [role=presentation][id*=-group-]')!;
+        expect(header.textContent?.trim()).toBe('Fruit');
+        expect(getComputedStyle(header).cursor).toBe('default');
+    });
+
+    for (const close of ['Cancel', 'Close', 'Escape']) {
+        it(`keeps the immediate choice in the field and the form on ${close} (combobox-2)`, async () => {
+            const { fixture, host, input } = await setupOptions((h) => {
+                h.mobile.set(true);
+                h.closeOnSelect.set(false);
+                h.mobileConfig.set({ title: 'Fruit', cancelButtonText: 'Cancel' });
+            });
+            await userEvent.click(input);
+            await fixture.whenStable();
+            await wait();
+            await userEvent.click(options().find((o) => o.textContent?.trim() === 'Banana')!);
+            await fixture.whenStable();
+            expect(host.control.value).toBe('Banana');
+            if (close === 'Escape') await userEvent.keyboard('{Escape}');
+            else await userEvent.click(dialogButton(close)!);
+            await fixture.whenStable();
+            await wait(300);
+            expect(document.querySelector('[role=dialog]')).toBeNull();
+            expect(host.control.value).toBe('Banana');
+            expect(input.value).toBe('Banana');
+        });
+    }
+});
