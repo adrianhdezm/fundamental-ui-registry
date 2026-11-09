@@ -360,6 +360,22 @@ class NumericHost {
 }
 
 describe('Tile', () => {
+    it('the KPI value is lighter (100) and every page dot has 6px minimum sizes and the 0.125rem shadow', async () => {
+        const numeric = await render(NumericHost);
+        expect(style(numeric.q('[fd-numeric-content-kpi]')).fontWeight).toBe('100');
+        numeric.fixture.nativeElement.remove();
+        const { all } = await render(SlideHost);
+        const probe = document.createElement('div');
+        document.body.appendChild(probe);
+        probe.style.boxShadow = '0 0 0.125rem var(--sapContent_ShadowColor)';
+        for (const dot of all('[fd-tile-dot]')) {
+            expect(style(dot).minHeight).toBe('6px');
+            expect(style(dot).minWidth).toBe('6px');
+            expect(style(dot).boxShadow).toBe(getComputedStyle(probe).boxShadow);
+        }
+        probe.remove();
+    });
+
     it('a hovered line tile shows the 0.125rem border ring in high contrast, as the other tiles', async () => {
         document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
         try {

@@ -588,10 +588,11 @@ export class TileDot {
     readonly userClass = input<ClassValue>('', { alias: 'class' });
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 me-[0.188rem] box-border block size-1.5 rounded-[50%] p-0 opacity-60 last:m-0',
+            // one shadow for every dot: fundamental-styles' active dot rule does not override it
+            'm-0 me-[0.188rem] box-border block size-1.5 min-h-1.5 min-w-1.5 rounded-[50%] p-0 opacity-60 [box-shadow:0_0_0.125rem_var(--sapContent_ShadowColor)] last:m-0',
             this.active()
-                ? 'bg-sap-tile-overlay-foreground-color [box-shadow:0_0_0.063rem_var(--sapContent_ShadowColor)]'
-                : 'border border-sap-tile-overlay-foreground-color bg-transparent [box-shadow:0_0_0.125rem_var(--sapContent_ShadowColor)]',
+                ? 'bg-sap-tile-overlay-foreground-color'
+                : 'border border-sap-tile-overlay-foreground-color bg-transparent',
             this.userClass()
         )
     );

@@ -644,9 +644,9 @@
       "source": "../../../react/docs/parity/components/tile.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "tile.spec.ts: the KPI value's computed font-weight is 300 (font-light) where fundamental-styles has lighter (100 under a 400 parent); the page dots have min-height/min-width 0 instead of 6px, and the active dot has the 0.063rem shadow instead of 0.125rem.",
+      "test": "tile.spec.ts › Tile › the KPI value is lighter (100) and every page dot has 6px minimum sizes and the 0.125rem shadow",
       "fix": "",
       "notes": ""
     },

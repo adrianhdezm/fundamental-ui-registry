@@ -165,7 +165,8 @@ export class NumericContentKpi {
     protected readonly computedClass = computed(() =>
         cn(
             this.glyphChar() && iconVariants({ font: this.glyphFont() }),
-            'm-0 p-0 font-sap-font-family font-light',
+            // fundamental-styles' `lighter` (100 under a 400 parent); the browser picks the 72 Light face either way
+            'm-0 p-0 font-sap-font-family font-thin',
             STATE_COLOR[this.state() ?? 'neutral'],
             this.content?.smallTile()
                 ? 'text-[1.5rem] rtl:text-right rtl:[direction:ltr]'
