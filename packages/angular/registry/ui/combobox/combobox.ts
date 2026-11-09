@@ -199,7 +199,7 @@ let nextId = 0;
                     [attr.aria-describedby]="comboboxId() + '-list-results'"
                     [attr.aria-autocomplete]="mobile() && !dialog ? null : autoComplete() ? 'both' : 'list'"
                     [attr.aria-haspopup]="mobile() && !dialog ? 'dialog' : 'listbox'"
-                    [attr.aria-expanded]="mobile() && !dialog ? isOpen() : listShown()"
+                    [attr.aria-expanded]="dialog || mobile() ? isOpen() : listShown()"
                     [attr.aria-controls]="(dialog || mobile() ? isOpen() : listShown()) ? listId() : null"
                     [attr.aria-activedescendant]="(dialog ? isOpen() : listShown()) ? activeId() : null"
                     [attr.aria-required]="required() || null"
@@ -945,7 +945,8 @@ export class Combobox<T = unknown> implements ControlValueAccessor {
     protected readonly listClass = computed(() =>
         cn(
             'relative m-0 box-border block min-w-20 list-none overflow-auto bg-sap-list-background p-0 outline-none scrollbar-sap',
-            this.mobile() ? 'w-full' : 'w-full max-w-[40rem] rounded-[inherit]',
+            this.mobile() ? 'w-full' : 'w-full rounded-[inherit]',
+            !this.mobile() && !this.noDropDownMaxWidth() && 'max-w-[40rem]',
             this.messages().length > 0 && 'pt-8'
         )
     );
