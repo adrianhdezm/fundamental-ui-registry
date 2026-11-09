@@ -241,7 +241,7 @@
       "repro": "Built Storybook, components-layout-panel--default at a 120px panel: the head shrinks to 29px while the title's widest word needs 52px, so it runs under the 59px actions (spec NarrowHost: title scrollWidth 52 > head 29). One-line flex header with a min-w-0 head.",
       "test": "layout-panel.spec.ts › LayoutPanel in a narrow column › the head keeps room for the title, which does not run under the actions",
       "fix": "9e90622",
-      "notes": "Verified: the test fails before the fix and passes after; pnpm visual layout-panel: the title still matches in all 16 (the narrow case is the spec's: no story is that narrow); pnpm angular check passes."
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual layout-panel: the title still matches in all 16; pnpm angular check passes. Visual (story Narrow column, a 192px window for fundamental-styles' Primary): narrow title, narrow panel match 16/16 by computed style. The layout differs by fundamental-styles' own: its head does not shrink under the title either, but does not wrap, so its actions run outside its 160px panel; ours wrap below the head (sizes not compared)."
     },
     {
       "id": "popover-1",
@@ -518,7 +518,7 @@
       "repro": "Spec (WrapHost): an item with wrapContent computes padding-top and -bottom 4px (py-1), so wrapping rows are 8px taller; fundamental-styles pads only rows of an fd-tree--wrap tree, not an item's fd-tree__content--wrap.",
       "test": "tree.spec.ts › Tree styles › wrapping items have no extra block padding (computed style)",
       "fix": "93f40e6",
-      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (a wrapping item shows in no reference story: covered by the spec)"
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. Visual (story Wrapping item, fundamental-styles' Primary item with the same text): wrapping item, wrapping item text match 16/16."
     },
     {
       "id": "tree-2",
@@ -544,7 +544,7 @@
       "repro": "Spec (DataHost, empty data): the No data row is 44px high (its text has a normal line height); fundamental-styles' text takes the item height, plus the 1px border: 45px (33px compact).",
       "test": "tree.spec.ts › Tree styles › the No data row is as high as an item plus its border (45px)",
       "fix": "c6c73ee",
-      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no Angular story shows an empty tree: covered by the spec)"
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. Visual (story No data, fundamental-styles' Tree With No Data): no data matches 16/16 (45px, 33px compact), no data text 16/16 by computed style (their text fills the row, ours is as wide as the words)."
     },
     {
       "id": "tree-4",
@@ -830,7 +830,7 @@
       "repro": "Spec (ConfigHost, mobile, hideOnMobile false) in compact density: the shortcut computes padding-inline-end 16px; MOBILE_VARS sets [--mi-sc-pr:1rem]! for every density, where fundamental-styles' compact mobile shortcut has 0.5rem.",
       "test": "menu.spec.ts › Menu options › a mobile shortcut keeps the compact end padding in compact density (computed style)",
       "fix": "534684f",
-      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no story shows a mobile shortcut, hidden on mobile by default: covered by the spec)"
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. Visual (story Open: mobile with shortcuts, captured in the overlay, against fundamental-styles' Mobile Mode shortcut): mobile shortcut matches 16/16 by computed style (0.5rem end padding in compact; other shortcut texts)."
     },
     {
       "id": "menu-2",
@@ -844,7 +844,7 @@
       "repro": "menu.spec.ts, a toggle that is on and a submenu parent: the check mark and arrow fd-icon have line-height normal instead of 16px (17px high); text-[1rem] from the menu drops the icon's leading-none.",
       "test": "menu.spec.ts › Menu › keeps the line height of the toggle check mark and the submenu arrow at 1 (16px high)",
       "fix": "115fbfa",
-      "notes": "Same cause as icon-1: may be fixed by it. Verified: the spec passes and pnpm check passes. No visual case: the menu renders in the CDK overlay, outside #storybook-root where scripts/visual.mjs looks; the spec measures 16px."
+      "notes": "Same cause as icon-1: may be fixed by it. Verified: the spec passes and pnpm check passes. Visual: toggle check mark, submenu arrow match 16/16 (by computed style: 16px high, line height 16px; our icons are 16px boxes, fundamental-styles' glyphs inline; stories Open: toggled item and Open: submenus, captured in the overlay; the arrow is compared with an icon after an item, its colour with fundamental-styles' ::after arrow)."
     },
     {
       "id": "calendar-1",
@@ -1040,7 +1040,7 @@
       "repro": "button.spec.ts, a decisive button in data-density=compact: computed min-width 32px instead of 64px (compact:min-w-8 wins over min-w-16); fullWidth's min-w-full loses the same way.",
       "test": "button.spec.ts › Button › decisive and fullWidth keep their minimum widths in compact density",
       "fix": "89203cb",
-      "notes": "Verified: the spec passes and pnpm check passes. No visual case: no story shows a compact decisive button; the spec measures a 64px minimum width in compact."
+      "notes": "Verified: the spec passes and pnpm check passes. Visual (story Decisive, against fundamental-styles' dialog footer decisive buttons): decisive matches 16/16, with min-width (64px in compact too)."
     },
     {
       "id": "combobox-1",
@@ -1475,7 +1475,7 @@
       "repro": "breadcrumb.spec.ts Host at 16rem: the first visible item starts 4px after the 'more' control and its separator (the overflow layout's gap-1) instead of right after it.",
       "test": "Breadcrumb issues > puts the first visible item right after the \"more\" separator (breadcrumb-2)",
       "fix": "1edd1e5",
-      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; No visual case: the 4px is between the 'more' control and the row, which the element cases do not measure; the spec measures it. Comparing the 'more' control as a whole differs by 9.8% because of the Link component's icon margins (fundamental-styles: 2px on both sides of the overflow icon; ours 2px after it and 2px before the arrow), outside this issue."
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes. Visual: overflow row gap matches 16/16 (column-gap 0 between the 'more' control and the items; by computed style, the trails differ). The first visible item still starts 6px later than fundamental-styles' (47.9px against 41.9px from the start), outside this issue: our arrow icon is a 16px box with 2px margins, fundamental-styles' a 10px inline glyph and 2px margins around the overflow icon (the Link and Icon components); the spec measures that nothing follows the separator."
     },
     {
       "id": "breadcrumb-3",
@@ -1501,7 +1501,7 @@
       "repro": "shellbar.spec.ts IssuesHost (1300px, actions with [user] and a product switch): the simple user menu ends at 1252px, after the product switch that starts at 1174px, because fd-shellbar-user-menu has order-1.",
       "test": "Shellbar issues > puts the simple user menu before the product switch (shellbar-1)",
       "fix": "a15177b",
-      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; No visual case: fundamental-styles has no bar with the same actions to compare the order by pixels; the spec measures it."
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes. No visual comparison: no fundamental-styles bar has the same actions (a simple user menu and a product switch) to compare their order by pixels; the spec measures it."
     },
     {
       "id": "shellbar-2",
@@ -1515,7 +1515,7 @@
       "repro": "shellbar.spec.ts with dir=rtl and showBackButton: the back button's icon is slim-arrow-right, which Icon mirrors, so it points left.",
       "test": "shellbar.spec.ts › Shellbar › in RTL the back button keeps the nav-back glyph, mirrored once by the icon (it points right)",
       "fix": "6fef05b",
-      "notes": "Verified: the spec passes and pnpm check passes. No visual case: no fundamental-styles shellbar story has a back button to compare with; the spec checks the glyph and a single flip."
+      "notes": "Verified: the spec passes and pnpm check passes. Visual (Basic story, against the back button of fundamental-styles' Optional Items bar): back button matches in all 8 cozy combinations, back button icon in all 8 LTR ones. The rest are kept differences, fundamental-styles' own: its Storybook compacts the bar in compact density (ours stays cozy, as Angular and fundamental-ngx: 36px against 26px), and its static bar does not mirror the arrow in RTL (it points left; ours points right, mirrored once by the icon, which is the fix); the spec checks the glyph and the single flip."
     },
     {
       "id": "shellbar-3",
@@ -1582,7 +1582,7 @@
       "repro": "shellbar.spec.ts IssuesHost at 319px, size s, with a logo, a product menu, three actions, a user and a product switch: the product menu keeps its 153px title, so the bar's content is 371px wide and the last button ends at 370.8px, past the 319px bar. fundamental-styles hides .fd-shellbar__title (the product menu's title too) at size s.",
       "test": "Shellbar issues > fits a small bar with a product menu, which shows only its arrow (shellbar-7)",
       "fix": "d2aa533",
-      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; No visual case: fundamental-styles has no small shellbar with a product menu; the spec measures the fit and the hidden name."
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes. No visual comparison: fundamental-styles has no small shellbar with a product menu (no story has a product menu at all); the spec measures the fit and the hidden name."
     },
     {
       "id": "toolbar-1",
@@ -1713,7 +1713,7 @@
       "repro": "user-menu.spec.ts, mobile mode with dir=rtl, opening the Language submenu: the Go back button's icon is navigation-right-arrow, which Icon mirrors, so it points left.",
       "test": "user-menu.spec.ts › UserMenu › in RTL the mobile back button keeps the left arrow, mirrored once by the icon (it points right)",
       "fix": "6fef05b",
-      "notes": "Verified: the spec passes and pnpm check passes. No visual case: the mobile user menu is a dialog in the overlay, outside #storybook-root; the spec checks the glyph and a single flip."
+      "notes": "Verified: the spec passes and pnpm check passes. Visual (story Open: mobile submenu, captured in the overlay, against fundamental-styles' Menu Mobile Mode submenu back button): mobile back button, mobile back button icon match in all 8 LTR combinations (20/32 in all: the button also in RTL cozy) and their computed styles in all 16; in RTL the pixels differ by fundamental-styles' own: its static example does not mirror the arrow in RTL (it points left), ours points right, mirrored once by the icon, which is the fix; the spec checks the glyph and the single flip."
     },
     {
       "id": "object-marker-1",
@@ -1833,7 +1833,7 @@
       "repro": "Spec (OverlayHost: a banner with isOverlay text over an image, viewport 900px): the image container is 50% of the media (banner's has-image rule; 20% below 1024px) and the text 50% − 3rem; fundamental-styles' overlay rule gives the image the whole width and the text 80% − 3rem below 1024px.",
       "test": "card.spec.ts › Card styles › an overlay banner has a full-width image, and its text is 80% − 3rem below 1024px",
       "fix": "5b09dd9",
-      "notes": "Verified: the test fails before the fix and passes after; no Angular story shows an overlay banner (as React, covered by the spec); pnpm angular check passes."
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. Visual (story Banner with content overlay, fundamental-styles' Media as Banner with content overlay, at 1280px and 900px windows): overlay banner text, overlay banner text below 1024px, overlay banner image, overlay banner image below 1024px match 16/16 (sizes and computed styles; the images differ, so no pixels)."
     },
     {
       "id": "generic-tag-1",
@@ -1859,7 +1859,7 @@
       "repro": "generic-tag.spec.ts: in the generated CSS the active: rule setting --gt-bg to --sapList_Active_Background comes before the enabled-hover: one, so a pressed (hovered) tag keeps the hover background (#eaecee instead of #dee2e5 in Horizon).",
       "test": "generic-tag.spec.ts › GenericTag › the pressed background rule comes after the hover rule, so a pressed (hovered) tag shows it",
       "fix": "c9dbb19",
-      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual generic-tag: error hover 16/16; the visual tool cannot press, the pressed rule order is covered by the spec."
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual generic-tag: error hover 16/16. Visual (the new active option presses the mouse button on the tag): neutral pressed, error pressed match 16/16 by computed style (the pressed background, e.g. #dee2e5 in Horizon; other texts)."
     },
     {
       "id": "text-1",
@@ -1872,7 +1872,7 @@
       "repro": "text.spec.ts: the paragraph's ::selection background is --sapContent_Selected_Background (white in Horizon, #1d232a in Dark), the same as the page, so selected text in the contrast colour is invisible; fundamental-styles uses --sapSelectedColor.",
       "test": "text.spec.ts › Text › selected text takes --sapSelectedColor with the contrast text colour, as fundamental-styles",
       "fix": "62baefe",
-      "notes": "Verified: the spec passes and pnpm check passes. No visual case: ::selection is not captured by the visual tool; the spec checks the computed selection colours."
+      "notes": "Verified: the spec passes and pnpm check passes. No visual comparison: ::selection cannot be captured (a screenshot does not show a selection's own colours reliably, and the visual tool compares elements); the spec checks the computed selection colours."
     },
     {
       "id": "text-2",
@@ -2069,7 +2069,7 @@
       "repro": "avatar-group.spec.ts, an individual group of accent-2 avatars with details: hovering an avatar's trigger leaves its background unchanged (fundamental-styles' avatar buttons take their hover colours), and the keyboard focus frame is 0.25rem out (-4px) instead of 0.3125rem.",
       "test": "avatar-group.spec.ts › AvatarGroup › an individual avatar with details hovers with its own hover colours and has its focus frame 0.3125rem out",
       "fix": "d717d93",
-      "notes": "Verified: the spec passes and pnpm check passes. Verified by the spec; the visual tool cannot pair our avatar triggers with fundamental-styles' avatars (other stories)."
+      "notes": "Verified: the spec passes and pnpm check passes. Visual (our Individual story's s group against fundamental-styles' Individual Type group): individual avatar, individual avatar hover match 16/16 by computed style (other initials). The focus frame is outside the avatar, beyond a screenshot of it: the spec measures it 0.3125rem out."
     },
     {
       "id": "avatar-group-3",
@@ -2082,7 +2082,7 @@
       "repro": "avatar-group.spec.ts, a group-type group of accent-2 avatars, hovered: each avatar takes --sapAvatar_6_Hover_Background instead of its own --sapAvatar_2_Hover_Background.",
       "test": "avatar-group.spec.ts › AvatarGroup › a group-type group hovers each avatar with its own hover background",
       "fix": "c2b649d",
-      "notes": "Verified: the spec passes and pnpm check passes. Verified by the spec (group hover); no fundamental-styles hover state for group avatars to compare."
+      "notes": "Verified: the spec passes and pnpm check passes. Visual (story Group type with accent colours, mirroring fundamental-styles' Group Type Interaction States, whose hovered group has is-hover): group avatar, accent 1 hover; group avatar, accent 2 hover; group avatar, accent 3 hover match 16/16 (accent 1 by pixels too; 2 and 3 by computed style: fundamental-styles' image avatar next to them does not load in its Storybook)."
     },
     {
       "id": "avatar-group-4",
@@ -2610,7 +2610,7 @@
       "repro": "Spec (StylesHost, dir=rtl): the desktop action sits 540px from the item's left edge, at the right (start); rtl:float-start is added on top of float-end, which Tailwind v4 already compiles to the logical float: inline-end.",
       "test": "feed-list.spec.ts › FeedList styles › in RTL the desktop actions sit at the end (left)",
       "fix": "9815476",
-      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. Visual (With actions story, fundamental-styles' With Actions; the new within option measures the actions' distance from the item's edges): actions matches 16/16, at the end of the item in LTR and RTL."
     },
     {
       "id": "feed-list-2",
@@ -2650,7 +2650,7 @@
       "repro": "Spec (StylesHost): a footer with a Reply fdLink is 22px high (the link keeps its 1rem line height) and the date byline computes 9.6px (preflight's small at 80%); fundamental-styles' footer is 17px and its bylines 10px (smaller).",
       "test": "feed-list.spec.ts › FeedList styles › a footer with a Reply link is 17px high and the bylines are 10px (computed style)",
       "fix": "628dd97",
-      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no Angular story has a Reply link in the footer: covered by the spec)"
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. Visual (the Default story has a Reply link in each footer; fundamental-styles' Standard footer): footer, footer date byline, footer Reply byline match 16/16 (17px footer, 10px bylines; the footer and the Reply byline by computed style, their Reply is plain text)."
     },
     {
       "id": "grid-list-1",
@@ -2809,7 +2809,7 @@
       "repro": "Reproduced in Angular: upload-collection.spec.ts IssuesHost: the title link's computed pointer-events is none (inherited from the list content), and so is the rename field's after Edit.",
       "test": "UploadCollection issues > keeps the title link and the rename field interactive (upload-collection-2)",
       "fix": "ca97562",
-      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; behaviour (pointer events) only."
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes. No visual comparison: pointer events (behaviour only) do not show in a render; the spec checks them."
     },
     {
       "id": "upload-collection-3",
@@ -2861,7 +2861,7 @@
       "repro": "upload-collection.spec.ts IssuesHost at 420px with a favorite marker: the long name is not shortened in the middle (no '...'), only cut at the end by the ellipsis: fit() only checks whether the title is as wide as its container.",
       "test": "UploadCollection issues > shortens a long name next to a marker in the middle (upload-collection-6)",
       "fix": "6501908",
-      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; spec only: fundamental-styles has no long name with a marker example."
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes. No visual comparison: fundamental-styles has no example of a long name next to a marker; the spec checks the middle shortening."
     },
     {
       "id": "notification-1",
@@ -2914,7 +2914,7 @@
       "repro": "settings.spec.ts with dir=rtl, after pushView: the back button's icon is navigation-right-arrow, which Icon mirrors, so it points left.",
       "test": "settings.spec.ts › SettingsContainer › in RTL the back button keeps the left arrow, mirrored once by the icon (it points right)",
       "fix": "6fef05b",
-      "notes": "Verified: the spec passes and pnpm check passes. No visual case: the back button appears only after pushView (no story state shows it); the spec checks the glyph and a single flip."
+      "notes": "Verified: the spec passes and pnpm check passes. Visual (story Inline: pushed view, against fundamental-styles' SM settings back button): back button, back button icon match in all 8 LTR combinations (20/32 in all: the button also in RTL cozy) and their computed styles in all 16; in RTL the pixels differ by fundamental-styles' own: its static example does not mirror the arrow in RTL (it points left), ours points right, mirrored once by the icon, which is the fix; the spec checks the glyph and the single flip."
     },
     {
       "id": "content-density-1",
