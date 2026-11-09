@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import type { IconFont } from '@/ui/icon/icon';
 import { ObjectMarker } from './object-marker';
@@ -184,5 +184,31 @@ describe('ObjectMarker', () => {
         await new Promise((resolve) => setTimeout(resolve, 200));
         expect(document.activeElement).toBe(marker());
         expect(getComputedStyle(marker()).backgroundColor).not.toBe(before);
+    });
+});
+
+@Component({
+    imports: [ObjectMarker],
+    template: `
+        <span fdObjectMarker id="mirrored" glyph="request" label="Request"></span>
+        <a fdObjectMarker id="clickable" clickable glyph="user-edit" label="Unsaved changes"></a>
+    `
+})
+class MarkerHost {}
+
+describe('ObjectMarker layout', () => {
+    afterEach(() => document.documentElement.removeAttribute('dir'));
+
+    it('keeps a 0.25rem gap between a mirrored glyph and the label in RTL', async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        const fixture = TestBed.createComponent(MarkerHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const marker = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#mirrored')!;
+        const icon = marker.querySelector('fd-icon')!.getBoundingClientRect();
+        const label = marker.querySelector('#mirrored-label')!.getBoundingClientRect();
+        // the space between the icon box and the label, whichever side the icon is on
+        expect(Math.round(Math.max(icon.left - label.right, label.left - icon.right))).toBe(4);
+        fixture.nativeElement.remove();
     });
 });

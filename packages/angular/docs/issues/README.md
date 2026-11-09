@@ -531,12 +531,12 @@ None.
 
 #### object-marker
 
-[React report](../../../react/docs/parity/components/object-marker.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/object-marker.md) · ⬜ reported: 1 · 🧪 covered: 1
 
-| ID              | Issue                                                                                                                                  | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| object-marker-1 | In RTL the object-marker `pe-1` gap of a mirrored glyph is flipped by the `rtl:-scale-x-100` transform, so the icon touches the label. | visual | rendered  |         | ⬜ reported |      |     |       |
-| object-marker-2 | Clickable object markers inherit `leading-none`, 1–2px shorter than fundamental-styles' link markers.                                  | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID              | Issue                                                                                                                                  | Kind   | Confirmed | Pattern | Status      | Test                                                                                                            | Fix | Notes |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | --------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| object-marker-1 | In RTL the object-marker `pe-1` gap of a mirrored glyph is flipped by the `rtl:-scale-x-100` transform, so the icon touches the label. | visual | rendered  |         | 🧪 covered  | object-marker.spec.ts › ObjectMarker layout › keeps a 0.25rem gap between a mirrored glyph and the label in RTL |     |       |
+| object-marker-2 | Clickable object markers inherit `leading-none`, 1–2px shorter than fundamental-styles' link markers.                                  | visual | rendered  |         | ⬜ reported |                                                                                                                 |     |       |
 
 #### object-number
 

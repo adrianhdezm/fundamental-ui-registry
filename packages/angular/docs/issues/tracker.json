@@ -1722,9 +1722,9 @@
       "source": "../../../react/docs/parity/components/object-marker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "object-marker.spec.ts, dir=rtl, a marker with the mirrored request glyph and a label: the icon's pe-1 gap is inside its box, which rtl:-scale-x-100 flips to the outer side, so no gap is left between the icon and the label.",
+      "test": "object-marker.spec.ts › ObjectMarker layout › keeps a 0.25rem gap between a mirrored glyph and the label in RTL",
       "fix": "",
       "notes": ""
     },

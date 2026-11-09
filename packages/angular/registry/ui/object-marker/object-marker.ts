@@ -48,7 +48,7 @@ let nextId = 0;
                 [font]="glyphFont()"
                 [attr.role]="label() ? 'presentation' : null"
                 [attr.title]="iconTitle()"
-                class="flex items-center justify-center pe-1 text-base leading-[normal] text-sap-content-marker-icon-color only:px-0"
+                class="flex w-auto items-center justify-center me-1 text-base leading-[normal] text-sap-content-marker-icon-color only:me-0"
             />
         }
         @if (label()) {
