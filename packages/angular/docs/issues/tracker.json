@@ -540,9 +540,9 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (DataHost, empty data): the No data row is 44px high (its text has a normal line height); fundamental-styles' text takes the item height, plus the 1px border: 45px (33px compact).",
+      "test": "tree.spec.ts › Tree styles › the No data row is as high as an item plus its border (45px)",
       "fix": "",
       "notes": ""
     },

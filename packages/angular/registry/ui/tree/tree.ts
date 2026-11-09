@@ -516,7 +516,9 @@ const ROOT_ROW =
                 }
             } @else {
                 <div role="treeitem" aria-level="1" class="${ROOT_ROW} justify-center">
-                    <span class="text-(length:--tree-font) text-sap-list-text-color">{{ noDataText() }}</span>
+                    <span class="text-(length:--tree-font) leading-(--tree-h) text-sap-list-text-color">{{
+                        noDataText()
+                    }}</span>
                 </div>
             }
         } @else {

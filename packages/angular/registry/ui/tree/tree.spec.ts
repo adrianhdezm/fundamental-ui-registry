@@ -444,4 +444,11 @@ describe('Tree styles', () => {
         const button = [...root.querySelectorAll<HTMLElement>('[fdTreeItemButton]')][0];
         expect(getComputedStyle(button).marginInlineStart).toBe('0px');
     });
+
+    it('the No data row is as high as an item plus its border (45px)', async () => {
+        const { root } = await render(DataHost);
+        const row = root.querySelector<HTMLElement>('[role=treeitem]')!;
+        expect(row.textContent!.trim()).toBe('No data');
+        expect(row.getBoundingClientRect().height).toBe(45);
+    });
 });
