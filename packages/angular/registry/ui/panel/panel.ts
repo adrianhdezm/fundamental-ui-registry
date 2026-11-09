@@ -80,7 +80,7 @@ export class Panel {
     readonly expanded = model(false);
     readonly expandAriaLabel = input<string | null | undefined>();
     readonly expandAriaLabelledBy = input<string | null | undefined>();
-    /** Transparent header and content. */
+    /** Transparent content; the header keeps its background, as fundamental-styles. */
     readonly transparent = input(false, { transform: booleanAttribute });
     readonly noRadius = input(false, { transform: booleanAttribute });
     readonly userClass = input<ClassValue>('', { alias: 'class' });
