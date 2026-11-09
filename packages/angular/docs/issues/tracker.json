@@ -2923,9 +2923,9 @@
       "source": "../../../react/docs/parity/components/content-density.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: a button in compact > cozy > compact > cozy sections (fdCompact/fdCozy) measures 26, 36, 36, 36px instead of 26, 36, 26, 36px: the compact section inside the cozy island stays cozy. Storybook: components-content-density--directives under a compact global density shows the same.",
+      "test": "ContentDensity › the nearest density wins through alternating levels (compact, cozy, compact, cozy)",
       "fix": "",
       "notes": "Shared styles (`registry/styles/fundamental.css`): every component is affected."
     }
