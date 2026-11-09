@@ -60,6 +60,27 @@ const PRODUCTS: Product[] = [
 
 const text = 'm-0 mt-1 block font-sap-font-family text-sap-font-small-size text-sap-content-label-color';
 
+/** fundamental-styles' form item example, for the visual comparison (scripts/visual/multi-input.mjs). */
+@Component({
+    selector: 'story-multi-input-form-item',
+    imports: [MultiInput, FormItem, FormLabel, FormsModule],
+    template: `
+        <div fdFormItem id="mi-form-item">
+            <label fdFormLabel for="formItemMultiInput">Multi Input as form item</label>
+            <fd-multi-input
+                inputId="formItemMultiInput"
+                addOnButtonAriaLabel="show options"
+                ariaLabel="list of fruits"
+                [dropdownValues]="['Apple', 'Orange', 'Banana', 'Kiwi', 'Lemon']"
+                [(ngModel)]="selected"
+            />
+        </div>
+    `
+})
+class StoryMultiInputFormItem {
+    protected readonly selected = signal(['Apple', 'Orange', 'Kiwi', 'Banana']);
+}
+
 @Component({
     selector: 'story-multi-input-default',
     imports: [MultiInput, FormItem, FormLabel, FormsModule, JsonPipe, ContentDensityDirective],
@@ -552,7 +573,8 @@ const meta: Meta<MultiInput> = {
                 StoryMultiInputAsync,
                 StoryMultiInputOptionItems,
                 StoryMultiInputDropdownWidth,
-                StoryMultiInputManyTokens
+                StoryMultiInputManyTokens,
+                StoryMultiInputFormItem
             ]
         })
     ],
@@ -624,6 +646,20 @@ async function openMultiInput(canvasElement: HTMLElement, inputId: string, popup
     await waitFor(() => expect(document.querySelector(popup)).not.toBeNull());
 }
 
+export const AsFormItem: Story = {
+    name: 'As form item',
+    parameters: {
+        docs: { description: { story: "fundamental-styles' form item example, for the visual comparison." } }
+    },
+    render: () => ({ template: `<story-multi-input-form-item />` })
+};
+export const OpenDefault: Story = {
+    name: 'Open: as form item',
+    tags: ['!autodocs'],
+    render: AsFormItem.render,
+    play: ({ canvasElement }) =>
+        openMultiInput(canvasElement, 'formItemMultiInput', '.cdk-overlay-container [role=listbox] [role=option]')
+};
 export const OpenItemTemplate: Story = {
     name: 'Open: item template',
     tags: ['!autodocs'],
