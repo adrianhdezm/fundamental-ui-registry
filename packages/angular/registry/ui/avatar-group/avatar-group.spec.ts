@@ -143,7 +143,67 @@ class ShapeHost {
     readonly shapes = ['circle', 'square'] as const;
 }
 
+@Component({
+    imports: [AvatarGroup, AvatarGroupItem, Avatar],
+    template: `
+        <div style="width: 600px">
+            <fd-avatar-group id="group" size="s" type="group">
+                @for (name of names; track name) {
+                    <fd-avatar *fdAvatarGroupItem circle size="s" colorAccent="2" [label]="name" />
+                }
+            </fd-avatar-group>
+        </div>
+        <div style="width: 600px">
+            <fd-avatar-group id="individual" size="s">
+                @for (name of names; track name) {
+                    <fd-avatar
+                        *fdAvatarGroupItem="details; title: name"
+                        circle
+                        size="s"
+                        colorAccent="2"
+                        [label]="name"
+                    />
+                }
+                <ng-template #details><div class="p-4">Details</div></ng-template>
+            </fd-avatar-group>
+        </div>
+        <span id="probe"></span>
+    `
+})
+class AccentHost {
+    readonly names = ['Ann Lee', 'Bob Ray'];
+}
+
+async function setupAccent() {
+    const fixture = TestBed.createComponent(AccentHost);
+    document.body.appendChild(fixture.nativeElement);
+    for (let i = 0; i < 3; i++) {
+        await fixture.whenStable();
+        await frame();
+    }
+    const root = fixture.nativeElement as HTMLElement;
+    const probe = root.querySelector<HTMLElement>('#probe')!;
+    return {
+        fixture,
+        root,
+        resolve: (variable: string) => {
+            probe.style.backgroundColor = `var(${variable})`;
+            return getComputedStyle(probe).backgroundColor;
+        }
+    };
+}
+
 describe('AvatarGroup', () => {
+    it('a group-type group hovers each avatar with its own hover background', async () => {
+        const { root, resolve, fixture } = await setupAccent();
+        const row = root.querySelector<HTMLElement>('#group [role=button]')!;
+        await userEvent.hover(row);
+        const avatar = row.querySelector<HTMLElement>('fd-avatar')!;
+        expect(getComputedStyle(avatar).backgroundColor).toBe(resolve('--sapAvatar_2_Hover_Background'));
+        await userEvent.unhover(row);
+        fixture.nativeElement.remove();
+    });
+
     afterEach(() => document.documentElement.removeAttribute('dir'));
 
     it('shows as many avatars as fit and moves the rest into the overflow button ("+N")', async () => {

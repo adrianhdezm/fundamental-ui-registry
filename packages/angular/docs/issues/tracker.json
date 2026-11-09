@@ -2078,9 +2078,9 @@
       "source": "../../../react/docs/parity/components/avatar-group.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "avatar-group.spec.ts, a group-type group of accent-2 avatars, hovered: each avatar takes --sapAvatar_6_Hover_Background instead of its own --sapAvatar_2_Hover_Background.",
+      "test": "avatar-group.spec.ts › AvatarGroup › a group-type group hovers each avatar with its own hover background",
       "fix": "",
       "notes": ""
     },

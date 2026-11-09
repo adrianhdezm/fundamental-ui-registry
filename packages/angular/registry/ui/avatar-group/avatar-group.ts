@@ -459,8 +459,10 @@ export class AvatarGroup {
                       vertical
                           ? '[&>[data-avatar-group-item]~*]:mt-(--ag-overlap)'
                           : '[&>[data-avatar-group-item]~*]:ms-(--ag-overlap)',
-                      'enabled-hover:[&_fd-avatar]:[--av-bg:var(--sapAvatar_6_Hover_Background)] enabled-hover:[&_fd-avatar]:[--av-border:var(--sapAvatar_Hover_BorderColor)]',
-                      'active:[&_fd-avatar]:[--av-bg:var(--sapButton_Active_Background)] active:[&_fd-avatar]:[--av-border:var(--sapButton_Active_BorderColor)] active:[&_fd-avatar]:[--av-color:var(--sapButton_Active_TextColor)]'
+                      // the avatars (and the overflow button) take their own hover and press colours from the group
+                      'enabled-hover:[&>*>*]:[--av-bg:var(--av-hover-bg)] enabled-hover:[&>*>*]:[--av-border:var(--av-hover-border)]',
+                      'active:[&>*>*]:[--av-bg:var(--av-active-bg)] active:[&>*>*]:[--av-border:var(--av-active-border)] active:[&>*>*]:[--av-color:var(--av-active-color)]',
+                      'active:hover:[&>*>*]:[--av-bg:var(--av-active-hover-bg)] active:hover:[&>*>*]:[--av-border:var(--av-active-hover-border)] active:hover:[&>*>*]:[--av-color:var(--av-active-hover-color)]'
                   ]
                 : 'gap-(--ag-gap)'
         );
