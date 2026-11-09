@@ -51,12 +51,23 @@ class IconHost {
     readonly font = signal<IconFont>('SAP-icons-TNT');
 }
 
+/** Waits for the row to be measured again after a link appeared or disappeared. */
+async function settle(fixture: { whenStable(): Promise<unknown> }) {
+    for (let i = 0; i < 3; i++) {
+        await fixture.whenStable();
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+    }
+}
+
 async function setup(count = 3) {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.steps.set(Array.from({ length: count }, (_, i) => i + 1));
     document.body.appendChild(fixture.nativeElement);
-    await fixture.whenStable();
-    await new Promise((resolve) => requestAnimationFrame(resolve));
+    // the links appear after the first measure and narrow the row, which is measured again (ResizeObserver)
+    for (let i = 0; i < 3; i++) {
+        await fixture.whenStable();
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+    }
     await fixture.whenStable();
     const root = fixture.nativeElement as HTMLElement;
     return {
@@ -125,13 +136,13 @@ describe('MicroProcessFlow', () => {
         expect(visible[0]).toBe(1);
         expect(visible.length + hidden).toBe(20);
         await userEvent.click(root.querySelector('[aria-label$="next steps"]')!);
-        await fixture.whenStable();
+        await settle(fixture);
         // the previous link takes room too
         expect(links()[0]).toBe('1 previous steps');
         expect(tabbable()[0]).toBe(2);
         expect(1 + tabbable().length + Number(links()[1]!.split(' ')[0])).toBe(20);
         await userEvent.click(root.querySelector('[aria-label$="previous steps"]')!);
-        await fixture.whenStable();
+        await settle(fixture);
         expect(links()).toEqual([`${hidden} next steps`]);
     });
 
