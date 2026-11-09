@@ -55,9 +55,9 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 <!-- tracker:start -->
 
-**Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
+**Progress:** 3 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 212 · ✅ verified: 2 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -373,12 +373,12 @@ None.
 
 #### nested-list
 
-[React report](../../../react/docs/parity/components/nested-list.md) · ⬜ reported: 1 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/nested-list.md) · ⬜ reported: 1 · ✅ verified: 1
 
-| ID            | Issue                                                                                                             | Kind   | Confirmed | Pattern                   | Status      | Test                                                               | Fix | Notes |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------------------------- | ----------- | ------------------------------------------------------------------ | --- | ----- |
-| nested-list-1 | Rows are described by the list's last group header instead of the last header before them.                        | a11y   | rendered  |                           | 🧪 covered  | NestedList › describes each row by the last group header before it |     |       |
-| nested-list-2 | In RTL the collapsed arrow picks `navigation-left-arrow`, which the icon mirrors again (it points the wrong way). | visual | rendered  | pattern-rtl-double-mirror | ⬜ reported |                                                                    |     |       |
+| ID            | Issue                                                                                                             | Kind   | Confirmed | Pattern                   | Status      | Test                                                               | Fix     | Notes                                                                                |
+| ------------- | ----------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------------------------- | ----------- | ------------------------------------------------------------------ | ------- | ------------------------------------------------------------------------------------ |
+| nested-list-1 | Rows are described by the list's last group header instead of the last header before them.                        | a11y   | rendered  |                           | ✅ verified | NestedList › describes each row by the last group header before it | 6a292ef | Verified: the test fails before the fix and passes after; pnpm angular check passes. |
+| nested-list-2 | In RTL the collapsed arrow picks `navigation-left-arrow`, which the icon mirrors again (it points the wrong way). | visual | rendered  | pattern-rtl-double-mirror | ⬜ reported |                                                                    |         |                                                                                      |
 
 #### time-picker
 
