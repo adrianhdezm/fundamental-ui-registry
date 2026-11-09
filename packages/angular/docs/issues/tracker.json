@@ -1682,9 +1682,9 @@
       "source": "../../../react/docs/parity/components/split-button.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "split-button.spec.ts Host in Horizon HC Black: the main and arrow buttons compute background rgb(0, 0, 0) (HC_BUTTON's hc:bg-sap-button-background) instead of transparent over the pad (fundamental-styles' --fdButton_Split_Background_Color: transparent); same colour, not visible.",
+      "test": "SplitButton issues > keeps both buttons transparent on the pad in high contrast (split-button-1)",
       "fix": "",
       "notes": ""
     },
