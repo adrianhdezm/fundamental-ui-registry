@@ -106,6 +106,12 @@ describe('TimePicker', () => {
         expect(document.activeElement).toBe(input);
     });
 
+    it("the button shows fundamental-styles' and UI5's time-entry-request glyph", async () => {
+        const { button } = await setup();
+        // the icon shows the glyph's character (SAP-icons' time-entry-request is U+E0A4)
+        expect(button.querySelector('[data-glyph]')!.getAttribute('data-glyph')).toBe('\ue0a4');
+    });
+
     it('opens with Alt+Down', async () => {
         const { input, stable } = await setup();
         input.focus();

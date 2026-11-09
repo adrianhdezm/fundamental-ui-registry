@@ -114,7 +114,7 @@ let nextId = 0;
                             <button
                                 fdButton
                                 variant="transparent"
-                                glyph="fob-watch"
+                                glyph="time-entry-request"
                                 [ariaLabel]="timePickerButtonLabel()"
                                 [attr.title]="timePickerButtonLabel()"
                                 [attr.aria-haspopup]="'dialog'"

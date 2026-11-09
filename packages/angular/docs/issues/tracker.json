@@ -1115,9 +1115,9 @@
       "source": "../../../react/docs/parity/components/time-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host: the button's icon has data-glyph U+E168 (fob-watch); fundamental-styles' Time Picker pattern and UI5 show time-entry-request (U+E0A4).",
+      "test": "time-picker.spec.ts › TimePicker › the button shows fundamental-styles' and UI5's time-entry-request glyph",
       "fix": "",
       "notes": "Decided: `time-entry-request`, as fundamental-styles and UI5 (and React). A visible change from fundamental-ngx."
     },
