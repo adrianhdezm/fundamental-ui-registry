@@ -2685,9 +2685,9 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (GroupsHost): the group header after an item computes margin-top 0px; fundamental-styles' group headers have a 0.75rem top margin except the first (--no-margin).",
+      "test": "grid-list.spec.ts › GridList styles › group headers after items have a 0.75rem top margin, the first one none (computed style)",
       "fix": "",
       "notes": ""
     },

@@ -785,6 +785,8 @@ export class GridListGroupHeader {
         cn(
             FULL_ROW,
             'm-0 flex h-8 items-center truncate p-0 text-sap-font-header5-size leading-8 font-bold text-sap-list-group-header-text-color',
+            // after items, as fundamental-styles' group headers without --no-margin
+            '[:not(fd-grid-list-title-bar,fd-grid-list-filter-bar,fd-grid-list-group-header)+&]:mt-3',
             this.userClass()
         )
     );

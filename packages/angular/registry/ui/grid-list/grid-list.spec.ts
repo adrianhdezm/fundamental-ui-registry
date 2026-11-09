@@ -348,4 +348,10 @@ describe('GridList styles', () => {
         const heading = el.querySelector<HTMLElement>('fd-grid-list-title-bar [role="heading"]')!;
         expect(getComputedStyle(heading).color).toBe(colour('--sapTextColor'));
     });
+
+    it('group headers after items have a 0.75rem top margin, the first one none (computed style)', async () => {
+        const el = await renderGroups();
+        expect(getComputedStyle(el.querySelector('#first')!).marginTop).toBe('0px');
+        expect(getComputedStyle(el.querySelector('#second')!).marginTop).toBe('12px');
+    });
 });
