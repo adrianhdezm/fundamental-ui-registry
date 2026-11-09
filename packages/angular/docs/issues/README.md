@@ -307,11 +307,11 @@ None.
 
 #### message-page
 
-[React report](../../../react/docs/parity/components/message-page.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/message-page.md) · 🧪 covered: 1
 
-| ID             | Issue                                                                                                     | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes                                                      |
-| -------------- | --------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ---------------------------------------------------------- |
-| message-page-1 | The subtitle centres every line of a multi-line text (`text-center`); fundamental-styles start-aligns it. | visual | rendered  |         | ⬜ reported |      |     | Decided: start-aligned, as fundamental-styles (and React). |
+| ID             | Issue                                                                                                     | Kind   | Confirmed | Pattern | Status     | Test                                                                                                                   | Fix | Notes                                                      |
+| -------------- | --------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------- | --- | ---------------------------------------------------------- |
+| message-page-1 | The subtitle centres every line of a multi-line text (`text-center`); fundamental-styles start-aligns it. | visual | rendered  |         | 🧪 covered | message-page.spec.ts › MessagePage › start-aligns the lines of a long subtitle, as fundamental-styles (computed style) |     | Decided: start-aligned, as fundamental-styles (and React). |
 
 #### time
 

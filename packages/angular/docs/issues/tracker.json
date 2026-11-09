@@ -892,9 +892,9 @@
       "source": "../../../react/docs/parity/components/message-page.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (PartsHost): fd-message-page-subtitle computes text-align: center, so every line of a multi-line subtitle is centred; fundamental-styles' subtitle has no alignment (start), the column centres a short one.",
+      "test": "message-page.spec.ts › MessagePage › start-aligns the lines of a long subtitle, as fundamental-styles (computed style)",
       "fix": "",
       "notes": "Decided: start-aligned, as fundamental-styles (and React)."
     },
