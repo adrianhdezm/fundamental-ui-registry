@@ -1090,8 +1090,11 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
 
     protected readonly messageClass = computed(() => {
         const state = this.currentState() ?? 'default';
+        // fundamental-styles' list message is a truncated 2rem line; this one wraps (decided: truncation hides text),
+        // with the same 2rem height and text position for one line and 0.5rem padding around wrapped lines, as UI5's
+        // value state header
         return cn(
-            'box-border min-h-8 px-2 py-2 font-sap-font-family text-sap-font-small-size leading-normal text-sap-text-color',
+            'box-border min-h-8 px-2 py-2 font-sap-font-family text-sap-font-small-size leading-4 break-words whitespace-normal text-sap-text-color',
             {
                 default: 'bg-sap-neutral-background',
                 error: 'bg-sap-error-background',
