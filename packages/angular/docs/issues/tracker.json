@@ -2434,9 +2434,9 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: a multi-combobox without a state message has no aria-live element; setting stateMessage creates <span aria-live=\"polite\"> together with its text (the region is inside @if (currentStateMessage() && !isOpen())), which screen readers often do not announce.",
+      "test": "MultiCombobox › keeps the polite live region mounted, so a state message that appears is announced",
       "fix": "",
       "notes": ""
     },

@@ -57,7 +57,7 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 **Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 211 · 🧪 covered: 2 · ✅ verified: 1 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -712,7 +712,7 @@ None.
 
 #### multi-combobox
 
-[React report](../../../react/docs/parity/components/multi-combobox.md) · ⬜ reported: 8 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/multi-combobox.md) · ⬜ reported: 7 · 🧪 covered: 2
 
 | ID               | Issue                                                                                                                                                          | Kind      | Confirmed | Pattern | Status      | Test                                                                                                  | Fix | Notes                                                                                                                                                                               |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | ----------------------------------------------------------------------------------------------------- | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -724,7 +724,7 @@ None.
 | multi-combobox-6 | The multi-combobox state message box has vertical and end padding and wraps, instead of fundamental-styles' truncated 2rem line.                               | visual    | rendered  |         | ⬜ reported |                                                                                                       |     | Decided: keep a wrapping message (truncation hides text); align the rest of the box with fundamental-styles where it does not prevent wrapping. Check UI5 in the multi-combobox PR. |
 | multi-combobox-7 | Multi-combobox Shift ranges never apply on desktop check boxes: every check-box click clears the anchor.                                                       | behaviour | rendered  |         | ⬜ reported |                                                                                                       |     |                                                                                                                                                                                     |
 | multi-combobox-8 | Mobile multi-combobox renders the state message's id twice (page field and dialog field).                                                                      | a11y      | rendered  |         | 🧪 covered  | MultiCombobox › mobile › renders the state message description once for the page and the dialog field |     |                                                                                                                                                                                     |
-| multi-combobox-9 | The multi-combobox polite live region is created together with its text, so screen readers often do not announce it.                                           | a11y      | rendered  |         | ⬜ reported |                                                                                                       |     |                                                                                                                                                                                     |
+| multi-combobox-9 | The multi-combobox polite live region is created together with its text, so screen readers often do not announce it.                                           | a11y      | rendered  |         | 🧪 covered  | MultiCombobox › keeps the polite live region mounted, so a state message that appears is announced    |     |                                                                                                                                                                                     |
 
 #### facets
 

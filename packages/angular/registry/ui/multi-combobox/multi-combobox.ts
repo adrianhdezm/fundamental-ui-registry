@@ -168,9 +168,8 @@ let nextId = 0;
                 </fd-popover-body>
             </fd-popover>
         }
-        @if (currentStateMessage() && !isOpen()) {
-            <span class="sr-only-sap" aria-live="polite">{{ currentStateMessage() }}</span>
-        }
+        <!-- always mounted: screen readers announce changes of a live region, not a region created with its text -->
+        <span class="sr-only-sap" aria-live="polite">{{ isOpen() ? '' : currentStateMessage() }}</span>
         <!-- the description of the page and the dialog field, rendered once (the control template is rendered twice in mobile mode) -->
         @if (currentStateMessage()) {
             <span class="sr-only-sap" [id]="id + '-message'">{{ currentStateMessage() }}</span>

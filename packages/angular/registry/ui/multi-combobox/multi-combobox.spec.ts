@@ -383,6 +383,17 @@ describe('MultiCombobox', () => {
         expect(options().map((o) => o.getAttribute('aria-selected'))).toEqual(['false', 'true', 'false', 'false']);
     });
 
+    it('keeps the polite live region mounted, so a state message that appears is announced', async () => {
+        const { fixture, host, root } = await setupModel();
+        const region = root.querySelector<HTMLElement>('[aria-live=polite]');
+        expect(region).not.toBeNull();
+        expect(region!.textContent!.trim()).toBe('');
+        host.message.set('Pick at least one');
+        await fixture.whenStable();
+        expect(root.querySelector('[aria-live=polite]')).toBe(region);
+        expect(region!.textContent!.trim()).toBe('Pick at least one');
+    });
+
     describe('mobile', () => {
         const mobileSetup = () =>
             setupModel((h) => {
