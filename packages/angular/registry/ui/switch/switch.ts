@@ -66,7 +66,7 @@ let nextId = 0;
         '(focusout)': 'onTouched()'
     },
     template: `
-        <label [class]="labelClass()" [attr.aria-label]="ariaLabel() || null" (click)="focus()">
+        <label [class]="labelClass()" (click)="focus()">
             <span class="relative inline-block">
                 <input
                     #input
@@ -79,6 +79,7 @@ let nextId = 0;
                     [checked]="isChecked()"
                     [attr.aria-required]="required() || null"
                     [attr.aria-checked]="isChecked()"
+                    [attr.aria-label]="ariaLabel() || null"
                     [attr.aria-labelledby]="labelledBy()"
                     (change)="toggle($event)"
                 />
@@ -101,13 +102,16 @@ let nextId = 0;
                         }
                     </span>
                 </span>
+                @if (semantic() && ariaLabel() && !ariaLabelledBy()) {
+                    <span [id]="id() + '-name'" class="hidden">{{ ariaLabel() }}</span>
+                }
                 @if (semantic()) {
                     <span [id]="id() + '-semantic-label'" class="hidden">{{
                         isChecked() ? acceptLabel() : declineLabel()
                     }}</span>
                 }
             </span>
-            <ng-content />
+            <span [id]="id() + '-text'" class="empty:hidden"><ng-content /></span>
         </label>
     `
 })
@@ -142,11 +146,15 @@ export class Switch implements ControlValueAccessor {
 
     private readonly hasText = computed(() => !!(this.activeText() || this.inactiveText()));
 
-    protected readonly labelledBy = computed(
-        () =>
-            [this.ariaLabelledBy(), this.semantic() ? `${this.id()}-semantic-label` : ''].filter(Boolean).join(' ') ||
-            null
-    );
+    /**
+     * A semantic switch is named by `ariaLabelledBy`, else `ariaLabel` (through a hidden copy), else its label content,
+     * followed by the announced state; aria-labelledby alone would name it by the state only.
+     */
+    protected readonly labelledBy = computed(() => {
+        if (!this.semantic()) return this.ariaLabelledBy() || null;
+        const name = this.ariaLabelledBy() || `${this.id()}${this.ariaLabel() ? '-name' : '-text'}`;
+        return `${name} ${this.id()}-semantic-label`;
+    });
 
     protected readonly hostClass = computed(() => cn('block', this.userClass()));
 
