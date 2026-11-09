@@ -331,6 +331,7 @@ describe('UploadCollection', () => {
                         <div fd-upload-collection-title-container>
                             <a fdLink fd-list-title fd-upload-collection-title href="#" id="link"></a>
                             <span fd-object-marker glyph="favorite" ariaLabel="Favorite"></span>
+                            <fd-upload-collection-form-item />
                         </div>
                         <div fd-upload-collection-status-group id="statuses">
                             <span fd-upload-collection-status-item>Uploaded</span>

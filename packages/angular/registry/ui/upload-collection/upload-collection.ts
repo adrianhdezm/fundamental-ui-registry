@@ -163,7 +163,8 @@ export class UploadCollectionTitleContainer {
         // a shortened name keeps the full name as its tooltip
         '[attr.title]': 'item?.fullName() ?? null',
         // a link title keeps the link colour and its 1rem line over the list title's (fundamental-styles)
-        class: 'me-2 min-w-0 flex-none shrink [a&]:text-sap-link-color [a&]:leading-4'
+        // a link title stays interactive (the list title and content are pointer-events-none)
+        class: 'me-2 min-w-0 flex-none shrink [a&]:pointer-events-auto [a&]:text-sap-link-color [a&]:leading-4'
     }
 })
 export class UploadCollectionTitle {
@@ -259,7 +260,7 @@ export class UploadCollectionStatusItem {}
                 fdFormControl
                 type="text"
                 required
-                class="w-3/5 [[data-small]_&]:w-3/4"
+                class="pointer-events-auto w-3/5 [[data-small]_&]:w-3/4"
                 [attr.aria-label]="ariaLabel()"
                 [placeholder]="placeholder()"
                 [value]="item.draftName()"
