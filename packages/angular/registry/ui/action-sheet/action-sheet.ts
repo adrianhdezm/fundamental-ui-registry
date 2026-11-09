@@ -284,7 +284,7 @@ export class ActionSheetControl {
                     fd-bar
                     data-sheet-bar
                     ariaLabel="Actions"
-                    class="relative z-[2] ms-px w-[calc(100%_-_var(--sapGroup_BorderWidth)*2)] rounded-t-sap-popover-border-corner-radius shadow-sap-content-shadow2"
+                    class="relative ms-px w-[calc(100%_-_var(--sapGroup_BorderWidth)*2)] rounded-t-sap-popover-border-corner-radius shadow-sap-content-shadow2"
                 >
                     <div fd-bar-left>
                         <fd-bar-element>

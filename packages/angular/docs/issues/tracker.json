@@ -1284,9 +1284,9 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host, mobile with controlTitle): the title bar computes z-index 2 over the list's 1, so the bar (and its Shadow2) paints over the first action; in fundamental-styles the list is on top.",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the mobile title bar lies under the list, so its shadow does not fall on the first action",
       "fix": "",
       "notes": ""
     },
