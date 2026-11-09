@@ -274,6 +274,22 @@ describe('DynamicPage', () => {
         }
     });
 
+    it('the collapse and pin buttons are on the object header background (computed style)', async () => {
+        const { root } = await setup();
+        const probe = document.createElement('div');
+        probe.style.backgroundColor = 'var(--sapObjectHeader_Background)';
+        document.body.appendChild(probe);
+        try {
+            document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_dark');
+            for (const button of root.querySelectorAll<HTMLElement>('[role=toolbar] button')) {
+                expect(getComputedStyle(button).backgroundColor).toBe(getComputedStyle(probe).backgroundColor);
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+            probe.remove();
+        }
+    });
+
     it('moves the global actions of a toolbar into its overflow when the page is small', async () => {
         const fixture = TestBed.createComponent(OverflowHost);
         document.body.appendChild(fixture.nativeElement);

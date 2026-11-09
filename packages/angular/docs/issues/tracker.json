@@ -2250,9 +2250,9 @@
       "source": "../../../react/docs/parity/components/dynamic-page.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host) in sap_horizon_dark: the collapse and pin buttons compute background rgb(28, 36, 44) (--sapButton_Background); fundamental-styles uses --sapObjectHeader_Background, rgb(29, 35, 42).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the collapse and pin buttons are on the object header background (computed style)",
       "fix": "",
       "notes": ""
     },
