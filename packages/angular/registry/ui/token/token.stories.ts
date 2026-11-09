@@ -129,7 +129,11 @@ class StoryFieldStates {}
 const meta: Meta<Tokenizer> = {
     title: 'Components/Token',
     component: Tokenizer,
-    decorators: [moduleMetadata({ imports: [StoryTokens, StoryCompactTokens, StoryTokenizer, StoryTokenStates, StoryFieldStates] })],
+    decorators: [
+        moduleMetadata({
+            imports: [StoryTokens, StoryCompactTokens, StoryTokenizer, StoryTokenStates, StoryFieldStates]
+        })
+    ],
     parameters: {
         docs: {
             description: {

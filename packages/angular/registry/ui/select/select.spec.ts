@@ -467,7 +467,9 @@ describe('Select styles', () => {
         expect(getComputedStyle(combobox).overflow).toBe('hidden');
         document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
         try {
-            expect(getComputedStyle(combobox).getPropertyValue('--sapButton_Lite_Background').trim()).not.toBe('transparent');
+            expect(getComputedStyle(combobox).getPropertyValue('--sapButton_Lite_Background').trim()).not.toBe(
+                'transparent'
+            );
             expect(getComputedStyle(arrow).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
         } finally {
             document.documentElement.removeAttribute('data-sap-theme');

@@ -610,14 +610,22 @@ export const OpenTwoColumns: Story = {
     tags: ['!autodocs'],
     render: () => ({ template: `<story-multi-combobox-reference example="two-columns" />` }),
     play: ({ canvasElement }) =>
-        openMultiCombobox(canvasElement, 'referenceMultiCombobox', '.cdk-overlay-container [role=listbox] [role=option]')
+        openMultiCombobox(
+            canvasElement,
+            'referenceMultiCombobox',
+            '.cdk-overlay-container [role=listbox] [role=option]'
+        )
 };
 export const OpenSemantic: Story = {
     name: 'Open: semantic (fundamental-styles)',
     tags: ['!autodocs'],
     render: () => ({ template: `<story-multi-combobox-reference example="semantic" />` }),
     play: ({ canvasElement }) =>
-        openMultiCombobox(canvasElement, 'referenceMultiCombobox', '.cdk-overlay-container [role=listbox] [role=option]')
+        openMultiCombobox(
+            canvasElement,
+            'referenceMultiCombobox',
+            '.cdk-overlay-container [role=listbox] [role=option]'
+        )
 };
 export const OpenSelectAll: Story = {
     name: 'Open: select all',

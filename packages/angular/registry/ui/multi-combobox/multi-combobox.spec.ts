@@ -566,7 +566,9 @@ describe('MultiCombobox styles and check boxes', () => {
     it('shows the field hover shadow, and no shadow when read-only (multi-combobox-3)', async () => {
         const { field, host, fixture } = await render();
         await userEvent.hover(field());
-        expect(getComputedStyle(field()).boxShadow).toBe(probe('box-shadow: var(--sapField_Hover_Shadow)', 'boxShadow'));
+        expect(getComputedStyle(field()).boxShadow).toBe(
+            probe('box-shadow: var(--sapField_Hover_Shadow)', 'boxShadow')
+        );
         await userEvent.unhover(field());
         host.readonly.set(true);
         await fixture.whenStable();

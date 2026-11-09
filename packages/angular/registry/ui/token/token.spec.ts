@@ -387,7 +387,10 @@ describe('Tokenizer', () => {
         <fd-tokenizer id="error" state="error">
             <input fdTokenizerInput aria-label="Invalid values" />
         </fd-tokenizer>
-        <div id="probe" class="[box-shadow:var(--sapField_Shadow)] [background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)]"></div>
+        <div
+            id="probe"
+            class="[box-shadow:var(--sapField_Shadow)] [background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)]"
+        ></div>
     `
 })
 class FieldHost {}
