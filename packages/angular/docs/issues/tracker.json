@@ -342,11 +342,11 @@
       "source": "../../../react/docs/parity/components/switch.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "Spec host with <fd-switch semantic>Approved</fd-switch> and <fd-switch semantic ariaLabel=\"Release\" />: getByRole(\"switch\", { name: \"Decline\", exact: true }) finds both inputs (aria-labelledby points at the state text only); <fd-switch ariaLabel=\"Wi-Fi\" /> has aria-label on the <label>, not on the input.",
       "test": "Switch › names a semantic switch by its label content or ariaLabel, then the state, with ariaLabel on the input",
-      "fix": "",
-      "notes": ""
+      "fix": "0f269c5",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check (a11y included) passes."
     },
     {
       "id": "info-label-1",

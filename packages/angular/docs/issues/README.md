@@ -55,9 +55,9 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 <!-- tracker:start -->
 
-**Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
+**Progress:** 3 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 212 · ✅ verified: 2 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -160,13 +160,13 @@ None.
 
 #### switch
 
-[React report](../../../react/docs/parity/components/switch.md) · ⬜ reported: 2 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/switch.md) · ⬜ reported: 2 · ✅ verified: 1
 
-| ID       | Issue                                                                                                                                       | Kind          | Confirmed | Pattern               | Status      | Test                                                                                                            | Fix | Notes |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- | --- | ----- |
-| switch-1 | Hover colours never apply: `group-hover/sw:` sits on the element that is itself `group/sw`, and the variant only matches descendants.       | visual        | rendered  |                       | ⬜ reported |                                                                                                                 |     |       |
-| switch-2 | The on/off texts and icons lose their line height to `tailwind-merge` (a `leading-*` before a `text-*` size); computed styles only.         | computed-only | rendered  | pattern-leading-merge | ⬜ reported |                                                                                                                 |     |       |
-| switch-3 | A semantic switch without `ariaLabelledBy` is named only "Accept" or "Decline", and `ariaLabel` goes on the `<label>` instead of the input. | a11y          | rendered  |                       | 🧪 covered  | Switch › names a semantic switch by its label content or ariaLabel, then the state, with ariaLabel on the input |     |       |
+| ID       | Issue                                                                                                                                       | Kind          | Confirmed | Pattern               | Status      | Test                                                                                                            | Fix     | Notes                                                                                                |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| switch-1 | Hover colours never apply: `group-hover/sw:` sits on the element that is itself `group/sw`, and the variant only matches descendants.       | visual        | rendered  |                       | ⬜ reported |                                                                                                                 |         |                                                                                                      |
+| switch-2 | The on/off texts and icons lose their line height to `tailwind-merge` (a `leading-*` before a `text-*` size); computed styles only.         | computed-only | rendered  | pattern-leading-merge | ⬜ reported |                                                                                                                 |         |                                                                                                      |
+| switch-3 | A semantic switch without `ariaLabelledBy` is named only "Accept" or "Decline", and `ariaLabel` goes on the `<label>` instead of the input. | a11y          | rendered  |                       | ✅ verified | Switch › names a semantic switch by its label content or ariaLabel, then the state, with ariaLabel on the input | 0f269c5 | Verified: the test fails before the fix and passes after; pnpm angular check (a11y included) passes. |
 
 #### info-label
 
