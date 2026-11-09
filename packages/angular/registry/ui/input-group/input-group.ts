@@ -215,10 +215,13 @@ export class InputGroup implements ControlValueAccessor {
 
     protected readonly disabledState = linkedSignal(() => this.disabled());
 
-    /** The text or icon addon describes the input, e.g. "$". */
+    /** The text or icon addon describes the input, e.g. "$": only while the group renders it (no projected addon). */
     protected readonly describedBy = computed(
         () =>
-            [this.ariaDescribedBy(), !this.button() && (this.glyph() || this.addOnText()) && this.addOnId]
+            [
+                this.ariaDescribedBy(),
+                !this.projectedAddon() && !this.button() && (this.glyph() || this.addOnText()) && this.addOnId
+            ]
                 .filter(Boolean)
                 .join(' ') || null
     );

@@ -86,7 +86,26 @@ async function setup() {
     return { fixture, host: fixture.componentInstance, root, group, input: group.querySelector('input')! };
 }
 
+/** A text addon given as an input and replaced by a projected one. */
+@Component({
+    imports: [InputGroup, InputGroupAddon],
+    template: `<fd-input-group ariaLabel="Price" addOnText="$" ariaDescribedBy="hint"
+            ><span fdInputGroupAddon>€</span></fd-input-group
+        ><span id="hint">Net price</span>`
+})
+class ProjectedAddonHost {}
+
 describe('InputGroup', () => {
+    it('is described only by addons it renders: a projected addon replaces the generated one', async () => {
+        const fixture = TestBed.createComponent(ProjectedAddonHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const input = (fixture.nativeElement as HTMLElement).querySelector('input')!;
+        const ids = input.getAttribute('aria-describedby')!.split(' ');
+        expect(ids.filter((id) => !document.getElementById(id))).toEqual([]);
+        expect(ids).toEqual(['hint']);
+    });
+
     it('renders an input labelled by its label and described by the text addon', async () => {
         const { group, input } = await setup();
         expect(input.id).toBe('amount');

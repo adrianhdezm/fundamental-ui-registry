@@ -57,7 +57,7 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 **Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 213 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -270,14 +270,14 @@ None.
 
 #### input-group
 
-[React report](../../../react/docs/parity/components/input-group.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/input-group.md) · ⬜ reported: 3 · 🧪 covered: 1
 
-| ID            | Issue                                                                                                               | Kind      | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------------- | ------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| input-group-1 | Addon buttons keep a 1px transparent border, so text addon buttons are 2px wider than fundamental-styles'.          | visual    | rendered  |         | ⬜ reported |      |     |       |
-| input-group-2 | `INPUT_GROUP_BUTTON_VARS` makes the lite button backgrounds transparent in HC too (no background, no hover colour). | visual    | rendered  |         | ⬜ reported |      |     |       |
-| input-group-3 | A disabled group leaves a projected `fdInputGroupInput` enabled.                                                    | behaviour | rendered  |         | ⬜ reported |      |     |       |
-| input-group-4 | `describedBy` keeps the generated addon's id when a projected addon replaces it, so it points at nothing.           | a11y      | rendered  |         | ⬜ reported |      |     |       |
+| ID            | Issue                                                                                                               | Kind      | Confirmed | Pattern | Status      | Test                                                                                              | Fix | Notes |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | ------------------------------------------------------------------------------------------------- | --- | ----- |
+| input-group-1 | Addon buttons keep a 1px transparent border, so text addon buttons are 2px wider than fundamental-styles'.          | visual    | rendered  |         | ⬜ reported |                                                                                                   |     |       |
+| input-group-2 | `INPUT_GROUP_BUTTON_VARS` makes the lite button backgrounds transparent in HC too (no background, no hover colour). | visual    | rendered  |         | ⬜ reported |                                                                                                   |     |       |
+| input-group-3 | A disabled group leaves a projected `fdInputGroupInput` enabled.                                                    | behaviour | rendered  |         | ⬜ reported |                                                                                                   |     |       |
+| input-group-4 | `describedBy` keeps the generated addon's id when a projected addon replaces it, so it points at nothing.           | a11y      | rendered  |         | 🧪 covered  | InputGroup › is described only by addons it renders: a projected addon replaces the generated one |     |       |
 
 #### form
 

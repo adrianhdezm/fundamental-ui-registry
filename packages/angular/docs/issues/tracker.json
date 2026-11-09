@@ -787,9 +787,9 @@
       "source": "../../../react/docs/parity/components/input-group.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: <fd-input-group addOnText=\"$\" ariaDescribedBy=\"hint\"> with a projected <span fdInputGroupAddon>€</span>: the generated addon is not rendered, but the input has aria-describedby=\"hint fd-input-group-addon-1\", an id that does not exist.",
+      "test": "InputGroup › is described only by addons it renders: a projected addon replaces the generated one",
       "fix": "",
       "notes": ""
     },
