@@ -2447,9 +2447,9 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host): the form facet's title computes margin-bottom 0px, so the content sits right on it; fundamental-styles' title has a 1rem bottom margin (on the subtitle of a rating facet).",
+      "test": "facets.spec.ts › Facets › the title (or a rating facet's subtitle) has a 1rem bottom margin above the content (computed style)",
       "fix": "",
       "notes": ""
     },

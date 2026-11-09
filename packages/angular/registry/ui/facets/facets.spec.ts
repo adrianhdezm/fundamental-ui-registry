@@ -111,6 +111,14 @@ describe('Facets', () => {
         expect(getComputedStyle(image).marginBottom).toBe('0px');
     });
 
+    it("the title (or a rating facet's subtitle) has a 1rem bottom margin above the content (computed style)", async () => {
+        const { el } = await setup();
+        const title = (id: string) => el(id).querySelector<HTMLElement>(':scope > div')!;
+        expect(getComputedStyle(title('form')).marginBottom).toBe('16px');
+        expect(getComputedStyle(title('rating')).marginBottom).toBe('0px');
+        expect(getComputedStyle(el('rating').querySelector<HTMLElement>(':scope > span')!).marginBottom).toBe('16px');
+    });
+
     it('form facet rows space evenly and icons get an end margin', async () => {
         const { el } = await setup();
         const rows = ['row1', 'row2', 'row3'].map(el);

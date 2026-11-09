@@ -65,9 +65,14 @@ export class FacetGroup {
         '[class]': 'computedClass()'
     },
     template: `
+        <!-- a 1rem bottom margin under the title, or under the subtitle of a rating facet -->
         @if (type() !== 'image' && facetTitle()) {
             <div
-                class="m-0 p-0 font-sap-font-family text-sap-font-large-size leading-[normal] font-normal text-sap-title-color"
+                [class]="
+                    type() === 'rating-indicator' && subtitle()
+                        ? 'm-0 p-0 font-sap-font-family text-sap-font-large-size leading-[normal] font-normal text-sap-title-color'
+                        : 'm-0 mb-4 p-0 font-sap-font-family text-sap-font-large-size leading-[normal] font-normal text-sap-title-color'
+                "
                 [id]="titleId"
                 [attr.role]="headingLevel() ? 'heading' : null"
                 [attr.aria-level]="headingLevel()"
@@ -76,7 +81,7 @@ export class FacetGroup {
             </div>
         }
         @if (type() === 'rating-indicator' && subtitle()) {
-            <span class="m-0 p-0 text-sap-font-small-size text-sap-content-label-color">{{ subtitle() }}</span>
+            <span class="m-0 mb-4 p-0 text-sap-font-small-size text-sap-content-label-color">{{ subtitle() }}</span>
         }
         <ng-content />
     `
