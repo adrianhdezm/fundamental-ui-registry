@@ -86,8 +86,9 @@ export class GenericTag {
             TYPE[this.type() ?? 'neutral'],
             'enabled-hover:[--gt-bg:var(--sapList_Hover_Background)] enabled-hover:[--gt-ts:none]',
             'hc:enabled-hover:[--gt-nc:var(--sapList_Active_TextColor)] hc:enabled-hover:[--gt-vc:var(--sapList_Active_TextColor)] hc:enabled-hover:[--gt-ic:var(--sapList_Active_TextColor)]',
-            'active:[--gt-bg:var(--sapList_Active_Background)] active:[--gt-ts:none] active:[--gt-nc:var(--sapList_Active_TextColor)]',
-            'active:[--gt-vc:var(--sapList_Active_TextColor)] active:[--gt-ic:var(--sapList_Active_TextColor)]',
+            // enabled-active, not active: it has to come after the enabled-hover custom variant in the CSS to win
+            'enabled-active:[--gt-bg:var(--sapList_Active_Background)] enabled-active:[--gt-ts:none] enabled-active:[--gt-nc:var(--sapList_Active_TextColor)]',
+            'enabled-active:[--gt-vc:var(--sapList_Active_TextColor)] enabled-active:[--gt-ic:var(--sapList_Active_TextColor)]',
             'focus:outline-sap active:outline-sap hc:outline-offset-[-0.1875rem]',
             this.userClass()
         )

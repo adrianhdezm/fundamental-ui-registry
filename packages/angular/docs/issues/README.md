@@ -561,12 +561,12 @@ None.
 
 #### generic-tag
 
-[React report](../../../react/docs/parity/components/generic-tag.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/generic-tag.md) · 🧪 covered: 2
 
-| ID            | Issue                                                                                                                                                    | Kind          | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| generic-tag-1 | The generic-tag status icon takes `text-base`, so its line height is 1.5rem instead of 1rem (computed only).                                             | computed-only | rendered  |         | ⬜ reported |      |     |       |
-| generic-tag-2 | Pressed generic tags keep the hover background in Horizon and Dark: the `active:` classes come before the `enabled-hover:` variant in the generated CSS. | visual        | rendered  |         | ⬜ reported |      |     |       |
+| ID            | Issue                                                                                                                                                    | Kind          | Confirmed | Pattern | Status     | Test                                                                                                                           | Fix | Notes |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | --- | ----- |
+| generic-tag-1 | The generic-tag status icon takes `text-base`, so its line height is 1.5rem instead of 1rem (computed only).                                             | computed-only | rendered  |         | 🧪 covered | generic-tag.spec.ts › GenericTag › the status icon keeps a 1rem line height                                                    |     |       |
+| generic-tag-2 | Pressed generic tags keep the hover background in Horizon and Dark: the `active:` classes come before the `enabled-hover:` variant in the generated CSS. | visual        | rendered  |         | 🧪 covered | generic-tag.spec.ts › GenericTag › the pressed background rule comes after the hover rule, so a pressed (hovered) tag shows it |     |       |
 
 #### text
 
