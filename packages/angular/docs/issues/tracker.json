@@ -2725,11 +2725,11 @@
       "source": "../../../react/docs/parity/components/carousel.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "Spec: a carousel of 4 slides announces \"Displaying item 1 of 4\"; with its slides set to [] the live region reads \"Displaying item 1 of 0\".",
       "test": "Carousel › announces the shown item, and nothing without slides",
-      "fix": "",
-      "notes": ""
+      "fix": "954c022",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "carousel-3",
