@@ -125,8 +125,15 @@ const oursUrl = (story, c) =>
 const refUrl = (story, c) =>
     `${FS_URL}/iframe.html?id=${story}&viewMode=story&globals=styles-theme:${c.theme};contentDensity:${c.density};directionality:${c.dir}`;
 
-/** Renders a story and returns the computed styles, size and screenshot of the element matched by `selector`. */
-async function capture(page, url, selector, hover, props, focus, overlay = false) {
+const VIEWPORT = { width: 1280, height: 800 };
+
+/**
+ * Renders a story and returns the computed styles, size and screenshot of the element matched by `side.selector`.
+ * `side` is the case's `ours` or `ref` ({ story, selector, overlay, within }); `opts` the case-wide options.
+ */
+async function capture(page, url, side, props, { hover, focus, active, viewport }) {
+    const { selector, overlay = false, within } = side;
+    await page.setViewportSize({ ...VIEWPORT, ...viewport });
     await page.goto(url, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     // the end state of every element: no animation (e.g. pulsing busy dots) or transition in progress
@@ -137,7 +144,7 @@ async function capture(page, url, selector, hover, props, focus, overlay = false
     // `overlay`: in the whole page, for overlay content (CDK overlays render outside the story root)
     const el = (overlay ? page.locator('body') : page.locator('#storybook-root')).locator(selector).first();
     await el.waitFor({ state: 'visible', timeout: 15000 });
-    if (hover) await el.hover();
+    if (hover || active) await el.hover();
     else await page.mouse.move(0, 0);
     if (focus) {
         // keyboard focus, so :focus-visible applies: Tab into the page, then focus the element
@@ -166,17 +173,31 @@ async function capture(page, url, selector, hover, props, focus, overlay = false
             node.style.right = `${(parseFloat(style.right) || 0) + start.x}px`;
         }
     });
+    // pressed (:active): the mouse button held down on the element, released after the capture
+    if (active) await page.mouse.down();
     await page.waitForTimeout(150);
-    const styles = await el.evaluate((node, props) => {
-        const cs = getComputedStyle(node);
-        const box = node.getBoundingClientRect();
-        return {
-            width: box.width,
-            height: box.height,
-            styles: Object.fromEntries(props.map((p) => [p, cs.getPropertyValue(p)]))
-        };
-    }, props);
+    const styles = await el.evaluate(
+        (node, { props, within }) => {
+            const cs = getComputedStyle(node);
+            const box = node.getBoundingClientRect();
+            const styles = Object.fromEntries(props.map((p) => [p, `${cs.getPropertyValue(p)}`]));
+            // the element's distance from the inline start and end (left and right in LTR) and the top edge of the
+            // ancestor matched by `within`: where it sits in it
+            const outer = within && node.parentElement?.closest(within)?.getBoundingClientRect();
+            if (within && !outer) throw new Error(`no ancestor matches ${within}`);
+            if (outer) {
+                const [left, right] = [box.left - outer.left, outer.right - box.right];
+                const rtl = cs.direction === 'rtl';
+                styles['offset-start'] = `${rtl ? right : left}px`;
+                styles['offset-end'] = `${rtl ? left : right}px`;
+                styles['offset-top'] = `${box.top - outer.top}px`;
+            }
+            return { width: box.width, height: box.height, styles };
+        },
+        { props, within }
+    );
     const png = PNG.sync.read(await el.screenshot({ animations: 'disabled' }));
+    if (active) await page.mouse.up();
     return { ...styles, png };
 }
 
@@ -187,6 +208,8 @@ function normalise(prop, value) {
     v = v.replace(/rgba\(0, 0, 0, 0\)/g, 'transparent');
     // equal for display: no minimum height, and shadows that are all transparent
     if (prop === 'min-height' && v === 'auto') v = '0px';
+    // `normal` is no gap between flex items
+    if ((prop === 'column-gap' || prop === 'row-gap') && v === 'normal') v = '0px';
     if (prop === 'box-shadow' && /^(transparent 0px 0px 0px 0px(, )?)+$/.test(v)) v = 'none';
     v = v.replace(/(\d+\.\d+)px/g, (_, n) => `${Math.round(Number(n) * 2) / 2}px`);
     return v;
@@ -220,17 +243,10 @@ async function compare(page, name, kase, c) {
     const id = `${kase.label.replace(/\W+/g, '-')}--${c.key}`;
     try {
         const props = [...STYLE_PROPS, ...(kase.props ?? [])];
-        const ours = await capture(
-            page,
-            oursUrl(kase.ours.story, c),
-            kase.ours.selector,
-            kase.hover,
-            props,
-            kase.focus,
-            kase.ours.overlay
-        );
+        const opts = { hover: kase.hover, active: kase.active, viewport: kase.viewport };
+        const ours = await capture(page, oursUrl(kase.ours.story, c), kase.ours, props, { ...opts, focus: kase.focus });
         // fundamental-styles shows focus with an is-focus class in its stories; refFocus focuses the element too
-        const ref = await capture(page, refUrl(kase.ref.story, c), kase.ref.selector, kase.hover, props, kase.refFocus);
+        const ref = await capture(page, refUrl(kase.ref.story, c), kase.ref, props, { ...opts, focus: kase.refFocus });
         writeFileSync(join(outDir, `${id}.ours.png`), PNG.sync.write(ours.png));
         writeFileSync(join(outDir, `${id}.ref.png`), PNG.sync.write(ref.png));
         const ignore = new Set(kase.ignore ?? []);
@@ -244,7 +260,8 @@ async function compare(page, name, kase, c) {
                 if (side === 'top') ignore.add('border-top-style');
             }
         }
-        const styleDiffs = props
+        const compared = [...props, ...(kase.ours.within ? ['offset-start', 'offset-end', 'offset-top'] : [])];
+        const styleDiffs = compared
             .filter((p) => !ignore.has(p))
             .map((p) => [p, normalise(p, ours.styles[p]), normalise(p, ref.styles[p])])
             .filter(([, a, b]) => a !== b);

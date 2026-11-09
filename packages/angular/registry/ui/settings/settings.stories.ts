@@ -316,3 +316,19 @@ export const OpenDialog: Story = {
         await waitFor(() => expect(document.querySelector('[role=dialog] fd-settings-container')).not.toBeNull());
     }
 };
+/** A view pushed from the Notifications view: the detail header shows the back button (in RTL its arrow points right). */
+export const InlinePushedView: Story = {
+    name: 'Inline: pushed view',
+    tags: ['!autodocs'],
+    render: () => ({ template: `<story-settings [inline]="true" />` }),
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        // the titles let the clicks through to their links
+        await userEvent.click(canvas.getByText('Notifications').closest('a')!);
+        await userEvent.click((await canvas.findByText('Leave Requests')).closest('a')!);
+        // pushView focuses the back button; blur it to show its resting state
+        const back = await canvas.findByRole('button', { name: 'Navigate Back' });
+        await waitFor(() => expect(document.activeElement).toBe(back));
+        back.blur();
+    }
+};

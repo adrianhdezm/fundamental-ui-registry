@@ -18,5 +18,39 @@ export default [
         ignore: ['width', 'height'],
         ours: { story: 'components-feed-list--borderless', selector: 'fd-feed-list-item >> nth=-1' },
         ref: { story: `${FS}feed-list-and-item--borderless`, selector: '.fd-feed-list__body >> nth=2' }
+    },
+    // a footer with a Reply link is 17px high, its bylines 10px (feed-list-4); fundamental-styles' Reply is plain
+    // text, ours a link (its colour): the footer and the Reply byline by computed style, the date by pixels too
+    {
+        label: 'footer',
+        pixels: false,
+        ignore: ['width'],
+        ours: { story: 'components-feed-list--default', selector: 'fd-feed-list-footer >> nth=0' },
+        ref: { story: `${FS}feed-list-and-item--standard`, selector: '.fd-feed-list__footer >> nth=0' }
+    },
+    {
+        label: 'footer date byline',
+        ours: { story: 'components-feed-list--default', selector: 'fd-feed-list-footer >> nth=0 >> small >> nth=0' },
+        ref: { story: `${FS}feed-list-and-item--standard`, selector: '.fd-feed-list__footer--byline >> nth=0' }
+    },
+    {
+        label: 'footer Reply byline',
+        pixels: false,
+        ours: { story: 'components-feed-list--default', selector: 'fd-feed-list-footer >> nth=0 >> small >> nth=1' },
+        ref: { story: `${FS}feed-list-and-item--standard`, selector: '.fd-feed-list__footer--byline >> nth=1' }
+    },
+    // the desktop actions sit at the end of the item: right in LTR, left in RTL (feed-list-1)
+    {
+        label: 'actions',
+        ours: {
+            story: 'components-feed-list--with-actions',
+            selector: 'fd-feed-list-action >> nth=0',
+            within: 'fd-feed-list-item'
+        },
+        ref: {
+            story: `${FS}feed-list-and-item--with-actions`,
+            selector: '.fd-feed-list__actions',
+            within: '.fd-feed-list__body'
+        }
     }
 ];

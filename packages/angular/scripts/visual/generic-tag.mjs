@@ -18,5 +18,17 @@ export default [
         ignore: ['width'],
         ours: { story: 'components-generic-tag--default', selector: tag(1) },
         ref: { story: REF, selector: '.fd-generic-tag >> nth=6' }
-    }
+    },
+    // pressed (hovered too): the active background wins over the hover one (generic-tag-2); styles only, as above
+    ...[
+        ['neutral pressed', 0, 0],
+        ['error pressed', 1, 1]
+    ].map(([label, ours, ref]) => ({
+        label,
+        active: true,
+        pixels: false,
+        ignore: ['width'],
+        ours: { story: 'components-generic-tag--default', selector: tag(ours) },
+        ref: { story: REF, selector: `.fd-generic-tag >> nth=${ref}` }
+    }))
 ];

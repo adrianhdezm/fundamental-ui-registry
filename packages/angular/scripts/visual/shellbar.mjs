@@ -11,6 +11,7 @@ const REF = `${FS}shellbar--`;
 // the pixels).
 const XL = '.fd-shellbar >> nth=0';
 const STORY = 'search-field';
+const BACK = '.fd-shellbar__button:has(.sap-icon--nav-back) >> nth=0';
 
 const pair = (label, story, selector, ref, refSelector, extra = {}) => ({
     label,
@@ -37,5 +38,13 @@ export default [
             pixels: false,
             ignore: ['width', 'height', 'padding-top', 'padding-bottom', 'font-family', 'font-size']
         }
-    )
+    ),
+    // the back button: its arrow points left in LTR and right in RTL, mirrored once by the icon (shellbar-2), against
+    // the back button of fundamental-styles' optional items bar. Kept differences: the button is cozy in compact (see
+    // above), and fundamental-styles' static bar does not mirror its arrow in RTL (it still points left)
+    pair('back button', 'basic', 'button[aria-label="Back"]', 'optional-items', BACK),
+    pair('back button icon', 'basic', 'button[aria-label="Back"] fd-icon', 'optional-items', `${BACK} >> i`, {
+        // the glyph is drawn by ::before in the icon font; the element's own font is the button's (inherited)
+        ignore: ['font-family']
+    })
 ];
