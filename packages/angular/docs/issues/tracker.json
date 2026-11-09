@@ -2421,9 +2421,9 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: a mobile multi-combobox with stateMessage \"Pick at least one\", dialog opened: two elements with id <id>-message (the control template, which holds the description, is rendered for the page field and for the dialog field).",
+      "test": "MultiCombobox › mobile › renders the state message description once for the page and the dialog field",
       "fix": "",
       "notes": ""
     },

@@ -171,6 +171,10 @@ let nextId = 0;
         @if (currentStateMessage() && !isOpen()) {
             <span class="sr-only-sap" aria-live="polite">{{ currentStateMessage() }}</span>
         }
+        <!-- the description of the page and the dialog field, rendered once (the control template is rendered twice in mobile mode) -->
+        @if (currentStateMessage()) {
+            <span class="sr-only-sap" [id]="id + '-message'">{{ currentStateMessage() }}</span>
+        }
 
         <ng-template #controlTpl let-dialog="dialog">
             <fd-tokenizer
@@ -228,9 +232,6 @@ let nextId = 0;
                     (focus)="showAllTokens.set(true)"
                 />
             </fd-tokenizer>
-            @if (currentStateMessage()) {
-                <span class="sr-only-sap" [id]="id + '-message'">{{ currentStateMessage() }}</span>
-            }
         </ng-template>
 
         <ng-template #listTpl let-dialog="dialog">
