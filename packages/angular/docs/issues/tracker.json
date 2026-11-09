@@ -2158,9 +2158,9 @@
       "source": "../../../react/docs/parity/components/datetime-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host with mobile (portrait): open the dialog; the calendar is 288px (18rem) wide in a 1248px dialog row; fundamental-styles' Mobile Portrait calendar spans the dialog.",
+      "test": "datetime-picker.spec.ts › DatetimePicker mobile portrait › shows the calendar in its full-width portrait layout, as fundamental-styles' Mobile Portrait",
       "fix": "",
       "notes": ""
     },

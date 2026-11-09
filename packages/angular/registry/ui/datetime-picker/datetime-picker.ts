@@ -292,6 +292,7 @@ let nextId = 0;
                         calType="single"
                         [(activeView)]="activeView"
                         [selectedDate]="tempDate()"
+                        [mobilePortrait]="portrait()"
                         [escapeFocusFunction]="null"
                         [disableFunction]="disableFunction()"
                         [markWeekends]="markWeekends()"

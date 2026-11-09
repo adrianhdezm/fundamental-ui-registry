@@ -235,6 +235,24 @@ describe('DatetimePicker mobile', () => {
     });
 });
 
+describe('DatetimePicker mobile portrait', () => {
+    it("shows the calendar in its full-width portrait layout, as fundamental-styles' Mobile Portrait", async () => {
+        const fixture = TestBed.createComponent(MobileHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        await userEvent.click((fixture.nativeElement as HTMLElement).querySelector('input')!);
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        const calendar = document.querySelector<HTMLElement>('#dt-calendar')!;
+        const body = calendar.parentElement!;
+        // the calendar spans its row in the dialog (not the 18rem desktop calendar)
+        expect(calendar.getBoundingClientRect().width).toBeCloseTo(body.getBoundingClientRect().width, 0);
+        expect(calendar.getBoundingClientRect().width).toBeGreaterThan(18 * 16 + 1);
+        await userEvent.keyboard('{Escape}');
+        await fixture.whenStable();
+    });
+});
+
 @Component({
     imports: [DatetimePicker, ReactiveFormsModule],
     template: `<fd-datetime-picker [formControl]="control" [allowNull]="false" />`
