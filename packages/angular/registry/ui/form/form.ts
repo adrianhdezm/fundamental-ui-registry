@@ -39,6 +39,8 @@ let nextLabelId = 0;
     },
     template: `
         <ng-template #help>
+            <!-- a control of its own: a click toggles the help and does not activate the label (which would focus the
+                 field and close the help at once) -->
             <fd-icon
                 glyph="question-mark"
                 tabindex="0"
@@ -47,6 +49,7 @@ let nextLabelId = 0;
                 [triggers]="inlineHelpTriggers()"
                 [placement]="inlineHelpBodyPlacement()"
                 [ariaLabel]="inlineHelpAriaLabel()"
+                (click)="$event.preventDefault()"
             />
         </ng-template>
         @if (inlineHelpContent() && inlineHelpPlacement() === 'before') {

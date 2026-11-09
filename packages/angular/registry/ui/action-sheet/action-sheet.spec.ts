@@ -128,3 +128,35 @@ describe('ActionSheet', () => {
         expect(document.querySelector('[data-sheet-bar]')).toBeNull();
     });
 });
+
+describe('ActionSheet styles', () => {
+    const list = () => document.querySelector<HTMLElement>('[role=menu]')!;
+    const radius = (el: HTMLElement) => {
+        const style = getComputedStyle(el);
+        return [style.borderTopLeftRadius, style.borderTopRightRadius, style.borderBottomLeftRadius];
+    };
+
+    it('the mobile list under the title bar has square top corners (computed style)', async () => {
+        await setup(true, (h) => h.title.set('Pick an action'));
+        expect(radius(list())).toEqual(['0px', '0px', '8px']);
+    });
+
+    it('the mobile title bar lies under the list, so its shadow does not fall on the first action', async () => {
+        await setup(true, (h) => h.title.set('Pick an action'));
+        const bar = document.querySelector<HTMLElement>('[data-sheet-bar]')!;
+        const first = list().querySelector<HTMLElement>('[role=menuitem]')!;
+        // the list paints over the bar: the point just below the bar is the list's
+        const bottom = bar.getBoundingClientRect().bottom;
+        const x = first.getBoundingClientRect().left + 10;
+        expect(list().contains(document.elementFromPoint(x, bottom + 1))).toBe(true);
+        const z = (el: HTMLElement) => Number(getComputedStyle(el).zIndex) || 0;
+        // no higher than the list, which comes later and so paints over it
+        expect(z(bar)).toBeLessThanOrEqual(z(list()));
+        expect(bar.compareDocumentPosition(list()) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
+    it('the popover list has the popover corner radius, as fundamental-styles (computed style)', async () => {
+        await setup(false);
+        expect(radius(list())).toEqual(['8px', '8px', '8px']);
+    });
+});

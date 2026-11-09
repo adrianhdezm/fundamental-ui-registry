@@ -250,11 +250,11 @@
       "source": "../../../react/docs/parity/components/popover.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (OptionsHost, resizable): the open body's resize handle has data-glyph=\"\", its ::after content is \"\" (no glyph); fundamental-styles shows SAP-icons' resize-corner.",
+      "test": "popover.spec.ts › Popover › body options › the resize handle shows the resize-corner glyph",
+      "fix": "53872ce, 3e17bf0",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual popover: the resize handle (glyph and box) matches fundamental-styles' Resizable story in the 8 RTL combinations; in LTR the styles are equal and the glyph is the same, 1px off (6.9–8.3% pixels) because the reference handle sits at a fractional x (a 25px capture against 24px); pnpm angular check passes."
     },
     {
       "id": "popover-2",
@@ -263,11 +263,11 @@
       "source": "../../../react/docs/parity/components/popover.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (OptionsHost, resizable, 300px down): with placements bottom-end, top-end, left-start and right-end the handle stays at the bottom-end corner (cursor se-resize; top-end with -rotate-90 above), on the trigger's side; fundamental-styles puts it in the corner away from the trigger.",
+      "test": "popover.spec.ts › Popover › body options › the resize handle sits in the corner away from the trigger, as in fundamental-styles",
+      "fix": "4ea881a",
+      "notes": "Verified: the test fails before the fix (bottom-end: se-resize) and passes after for six placements; pnpm visual popover: the bottom-start handle sits at the body's bottom inline-end corner as fundamental-styles' (same caveat as popover-1 in LTR); pnpm angular check passes."
     },
     {
       "id": "radio-1",
@@ -579,11 +579,11 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost): the icon box of an information strip computes line-height 24px (text-base's 1.5rem); fundamental-styles' icon box has normal.",
+      "test": "message-strip.spec.ts › MessageStrip styles › the icon box has a normal line height, as fundamental-styles (computed style)",
+      "fix": "b1363b3",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual message-strip: the icon box matches by computed style in all 16 (the warning glyph is fundamental-ngx's alert, fundamental-styles' message-warning, kept as React); pnpm angular check passes."
     },
     {
       "id": "message-strip-2",
@@ -592,11 +592,11 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost) in sap_horizon_hcb: the focused close button of an indication colour 1 strip computes background rgb(0, 0, 0) and a non-transparent border (the button's); fundamental-styles clears both on focus unless hovered.",
+      "test": "message-strip.spec.ts › MessageStrip styles › in HC the focused close button of an indication colour strip has no background or border (computed style)",
+      "fix": "32976b9",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual message-strip: the focused close buttons of indication 4 and 4b match in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "message-strip-3",
@@ -605,11 +605,11 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost): an <a> in strips with indication colour 1, 1b and type information computes margin-inline-start and padding-inline 0px, and on colour 1 the link colour instead of --sapContent_ContrastTextColor (1b: not --sapLink_SubtleColor); fundamental-styles' fd-message-strip--link has a 0.25rem start margin and padding and those colours.",
+      "test": "message-strip.spec.ts › MessageStrip styles › links get fundamental-styles' message strip link spacing and colours (computed style)",
+      "fix": "c3f150b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual message-strip: links on a plain strip and on indication 1 and 1b match by computed style (margins, padding, colour, text shadow) in all 16, except text-underline-offset (link-1) and the reference's first link being emphasized (72-Bold); pnpm angular check passes."
     },
     {
       "id": "tile-1",
@@ -657,11 +657,11 @@
       "source": "../../../react/docs/parity/components/dialog.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (DialogService, draggable): with the pointer outside the window the header computes cursor: grab ([@media(hover:hover)] applies at rest on any hover-capable device); fundamental-styles shows it only while the window is hovered.",
+      "test": "dialog.spec.ts › Dialog › shows the grab cursor on a draggable header only while the window is hovered (computed style)",
+      "fix": "624d36b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual dialog: the draggable header at rest and hovered matches fundamental-styles' Draggable story by computed style (cursor included) in all 16 combinations, except box-shadow ring layers (pattern-shadow-ring); pnpm angular check passes."
     },
     {
       "id": "dialog-2",
@@ -683,11 +683,11 @@
       "source": "../../../react/docs/parity/components/dialog.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "not-reproducible",
+      "repro": "Not in Angular: the title's fd-bar-element is as wide as the title in every open dialog story of the built Storybook (open-template 187px of a 1152px bar, open-component 154/400, open-object 82/400, open-complex 99/384, open-mobile 220/1280, open-form 187/480, open-position 220/400) and in the spec (33px of a 480px dialog): fullWidth's w-full resolves against the content-sized fd-bar-left. The 592px was the React port's element (its bar-left grows).",
+      "test": "dialog.spec.ts › Dialog › the title bar element is as wide as the title, not the whole bar (computed style) — passes before any change; kept as a guard",
       "fix": "",
-      "notes": ""
+      "notes": "Not reproducible: measured in Storybook and in a spec."
     },
     {
       "id": "token-1",
@@ -892,11 +892,11 @@
       "source": "../../../react/docs/parity/components/message-page.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Decided: start-aligned, as fundamental-styles (and React)."
+      "status": "verified",
+      "repro": "Spec (PartsHost): fd-message-page-subtitle computes text-align: center, so every line of a multi-line subtitle is centred; fundamental-styles' subtitle has no alignment (start), the column centres a short one.",
+      "test": "message-page.spec.ts › MessagePage › start-aligns the lines of a long subtitle, as fundamental-styles (computed style)",
+      "fix": "adc4916",
+      "notes": "Decided: start-aligned, as fundamental-styles (and React). Verified: the test fails before the fix and passes after; pnpm visual message-page: the subtitle matches fundamental-styles' Filter story in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "time-1",
@@ -1271,11 +1271,11 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, mobile with controlTitle): the list computes border-top-left/right-radius 8px under the title bar: its [[data-sheet-bar]+&]:rounded-t-none never matches, the list being inside fd-action-sheet-body, not the bar's sibling.",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the mobile list under the title bar has square top corners (computed style)",
+      "fix": "728e353",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual action-sheet: the mobile list matches fundamental-styles' mobile story by computed style (radius included) in all 16, except box-shadow ring layers (action-sheet-3); pnpm angular check passes."
     },
     {
       "id": "action-sheet-2",
@@ -1284,11 +1284,11 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, mobile with controlTitle): the title bar computes z-index 2 over the list's 1, so the bar (and its Shadow2) paints over the first action; in fundamental-styles the list is on top.",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the mobile title bar lies under the list, so its shadow does not fall on the first action",
+      "fix": "f7cacf7",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual action-sheet: the mobile title bar matches by computed style in all 16 except the box-shadow ring layers (action-sheet-3); pnpm angular check passes."
     },
     {
       "id": "action-sheet-3",
@@ -1311,11 +1311,11 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host, popover): the open list computes border-radius 0px; fundamental-styles' action sheet list has the popover corner radius (8px, 4px in HC).",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the popover list has the popover corner radius, as fundamental-styles (computed style)",
+      "fix": "22029f4",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual action-sheet: the popover list matches fundamental-styles' Default story by computed style in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "overflow-layout-1",
@@ -1643,11 +1643,11 @@
       "source": "../../../react/docs/parity/components/inline-help.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (FormLabelHost: label for=\"vat\" with inlineHelpContent): a tap on the help icon (pointerdown, focus, click) opens the help on focus, the click's toggle closes it again, and the click activates the label, moving the focus to the field; no help shows.",
+      "test": "inline-help.spec.ts › InlineHelp in a form label › a press on the help icon shows the help and does not activate the label (also as a tap)",
+      "fix": "21ad201",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "product-switch-1",
@@ -2712,11 +2712,11 @@
       "source": "../../../react/docs/parity/components/carousel.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ResizeHost, visibleSlidesCount 1, 300px): Next shows slide 2 at translateX(-300px); after the width becomes 260px the track stays at -300px (another slide shows); after visibleSlidesCount 2 it stays at -300px instead of -150px. Only auto was moved back.",
+      "test": "carousel.spec.ts › Carousel resizing › keeps the shown slide in place when the carousel is resized; carousel.spec.ts › Carousel resizing › keeps the shown slides in place when visibleSlidesCount changes",
+      "fix": "4519aad",
+      "notes": "Verified: both tests fail before the fix and pass after; pnpm angular check passes."
     },
     {
       "id": "carousel-2",
@@ -2870,11 +2870,11 @@
       "source": "../../../react/docs/parity/components/notification.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (GroupHost): fd-notification-group-header computes border-bottom-width 0px; fundamental-styles' group header has a 1px (--sapList_BorderWidth) solid transparent bottom border.",
+      "test": "notification.spec.ts › Notification › the group header has fundamental-styles' transparent bottom border (computed style)",
+      "fix": "2b84756",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "notification-2",
@@ -2896,11 +2896,11 @@
       "source": "../../../react/docs/parity/components/settings.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ProfileHost): the profile card name computes font-family 72-SemiboldDuplex and line-height 22.4px (1.4rem); fundamental-styles' name is 72 Bold with a normal line height.",
+      "test": "settings.spec.ts › SettingsProfileCard › the name uses fundamental-styles' 72 Bold with a normal line height (computed style)",
+      "fix": "f44ad68",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual settings: the profile card name matches fundamental-styles' User Account story by computed style in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "settings-2",
