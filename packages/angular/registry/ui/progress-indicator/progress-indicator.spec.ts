@@ -74,6 +74,12 @@ async function setup() {
 }
 
 describe('ProgressIndicator', () => {
+    it('the label has a normal line height, as fundamental-styles', async () => {
+        const { root } = await setup();
+        const label = root.querySelector<HTMLElement>('[aria-hidden=true]')!;
+        expect(getComputedStyle(label).lineHeight).toBe('normal');
+    });
+
     it('is a progress bar with its value', async () => {
         const { bar, root } = await setup();
         expect(bar.getAttribute('aria-valuenow')).toBe('42');

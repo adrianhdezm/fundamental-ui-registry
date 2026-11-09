@@ -192,7 +192,7 @@ export class ProgressIndicator {
     );
 
     protected readonly labelClass =
-        'block max-w-full truncate leading-normal text-sap-progress-font-size text-sap-field-text-color select-none';
+        'block max-w-full truncate text-sap-progress-font-size leading-[normal] text-sap-field-text-color select-none';
 
     protected readonly iconClass =
         'absolute -end-5 -bottom-2.5 text-sap-font-large-size leading-none text-(--pi-icon) [&_*]:align-middle';

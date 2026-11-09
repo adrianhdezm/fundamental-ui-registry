@@ -1974,9 +1974,9 @@
       "source": "../../../react/docs/parity/components/progress-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "progress-indicator.spec.ts: the label's computed line-height is 1.5 (leading-normal, 21px) instead of normal (16px), so its last line sits 1px over the track.",
+      "test": "progress-indicator.spec.ts › ProgressIndicator › the label has a normal line height, as fundamental-styles",
       "fix": "",
       "notes": ""
     },
