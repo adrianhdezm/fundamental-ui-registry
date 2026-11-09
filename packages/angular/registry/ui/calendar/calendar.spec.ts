@@ -582,7 +582,31 @@ describe('Calendar forms, all modes', () => {
     });
 });
 
+@Component({
+    imports: [Calendar],
+    template: `
+        <fd-calendar id="years" activeView="year" [selectedDate]="date" />
+        <fd-calendar id="ranges" activeView="aggregatedYear" [selectedDate]="date" />
+    `
+})
+class StartViewHost {
+    readonly date = new FdDate(2018, 3, 1);
+}
+
 describe('Calendar header', () => {
+    it('a calendar that starts in the year view starts at the shown year', async () => {
+        const fixture = TestBed.createComponent(StartViewHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const years = [...root.querySelectorAll<HTMLElement>('#years td[data-fd-calendar-year]')];
+        expect(years[0].textContent!.trim()).toBe('2018');
+        expect(years.find((td) => td.getAttribute('aria-selected') === 'true')!.textContent!.trim()).toBe('2018');
+        // the years range view starts one page (20 years) before, as switching to it does
+        const ranges = root.querySelector<HTMLElement>('#ranges td')!;
+        expect(ranges.textContent!.trim()).toBe('1998 - 2017');
+    });
+
     it('the next arrow has a 0.25rem start margin, as fundamental-styles (computed style)', async () => {
         const { root } = await setup();
         const next = root.querySelector<HTMLElement>('#cal-header-right-arrow')!.parentElement!;

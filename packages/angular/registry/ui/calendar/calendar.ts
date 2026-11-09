@@ -861,6 +861,12 @@ export class Calendar<D> implements ControlValueAccessor, Validator {
         effect(() => {
             if (this.allowMultipleSelection() || this.calType()) untracked(() => (this.shiftAnchor = null));
         });
+        // a calendar that starts in (or is switched from outside to) the year or years range view starts at the
+        // shown year, as switching to them with the header does
+        effect(() => {
+            const view = this.activeView();
+            untracked(() => this.alignYears(view));
+        });
     }
 
     /** Shows the month of a date. */
@@ -888,11 +894,16 @@ export class Calendar<D> implements ControlValueAccessor, Validator {
 
     private setView(view: FdCalendarView): void {
         if (view === this.activeView()) return;
+        this.alignYears(view);
+        this.activeView.set(view);
+        this.focusActiveCell();
+    }
+
+    /** Starts the year view at the shown year, and the years range view one page before it. */
+    private alignYears(view: FdCalendarView): void {
         const year = this.displayed().year;
         if (view === 'year') this.firstYear.set(year);
         if (view === 'aggregatedYear') this.firstAggregatedYear.set(year - this.yearsPerPage());
-        this.activeView.set(view);
-        this.focusActiveCell();
     }
 
     private page(direction: 1 | -1): void {

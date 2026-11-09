@@ -879,9 +879,9 @@
       "source": "../../../react/docs/parity/components/calendar.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host with activeView=\"year\" and selectedDate 2018-03-01: the first year cell reads 2026 (today's year) and no year is selected; switching to the view with the header button starts at 2018.",
+      "test": "calendar.spec.ts › Calendar views and header › a calendar that starts in the year view starts at the shown year",
       "fix": "",
       "notes": ""
     },
