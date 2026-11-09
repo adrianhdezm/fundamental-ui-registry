@@ -1497,9 +1497,9 @@
       "source": "../../../react/docs/parity/components/shellbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "shellbar.spec.ts IssuesHost (1300px, actions with [user] and a product switch): the simple user menu ends at 1252px, after the product switch that starts at 1174px, because fd-shellbar-user-menu has order-1.",
+      "test": "Shellbar issues > puts the simple user menu before the product switch (shellbar-1)",
       "fix": "",
       "notes": ""
     },

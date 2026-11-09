@@ -868,7 +868,7 @@ export class ShellbarActions {
     selector: 'fd-shellbar-user-menu',
     imports: [Button, Avatar, Menu, MenuItem, MenuInteractive, MenuTitle, MenuTrigger],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: { class: 'order-1 flex shrink-0' },
+    host: { class: 'flex shrink-0' },
     template: `
         @if (!customButton()) {
             <button
