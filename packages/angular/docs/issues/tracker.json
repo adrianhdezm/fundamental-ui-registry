@@ -592,9 +592,9 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (StylesHost) in sap_horizon_hcb: the focused close button of an indication colour 1 strip computes background rgb(0, 0, 0) and a non-transparent border (the button's); fundamental-styles clears both on focus unless hovered.",
+      "test": "message-strip.spec.ts › MessageStrip styles › in HC the focused close button of an indication colour strip has no background or border (computed style)",
       "fix": "",
       "notes": ""
     },

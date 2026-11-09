@@ -234,7 +234,10 @@ export class MessageStrip {
                 'text-(--ms-btn) enabled-hover:text-(--ms-btn) enabled-active:text-(--ms-btn)',
                 'enabled-hover:bg-sap-message-button-hover-background enabled-hover:border-(--ms-btn)',
                 'enabled-active:bg-sap-message-button-hover-background enabled-active:border-(--ms-btn)',
-                'focus:after:border-(--ms-focus)'
+                'focus:after:border-(--ms-focus)',
+                // focused: no background or border, unless hovered (fundamental-styles; visible in HC)
+                'focus:bg-transparent focus:border-transparent',
+                'focus:enabled-hover:bg-sap-message-button-hover-background focus:enabled-hover:border-(--ms-btn)'
             ]
         )
     );

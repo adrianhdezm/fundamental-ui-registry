@@ -467,4 +467,14 @@ describe('MessageStrip styles', () => {
         const box = strip('plain').querySelector<HTMLElement>('[aria-hidden="true"]:has(fd-icon)')!;
         expect(getComputedStyle(box).lineHeight).toBe('normal');
     });
+
+    it('in HC the focused close button of an indication colour strip has no background or border (computed style)', async () => {
+        const { strip } = await setupStyles();
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        const close = strip('strong').querySelector<HTMLButtonElement>('button')!;
+        close.focus();
+        const style = getComputedStyle(close);
+        expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+        expect(style.borderTopColor).toBe('rgba(0, 0, 0, 0)');
+    });
 });
