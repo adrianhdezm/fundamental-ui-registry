@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { afterEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { ListIcon, ListSecondary, ListTitle } from '@/ui/list/list';
 import { Select, SelectOption, type SelectMobileConfig } from './select';
 
 @Component({
@@ -420,5 +421,56 @@ describe('Select', () => {
         expect(host.control.value).toBe('Date');
         expect(dialog()).toBeNull();
         expect(combobox.getAttribute('aria-expanded')).toBe('false');
+    });
+});
+
+@Component({
+    imports: [Select, SelectOption, ListIcon, ListTitle, ListSecondary],
+    template: `
+        <fd-select ariaLabel="Fruit" placeholder="Pick one" fillControlMode="fit-content">
+            <li fd-option value="apple">
+                <i fd-list-icon glyph="nutrition-activity"></i>
+                <span fd-list-title>Apple</span>
+                <span fd-list-secondary>95 kcal</span>
+            </li>
+            <li fd-option value="kiwi">Kiwi</li>
+        </fd-select>
+    `
+})
+class PartsHost {}
+
+describe('Select styles', () => {
+    async function render() {
+        const fixture = TestBed.createComponent(PartsHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const combobox = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('[role=combobox]')!;
+        return { fixture, combobox };
+    }
+
+    it('lays out option icons, titles and secondary texts as fundamental-styles (select-1)', async () => {
+        const { fixture, combobox } = await render();
+        await openList(fixture, combobox);
+        const option = options()[0];
+        const style = (selector: string) => getComputedStyle(option.querySelector(selector)!);
+        expect(getComputedStyle(option).columnGap).toBe('0px');
+        expect(style('[fd-list-icon]').fontSize).toBe('18px');
+        expect(style('[fd-list-icon]').lineHeight).toBe('16px');
+        expect(style('[fd-list-title]').minHeight).toBe('16px');
+        expect(style('[fd-list-title]').whiteSpace).toBe('normal');
+        expect(style('[fd-list-secondary]').maxWidth).toBe('256px');
+    });
+
+    it('keeps the lite button background of the arrow in high contrast, inside the field border (select-2)', async () => {
+        const { combobox } = await render();
+        const arrow = combobox.querySelector<HTMLElement>('fd-icon')!.parentElement!;
+        expect(getComputedStyle(combobox).overflow).toBe('hidden');
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            expect(getComputedStyle(combobox).getPropertyValue('--sapButton_Lite_Background').trim()).not.toBe('transparent');
+            expect(getComputedStyle(arrow).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
     });
 });
