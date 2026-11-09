@@ -355,9 +355,9 @@
       "source": "../../../react/docs/parity/components/info-label.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "info-label.spec.ts: computed vertical-align middle (align-middle), which moves inline labels 0.3px down; fundamental-styles keeps baseline.",
+      "test": "info-label.spec.ts › InfoLabel › sits on the baseline as fundamental-styles (no align-middle)",
       "fix": "",
       "notes": ""
     },

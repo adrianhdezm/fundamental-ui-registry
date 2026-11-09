@@ -57,6 +57,11 @@ async function setup() {
 }
 
 describe('InfoLabel', () => {
+    it('sits on the baseline as fundamental-styles (no align-middle)', async () => {
+        const { label } = await setup();
+        expect(getComputedStyle(label).verticalAlign).toBe('baseline');
+    });
+
     afterEach(() => document.documentElement.removeAttribute('data-sap-theme'));
 
     it('colors 1–10 use the accent tokens (high contrast palette in HCB/HCW)', async () => {

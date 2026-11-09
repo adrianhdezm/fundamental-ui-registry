@@ -168,11 +168,11 @@ None.
 
 #### info-label
 
-[React report](../../../react/docs/parity/components/info-label.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/info-label.md) · 🧪 covered: 1
 
-| ID           | Issue                                                                      | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------------ | -------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| info-label-1 | `align-middle` (not in fundamental-styles) moves inline labels 0.3px down. | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID           | Issue                                                                      | Kind   | Confirmed | Pattern | Status     | Test                                                                                          | Fix | Notes |
+| ------------ | -------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | --------------------------------------------------------------------------------------------- | --- | ----- |
+| info-label-1 | `align-middle` (not in fundamental-styles) moves inline labels 0.3px down. | visual | rendered  |         | 🧪 covered | info-label.spec.ts › InfoLabel › sits on the baseline as fundamental-styles (no align-middle) |     |       |
 
 #### avatar
 
