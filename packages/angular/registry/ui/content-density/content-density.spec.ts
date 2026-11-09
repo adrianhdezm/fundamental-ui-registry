@@ -22,6 +22,18 @@ import { ContentDensityDirective, type ContentDensity } from './content-density'
         <div fdCozy data-testid="cozy"></div>
         <div fdContentDensity="condensed" fdCompact data-testid="explicit"></div>
         <div fdContentDensity data-testid="none"></div>
+        <section fdCompact>
+            <button fdButton label="Level 1" data-testid="level-1"></button>
+            <div fdCozy>
+                <button fdButton label="Level 2" data-testid="level-2"></button>
+                <div fdCompact>
+                    <button fdButton label="Level 3" data-testid="level-3"></button>
+                    <div fdCozy>
+                        <button fdButton label="Level 4" data-testid="level-4"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section fdCozy data-testid="cozy-parent">
             <div fdCompact data-testid="compact-child">
                 <button fdButton label="Compact child" data-testid="compact-child-button"></button>
@@ -114,6 +126,14 @@ describe('ContentDensity', () => {
         expect(el('cozy-parent').getAttribute('data-density')).toBe('cozy');
         expect(el('compact-child').getAttribute('data-density')).toBe('compact');
         expect(height('compact-child-button')).toBeLessThan(height('root'));
+    });
+
+    it('the nearest density wins through alternating levels (compact, cozy, compact, cozy)', async () => {
+        const { height } = await setup();
+        const cozy = height('root');
+        const compact = height('compact-child-button');
+        expect(compact).toBeLessThan(cozy);
+        expect([1, 2, 3, 4].map((n) => height(`level-${n}`))).toEqual([compact, cozy, compact, cozy]);
     });
 
     it('fdCompact set back to false removes data-density so the inherited density applies', async () => {
