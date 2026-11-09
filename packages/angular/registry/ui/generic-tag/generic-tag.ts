@@ -46,7 +46,10 @@ const TYPE: Record<GenericTagType | 'neutral', string> = {
     },
     template: `
         @if (type()) {
-            <fd-icon [glyph]="'message-' + type()" class="flex items-center justify-center text-base text-(--gt-ic)" />
+            <fd-icon
+                [glyph]="'message-' + type()"
+                class="flex items-center justify-center text-base leading-none text-(--gt-ic)"
+            />
         }
         <span [class]="textClass" class="text-(--gt-nc)" [attr.title]="name()">{{ name() }}</span>
         @if (value()) {

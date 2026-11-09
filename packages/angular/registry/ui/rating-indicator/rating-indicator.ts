@@ -334,7 +334,7 @@ export class RatingIndicator implements ControlValueAccessor {
     /** One half of an icon, clipped to its side. */
     protected halfClass(rated: boolean, first: boolean): string {
         return cn(
-            'absolute start-0 top-0 text-(length:--ri-size) [[data-small]_&]:text-(length:--ri-small)',
+            'absolute start-0 top-0 text-(length:--ri-size) leading-none [[data-small]_&]:text-(length:--ri-small) [[data-small]_&]:leading-none',
             rated ? 'text-sap-content-rated-color' : 'text-sap-content-unrated-color',
             first
                 ? '[clip-path:inset(0_48%_0_0)] rtl:[clip-path:inset(0_0_0_48%)]'

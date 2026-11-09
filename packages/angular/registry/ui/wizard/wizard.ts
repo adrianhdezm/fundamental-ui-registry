@@ -227,7 +227,11 @@ export class WizardContent {
         }
         <ng-template #content>
             @if (glyph(); as glyph) {
-                <fd-icon [glyph]="glyph" [font]="glyphFont()" class="text-sap-font-large-size text-(--wz-icon)" />
+                <fd-icon
+                    [glyph]="glyph"
+                    [font]="glyphFont()"
+                    class="text-sap-font-large-size leading-none text-(--wz-icon)"
+                />
             }
             <ng-content />
         </ng-template>

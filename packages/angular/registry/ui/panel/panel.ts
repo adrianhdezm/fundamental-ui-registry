@@ -50,7 +50,7 @@ let nextId = 0;
                     <button
                         fdButton
                         variant="transparent"
-                        class="text-base"
+                        class="text-base leading-[normal]"
                         [id]="expandId()"
                         [glyph]="expanded() ? 'slim-arrow-down' : 'slim-arrow-right'"
                         [attr.aria-expanded]="expanded()"

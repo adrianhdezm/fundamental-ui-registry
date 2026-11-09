@@ -244,3 +244,23 @@ describe('Panel', () => {
         expect(getComputedStyle(content()).overflow).toBe('auto');
     });
 });
+
+@Component({
+    imports: [Panel, PanelTitle, PanelContent],
+    template: `<fd-panel id="panel"
+        ><h4 fd-panel-title>Title</h4>
+        <div fd-panel-content>Content</div></fd-panel
+    >`
+})
+class ButtonHost {}
+
+describe('Panel expand button line height', () => {
+    it('the expand button keeps a normal line height', async () => {
+        const fixture = TestBed.createComponent(ButtonHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const button = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#panel button')!;
+        expect(getComputedStyle(button).lineHeight).toBe('normal');
+        fixture.nativeElement.remove();
+    });
+});

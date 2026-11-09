@@ -664,7 +664,7 @@ export class Select<T = unknown> implements ControlValueAccessor {
         const state = this.state() ?? 'default';
         return cn(
             buttonVariants({ variant: 'transparent' }),
-            'shrink-0 rounded-sap-field-border-corner-radius border-0 text-sap-font-size',
+            'shrink-0 rounded-sap-field-border-corner-radius border-0 text-sap-font-size leading-[normal]',
             'hover:shadow-sap-field-hover-shadow',
             state === 'success' &&
                 'hover:shadow-sap-content-positive-shadow group-focus/select:text-sap-button-accept-selected-text-color group-focus/select:shadow-sap-content-positive-shadow',

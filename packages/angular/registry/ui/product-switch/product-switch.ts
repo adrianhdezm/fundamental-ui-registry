@@ -153,7 +153,7 @@ const TARGET_LABEL: Record<string, string> = {
                     role="presentation"
                     [glyph]="product.icon"
                     [font]="product.font ?? 'SAP-icons'"
-                    class="flex min-h-12 min-w-12 items-center justify-center text-[1.5rem] text-sap-content-icon-color group-active/ps:text-sap-list-active-text-color"
+                    class="flex min-h-12 min-w-12 items-center justify-center text-[1.5rem] leading-none text-sap-content-icon-color group-active/ps:text-sap-list-active-text-color"
                 />
             }
             <div [class]="textClass()">

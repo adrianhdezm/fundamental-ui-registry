@@ -209,8 +209,8 @@ export class Switch implements ControlValueAccessor {
     protected iconClass(on: boolean): string {
         const visible = on === this.isChecked();
         return cn(
-            'absolute flex w-7 min-w-7 items-center justify-center leading-[1.375rem]',
-            'text-sap-font-large-size compact:text-sap-font-size',
+            'absolute flex w-7 min-w-7 items-center justify-center',
+            'text-sap-font-large-size leading-[1.375rem] compact:text-sap-font-size compact:leading-[1.375rem]',
             this.semantic()
                 ? on
                     ? 'text-sap-button-track-positive-border-color'
@@ -226,8 +226,8 @@ export class Switch implements ControlValueAccessor {
     protected textClass(on: boolean): string {
         const visible = on === this.isChecked();
         return cn(
-            'absolute flex w-7 items-center justify-center leading-none uppercase',
-            'font-sap-font-semibold-duplex-family text-sap-font-small-size',
+            'absolute flex w-7 items-center justify-center uppercase',
+            'font-sap-font-semibold-duplex-family text-sap-font-small-size leading-none',
             on ? 'text-sap-button-handle-selected-text-color' : 'text-sap-button-handle-text-color',
             visible ? 'visible opacity-100' : 'invisible opacity-0'
         );

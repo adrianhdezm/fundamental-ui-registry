@@ -2,7 +2,7 @@ import { Component, signal, viewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { TabItem, TabLink, TabList, TabNav, TabPanel, type TabModes } from './tabs';
+import { FD_TABS, TabCount, TabItem, TabLink, TabList, TabNav, TabPanel, type TabModes } from './tabs';
 
 @Component({
     imports: [TabList, TabPanel, TabNav, TabItem, TabLink],
@@ -401,5 +401,24 @@ describe('TabNav with changing links', () => {
         root.querySelector<HTMLElement>('#c')!.focus();
         await userEvent.keyboard('{ArrowRight}');
         expect(document.activeElement?.id).toBe('z');
+    });
+});
+
+@Component({
+    imports: [TabCount],
+    providers: [{ provide: FD_TABS, useValue: { mode: signal<TabModes>('filter') } }],
+    template: `<span fdTabCount id="count">12</span>`
+})
+class CountHost {}
+
+describe('TabCount line height', () => {
+    it('keeps its 1rem line height in a mode, where it takes the small font size', async () => {
+        const fixture = TestBed.createComponent(CountHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const count = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#count')!;
+        expect(getComputedStyle(count).fontSize).toBe('12px');
+        expect(getComputedStyle(count).lineHeight).toBe('16px');
+        fixture.nativeElement.remove();
     });
 });

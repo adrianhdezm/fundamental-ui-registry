@@ -208,7 +208,7 @@ function forwardTree(): typeof Tree {
                 >
                     <fd-icon
                         [glyph]="expanded() ? 'navigation-down-arrow' : 'navigation-right-arrow'"
-                        class="text-(length:--tree-exp-icon) text-sap-button-icon-color group-active/row:text-sap-list-active-text-color"
+                        class="text-(length:--tree-exp-icon) leading-none text-sap-button-icon-color group-active/row:text-sap-list-active-text-color"
                     />
                 </span>
             } @else if (countLoading()) {
@@ -234,7 +234,7 @@ function forwardTree(): typeof Tree {
             @if (navigatable() && tree?.navigationIndicator()) {
                 <fd-icon
                     glyph="slim-arrow-right"
-                    class="flex min-h-(--tree-exp) min-w-10 shrink-0 items-center justify-center text-xs text-sap-content-non-interactive-icon-color last:-me-4"
+                    class="flex min-h-(--tree-exp) min-w-10 shrink-0 items-center justify-center text-xs leading-none text-sap-content-non-interactive-icon-color last:-me-4"
                 />
             }
         </div>

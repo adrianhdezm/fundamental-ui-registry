@@ -238,7 +238,7 @@ export class TileTitle {
     protected readonly computedClass = computed(() => {
         const type = this.tile?.type();
         return cn(
-            'm-0 box-border p-0 font-sap-font-family leading-[normal] font-bold',
+            'm-0 box-border p-0 font-sap-font-family font-bold',
             type === 'line'
                 ? 'me-(--tile-ts) min-w-8 truncate text-sap-font-size leading-(--tile-lnh) text-sap-tile-title-text-color text-shadow-sap-content-text-shadow'
                 : type === 'slide'
@@ -250,6 +250,8 @@ export class TileTitle {
                         'text-sap-font-header6-size text-sap-tile-title-text-color',
                         this.headerContent ? 'line-clamp-4' : 'line-clamp-2'
                     ),
+            // after the size: tailwind-merge drops a line-height that comes before a font size
+            type !== 'line' && 'leading-[normal]',
             this.userClass()
         );
     });
@@ -265,7 +267,7 @@ export class TileSubtitle {
     protected readonly computedClass = computed(() => {
         const type = this.tile?.type();
         return cn(
-            'm-0 box-border truncate p-0 font-sap-font-family leading-[normal]',
+            'm-0 box-border truncate p-0 font-sap-font-family',
             type === 'line'
                 ? 'min-w-8 text-[0.875rem] leading-(--tile-lnh) text-sap-tile-text-color text-shadow-sap-content-text-shadow'
                 : type === 'slide'
@@ -274,6 +276,7 @@ export class TileSubtitle {
                         this.tile?.small() ? 'text-sap-font-small-size' : 'text-sap-font-size'
                     )
                   : 'text-sap-font-size text-sap-tile-text-color',
+            type !== 'line' && 'leading-[normal]',
             this.userClass()
         );
     });
@@ -390,8 +393,9 @@ export class TileFooterText {
     private readonly tile = inject(Tile, { optional: true });
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 box-border truncate p-0 font-sap-font-family leading-[normal]',
+            'm-0 box-border truncate p-0 font-sap-font-family',
             this.tile?.small() ? 'text-sap-font-small-size' : 'text-sap-font-size',
+            'leading-[normal]',
             this.tile?.type() === 'slide' ? 'text-sap-tile-overlay-foreground-color' : 'text-sap-tile-text-color',
             this.userClass()
         )
@@ -620,7 +624,7 @@ export class TileActionClose {
     protected readonly iconClass = computed(() =>
         cn(
             GLYPH,
-            'box-border size-[1.375rem] rounded-full border bg-sap-button-background text-[0.75rem] border-sap-button-border-color text-sap-button-icon-color'
+            'box-border size-[1.375rem] rounded-full border bg-sap-button-background text-[0.75rem] leading-none border-sap-button-border-color text-sap-button-icon-color'
         )
     );
 }
@@ -653,7 +657,7 @@ export class TileActionIndicator {
     protected readonly iconClass = computed(() =>
         cn(
             GLYPH,
-            'text-[1rem]',
+            'text-[1rem] leading-none',
             this.tile?.line()
                 ? 'text-sap-button-lite-text-color'
                 : this.tile?.type() === 'slide'

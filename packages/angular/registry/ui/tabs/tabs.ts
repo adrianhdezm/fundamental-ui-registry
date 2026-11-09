@@ -93,7 +93,8 @@ export class TabCount {
         const mode = this.tabs?.mode();
         return cn(
             'm-0 p-0 pb-0.5 leading-4 text-sap-content-label-color',
-            mode && 'text-sap-font-small-size',
+            // the line height after the font size: tailwind-merge drops one that comes before
+            mode && 'text-sap-font-small-size leading-4',
             (mode === 'icon-only' || mode === 'filter') && 'absolute start-[calc(100%+0.1875rem)] top-0'
         );
     });
@@ -107,7 +108,11 @@ export class TabCount {
     host: { '[class]': 'computedClass()' },
     template: `
         @if (icon()) {
-            <fd-icon [glyph]="icon()!" [font]="iconFont()" class="text-[length:var(--tabs-icon-size,1.125rem)]" />
+            <fd-icon
+                [glyph]="icon()!"
+                [font]="iconFont()"
+                class="text-[length:var(--tabs-icon-size,1.125rem)] leading-none"
+            />
         }
         <ng-content />
     `

@@ -762,7 +762,7 @@ export type MenuInteractiveKind = 'item' | 'toggle' | 'option' | 'input';
         @if (mark(); as m) {
             <span class="${ADDON}" aria-hidden="true">
                 @if (m === 'check') {
-                    <fd-icon glyph="accept" class="text-[1rem] text-sap-content-selected-foreground-color" />
+                    <fd-icon glyph="accept" class="text-sap-content-selected-foreground-color" />
                 } @else if (m === 'dot') {
                     <span class="size-3 rounded-full bg-sap-content-selected-foreground-color"></span>
                 }
@@ -879,7 +879,7 @@ export class MenuInteractive {
     },
     template: `
         @if (submenuIndicator()) {
-            <fd-icon glyph="navigation-right-arrow" class="text-[1rem]" />
+            <fd-icon glyph="navigation-right-arrow" />
         } @else if (glyph()) {
             <fd-icon [glyph]="glyph()" />
         }

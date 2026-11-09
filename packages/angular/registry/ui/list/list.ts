@@ -284,7 +284,7 @@ export class List {
         @if (unread() && (!list || list.hasByline())) {
             <fd-icon
                 glyph="circle-task-2"
-                class="absolute start-4 top-1/2 -translate-y-1/2 text-[0.375rem] text-sap-accent-color6"
+                class="absolute start-4 top-1/2 -translate-y-1/2 text-[0.375rem] leading-none text-sap-accent-color6"
             />
         }
         <ng-content />
@@ -538,7 +538,7 @@ export class ListTitle {
             item?.unread() && 'font-bold',
             item?.noData() && 'text-center',
             this.list?.subline() &&
-                'w-full max-w-full font-sap-font-semibold-duplex-family text-sap-font-size text-sap-list-text-color not-italic',
+                'w-full max-w-full font-sap-font-semibold-duplex-family text-sap-font-size leading-[normal] text-sap-list-text-color not-italic',
             this.scope() && 'text-sap-font-size text-sap-content-label-color',
             item?.growing() && 'flex items-center justify-center gap-2',
             item?.action() && [
@@ -618,7 +618,7 @@ export class ListIcon {
     protected readonly computedClass = computed(() =>
         cn(
             iconVariants({ font: this.glyphFont() }),
-            'pointer-events-none flex w-11 flex-[0_0_auto] items-center justify-center text-(length:--li-ifs) text-sap-content-non-interactive-icon-color',
+            'pointer-events-none flex w-11 flex-[0_0_auto] items-center justify-center text-(length:--li-ifs) leading-none text-sap-content-non-interactive-icon-color',
             'first:-ms-4 [[data-list-title]~&]:-me-4',
             this.list?.navigationIndicator() && 'last:m-0',
             this.userClass()

@@ -63,7 +63,7 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 | Pattern                                                                                              | Root cause                                                                                                                                                                                                                                           | Rule                                                                                                                     | Issues                                                                                                              | Status      | Fix |
 | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ----------- | --- |
-| `pattern-leading-merge`: tailwind-merge drops a leading-* that comes before a text-* size            | tailwind-merge treats a font-size utility as also setting the line height, so a `leading-*` placed before a `text-*` size in the same class list (or merged in from a component) is removed.                                                         | Put `leading-*` after the `text-*` size in the same string or variant.                                                   | icon-1, menu-2, list-1, rating-indicator-2, checkbox-3, switch-2, object-status-4, tabs-3, panel-2, object-number-1 | ⬜ reported |     |
+| `pattern-leading-merge`: tailwind-merge drops a leading-* that comes before a text-* size            | tailwind-merge treats a font-size utility as also setting the line height, so a `leading-*` placed before a `text-*` size in the same class list (or merged in from a component) is removed.                                                         | Put `leading-*` after the `text-*` size in the same string or variant.                                                   | icon-1, menu-2, list-1, rating-indicator-2, checkbox-3, switch-2, object-status-4, tabs-3, panel-2, object-number-1 | 🧪 covered  |     |
 | `pattern-rounded-full`: `rounded-full` computes to a huge pixel radius instead of 50%                | Tailwind v4's `rounded-full` is `calc(infinity * 1px)` (3.35544e+07px computed); fundamental-styles uses `50%`.                                                                                                                                      | Use `rounded-[50%]` where fundamental-styles has 50% (and `100%` where it has that).                                     | avatar-4, wizard-1, tabs-4, shellbar-6, micro-process-flow-2, carousel-4                                            | ⬜ reported |     |
 | `pattern-shadow-ring`: `shadow-sap-*` utilities add Tailwind's transparent ring layers               | Tailwind's `shadow-*` utilities compose `--tw-inset-shadow`, `--tw-inset-ring-shadow`, `--tw-ring-offset-shadow` and `--tw-ring-shadow` with the shadow, so the computed `box-shadow` has extra transparent layers that fundamental-styles' has not. | Write shadows as `[box-shadow:var(--sap…)]`.                                                                             | action-sheet-3, wizard-3, shellbar-5, card-4, slider-1, fixed-card-layout-2                                         | ⬜ reported |     |
 | `pattern-synthetic-bold`: Synthetic bold: `font-bold` on the 72-Bold font                            | The 72-Bold face is registered with a normal weight; `font-bold` on top of it makes the browser embolden it again.                                                                                                                                   | Use `font-normal` with the bold font family, as fundamental-styles.                                                      | layout-panel-1, card-1, panel-1, feed-list-3                                                                        | ⬜ reported |     |
@@ -79,12 +79,12 @@ None.
 
 #### icon
 
-[React report](../../../react/docs/parity/components/icon.md) · 🔍 reproduced: 2
+[React report](../../../react/docs/parity/components/icon.md) · 🔍 reproduced: 1 · 🧪 covered: 1
 
-| ID     | Issue                                                                                                                                                                                                             | Kind   | Confirmed | Pattern               | Status        | Test | Fix | Notes |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ------------- | ---- | --- | ----- |
-| icon-1 | The icon box is taller than fundamental-styles' (35px instead of 32px at `md`): `tailwind-merge` drops `leading-none` because the size class (`text-[2rem]`) comes after it. Fixed in React by moving it after.   | visual | rendered  | pattern-leading-merge | 🔍 reproduced |      |     |       |
-| icon-2 | Narrow glyphs get a box as wide as the glyph instead of 1em, so e.g. the menu arrow of an icon-only menu button is 10px wide and the button 6px narrower than fundamental-styles'. Fixed in React with `w-[1em]`. | visual | rendered  |                       | 🔍 reproduced |      |     |       |
+| ID     | Issue                                                                                                                                                                                                             | Kind   | Confirmed | Pattern               | Status        | Test                                                                                                      | Fix | Notes |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ------------- | --------------------------------------------------------------------------------------------------------- | --- | ----- |
+| icon-1 | The icon box is taller than fundamental-styles' (35px instead of 32px at `md`): `tailwind-merge` drops `leading-none` because the size class (`text-[2rem]`) comes after it. Fixed in React by moving it after.   | visual | rendered  | pattern-leading-merge | 🧪 covered    | icon.spec.ts › Icon › every size keeps line-height 1, so the box is as high as the font size (32px at md) |     |       |
+| icon-2 | Narrow glyphs get a box as wide as the glyph instead of 1em, so e.g. the menu arrow of an icon-only menu button is 10px wide and the button 6px narrower than fundamental-styles'. Fixed in React with `w-[1em]`. | visual | rendered  |                       | 🔍 reproduced |                                                                                                           |     |       |
 
 #### link
 
@@ -112,13 +112,13 @@ None.
 
 #### checkbox
 
-[React report](../../../react/docs/parity/components/checkbox.md) · ⬜ reported: 3
+[React report](../../../react/docs/parity/components/checkbox.md) · ⬜ reported: 2 · 🧪 covered: 1
 
-| ID         | Issue                                                                                                                                                                                    | Kind          | Confirmed | Pattern               | Status      | Test | Fix | Notes |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------- | ----------- | ---- | --- | ----- |
-| checkbox-1 | The label text inherits the label colour (`--sapContent_LabelColor`) and a 1rem line height; fundamental-styles uses `--sapTextColor` with a normal line height, so the text is lighter. | visual        | rendered  |                       | ⬜ reported |      |     |       |
-| checkbox-2 | In the HC themes, hovered success, warning and information checkboxes get `--sapSelectedColor` instead of `--sapField_Hover_Background`.                                                 | visual        | rendered  |                       | ⬜ reported |      |     |       |
-| checkbox-3 | The display-only box loses `leading-[normal]` to `tailwind-merge` (it comes before `text-[1rem]`); computed styles only, not visible.                                                    | computed-only | rendered  | pattern-leading-merge | ⬜ reported |      |     |       |
+| ID         | Issue                                                                                                                                                                                    | Kind          | Confirmed | Pattern               | Status      | Test                                                                                                   | Fix | Notes |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------ | --- | ----- |
+| checkbox-1 | The label text inherits the label colour (`--sapContent_LabelColor`) and a 1rem line height; fundamental-styles uses `--sapTextColor` with a normal line height, so the text is lighter. | visual        | rendered  |                       | ⬜ reported |                                                                                                        |     |       |
+| checkbox-2 | In the HC themes, hovered success, warning and information checkboxes get `--sapSelectedColor` instead of `--sapField_Hover_Background`.                                                 | visual        | rendered  |                       | ⬜ reported |                                                                                                        |     |       |
+| checkbox-3 | The display-only box loses `leading-[normal]` to `tailwind-merge` (it comes before `text-[1rem]`); computed styles only, not visible.                                                    | computed-only | rendered  | pattern-leading-merge | 🧪 covered  | checkbox.spec.ts › Checkbox display-only line height › the display-only box keeps a normal line height |     |       |
 
 #### input
 
@@ -158,13 +158,13 @@ None.
 
 #### switch
 
-[React report](../../../react/docs/parity/components/switch.md) · ⬜ reported: 2 · ✅ verified: 1
+[React report](../../../react/docs/parity/components/switch.md) · ⬜ reported: 1 · 🧪 covered: 1 · ✅ verified: 1
 
-| ID       | Issue                                                                                                                                       | Kind          | Confirmed | Pattern               | Status      | Test                                                                                                            | Fix     | Notes                                                                                                |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| switch-1 | Hover colours never apply: `group-hover/sw:` sits on the element that is itself `group/sw`, and the variant only matches descendants.       | visual        | rendered  |                       | ⬜ reported |                                                                                                                 |         |                                                                                                      |
-| switch-2 | The on/off texts and icons lose their line height to `tailwind-merge` (a `leading-*` before a `text-*` size); computed styles only.         | computed-only | rendered  | pattern-leading-merge | ⬜ reported |                                                                                                                 |         |                                                                                                      |
-| switch-3 | A semantic switch without `ariaLabelledBy` is named only "Accept" or "Decline", and `ariaLabel` goes on the `<label>` instead of the input. | a11y          | rendered  |                       | ✅ verified | Switch › names a semantic switch by its label content or ariaLabel, then the state, with ariaLabel on the input | 0f269c5 | Verified: the test fails before the fix and passes after; pnpm angular check (a11y included) passes. |
+| ID       | Issue                                                                                                                                       | Kind          | Confirmed | Pattern               | Status      | Test                                                                                                             | Fix     | Notes                                                                                                |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| switch-1 | Hover colours never apply: `group-hover/sw:` sits on the element that is itself `group/sw`, and the variant only matches descendants.       | visual        | rendered  |                       | ⬜ reported |                                                                                                                  |         |                                                                                                      |
+| switch-2 | The on/off texts and icons lose their line height to `tailwind-merge` (a `leading-*` before a `text-*` size); computed styles only.         | computed-only | rendered  | pattern-leading-merge | 🧪 covered  | switch.spec.ts › Switch line height › the on/off icons are 22px and the texts 1 line high (computed line height) |         |                                                                                                      |
+| switch-3 | A semantic switch without `ariaLabelledBy` is named only "Accept" or "Decline", and `ariaLabel` goes on the `<label>` instead of the input. | a11y          | rendered  |                       | ✅ verified | Switch › names a semantic switch by its label content or ariaLabel, then the state, with ariaLabel on the input  | 0f269c5 | Verified: the test fails before the fix and passes after; pnpm angular check (a11y included) passes. |
 
 #### info-label
 
@@ -187,24 +187,24 @@ None.
 
 #### list
 
-[React report](../../../react/docs/parity/components/list.md) · ⬜ reported: 3
+[React report](../../../react/docs/parity/components/list.md) · ⬜ reported: 2 · 🧪 covered: 1
 
-| ID     | Issue                                                                                                    | Kind   | Confirmed | Pattern               | Status      | Test | Fix | Notes                                                                      |
-| ------ | -------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ----------- | ---- | --- | -------------------------------------------------------------------------- |
-| list-1 | List icons and the unread dot lose `leading-none` to tailwind-merge (20px/7px high instead of 18px/6px). | visual | rendered  | pattern-leading-merge | ⬜ reported |      |     | The unread dot is part of the same row; check it separately from the icon. |
-| list-2 | Thumbnail icons stay 1rem instead of 2rem.                                                               | visual | rendered  |                       | ⬜ reported |      |     |                                                                            |
-| list-3 | A hovered link keeps a transparent bottom border; fundamental-styles uses the list border colour.        | visual | rendered  |                       | ⬜ reported |      |     |                                                                            |
+| ID     | Issue                                                                                                    | Kind   | Confirmed | Pattern               | Status      | Test                                                                                  | Fix | Notes                                                                      |
+| ------ | -------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ----------- | ------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------- |
+| list-1 | List icons and the unread dot lose `leading-none` to tailwind-merge (20px/7px high instead of 18px/6px). | visual | rendered  | pattern-leading-merge | 🧪 covered  | list.spec.ts › List › icons and the unread dot keep line-height 1 (18px and 6px high) |     | The unread dot is part of the same row; check it separately from the icon. |
+| list-2 | Thumbnail icons stay 1rem instead of 2rem.                                                               | visual | rendered  |                       | ⬜ reported |                                                                                       |     |                                                                            |
+| list-3 | A hovered link keeps a transparent bottom border; fundamental-styles uses the list border colour.        | visual | rendered  |                       | ⬜ reported |                                                                                       |     |                                                                            |
 
 #### object-status
 
-[React report](../../../react/docs/parity/components/object-status.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/object-status.md) · ⬜ reported: 3 · 🧪 covered: 1
 
-| ID              | Issue                                                                                                                                           | Kind          | Confirmed | Pattern               | Status      | Test | Fix | Notes |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------- | ----------- | ---- | --- | ----- |
-| object-status-1 | `min-w-6` makes icon-only statuses 24px wide instead of 16px (inverted 24px instead of 22px) and centres short texts.                           | visual        | rendered  |                       | ⬜ reported |      |     |       |
-| object-status-2 | Large inverted statuses use 72-Semibold; fundamental-styles uses the regular 72 (6px narrower).                                                 | visual        | rendered  |                       | ⬜ reported |      |     |       |
-| object-status-3 | `hcFocus()` builds its `hc:focus:` classes at runtime, so Tailwind never generates them and focused clickable statuses lose their colour in HC. | visual        | rendered  |                       | ⬜ reported |      |     |       |
-| object-status-4 | The root line height is dropped by tailwind-merge (`leading-(--os-h)` before the font size); computed styles only.                              | computed-only | rendered  | pattern-leading-merge | ⬜ reported |      |     |       |
+| ID              | Issue                                                                                                                                           | Kind          | Confirmed | Pattern               | Status      | Test                                                                                   | Fix | Notes |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------- | ----------- | -------------------------------------------------------------------------------------- | --- | ----- |
+| object-status-1 | `min-w-6` makes icon-only statuses 24px wide instead of 16px (inverted 24px instead of 22px) and centres short texts.                           | visual        | rendered  |                       | ⬜ reported |                                                                                        |     |       |
+| object-status-2 | Large inverted statuses use 72-Semibold; fundamental-styles uses the regular 72 (6px narrower).                                                 | visual        | rendered  |                       | ⬜ reported |                                                                                        |     |       |
+| object-status-3 | `hcFocus()` builds its `hc:focus:` classes at runtime, so Tailwind never generates them and focused clickable statuses lose their colour in HC. | visual        | rendered  |                       | ⬜ reported |                                                                                        |     |       |
+| object-status-4 | The root line height is dropped by tailwind-merge (`leading-(--os-h)` before the font size); computed styles only.                              | computed-only | rendered  | pattern-leading-merge | 🧪 covered  | object-status.spec.ts › ObjectStatus line height › the root keeps its 1rem line height |     |       |
 
 #### tree
 
@@ -288,12 +288,12 @@ None.
 
 #### menu
 
-[React report](../../../react/docs/parity/components/menu.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/menu.md) · ⬜ reported: 1 · 🧪 covered: 1
 
-| ID     | Issue                                                                                                                                        | Kind   | Confirmed | Pattern               | Status      | Test | Fix | Notes                                     |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ----------- | ---- | --- | ----------------------------------------- |
-| menu-1 | In compact density the mobile shortcut keeps a 1rem end padding (fundamental-styles: 0.5rem): a mobile size setting overrides every density. | visual | rendered  |                       | ⬜ reported |      |     |                                           |
-| menu-2 | The toggle checkmark and submenu arrow are 17px tall: `text-[1rem]` drops the icon's `leading-none` (the icon issue above).                  | visual | rendered  | pattern-leading-merge | ⬜ reported |      |     | Same cause as icon-1: may be fixed by it. |
+| ID     | Issue                                                                                                                                        | Kind   | Confirmed | Pattern               | Status      | Test                                                                                                        | Fix | Notes                                     |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ----------- | ----------------------------------------------------------------------------------------------------------- | --- | ----------------------------------------- |
+| menu-1 | In compact density the mobile shortcut keeps a 1rem end padding (fundamental-styles: 0.5rem): a mobile size setting overrides every density. | visual | rendered  |                       | ⬜ reported |                                                                                                             |     |                                           |
+| menu-2 | The toggle checkmark and submenu arrow are 17px tall: `text-[1rem]` drops the icon's `leading-none` (the icon issue above).                  | visual | rendered  | pattern-leading-merge | 🧪 covered  | menu.spec.ts › Menu › keeps the line height of the toggle check mark and the submenu arrow at 1 (16px high) |     | Same cause as icon-1: may be fixed by it. |
 
 #### calendar
 
@@ -443,14 +443,14 @@ None.
 
 #### tabs
 
-[React report](../../../react/docs/parity/components/tabs.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/tabs.md) · ⬜ reported: 3 · 🧪 covered: 1
 
-| ID     | Issue                                                                                                                                                                                                                                            | Kind          | Confirmed | Pattern               | Status      | Test | Fix | Notes                                                         |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- | --------- | --------------------- | ----------- | ---- | --- | ------------------------------------------------------------- |
-| tabs-1 | Every tab item is the first child of its overflow wrapper, so all default-mode tabs match the `:first-child` rules and lose their start padding and margin; in other modes the first tab keeps a start padding fundamental-styles does not have. | visual        | rendered  |                       | ⬜ reported |      |     |                                                               |
-| tabs-2 | The tab tag uses `--sapContent_LabelColor`; fundamental-styles uses `--sapTextColor`.                                                                                                                                                            | visual        | rendered  |                       | ⬜ reported |      |     |                                                               |
-| tabs-3 | `TabCount` in a mode loses `leading-4` to tailwind-merge (`text-sap-font-small-size` comes after it).                                                                                                                                            | visual        | rendered  | pattern-leading-merge | ⬜ reported |      |     |                                                               |
-| tabs-4 | The round tab icon has a 16px line height instead of normal and a `rounded-full` radius (computed styles only).                                                                                                                                  | computed-only | rendered  | pattern-rounded-full  | ⬜ reported |      |     | The 16px line height (first half) is not part of the pattern. |
+| ID     | Issue                                                                                                                                                                                                                                            | Kind          | Confirmed | Pattern               | Status      | Test                                                                                                           | Fix | Notes                                                         |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- | --------- | --------------------- | ----------- | -------------------------------------------------------------------------------------------------------------- | --- | ------------------------------------------------------------- |
+| tabs-1 | Every tab item is the first child of its overflow wrapper, so all default-mode tabs match the `:first-child` rules and lose their start padding and margin; in other modes the first tab keeps a start padding fundamental-styles does not have. | visual        | rendered  |                       | ⬜ reported |                                                                                                                |     |                                                               |
+| tabs-2 | The tab tag uses `--sapContent_LabelColor`; fundamental-styles uses `--sapTextColor`.                                                                                                                                                            | visual        | rendered  |                       | ⬜ reported |                                                                                                                |     |                                                               |
+| tabs-3 | `TabCount` in a mode loses `leading-4` to tailwind-merge (`text-sap-font-small-size` comes after it).                                                                                                                                            | visual        | rendered  | pattern-leading-merge | 🧪 covered  | tabs.spec.ts › TabCount line height › keeps its 1rem line height in a mode, where it takes the small font size |     |                                                               |
+| tabs-4 | The round tab icon has a 16px line height instead of normal and a `rounded-full` radius (computed styles only).                                                                                                                                  | computed-only | rendered  | pattern-rounded-full  | ⬜ reported |                                                                                                                |     | The 16px line height (first half) is not part of the pattern. |
 
 #### side-navigation
 
@@ -540,11 +540,11 @@ None.
 
 #### object-number
 
-[React report](../../../react/docs/parity/components/object-number.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/object-number.md) · 🧪 covered: 1
 
-| ID              | Issue                                                                                                                                                       | Kind   | Confirmed | Pattern               | Status      | Test | Fix | Notes |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ----------- | ---- | --- | ----- |
-| object-number-1 | Regular and inverted object numbers lose their 1rem line height: tailwind-merge drops `leading-4` before `text-sap-font-size` / `text-sap-font-small-size`. | visual | rendered  | pattern-leading-merge | ⬜ reported |      |     |       |
+| ID              | Issue                                                                                                                                                       | Kind   | Confirmed | Pattern               | Status     | Test                                                                                                                     | Fix | Notes |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | --------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ | --- | ----- |
+| object-number-1 | Regular and inverted object numbers lose their 1rem line height: tailwind-merge drops `leading-4` before `text-sap-font-size` / `text-sap-font-small-size`. | visual | rendered  | pattern-leading-merge | 🧪 covered | object-number.spec.ts › ObjectNumber line height › regular and inverted numbers keep a 1rem line height, large ones 2rem |     |       |
 
 #### card
 
@@ -579,13 +579,13 @@ None.
 
 #### panel
 
-[React report](../../../react/docs/parity/components/panel.md) · ⬜ reported: 3
+[React report](../../../react/docs/parity/components/panel.md) · ⬜ reported: 2 · 🧪 covered: 1
 
-| ID      | Issue                                                                                                                                                  | Kind          | Confirmed | Pattern                | Status      | Test | Fix | Notes |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- | --------- | ---------------------- | ----------- | ---- | --- | ----- |
-| panel-1 | The panel title uses `font-bold` on the 72-Bold header font, so the browser adds synthetic bold; fundamental-styles has weight 400.                    | visual        | rendered  | pattern-synthetic-bold | ⬜ reported |      |     |       |
-| panel-2 | The panel expand button's `text-base` comes after `leading-[normal]`, so tailwind-merge drops the line height (24px instead of normal; computed only). | computed-only | rendered  | pattern-leading-merge  | ⬜ reported |      |     |       |
-| panel-3 | A `transparent` panel also clears the header background; fundamental-styles keeps it (visible in Horizon Dark and HC).                                 | visual        | rendered  |                        | ⬜ reported |      |     |       |
+| ID      | Issue                                                                                                                                                  | Kind          | Confirmed | Pattern                | Status      | Test                                                                                           | Fix | Notes |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- | --------- | ---------------------- | ----------- | ---------------------------------------------------------------------------------------------- | --- | ----- |
+| panel-1 | The panel title uses `font-bold` on the 72-Bold header font, so the browser adds synthetic bold; fundamental-styles has weight 400.                    | visual        | rendered  | pattern-synthetic-bold | ⬜ reported |                                                                                                |     |       |
+| panel-2 | The panel expand button's `text-base` comes after `leading-[normal]`, so tailwind-merge drops the line height (24px instead of normal; computed only). | computed-only | rendered  | pattern-leading-merge  | 🧪 covered  | panel.spec.ts › Panel expand button line height › the expand button keeps a normal line height |     |       |
+| panel-3 | A `transparent` panel also clears the header background; fundamental-styles keeps it (visible in Horizon Dark and HC).                                 | visual        | rendered  |                        | ⬜ reported |                                                                                                |     |       |
 
 #### scrollbar
 
@@ -652,12 +652,12 @@ None.
 
 #### rating-indicator
 
-[React report](../../../react/docs/parity/components/rating-indicator.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/rating-indicator.md) · ⬜ reported: 1 · 🧪 covered: 1
 
-| ID                 | Issue                                                                                              | Kind   | Confirmed          | Pattern               | Status      | Test | Fix | Notes                                     |
-| ------------------ | -------------------------------------------------------------------------------------------------- | ------ | ------------------ | --------------------- | ----------- | ---- | --- | ----------------------------------------- |
-| rating-indicator-1 | In HC the rating-indicator focus outline has round corners; fundamental-styles' is square.         | visual | rendered           |                       | ⬜ reported |      |     |                                           |
-| rating-indicator-2 | The rating-indicator half icons lose Icon's `leading-none` to tailwind-merge (read from the code). | visual | read from the code | pattern-leading-merge | ⬜ reported |      |     | Same cause as icon-1: may be fixed by it. |
+| ID                 | Issue                                                                                              | Kind   | Confirmed          | Pattern               | Status      | Test                                                                                                         | Fix | Notes                                     |
+| ------------------ | -------------------------------------------------------------------------------------------------- | ------ | ------------------ | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------ | --- | ----------------------------------------- |
+| rating-indicator-1 | In HC the rating-indicator focus outline has round corners; fundamental-styles' is square.         | visual | rendered           |                       | ⬜ reported |                                                                                                              |     |                                           |
+| rating-indicator-2 | The rating-indicator half icons lose Icon's `leading-none` to tailwind-merge (read from the code). | visual | read from the code | pattern-leading-merge | 🧪 covered  | rating-indicator.spec.ts › RatingIndicator line height › the half-star icons keep line-height 1 (24px at md) |     | Same cause as icon-1: may be fixed by it. |
 
 #### datetime-picker
 

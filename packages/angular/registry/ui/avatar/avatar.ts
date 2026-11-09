@@ -55,14 +55,14 @@ const INDICATION: Record<IndicationColor, string> = {
 };
 
 const SIZE: Record<AvatarSize, string> = {
-    xs: 'size-8 min-w-8 max-w-8 min-h-8 max-h-8 text-[1rem] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
-    s: 'size-12 min-w-12 max-w-12 min-h-12 max-h-12 text-[1.125rem] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
-    sm: 'size-12 min-w-12 max-w-12 min-h-12 max-h-12 text-[1.125rem] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
-    m: 'size-16 min-w-16 max-w-16 min-h-16 max-h-16 text-[1.5rem] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
-    md: 'size-16 min-w-16 max-w-16 min-h-16 max-h-16 text-[1.5rem] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
-    l: 'size-20 min-w-20 max-w-20 min-h-20 max-h-20 text-[2.25rem] [--av-zoom-size:1.25rem] [--av-zoom-font:0.875rem] [--av-zoom-offset:-0.1875rem]',
-    lg: 'size-20 min-w-20 max-w-20 min-h-20 max-h-20 text-[2.25rem] [--av-zoom-size:1.25rem] [--av-zoom-font:0.875rem] [--av-zoom-offset:-0.1875rem]',
-    xl: 'size-28 min-w-28 max-w-28 min-h-28 max-h-28 text-[3rem] [--av-zoom-size:1.75rem] [--av-zoom-font:1rem] [--av-zoom-offset:-0.25rem]'
+    xs: 'size-8 min-w-8 max-w-8 min-h-8 max-h-8 text-[1rem] leading-[normal] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
+    s: 'size-12 min-w-12 max-w-12 min-h-12 max-h-12 text-[1.125rem] leading-[normal] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
+    sm: 'size-12 min-w-12 max-w-12 min-h-12 max-h-12 text-[1.125rem] leading-[normal] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
+    m: 'size-16 min-w-16 max-w-16 min-h-16 max-h-16 text-[1.5rem] leading-[normal] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
+    md: 'size-16 min-w-16 max-w-16 min-h-16 max-h-16 text-[1.5rem] leading-[normal] [--av-zoom-size:1.125rem] [--av-zoom-font:0.75rem] [--av-zoom-offset:-0.125rem]',
+    l: 'size-20 min-w-20 max-w-20 min-h-20 max-h-20 text-[2.25rem] leading-[normal] [--av-zoom-size:1.25rem] [--av-zoom-font:0.875rem] [--av-zoom-offset:-0.1875rem]',
+    lg: 'size-20 min-w-20 max-w-20 min-h-20 max-h-20 text-[2.25rem] leading-[normal] [--av-zoom-size:1.25rem] [--av-zoom-font:0.875rem] [--av-zoom-offset:-0.1875rem]',
+    xl: 'size-28 min-w-28 max-w-28 min-h-28 max-h-28 text-[3rem] leading-[normal] [--av-zoom-size:1.75rem] [--av-zoom-font:1rem] [--av-zoom-offset:-0.25rem]'
 };
 
 const VALUE_STATE: Record<AvatarValueState, { glyph: string; class: string }> = {
@@ -134,7 +134,7 @@ let nextId = 0;
         }
         @if (glyph() || showDefault()) {
             <fd-icon
-                class="flex items-center justify-center text-[1em]"
+                class="flex items-center justify-center text-[1em] leading-none"
                 [font]="font()"
                 [glyph]="glyph() || 'person-placeholder'"
             />
@@ -232,7 +232,7 @@ export class Avatar {
         const state = this.valueState();
         return cn(
             'absolute z-[5] flex items-center justify-center rounded-full border border-solid',
-            'size-(--av-zoom-size) text-(length:--av-zoom-font) bottom-(--av-zoom-pos) end-(--av-zoom-pos)',
+            'size-(--av-zoom-size) text-(length:--av-zoom-font) leading-none bottom-(--av-zoom-pos) end-(--av-zoom-pos)',
             state
                 ? VALUE_STATE[state].class
                 : 'bg-sap-button-emphasized-background border-sap-button-emphasized-border-color text-sap-button-emphasized-text-color'
@@ -252,7 +252,7 @@ export class Avatar {
             '[--av-active-hover-bg:var(--sapButton_Selected_Hover_Background)] [--av-active-hover-border:var(--sapButton_Selected_Hover_BorderColor)] [--av-active-hover-color:var(--sapButton_Selected_TextColor)]',
             '[--av-zoom-pos:var(--av-zoom-offset)]',
             'relative box-border m-0 p-0 inline-flex shrink-0 items-center justify-center overflow-visible align-middle',
-            'font-sap-font-family font-normal leading-[normal] [forced-color-adjust:none]',
+            'font-sap-font-family font-normal [forced-color-adjust:none]',
             'rounded-sap-element-border-corner-radius border border-solid border-(--av-border) bg-(--av-bg) text-(--av-color)',
             'bg-center bg-no-repeat bg-cover',
             // SAP focus: a frame outside the avatar

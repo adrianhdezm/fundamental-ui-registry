@@ -136,8 +136,10 @@ export class NumericContentLaunchIcon {
     protected readonly computedClass = computed(() =>
         cn(
             iconVariants({ font: this.glyphFont() }),
-            'leading-[normal] text-sap-tile-icon-color',
+            'text-sap-tile-icon-color',
             this.content?.smallTile() ? 'text-[1.5rem]' : 'text-[1.75rem]',
+            // after the size: tailwind-merge drops a line-height that comes before a font size
+            'leading-[normal]',
             this.userClass()
         )
     );
@@ -163,11 +165,12 @@ export class NumericContentKpi {
     protected readonly computedClass = computed(() =>
         cn(
             this.glyphChar() && iconVariants({ font: this.glyphFont() }),
-            'm-0 p-0 font-sap-font-family leading-[normal] font-light',
+            'm-0 p-0 font-sap-font-family font-light',
             STATE_COLOR[this.state() ?? 'neutral'],
             this.content?.smallTile()
                 ? 'text-[1.5rem] rtl:text-right rtl:[direction:ltr]'
                 : { l: 'text-[2.25rem]', m: 'text-[2rem]', s: 'text-[1.75rem]' }[this.content?.resolvedSize() ?? 'l'],
+            'leading-[normal]',
             this.userClass()
         )
     );

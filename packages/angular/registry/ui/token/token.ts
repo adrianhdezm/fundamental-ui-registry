@@ -66,7 +66,7 @@ import { Popover, PopoverBody, PopoverControl } from '@/ui/popover/popover';
             <span class="w-full min-w-0 truncate select-none"><ng-content /></span>
             @if (!readOnly()) {
                 <span aria-hidden="true" [class]="closeClass" (click)="closeClickHandler($event)">
-                    <fd-icon glyph="decline" class="text-[length:inherit]" />
+                    <fd-icon glyph="decline" class="text-[length:inherit] leading-none" />
                 </span>
             }
         </span>
@@ -109,8 +109,8 @@ export class Token {
         const selected = this.selected();
         const readOnly = this.readOnly();
         return cn(
-            'relative m-0 box-border flex h-(--tk-h) max-w-full min-w-(--tk-min-w) shrink-0 cursor-default items-center justify-center p-0 ps-(--tk-ps) text-center leading-6 whitespace-nowrap outline-none',
-            'font-sap-font-family text-sap-font-size text-(--tk-fg) rounded-[0.375rem] hc:rounded-[0.25rem] bg-(--tk-bg) border-width-sap-button-border-width border-solid border-(--tk-bc)',
+            'relative m-0 box-border flex h-(--tk-h) max-w-full min-w-(--tk-min-w) shrink-0 cursor-default items-center justify-center p-0 ps-(--tk-ps) text-center whitespace-nowrap outline-none',
+            'font-sap-font-family text-sap-font-size leading-6 text-(--tk-fg) rounded-[0.375rem] hc:rounded-[0.25rem] bg-(--tk-bg) border-width-sap-button-border-width border-solid border-(--tk-bc)',
             '[--tk-h:1.625rem] [--tk-min-w:3.625rem] [--tk-ps:0.3125rem] [--tk-close-w:1.75rem] [--tk-close-px:0.5rem] [--tk-close-py:0.25rem] [--tk-close:var(--sapContent_IconColor)]',
             'compact:[--tk-h:1.25rem] compact:[--tk-min-w:3rem] compact:[--tk-ps:0.25rem] compact:[--tk-close-w:1.25rem] compact:[--tk-close-px:0.25rem] compact:[--tk-close-py:0.125rem] compact:leading-[1.125rem]',
             '[--tk-fg:var(--sapTextColor)] [--tk-bg:var(--sapButton_TokenBackground)] [--tk-bc:var(--sapButton_TokenBorderColor)]',

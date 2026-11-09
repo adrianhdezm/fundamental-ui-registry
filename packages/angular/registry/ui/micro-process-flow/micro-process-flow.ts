@@ -148,7 +148,7 @@ export class MicroProcessFlowItem {
                 [glyph]="glyph"
                 [font]="font()"
                 [ariaLabel]="ariaLabel()"
-                class="text-(length:--mpf-icon-size) text-(--mpf-icon) group-hover/mpf-icon:text-(--mpf-hover-icon,var(--mpf-icon)) group-active/mpf-icon:text-(--mpf-active-icon)"
+                class="text-(length:--mpf-icon-size) leading-none text-(--mpf-icon) group-hover/mpf-icon:text-(--mpf-hover-icon,var(--mpf-icon)) group-active/mpf-icon:text-(--mpf-active-icon)"
             />
         }
     `
