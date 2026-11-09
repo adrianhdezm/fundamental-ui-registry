@@ -104,7 +104,8 @@ export class FileUploaderDragndrop {
     private depth = 0;
 
     protected onDragover(event: Event): void {
-        if (this.dragndrop()) mute(event);
+        // a disabled drop target does not cancel dragover, so the browser shows "no drop" and never drops
+        if (this.dragndrop() && !this.disabled()) mute(event);
     }
 
     protected onDragenter(): void {
