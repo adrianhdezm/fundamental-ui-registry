@@ -764,7 +764,7 @@ export type MenuInteractiveKind = 'item' | 'toggle' | 'option' | 'input';
                 @if (m === 'check') {
                     <fd-icon glyph="accept" class="text-sap-content-selected-foreground-color" />
                 } @else if (m === 'dot') {
-                    <span class="size-3 rounded-full bg-sap-content-selected-foreground-color"></span>
+                    <span class="size-3 rounded-[100%] bg-sap-content-selected-foreground-color"></span>
                 }
             </span>
         }

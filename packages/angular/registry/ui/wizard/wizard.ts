@@ -259,7 +259,7 @@ export class WizardStepIndicator {
 
     protected readonly indicatorClass = computed(() =>
         cn(
-            'relative m-0 ms-[0.1875rem] me-2 box-border flex size-8 min-h-8 min-w-8 shrink-0 items-center justify-center rounded-full border border-solid p-0',
+            'relative m-0 ms-[0.1875rem] me-2 box-border flex size-8 min-h-8 min-w-8 shrink-0 items-center justify-center rounded-[50%] border border-solid p-0',
             'border-(--wz-border) bg-(--wz-bg) font-sap-font-family text-sap-font-size text-(--wz-color)',
             // the selection bar under the current step
             this.step?.status() === 'current' &&

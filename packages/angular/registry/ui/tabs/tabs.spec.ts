@@ -302,6 +302,14 @@ describe('TabList with changing tabs', () => {
         expect(selectedId(root)).toBe('b');
     });
 
+    it('the round tab icon is rounded with 50%, as fundamental-styles', async () => {
+        const { host, root, stable } = await render(DynamicHost);
+        host.mode.set('icon-only');
+        await stable();
+        const icon = root.querySelector<HTMLElement>('[fd-tab-icon]')!;
+        expect(getComputedStyle(icon).borderTopLeftRadius).toBe('50%');
+    });
+
     it('compact density makes the tabs smaller', async () => {
         const { host, root, stable } = await render(DynamicHost);
         host.mode.set('icon-only');

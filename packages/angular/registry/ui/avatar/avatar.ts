@@ -231,7 +231,7 @@ export class Avatar {
     protected readonly badgeClass = computed(() => {
         const state = this.valueState();
         return cn(
-            'absolute z-[5] flex items-center justify-center rounded-full border border-solid',
+            'absolute z-[5] flex items-center justify-center rounded-[100%] border border-solid',
             'size-(--av-zoom-size) text-(length:--av-zoom-font) leading-none bottom-(--av-zoom-pos) end-(--av-zoom-pos)',
             state
                 ? VALUE_STATE[state].class
@@ -261,7 +261,8 @@ export class Avatar {
             'focus:after:border-(length:--sapContent_FocusWidth) focus:after:[border-style:var(--sapContent_FocusStyle)] focus:after:border-sap-content-focus-color',
             SIZE[this.size()],
             accent ? ACCENT[accent] : indication ? INDICATION[indication] : '',
-            this.circle() && 'rounded-full focus:after:rounded-full hc:focus:after:rounded-none [--av-zoom-pos:0]',
+            // 100% as fundamental-styles (rounded-full is a huge length: same look, other computed value)
+            this.circle() && 'rounded-[100%] focus:after:rounded-[100%] hc:focus:after:rounded-none [--av-zoom-pos:0]',
             this.contain() && 'bg-contain',
             this.border() && '[--av-border:var(--sapGroup_ContentBorderColor)]',
             this.transparent() &&

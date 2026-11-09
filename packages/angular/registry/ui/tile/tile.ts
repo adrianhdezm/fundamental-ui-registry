@@ -452,7 +452,7 @@ export class TileProfileImg {
     private readonly tile = inject(Tile, { optional: true });
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 box-border block rounded-full bg-cover bg-center p-0',
+            'm-0 box-border block rounded-[50%] bg-cover bg-center p-0',
             this.tile?.small() ? 'size-12 min-h-12 min-w-12' : 'size-14 min-h-14 min-w-14',
             this.userClass()
         )
@@ -587,7 +587,7 @@ export class TileDot {
     readonly userClass = input<ClassValue>('', { alias: 'class' });
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 me-[0.188rem] box-border block size-1.5 rounded-full p-0 opacity-60 last:m-0',
+            'm-0 me-[0.188rem] box-border block size-1.5 rounded-[50%] p-0 opacity-60 last:m-0',
             this.active()
                 ? 'bg-sap-tile-overlay-foreground-color shadow-[0_0_0.063rem_var(--sapContent_ShadowColor)]'
                 : 'border border-sap-tile-overlay-foreground-color bg-transparent shadow-[0_0_0.125rem_var(--sapContent_ShadowColor)]',
@@ -624,7 +624,7 @@ export class TileActionClose {
     protected readonly iconClass = computed(() =>
         cn(
             GLYPH,
-            'box-border size-[1.375rem] rounded-full border bg-sap-button-background text-[0.75rem] leading-none border-sap-button-border-color text-sap-button-icon-color'
+            'box-border size-[1.375rem] rounded-[50%] border bg-sap-button-background text-[0.75rem] leading-none border-sap-button-border-color text-sap-button-icon-color'
         )
     );
 }

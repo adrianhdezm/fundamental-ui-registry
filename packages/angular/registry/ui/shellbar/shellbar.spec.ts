@@ -242,6 +242,14 @@ describe('Shellbar', () => {
         expect(menuItems()).toHaveLength(0);
     });
 
+    it('the user menu button has a 20rem radius, not rounded-full (a 3.35544e+07px length)', async () => {
+        const { root } = await setupMenus();
+        const button = root
+            .querySelector<HTMLElement>('fd-shellbar-user-menu [aria-label="Lisa Miller"]')!
+            .closest('button')!;
+        expect(getComputedStyle(button).borderTopLeftRadius).toBe('320px');
+    });
+
     it('the user menu built from [user] and [userMenu] opens and runs callbacks', async () => {
         const { host, root } = await setupMenus();
         const avatar = root.querySelector<HTMLElement>('fd-shellbar-user-menu [aria-label="Lisa Miller"]')!;

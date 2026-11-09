@@ -161,7 +161,7 @@ export class MicroProcessFlowIcon {
 
     protected readonly computedClass = computed(() =>
         cn(
-            'group/mpf-icon m-0 box-border flex min-h-(--mpf-min) min-w-(--mpf-min) items-center justify-center rounded-full border border-solid border-(--mpf-border) bg-(--mpf-bg) p-0',
+            'group/mpf-icon m-0 box-border flex min-h-(--mpf-min) min-w-(--mpf-min) items-center justify-center rounded-[50%] border border-solid border-(--mpf-border) bg-(--mpf-bg) p-0',
             'hover:border-(--mpf-hover-border) hover:bg-(--mpf-hover-bg)',
             'active:border-(--mpf-active-border,var(--sapHighlightColor)) active:bg-sap-highlight-color',
             this.userClass()

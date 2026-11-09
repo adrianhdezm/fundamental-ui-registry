@@ -125,7 +125,7 @@ export class TabIcon {
     protected readonly computedClass = computed(() => {
         const mode = this.tabs?.mode();
         return cn(
-            'relative mx-[0.188rem] my-0 box-border flex size-(--tabs-icon-height) items-center justify-center rounded-full bg-transparent p-0',
+            'relative mx-[0.188rem] my-0 box-border flex size-(--tabs-icon-height) items-center justify-center rounded-[50%] bg-transparent p-0',
             '[--tabs-icon-height:2.625rem] compact:[--tabs-icon-height:1.875rem]',
             'border-[length:0.125rem] border-solid border-(--tab-icon,var(--sapContent_Selected_ForegroundColor)) text-(--tab-icon,var(--sapContent_Selected_ForegroundColor))',
             'group-aria-selected/tab:bg-(--tab-icon,var(--sapSelectedColor)) group-aria-selected/tab:text-sap-content-contrast-icon-color',

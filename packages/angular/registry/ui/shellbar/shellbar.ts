@@ -874,7 +874,7 @@ export class ShellbarActions {
             <button
                 fdButton
                 variant="transparent"
-                class="h-fit! max-h-none! min-w-fit! rounded-full! p-0! focus:after:rounded-full!"
+                class="h-fit! max-h-none! min-w-fit! rounded-[20rem]! p-0! focus:after:rounded-[20rem]!"
                 [disabled]="disabled()"
                 [fdMenuTrigger]="menu"
             >
@@ -934,7 +934,7 @@ export class ShellbarUserMenu {
 /** A custom button of a shellbar user menu; give it `[fdMenuTrigger]` of your menu. */
 @Directive({
     selector: '[fdShellbarUserMenuButton]',
-    host: { class: 'h-fit! max-h-none! min-w-fit! rounded-full! p-0! focus:after:rounded-full!' }
+    host: { class: 'h-fit! max-h-none! min-w-fit! rounded-[20rem]! p-0! focus:after:rounded-[20rem]!' }
 })
 export class ShellbarUserMenuButton {}
 
