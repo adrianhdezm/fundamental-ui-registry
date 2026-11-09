@@ -955,10 +955,12 @@ export class ShellbarUserMenuButton {}
                 glyph="slim-arrow-down"
                 glyphPosition="after"
                 class="min-w-0 max-w-full"
+                [ariaLabel]="small() ? control() : null"
+                [attr.title]="small() ? control() : null"
                 [disabled]="disabled()"
                 [fdMenuTrigger]="menu"
             >
-                <span [class]="titleClass">{{ control() }}</span>
+                <span [class]="titleClass()">{{ control() }}</span>
             </button>
             <fd-menu
                 #menu
@@ -985,7 +987,7 @@ export class ShellbarUserMenuButton {}
                 }
             </fd-menu>
         } @else {
-            <h1 [class]="titleClass">{{ control() }}</h1>
+            <h1 [class]="titleClass()">{{ control() }}</h1>
         }
     `
 })
@@ -1000,8 +1002,15 @@ export class ProductMenu {
     readonly closeOnOutsideClick = input(true, { transform: booleanAttribute });
     readonly closePopoverOnSelect = input(false, { transform: booleanAttribute });
     readonly disabled = input(false, { transform: booleanAttribute });
-    protected readonly titleClass =
-        'm-0 box-border truncate p-0 font-sap-font-semibold-duplex-family text-sap-font-header5-size font-normal text-sap-shell-sub-brand-text-color';
+    private readonly shellbar = inject(FD_SHELLBAR, { optional: true });
+    /** The name hides on small shellbars (as fundamental-styles' title): the menu shows only its arrow, named by it. */
+    protected readonly small = computed(() => this.shellbar?.size() === 's');
+    protected readonly titleClass = computed(() =>
+        cn(
+            'm-0 box-border truncate p-0 font-sap-font-semibold-duplex-family text-sap-font-header5-size font-normal text-sap-shell-sub-brand-text-color',
+            this.small() && 'hidden'
+        )
+    );
 
     protected itemClicked(item: ShellbarMenuItem, event: MouseEvent): void {
         item.callback?.(event);

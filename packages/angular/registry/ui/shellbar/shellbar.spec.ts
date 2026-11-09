@@ -397,4 +397,15 @@ describe('Shellbar issues', () => {
             document.documentElement.removeAttribute('data-sap-theme');
         }
     });
+
+    it('fits a small bar with a product menu, which shows only its arrow (shellbar-7)', async () => {
+        const root = await render(319, 's');
+        const bar = root.querySelector<HTMLElement>('[data-size]')!;
+        const end = bar.getBoundingClientRect().right;
+        const parts = [...bar.querySelectorAll<HTMLElement>('button')].filter((b) => b.offsetParent !== null);
+        expect(Math.max(...parts.map((b) => b.getBoundingClientRect().right))).toBeLessThanOrEqual(end);
+        const title = root.querySelector<HTMLElement>('fd-product-menu button span')!;
+        expect(getComputedStyle(title).display).toBe('none');
+        expect(title.closest('button')!.getAttribute('aria-label')).toBe('Corporate Portal');
+    });
 });

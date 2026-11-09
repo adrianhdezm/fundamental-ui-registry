@@ -1578,9 +1578,9 @@
       "source": "../../../react/docs/parity/components/shellbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "shellbar.spec.ts IssuesHost at 319px, size s, with a logo, a product menu, three actions, a user and a product switch: the product menu keeps its 153px title, so the bar's content is 371px wide and the last button ends at 370.8px, past the 319px bar. fundamental-styles hides .fd-shellbar__title (the product menu's title too) at size s.",
+      "test": "Shellbar issues > fits a small bar with a product menu, which shows only its arrow (shellbar-7)",
       "fix": "",
       "notes": ""
     },
