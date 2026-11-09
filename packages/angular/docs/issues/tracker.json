@@ -631,9 +631,9 @@
       "source": "../../../react/docs/parity/components/tile.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "tile.spec.ts, a launch tile in action mode, sap_horizon_hcb: the action close and indicator buttons have no border (border-0); fundamental-styles' compact transparent buttons have the 1px --sapButton_Lite_BorderColor border, a ring in HC.",
+      "test": "tile.spec.ts › Tile › the action close and indicator buttons have the 1px lite button border (a ring in high contrast)",
       "fix": "",
       "notes": ""
     },

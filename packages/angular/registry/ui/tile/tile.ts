@@ -617,7 +617,8 @@ export class TileActionClose {
             'm-0 box-border cursor-pointer border-0 bg-transparent p-0 font-sap-font-family outline-none',
             this.tile?.line()
                 ? 'relative -top-2.5 flex size-[1.375rem] min-w-[1.375rem] items-center justify-center rounded-full focus-visible:outline-sap'
-                : 'absolute -end-1.5 -top-1.5 z-5 flex items-start justify-end rounded-full focus-visible:outline-sap',
+                : // a compact transparent button: the 1px lite border (a ring in HC), as fundamental-styles
+                  'absolute -end-1.5 -top-1.5 z-5 flex items-start justify-end rounded-sap-button-border-corner-radius border border-sap-button-lite-border-color hover:border-transparent active:border-transparent focus-visible:outline-sap',
             this.userClass()
         )
     );
@@ -649,8 +650,8 @@ export class TileActionIndicator {
         cn(
             'm-0 box-border inline-flex cursor-pointer items-center justify-center rounded-sap-button-border-corner-radius border-0 bg-transparent p-0 font-sap-font-family outline-none focus-visible:outline-sap',
             this.tile?.line()
-                ? 'relative size-[1.625rem] after:absolute after:start-[60%] after:top-1/2 after:size-8 after:-translate-1/2 after:content-[""] rtl:after:translate-x-1/2'
-                : 'absolute end-0 bottom-0 z-5 me-1 mb-1 h-[1.625rem] min-w-8 px-2',
+                ? 'relative size-[1.625rem] border border-sap-button-lite-border-color hover:border-transparent active:border-transparent after:absolute after:start-[60%] after:top-1/2 after:size-8 after:-translate-1/2 after:content-[""] rtl:after:translate-x-1/2'
+                : 'absolute end-0 bottom-0 z-5 me-1 mb-1 h-[1.625rem] min-w-8 border border-sap-button-lite-border-color px-[calc(0.5rem_-_1px)] hover:border-transparent active:border-transparent',
             this.userClass()
         )
     );

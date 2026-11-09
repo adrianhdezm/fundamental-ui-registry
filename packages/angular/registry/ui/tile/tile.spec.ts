@@ -360,6 +360,23 @@ class NumericHost {
 }
 
 describe('Tile', () => {
+    it('the action close and indicator buttons have the 1px lite button border (a ring in high contrast)', async () => {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const { q } = await render(ActionHost);
+            const probe = document.createElement('div');
+            document.body.appendChild(probe);
+            probe.style.border = '1px solid var(--sapButton_Lite_BorderColor)';
+            for (const button of [q('[fd-tile-action-close]'), q('[fd-tile-action-indicator]')]) {
+                expect(getComputedStyle(button).borderTopWidth).toBe('1px');
+                expect(getComputedStyle(button).borderTopColor).toBe(getComputedStyle(probe).borderTopColor);
+            }
+            probe.remove();
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     it('clickable tile is role button, focusable, emits tileClick on click, Enter and Space (not when the event comes from an inner button)', async () => {
         const { host, q } = await render(ClickHost);
         const tile = q('#clickable');
