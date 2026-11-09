@@ -308,3 +308,48 @@ describe('ObjectStatus line height', () => {
         fixture.nativeElement.remove();
     });
 });
+
+@Component({
+    imports: [ObjectStatusComponent],
+    template: `
+        <span fd-object-status id="icon" status="positive" glyph="sys-enter-2" glyphAriaLabel="Positive"></span>
+        <span
+            fd-object-status
+            id="inverted-icon"
+            status="positive"
+            inverted
+            glyph="sys-enter-2"
+            glyphAriaLabel="Positive"
+        ></span>
+        <span fd-object-status id="large-inverted" status="positive" inverted large label="Shipped"></span>
+        <span fd-object-status id="clickable" status="positive" clickable label="Shipped"></span>
+        <span id="probe"></span>
+    `
+})
+class VariantsHost {}
+
+async function setupVariants() {
+    const fixture = TestBed.createComponent(VariantsHost);
+    document.body.appendChild(fixture.nativeElement);
+    await fixture.whenStable();
+    const root = fixture.nativeElement as HTMLElement;
+    const q = (id: string) => root.querySelector<HTMLElement>(`#${id}`)!;
+    const probe = q('probe');
+    return {
+        fixture,
+        q,
+        resolve: (variable: string) => {
+            probe.style.color = `var(${variable})`;
+            return getComputedStyle(probe).color;
+        }
+    };
+}
+
+describe('ObjectStatus variants', () => {
+    it('an icon-only status is as wide as its icon (16px), an inverted one 22px', async () => {
+        const { fixture, q } = await setupVariants();
+        expect(q('icon').getBoundingClientRect().width).toBe(16);
+        expect(q('inverted-icon').getBoundingClientRect().width).toBe(22);
+        fixture.nativeElement.remove();
+    });
+});

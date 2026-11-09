@@ -190,10 +190,10 @@ export class ObjectStatusComponent {
         const inverted = this.inverted();
         const clickable = this.clickable();
         const large = this.large();
-        const iconOnly = !this.label() && !this.textTemplate();
         return cn(
             'group/os relative m-0 box-border inline-flex max-w-full items-center justify-center gap-1 p-0 align-middle',
-            'h-fit min-h-(--os-h) min-w-6 break-words',
+            // no minimum width: an icon-only status is as wide as its icon (16px), as fundamental-styles
+            'h-fit min-h-(--os-h) break-words',
             // leading after the font size: tailwind-merge drops a line-height that comes before one
             '[--os-h:1rem] [--os-icon:1rem] [--os-font:var(--sapFontSize)] text-(length:--os-font) leading-(--os-h) font-sap-font-family',
             'text-(--os-c) text-shadow-sap-content-text-shadow',
@@ -226,7 +226,6 @@ export class ObjectStatusComponent {
                     'focus:[box-shadow:inset_0_0_0_0.125rem_var(--sapContent_ContrastFocusColor)] hc:focus:[box-shadow:none]'
                 ]
             ],
-            iconOnly && 'min-w-6',
             this.userClass()
         );
     });
