@@ -39,8 +39,16 @@ pnpm storybook                              # http://localhost:6007
   handling from the Angular package.
 - Every source file keeps its attribution header (ported from, copyright, Apache-2.0).
 - Styling: Tailwind classes on SAP tokens only, as in the Angular package. Class strings must be literal for Tailwind
-  to find them. Put `leading-*` after a `text-*` size in the same string or variant: `tailwind-merge` drops a
-  line-height that comes before a font size.
+  to find them.
+- Tailwind pitfalls (each one was a bug in the Angular package):
+  - Put `leading-*` after a `text-*` size in the same string or variant: `tailwind-merge` drops a line height that
+    comes before a font size.
+  - `rounded-[50%]`, not `rounded-full` (Tailwind's is `calc(infinity * 1px)`), where fundamental-styles has 50%.
+  - Shadows as `[box-shadow:var(--sap…)]`: `shadow-*` utilities add transparent ring layers.
+  - Bold text uses the bold font family with `font-normal`; `font-bold` on 72-Bold adds synthetic bold.
+  - Directional glyphs: keep the LTR glyph and let the icon mirror it in RTL; no `rtl:rotate-180` or glyph swap.
+  - A size passed to a button is given for both densities (`h-6 compact:h-6`): its `compact:` sizes otherwise win.
+  - Gradients as `bg-linear-[to_top,…]` (sRGB); `bg-linear-to-*` blends in oklab.
 - Visual reference is fundamental-styles: add cases in `scripts/visual/<name>.mjs` and run `pnpm visual <name>`.
 
 ## Tests
