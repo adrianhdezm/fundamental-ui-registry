@@ -1948,9 +1948,9 @@
       "source": "../../../react/docs/parity/components/status-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "status-indicator.spec.ts: the root has --sapFontSmallSize, no line height and --sapContent_LabelColor, so a neutral label is grey; fundamental-styles has --sapFontSize, line-height normal and --sapTextColor.",
+      "test": "status-indicator.spec.ts › StatusIndicator › the root has fundamental-styles' typography: text colour, font size and a normal line height",
       "fix": "",
       "notes": ""
     },

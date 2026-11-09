@@ -597,12 +597,12 @@ None.
 
 #### status-indicator
 
-[React report](../../../react/docs/parity/components/status-indicator.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/status-indicator.md) · ⬜ reported: 1 · 🧪 covered: 1
 
-| ID                 | Issue                                                                                                                                                                  | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes                             |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | --------------------------------- |
-| status-indicator-1 | The status-indicator root sets the small font size and the label colour, so a neutral label is grey; fundamental-styles uses `sapTextColor` and `line-height: normal`. | visual | rendered  |         | ⬜ reported |      |     |                                   |
-| status-indicator-2 | The status-indicator Clickable story handles Enter twice (its own `keydown.enter` plus the component's activation).                                                    | test   | rendered  |         | ⬜ reported |      |     | A story bug, not a component bug. |
+| ID                 | Issue                                                                                                                                                                  | Kind   | Confirmed | Pattern | Status      | Test                                                                                                                                      | Fix | Notes                             |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --- | --------------------------------- |
+| status-indicator-1 | The status-indicator root sets the small font size and the label colour, so a neutral label is grey; fundamental-styles uses `sapTextColor` and `line-height: normal`. | visual | rendered  |         | 🧪 covered  | status-indicator.spec.ts › StatusIndicator › the root has fundamental-styles' typography: text colour, font size and a normal line height |     |                                   |
+| status-indicator-2 | The status-indicator Clickable story handles Enter twice (its own `keydown.enter` plus the component's activation).                                                    | test   | rendered  |         | ⬜ reported |                                                                                                                                           |     | A story bug, not a component bug. |
 
 #### progress-indicator
 

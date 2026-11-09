@@ -260,8 +260,9 @@ export class StatusIndicator {
         const position = this.labelPosition();
         const status = this.status();
         return cn(
-            'm-0 box-border inline-flex flex-col items-center p-0 align-middle font-sap-font-family text-sap-font-small-size',
-            'text-sap-content-label-color fill-transparent',
+            // fundamental-styles' root typography: the label sets its own size
+            'm-0 box-border inline-flex flex-col items-center p-0 align-middle font-sap-font-family text-sap-font-size leading-[normal]',
+            'text-sap-text-color fill-transparent',
             (position === 'left' || position === 'right') && 'flex-row',
             status && COLOR[status],
             this.clickable() && 'cursor-pointer',
