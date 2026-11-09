@@ -487,9 +487,9 @@
       "source": "../../../react/docs/parity/components/object-status.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "object-status.spec.ts, sap_horizon_hcb, a focused clickable positive status: computed colour --sapContent_ContrastTextColor instead of --sapPositiveTextColor; hcFocus() built its hc:focus: classes at runtime, so Tailwind never generated them.",
+      "test": "object-status.spec.ts › ObjectStatus variants › in high contrast a focused clickable status keeps its status colour",
       "fix": "",
       "notes": ""
     },

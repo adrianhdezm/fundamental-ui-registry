@@ -202,12 +202,11 @@ export class ObjectStatusComponent {
             clickable &&
                 !inverted && [
                     'cursor-pointer focus:outline-none',
-                    // Horizon: filled focus in the contrast colour; high contrast: dotted outline
+                    // Horizon: filled focus in the contrast colour; high contrast: dotted outline, statuses keep their colours
                     'focus:not-active:rounded-[0.125rem] focus:not-active:bg-sap-content-focus-color focus:not-active:[text-shadow:none]',
                     'focus:not-active:outline-[0.125rem] focus:not-active:outline-solid focus:not-active:outline-sap-content-focus-color',
-                    'focus:not-active:[--os-c:var(--sapContent_ContrastTextColor)] focus:not-active:[--os-ic:var(--sapContent_ContrastTextColor)]',
-                    'hc:focus:not-active:bg-inherit hc:focus:not-active:rounded-none hc:focus:not-active:outline-dotted',
-                    indication ? hcFocus(INDICATION[indication]) : hcFocus(PLAIN[status])
+                    'not-hc:focus:not-active:[--os-c:var(--sapContent_ContrastTextColor)] not-hc:focus:not-active:[--os-ic:var(--sapContent_ContrastTextColor)]',
+                    'hc:focus:not-active:bg-inherit hc:focus:not-active:rounded-none hc:focus:not-active:outline-dotted'
                 ],
             inverted && [
                 'max-h-none overflow-hidden border border-solid border-(--os-bc) bg-(--os-bg) [text-shadow:none]',
@@ -229,9 +228,4 @@ export class ObjectStatusComponent {
             this.userClass()
         );
     });
-}
-
-/** In high contrast, focused statuses keep their colours instead of the contrast text colour. */
-function hcFocus(colors: string): string {
-    return colors.replace(/\[--os-(i?c):/g, 'hc:focus:not-active:[--os-$1:');
 }

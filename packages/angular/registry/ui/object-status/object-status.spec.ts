@@ -346,6 +346,18 @@ async function setupVariants() {
 }
 
 describe('ObjectStatus variants', () => {
+    it('in high contrast a focused clickable status keeps its status colour', async () => {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const { fixture, q, resolve } = await setupVariants();
+            q('clickable').focus();
+            expect(getComputedStyle(q('clickable')).color).toBe(resolve('--sapPositiveTextColor'));
+            fixture.nativeElement.remove();
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     it('a large inverted status uses the regular 72 font', async () => {
         const { fixture, q } = await setupVariants();
         expect(getComputedStyle(q('large-inverted')).fontFamily).toMatch(/^"?72"?,/);
