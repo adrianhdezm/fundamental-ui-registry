@@ -346,6 +346,12 @@ async function setupVariants() {
 }
 
 describe('ObjectStatus variants', () => {
+    it('a large inverted status uses the regular 72 font', async () => {
+        const { fixture, q } = await setupVariants();
+        expect(getComputedStyle(q('large-inverted')).fontFamily).toMatch(/^"?72"?,/);
+        fixture.nativeElement.remove();
+    });
+
     it('an icon-only status is as wide as its icon (16px), an inverted one 22px', async () => {
         const { fixture, q } = await setupVariants();
         expect(q('icon').getBoundingClientRect().width).toBe(16);

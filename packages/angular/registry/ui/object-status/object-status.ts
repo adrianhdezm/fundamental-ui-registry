@@ -217,7 +217,7 @@ export class ObjectStatusComponent {
                     ? INVERTED_INDICATION[`${indication}${this.secondaryIndication() ? 'b' : ''}`]
                     : INVERTED[status],
                 large &&
-                    'h-auto min-w-7 self-center px-1 py-px [--os-h:1.5rem] [--os-icon:1.5rem] [--os-font:1.25rem] font-sap-font-semibold-family [&>*]:leading-(--os-h)',
+                    'h-auto min-w-7 self-center px-1 py-px [--os-h:1.5rem] [--os-icon:1.5rem] [--os-font:1.25rem] font-sap-font-family [&>*]:leading-(--os-h)',
                 clickable && [
                     'cursor-pointer',
                     'hover:[--os-c:var(--os-h-c)] hover:[--os-ic:var(--os-h-c)] hover:[--os-bg:var(--os-h-bg)] hover:[--os-bc:var(--os-h-bc)]',
