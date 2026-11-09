@@ -64,7 +64,6 @@ const col = 'flex flex-col gap-6';
 })
 class StoryToolbarInfo {}
 
-
 const meta: Meta<Toolbar> = {
     title: 'Components/Toolbar',
     component: Toolbar,

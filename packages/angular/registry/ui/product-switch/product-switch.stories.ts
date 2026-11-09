@@ -100,7 +100,6 @@ class StoryProductSwitchNavigation {
     );
 }
 
-
 /** fundamental-styles' Large example: the texts of its first products (the second title on two lines), four columns. */
 @Component({
     selector: 'story-product-switch-reference',

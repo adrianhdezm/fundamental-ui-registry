@@ -561,7 +561,9 @@ class StoryWizardLoading {}
                         @for (step of steps; track step.label; let i = $index) {
                             <li fd-wizard-step [status]="status[i]" [label]="step.label" [optionalText]="step.optional">
                                 <fd-wizard-step-indicator [glyph]="step.glyph" />
-                                <fd-wizard-content size="sm"><p class="m-0">This is the {{ step.label }} step.</p></fd-wizard-content>
+                                <fd-wizard-content size="sm"
+                                    ><p class="m-0">This is the {{ step.label }} step.</p></fd-wizard-content
+                                >
                             </li>
                         }
                     </ul>

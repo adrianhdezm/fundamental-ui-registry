@@ -319,7 +319,16 @@ describe('Shellbar', () => {
 });
 
 @Component({
-    imports: [Shellbar, ShellbarLogo, ShellbarActions, ShellbarAction, ShellbarSearch, ProductMenu, ProductSwitch, ProductSwitchBody],
+    imports: [
+        Shellbar,
+        ShellbarLogo,
+        ShellbarActions,
+        ShellbarAction,
+        ShellbarSearch,
+        ProductMenu,
+        ProductSwitch,
+        ProductSwitchBody
+    ],
     template: `
         <div [style.width.px]="width()">
             <fd-shellbar [size]="size()">
