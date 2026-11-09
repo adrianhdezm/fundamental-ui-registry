@@ -2514,9 +2514,9 @@
       "source": "../../../react/docs/parity/components/flexible-column-layout.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host, ThreeColumnsMidExpanded at 1400px) in sap_horizon_hcb and _hcw: the mid column computes 1px left and right borders (--sapGroup_ContentBorderColor); fundamental-styles' columns have none in HC.",
+      "test": "flexible-column-layout.spec.ts › FlexibleColumnLayout › the columns have no borders in high contrast, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },
