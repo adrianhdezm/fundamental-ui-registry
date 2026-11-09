@@ -368,9 +368,9 @@
       "source": "../../../react/docs/parity/components/avatar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "avatar.spec.ts, border with transparent, tile or placeholder: the computed border colour is the lite/tile/placeholder one (transparent in Horizon) instead of --sapGroup_ContentBorderColor, and --av-hover-border is their icon colour instead of --sapAvatar_Hover_BorderColor; tailwind-merge keeps their later --av-border.",
+      "test": "avatar.spec.ts › Avatar › border wins over the transparent, tile and placeholder borders, with the avatar hover border",
       "fix": "",
       "notes": ""
     },

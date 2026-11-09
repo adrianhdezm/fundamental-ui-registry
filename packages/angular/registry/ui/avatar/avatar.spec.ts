@@ -137,6 +137,23 @@ const hugeRadius = (root: Element) =>
     [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
 
 describe('Avatar', () => {
+    it('border wins over the transparent, tile and placeholder borders, with the avatar hover border', async () => {
+        const { avatar, resolve, update } = await setup();
+        const root = getComputedStyle(document.documentElement);
+        for (const kind of ['transparent', 'tile', 'placeholder'] as const) {
+            await update((h) => {
+                h.transparent.set(kind === 'transparent');
+                h.tile.set(kind === 'tile');
+                h.placeholder.set(kind === 'placeholder');
+                h.border.set(true);
+            });
+            expect(getComputedStyle(avatar).borderTopColor).toBe(resolve('--sapGroup_ContentBorderColor'));
+            expect(getComputedStyle(avatar).getPropertyValue('--av-hover-border').trim()).toBe(
+                root.getPropertyValue('--sapAvatar_Hover_BorderColor').trim()
+            );
+        }
+    });
+
     it('a circle avatar and its badge are rounded with 100%, as fundamental-styles', async () => {
         const { avatar, update } = await setup();
         await update((h) => {
