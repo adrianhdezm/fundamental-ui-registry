@@ -572,6 +572,24 @@ describe('Menu options', () => {
         expect(shortcut().getBoundingClientRect().width).toBeGreaterThan(0);
     });
 
+    it('a mobile shortcut keeps the compact end padding in compact density (computed style)', async () => {
+        const { fixture, host, trigger } = await setup();
+        host.mobile.set(true);
+        host.hideShortcut.set(false);
+        await settle(fixture);
+        await userEvent.click(trigger);
+        await expect.poll(() => document.querySelector('[role=dialog]')).not.toBeNull();
+        await settle(fixture);
+        const shortcut = document.querySelector<HTMLElement>('[fd-menu-shortcut]')!;
+        expect(getComputedStyle(shortcut).paddingInlineEnd).toBe('16px');
+        document.documentElement.setAttribute('data-density', 'compact');
+        try {
+            expect(getComputedStyle(shortcut).paddingInlineEnd).toBe('8px');
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
     it('renders addons before and after the title', async () => {
         const { host, trigger } = await setup();
         await userEvent.click(trigger);
