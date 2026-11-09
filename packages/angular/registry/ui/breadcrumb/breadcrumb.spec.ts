@@ -159,6 +159,11 @@ describe('Breadcrumb', () => {
 });
 
 describe('Breadcrumb issues', () => {
+    it('makes the "more" link 1.5rem high (breadcrumb-1)', async () => {
+        const { el } = await setup('16rem');
+        expect(el.querySelector('[data-breadcrumb-more]')!.getBoundingClientRect().height).toBe(24);
+    });
+
     it('keeps the 1px vertical padding of the items (breadcrumb-3)', async () => {
         const { el } = await setup();
         const item = getComputedStyle(el.querySelector('fd-breadcrumb-item')!);

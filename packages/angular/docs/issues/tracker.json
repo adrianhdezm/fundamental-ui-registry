@@ -1458,9 +1458,9 @@
       "source": "../../../react/docs/parity/components/breadcrumb.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "breadcrumb.spec.ts Host at 16rem (items collapsed): the 'more' link holds only icons, so its leading-6 gives no line box and it is 21px high instead of fundamental-styles' 24px (--fdLink_Line_Height).",
+      "test": "Breadcrumb issues > makes the \"more\" link 1.5rem high (breadcrumb-1)",
       "fix": "",
       "notes": ""
     },

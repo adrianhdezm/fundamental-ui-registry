@@ -164,7 +164,7 @@ abstract class Breadcrumb_ {
                         tabindex="-1"
                         [attr.aria-label]="moreLabel()"
                         [attr.title]="moreLabel()"
-                        class="leading-6"
+                        class="h-6 leading-6"
                         [fdMenuTrigger]="menu"
                         (keydown.enter)="$event.preventDefault(); menu.open()"
                         (keydown.space)="$event.preventDefault(); menu.open()"
