@@ -447,8 +447,22 @@ export class DatetimePicker<D> implements ControlValueAccessor, Validator {
     private readonly displayFormat = computed(() => this.customDateTimeFormat() ?? this.formats.display.dateTimeInput);
     private readonly parseFormat = computed(() => this.customDateTimeFormat() ?? this.formats.parse.dateTimeInput);
 
-    /** The current value: follows `date`, and also holds values written by a form. */
-    private readonly value = linkedSignal<D | null | undefined>(() => this.date());
+    /** The last date emitted by `dateChange`, until `date` changes. */
+    private emitted: { date: D | null } | null = null;
+
+    /**
+     * The current value: follows `date`, and also holds values written by a form. The date the picker emitted, coming
+     * back through `[(date)]`, is not a change from outside: it can arrive after a later keystroke (when no change
+     * detection ran in between), and taking it would replace what is being typed.
+     */
+    private readonly value = linkedSignal<D | null | undefined, D | null | undefined>({
+        source: this.date,
+        computation: (date, previous) => {
+            const echo = previous !== undefined && this.emitted !== null && date === this.emitted.date;
+            this.emitted = null;
+            return echo ? previous.value : date;
+        }
+    });
 
     /** The text of the field: the formatted value, or what was typed. */
     protected readonly text = linkedSignal<{ date: D | null | undefined; formatted: string }, string>({
@@ -623,7 +637,9 @@ export class DatetimePicker<D> implements ControlValueAccessor, Validator {
     /** A change by the user: emits `dateChange` when the value is valid, as upstream. */
     private setDate(value: D | null): void {
         this.value.set(value);
-        if (!this.invalid()) this.dateChange.emit(value);
+        if (this.invalid()) return;
+        this.emitted = { date: value };
+        this.dateChange.emit(value);
     }
 
     private markTouched(): void {

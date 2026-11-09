@@ -2171,11 +2171,11 @@
       "source": "../../../react/docs/parity/components/datetime-picker.md",
       "kind": "test",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Root cause in the component (the linked value/text signals), symptom in the spec \"parses typed text with customDateTimeFormat\"; it also fails the root `pnpm check` about one run in two."
+      "status": "verified",
+      "repro": "Spec \"parses typed text with customDateTimeFormat\" run alone 10 times on main: 5 failed (the last parse call was not the full text: the field had been reformatted mid-typing). Deterministic: in the `cus` picker of ModesHost ([(date)]), set the field to \"3/12/2024, \" and dispatch input (emits 3/12/2024 00:00:00), then \"3/12/2024, 1\" and dispatch input with no change detection in between; after whenStable the field reads \"3/12/2024, 00:00:00\" instead of \"3/12/2024, 1\".",
+      "test": "DatetimePicker modes › keeps what was typed when the date it emitted comes back after a later keystroke",
+      "fix": "c4a4b68",
+      "notes": "Root cause in the component (the linked value/text signals), symptom in the spec \"parses typed text with customDateTimeFormat\"; it also fails the root `pnpm check` about one run in two. Verified: the new test fails before the fix and passes after; the flaky spec passed 10 of 10 runs after the fix (5 of 10 before); `pnpm angular check` passes."
     },
     {
       "id": "vertical-navigation-1",

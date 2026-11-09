@@ -477,6 +477,28 @@ describe('DatetimePicker modes', () => {
         parse.mockRestore();
     });
 
+    it('keeps what was typed when the date it emitted comes back after a later keystroke', async () => {
+        const { host, input, stable } = await setupModes();
+        const field = input('cus');
+        // two keystrokes without a change detection pass in between: the first text is a readable date, emitted
+        // through [(date)]; the second is not, and the emitted date then comes back through the binding
+        field.value = '3/12/2024, ';
+        field.dispatchEvent(new Event('input', { bubbles: true }));
+        expect(host.custom()!.toString()).toBe(new FdDate(2024, 3, 12, 0, 0, 0).toString());
+        field.value = '3/12/2024, 1';
+        field.dispatchEvent(new Event('input', { bubbles: true }));
+        await stable();
+        expect(field.value).toBe('3/12/2024, 1');
+        expect(host.custom()!.toString()).toBe(new FdDate(2024, 3, 12, 0, 0, 0).toString());
+        // a date from outside still replaces the text, also the emitted one given again as a new object
+        host.custom.set(new FdDate(2024, 5, 1, 8, 0, 0));
+        await stable();
+        expect(field.value).toBe('5/1/2024, 08:00:00');
+        host.custom.set(new FdDate(2024, 3, 12, 0, 0, 0));
+        await stable();
+        expect(field.value).toBe('3/12/2024, 00:00:00');
+    });
+
     it('renders the legend inside the calendar', async () => {
         const { open } = await setupModes();
         await open('leg');
