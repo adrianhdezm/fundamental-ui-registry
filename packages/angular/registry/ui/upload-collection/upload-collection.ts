@@ -199,7 +199,11 @@ export class UploadCollectionTitle {
         if (!container || !container.clientWidth) return;
         let text = name;
         let guard = 50;
-        while (this.el.getBoundingClientRect().width * 1.05 >= container.getBoundingClientRect().width && guard-- > 0) {
+        // as wide as its container, or shrunk next to markers and cut by its ellipsis
+        const tooLong = () =>
+            this.el.getBoundingClientRect().width * 1.05 >= container.getBoundingClientRect().width ||
+            this.el.scrollWidth > this.el.clientWidth;
+        while (tooLong() && guard-- > 0) {
             const keep = Math.floor(text.length * 0.8);
             if (keep < 4) break;
             const left = Math.floor(keep / 2);
