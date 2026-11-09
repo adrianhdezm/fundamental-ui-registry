@@ -542,4 +542,12 @@ describe('ResizableCardLayout corner and RTL', () => {
         expect(Math.round(b.bottom - a.bottom)).toBe(6);
         expect(Math.round(a.right - b.right)).toBe(0);
     });
+
+    it('in RTL the resize corner sits at the bottom left, 0.25rem out', async () => {
+        const { box, area } = await corner(true);
+        const b = box.getBoundingClientRect();
+        const a = area.getBoundingClientRect();
+        expect(Math.round(a.left - b.left)).toBe(4);
+        expect(b.right).toBeLessThan(a.left + 24);
+    });
 });
