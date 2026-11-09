@@ -296,8 +296,8 @@ export class PopoverBody {
             'font-sap-font-family text-sap-font-size leading-[normal] text-sap-text-color',
             'rounded-sap-popover-border-corner-radius bg-sap-group-content-background transition-all duration-[125ms]',
             side === 'none'
-                ? 'shadow-sap-content-shadow1'
-                : ['shadow-sap-content-shadow2', ARROW_BASE, ARROW_SIDE[side]],
+                ? '[box-shadow:var(--sapContent_Shadow1)]'
+                : ['[box-shadow:var(--sapContent_Shadow2)]', ARROW_BASE, ARROW_SIDE[side]],
             side === 'top' || side === 'bottom' ? ARROW_ALIGN_X[this.arrowAlign()] : '',
             side === 'start' || side === 'end' ? ARROW_ALIGN_Y[this.arrowAlign()] : '',
             this.additionalClass(),

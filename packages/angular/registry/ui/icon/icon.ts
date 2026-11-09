@@ -17,7 +17,7 @@ const GLYPHS: Record<IconFont, Readonly<Record<string, IconGlyph>>> = {
 };
 
 export const iconVariants = cva(
-    'inline-flex shrink-0 items-center justify-center not-italic font-normal leading-none normal-case no-underline ' +
+    'inline-flex shrink-0 items-center justify-center not-italic font-normal normal-case no-underline ' +
         'before:content-[attr(data-glyph)] before:text-center before:[text-rendering:optimizeLegibility]',
     {
         variants: {
@@ -26,13 +26,14 @@ export const iconVariants = cva(
                 BusinessSuiteInAppSymbols: "before:font-['SAP-icons-Business-Suite']",
                 'SAP-icons-TNT': "before:font-['SAP-icons-TNT']"
             },
+            // leading-none after the font size: tailwind-merge drops a line-height that comes before one
             size: {
-                default: 'text-[1rem]',
-                sm: 'text-[1rem]',
-                md: 'text-[2rem]',
-                lg: 'text-[3rem]',
-                xl: 'text-[4rem]',
-                xxl: 'text-[5rem]'
+                default: 'text-[1rem] leading-none',
+                sm: 'text-[1rem] leading-none',
+                md: 'text-[2rem] leading-none',
+                lg: 'text-[3rem] leading-none',
+                xl: 'text-[4rem] leading-none',
+                xxl: 'text-[5rem] leading-none'
             },
             color: {
                 inherit: 'text-inherit',

@@ -243,8 +243,8 @@ describe('Calendar', () => {
         // while an entry has the focus, only its days keep the marker
         items.at(-1)!.focus();
         await stable();
-        expect(currentMonthDay('13').className).not.toContain('shadow-[inset_0_-0.3125rem');
-        expect(currentMonthDay('20').className).toContain('shadow-[inset_0_-0.3125rem');
+        expect(currentMonthDay('13').className).not.toContain('[box-shadow:inset_0_-0.3125rem');
+        expect(currentMonthDay('20').className).toContain('[box-shadow:inset_0_-0.3125rem');
     });
 });
 

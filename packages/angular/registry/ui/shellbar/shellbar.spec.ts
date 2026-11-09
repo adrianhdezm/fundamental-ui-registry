@@ -17,6 +17,7 @@ import {
     type ShellbarSize,
     type ShellbarUserMenuItem
 } from './shellbar';
+import { iconGlyphChar } from '@/ui/icon/icon';
 
 @Component({
     imports: [
@@ -126,7 +127,45 @@ async function setup(width = 1300, context = false) {
     return { fixture, host: fixture.componentInstance, root, bar, button };
 }
 
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
+/** -1 when the element and its ancestors flip it horizontally an odd number of times (scaleX(-1), rotate(180deg)). */
+const horizontalFlip = (el: Element | null) => {
+    let sign = 1;
+    for (; el; el = el.parentElement) {
+        // Tailwind v4 flips with the scale and rotate properties, older code with transform
+        const { transform, scale, rotate } = getComputedStyle(el);
+        if (transform !== 'none' && new DOMMatrixReadOnly(transform).a < 0) sign = -sign;
+        if (scale !== 'none' && parseFloat(scale) < 0) sign = -sign;
+        if (rotate !== 'none' && Math.abs(Math.abs(parseFloat(rotate)) - 180) < 1) sign = -sign;
+    }
+    return sign;
+};
+
 describe('Shellbar', () => {
+    it('in RTL the back button keeps the nav-back glyph, mirrored once by the icon (it points right)', async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        try {
+            const { button } = await setup();
+            const icon = button(/^Back$/)!.querySelector<HTMLElement>('fd-icon')!;
+            expect(icon.dataset['glyph']).toBe(iconGlyphChar('nav-back'));
+            expect(horizontalFlip(icon)).toBe(-1);
+        } finally {
+            document.documentElement.removeAttribute('dir');
+        }
+    });
+
+    it('the bar and search shadows have no transparent ring layers', async () => {
+        const { root } = await setup();
+        const shadows = [...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).boxShadow !== 'none');
+        expect(shadows.length).toBeGreaterThan(1);
+        expect(ringLayers(root)).toEqual([]);
+    });
+
     it('takes its size from its width and shows the search in the middle when extra large', async () => {
         const { bar, root } = await setup(1300);
         expect(bar.dataset['size']).toBe('xl');
@@ -240,6 +279,14 @@ describe('Shellbar', () => {
         await wait();
         expect(host.picked()).toBe('B');
         expect(menuItems()).toHaveLength(0);
+    });
+
+    it('the user menu button has a 20rem radius, not rounded-full (a 3.35544e+07px length)', async () => {
+        const { root } = await setupMenus();
+        const button = root
+            .querySelector<HTMLElement>('fd-shellbar-user-menu [aria-label="Lisa Miller"]')!
+            .closest('button')!;
+        expect(getComputedStyle(button).borderTopLeftRadius).toBe('320px');
     });
 
     it('the user menu built from [user] and [userMenu] opens and runs callbacks', async () => {

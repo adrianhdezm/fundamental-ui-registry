@@ -29,7 +29,7 @@ const DEFAULT_TRIGGERS: TriggerConfig[] = [
     { trigger: 'focusout', openAction: false, closeAction: true }
 ];
 
-const BODY_CLASS = 'p-3 text-sap-font-small-size whitespace-normal';
+const BODY_CLASS = 'p-3 text-sap-font-small-size leading-[normal] whitespace-normal';
 /** The arrow centres on an icon-sized trigger. */
 const ICON_BODY_CLASS = '[--fd-arrow-anchor-w:1.375rem] [--fd-arrow-anchor-h:1.375rem]';
 

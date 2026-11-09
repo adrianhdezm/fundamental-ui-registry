@@ -14,6 +14,7 @@ import {
     NestedListState,
     NestedListTitle
 } from './nested-list';
+import { iconGlyphChar } from '@/ui/icon/icon';
 
 const NESTED = [
     NestedList,
@@ -141,7 +142,32 @@ async function setup() {
     return { fixture, host: fixture.componentInstance, root: fixture.nativeElement as HTMLElement };
 }
 
+/** -1 when the element and its ancestors flip it horizontally an odd number of times (scaleX(-1), rotate(180deg)). */
+const horizontalFlip = (el: Element | null) => {
+    let sign = 1;
+    for (; el; el = el.parentElement) {
+        // Tailwind v4 flips with the scale and rotate properties, older code with transform
+        const { transform, scale, rotate } = getComputedStyle(el);
+        if (transform !== 'none' && new DOMMatrixReadOnly(transform).a < 0) sign = -sign;
+        if (scale !== 'none' && parseFloat(scale) < 0) sign = -sign;
+        if (rotate !== 'none' && Math.abs(Math.abs(parseFloat(rotate)) - 180) < 1) sign = -sign;
+    }
+    return sign;
+};
+
 describe('NestedList', () => {
+    it('in RTL the collapsed arrow is the right arrow, mirrored once by the icon (it points left)', async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        try {
+            const { root } = await setup();
+            const icon = root.querySelector<HTMLElement>('[fd-nested-list-expand-icon] fd-icon')!;
+            expect(icon.dataset['glyph']).toBe(iconGlyphChar('navigation-right-arrow'));
+            expect(horizontalFlip(icon)).toBe(-1);
+        } finally {
+            document.documentElement.removeAttribute('dir');
+        }
+    });
+
     it('describes each row by the last group header before it', async () => {
         const fixture = TestBed.createComponent(GroupsHost);
         document.body.appendChild(fixture.nativeElement);

@@ -29,7 +29,7 @@ const NESTED = [
     imports: [...NESTED],
     template: `
         <div class="flex gap-4">
-            <div class="w-72 shadow-sap-content-shadow0">
+            <div class="w-72 [box-shadow:var(--sapContent_Shadow0)]">
                 <ul fd-nested-list [textOnly]="textOnly()">
                     <li fd-nested-list-header>Overview</li>
                     @for (link of links; track link.title) {
@@ -88,7 +88,7 @@ class StoryNestedList {
     imports: [PreparedNestedList],
     template: `
         <div class="flex gap-4">
-            <div class="w-72 shadow-sap-content-shadow0">
+            <div class="w-72 [box-shadow:var(--sapContent_Shadow0)]">
                 <fd-prepared-nested-list [list]="list" />
             </div>
             <p class="m-0 font-sap-font-family text-sap-font-size text-sap-text-color" aria-live="polite">

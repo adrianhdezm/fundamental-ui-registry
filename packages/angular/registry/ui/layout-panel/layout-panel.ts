@@ -78,7 +78,7 @@ export class LayoutPanelHead {}
 @Directive({
     selector: '[fd-layout-panel-title], [fdLayoutPanelTitle]',
     host: {
-        class: 'm-0 flex-1 p-0 font-sap-font-header-family text-sap-group-title-font-size font-bold text-sap-group-title-text-color'
+        class: 'm-0 flex-1 p-0 font-sap-font-header-family text-sap-group-title-font-size font-normal text-sap-group-title-text-color'
     }
 })
 export class LayoutPanelTitle {}

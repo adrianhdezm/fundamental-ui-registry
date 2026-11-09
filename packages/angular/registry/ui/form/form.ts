@@ -217,7 +217,7 @@ export class FormGroupHeader {
     selector: '[fdFormHeader], [fd-form-header]',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'm-0 box-border flex h-sap-element-line-height w-full items-center bg-sap-group-title-background px-4 [--hdr-bw:var(--sapList_BorderWidth)] hc:[--hdr-bw:calc(var(--sapList_BorderWidth)*3)] [--hdr-bc:var(--sapGroup_TitleBorderColor)] shadow-[0_var(--hdr-bw)_0_var(--hdr-bc)]'
+        class: 'm-0 box-border flex h-sap-element-line-height w-full items-center bg-sap-group-title-background px-4 [--hdr-bw:var(--sapList_BorderWidth)] hc:[--hdr-bw:calc(var(--sapList_BorderWidth)*3)] [--hdr-bc:var(--sapGroup_TitleBorderColor)] [box-shadow:0_var(--hdr-bw)_0_var(--hdr-bc)]'
     },
     template: `<span
         class="m-0 truncate p-0 font-sap-font-header-family text-sap-group-title-font-size text-sap-group-title-text-color"

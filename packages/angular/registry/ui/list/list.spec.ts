@@ -272,6 +272,19 @@ class ContentHost {
 })
 class UserClassHost {}
 
+@Component({
+    imports: IMPORTS,
+    template: `
+        <ul fd-list byline unreadIndicator aria-label="Line heights">
+            <li fd-list-item unread data-testid="unread">
+                <i fd-list-icon glyph="cart" data-testid="icon"></i>
+                <div fd-list-content><div fd-list-title>Unread</div></div>
+            </li>
+        </ul>
+    `
+})
+class LineHeightHost {}
+
 async function render<T>(type: new () => T) {
     const fixture = TestBed.createComponent(type);
     document.body.appendChild(fixture.nativeElement);
@@ -758,5 +771,13 @@ describe('List', () => {
                 document.documentElement.removeAttribute('data-sap-theme');
             }
         });
+    });
+
+    it('icons and the unread dot keep line-height 1 (18px and 6px high)', async () => {
+        const { el } = await render(LineHeightHost);
+        const dot = el('unread').querySelector<HTMLElement>(':scope > fd-icon')!;
+        expect(getComputedStyle(el('icon')).lineHeight).toBe('18px');
+        expect(getComputedStyle(dot).lineHeight).toBe('6px');
+        expect(rect(dot).height).toBe(6);
     });
 });

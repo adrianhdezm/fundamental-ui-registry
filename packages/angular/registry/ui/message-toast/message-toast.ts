@@ -185,7 +185,7 @@ export class MessageToast {
 
     protected readonly computedClass = cn(
         'pointer-events-auto m-0 box-border inline-flex w-auto max-w-60 p-4 outline-none',
-        'rounded-sap-element-border-corner-radius bg-sap-indication-color-9-background shadow-(--sapContent_Lite_Shadow)',
+        'rounded-sap-element-border-corner-radius bg-sap-indication-color-9-background [box-shadow:var(--sapContent_Lite_Shadow)]',
         'text-center font-sap-font-family text-sap-font-size text-sap-content-contrast-text-color'
     );
 

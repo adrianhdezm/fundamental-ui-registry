@@ -274,3 +274,32 @@ describe('Switch', () => {
         expect(document.activeElement).toBe(input);
     });
 });
+
+@Component({
+    imports: [Switch],
+    template: `
+        <fd-switch id="icons" ariaLabel="Icons" />
+        <fd-switch id="texts" ariaLabel="Texts" activeText="On" inactiveText="Off" />
+    `
+})
+class LineHeightHost {}
+
+describe('Switch line height', () => {
+    afterEach(() => document.body.classList.remove('compact'));
+
+    it('the on/off icons are 22px and the texts 1 line high (computed line height)', async () => {
+        const fixture = TestBed.createComponent(LineHeightHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const icons = [...root.querySelectorAll<HTMLElement>('#icons fd-icon')];
+        const texts = [...root.querySelectorAll<HTMLElement>('#texts span')].filter((s) =>
+            /^(On|Off)$/.test(s.textContent!.trim())
+        );
+        expect(icons).toHaveLength(2);
+        expect(texts).toHaveLength(2);
+        for (const icon of icons) expect(getComputedStyle(icon).lineHeight).toBe('22px');
+        for (const text of texts) expect(getComputedStyle(text).lineHeight).toBe(getComputedStyle(text).fontSize);
+        fixture.nativeElement.remove();
+    });
+});

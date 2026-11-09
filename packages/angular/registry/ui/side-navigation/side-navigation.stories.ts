@@ -32,7 +32,13 @@ const NESTED = [
     imports: [SideNavigation, SideNavigationMain, SideNavigationUtility, ...NESTED],
     template: `
         <div class="flex h-[32rem] gap-4">
-            <div [class]="condensed() ? 'w-16 shadow-sap-content-shadow0' : 'w-72 shadow-sap-content-shadow0'">
+            <div
+                [class]="
+                    condensed()
+                        ? 'w-16 [box-shadow:var(--sapContent_Shadow0)]'
+                        : 'w-72 [box-shadow:var(--sapContent_Shadow0)]'
+                "
+            >
                 <fd-side-nav [condensed]="condensed()" [selectable]="selectable()">
                     <div fd-side-nav-main>
                         <ul fd-nested-list>
@@ -134,7 +140,7 @@ class StorySideNav {
     imports: [SideNavigation, SideNavigationMain, SideNavigationUtility, ...NESTED],
     template: `
         <div class="flex h-[26rem] gap-4">
-            <div class="w-72 shadow-sap-content-shadow0">
+            <div class="w-72 [box-shadow:var(--sapContent_Shadow0)]">
                 <fd-side-nav>
                     <div fd-side-nav-main>
                         <ul fd-nested-list textOnly>
@@ -184,7 +190,7 @@ class StorySideNavTextOnly {
     imports: [SideNavigation, SideNavigationMain, SideNavigationUtility, Button, ...NESTED],
     template: `
         <div class="flex h-[30rem] gap-4">
-            <div class="w-72 shadow-sap-content-shadow0">
+            <div class="w-72 [box-shadow:var(--sapContent_Shadow0)]">
                 <fd-side-nav [selectable]="false">
                     <div fd-side-nav-main>
                         <ul fd-nested-list textOnly>
@@ -244,7 +250,13 @@ class StorySideNavProgrammatic {
     imports: [SideNavigation],
     template: `
         <div class="flex h-[34rem] gap-4">
-            <div [class]="condensed() ? 'w-16 shadow-sap-content-shadow0' : 'w-72 shadow-sap-content-shadow0'">
+            <div
+                [class]="
+                    condensed()
+                        ? 'w-16 [box-shadow:var(--sapContent_Shadow0)]'
+                        : 'w-72 [box-shadow:var(--sapContent_Shadow0)]'
+                "
+            >
                 <fd-side-nav [sideNavigationConfiguration]="config" [condensed]="condensed()" />
             </div>
             <p class="m-0 font-sap-font-family text-sap-font-size text-sap-text-color" aria-live="polite">

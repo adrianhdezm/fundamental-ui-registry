@@ -50,7 +50,7 @@ let nextId = 0;
                     <button
                         fdButton
                         variant="transparent"
-                        class="text-base"
+                        class="text-base leading-[normal]"
                         [id]="expandId()"
                         [glyph]="expanded() ? 'slim-arrow-down' : 'slim-arrow-right'"
                         [attr.aria-expanded]="expanded()"
@@ -118,7 +118,7 @@ export class PanelTitle {
     readonly wrap = input(true, { transform: booleanAttribute });
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 w-full max-w-full flex-1 p-0 ps-1 font-sap-font-header-family text-sap-group-title-font-size font-bold text-sap-group-title-text-color',
+            'm-0 w-full max-w-full flex-1 p-0 ps-1 font-sap-font-header-family text-sap-group-title-font-size font-normal text-sap-group-title-text-color',
             this.wrap() ? 'whitespace-normal break-words' : 'truncate'
         )
     );

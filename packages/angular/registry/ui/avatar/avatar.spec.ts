@@ -132,7 +132,23 @@ function resolveBackground(variable: string): string {
 const char = (code: number) => String.fromCodePoint(code);
 const PERSON_PLACEHOLDER = char(0xe0ca);
 
+/** Elements whose radius is rounded-full's computed length (3.35544e+07px) instead of a percentage. */
+const hugeRadius = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
+
 describe('Avatar', () => {
+    it('a circle avatar and its badge are rounded with 100%, as fundamental-styles', async () => {
+        const { avatar, update } = await setup();
+        await update((h) => {
+            h.circle.set(true);
+            h.zoomGlyph.set('edit');
+        });
+        const badge = avatar.querySelector<HTMLElement>('fd-icon.absolute')!;
+        expect(getComputedStyle(avatar).borderTopLeftRadius).toBe('100%');
+        expect(getComputedStyle(badge).borderTopLeftRadius).toBe('100%');
+        expect(hugeRadius(avatar)).toEqual([]);
+    });
+
     it('renders initials from label, a glyph, or the image as background', async () => {
         const { fixture, avatar, glyph, update } = await setup();
         expect(avatar.textContent!.trim()).toBe('JD');

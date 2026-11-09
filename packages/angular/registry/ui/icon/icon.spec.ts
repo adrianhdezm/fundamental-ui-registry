@@ -158,4 +158,20 @@ describe('Icon', () => {
         expect(getComputedStyle(icon).backgroundColor).toBe(resolve('--sapPositiveElementColor'));
         expect(getComputedStyle(icon).color).toBe(resolve('--sapGroup_ContentBackground'));
     });
+
+    it('every size keeps line-height 1, so the box is as high as the font size (32px at md)', async () => {
+        const { icon, update } = await setup();
+        for (const [size, px] of [
+            ['default', 16],
+            ['sm', 16],
+            ['md', 32],
+            ['lg', 48],
+            ['xl', 64],
+            ['xxl', 80]
+        ] as const) {
+            await update((h) => h.size.set(size));
+            expect(getComputedStyle(icon).lineHeight).toBe(`${px}px`);
+            expect(icon.getBoundingClientRect().height).toBe(px);
+        }
+    });
 });

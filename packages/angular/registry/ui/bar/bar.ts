@@ -84,7 +84,7 @@ export class Bar {
         return cn(
             'relative z-[1] m-0 box-border flex items-center justify-between gap-2 p-0',
             'min-h-(--bar-h) ps-(--bar-px) pe-(--bar-px) pt-(--bar-pt) pb-(--bar-pb)',
-            'bg-(--bar-bg) shadow-(--bar-shadow) font-sap-font-family text-sap-font-size text-sap-text-color',
+            'bg-(--bar-bg) [box-shadow:var(--bar-shadow)] font-sap-font-family text-sap-font-size text-sap-text-color',
             '[--bar-h:2.75rem] compact:[--bar-h:2.5rem] [--bar-px:1rem] [--bar-pt:0] [--bar-pb:0]',
             '[--bar-shadow:var(--sapContent_HeaderShadow)] [--bar-bg:var(--sapPageHeader_Background)]',
             '[--bar-tc:var(--sapTextColor)] [--bar-tf:var(--sapFontFamily)] [--bar-ts:var(--sapFontSize)]',

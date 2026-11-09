@@ -96,6 +96,13 @@ async function setup(config: { fixed?: boolean; expanded?: boolean } = {}) {
 }
 
 describe('Panel', () => {
+    it('the title uses the 72-Bold face with a normal weight, so no synthetic bold is added', async () => {
+        const { root } = await setup();
+        const title = getComputedStyle(root.querySelector<HTMLElement>('[fd-panel-title]')!);
+        expect(title.fontFamily).toMatch(/^"?72-Bold/);
+        expect(title.fontWeight).toBe('400');
+    });
+
     afterEach(() => {
         document.documentElement.removeAttribute('data-density');
     });
@@ -242,5 +249,25 @@ describe('Panel', () => {
         expect(getComputedStyle(content()).color).toBe(getComputedStyle(probe).color);
         probe.remove();
         expect(getComputedStyle(content()).overflow).toBe('auto');
+    });
+});
+
+@Component({
+    imports: [Panel, PanelTitle, PanelContent],
+    template: `<fd-panel id="panel"
+        ><h4 fd-panel-title>Title</h4>
+        <div fd-panel-content>Content</div></fd-panel
+    >`
+})
+class ButtonHost {}
+
+describe('Panel expand button line height', () => {
+    it('the expand button keeps a normal line height', async () => {
+        const fixture = TestBed.createComponent(ButtonHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const button = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#panel button')!;
+        expect(getComputedStyle(button).lineHeight).toBe('normal');
+        fixture.nativeElement.remove();
     });
 });

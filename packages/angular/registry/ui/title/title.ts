@@ -67,8 +67,10 @@ export class Title {
 
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 box-border p-0 truncate font-sap-font-header-family font-normal leading-[normal] text-sap-text-color',
+            'm-0 box-border p-0 truncate font-sap-font-header-family font-normal text-sap-text-color',
             SIZE[this.size()],
+            // after the size: tailwind-merge drops a line-height that comes before a font size
+            'leading-[normal]',
             this.wrap() && 'overflow-auto whitespace-normal text-clip',
             this.twoLineClamp() && 'line-clamp-2 whitespace-normal',
             this.userClass()

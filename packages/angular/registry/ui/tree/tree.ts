@@ -152,12 +152,12 @@ function levelIndent(level: number, expandedLevel: number): number {
 
 const HIGHLIGHT: Record<TreeItemState, string> = {
     default:
-        'shadow-[inset_0.375rem_0_0_0_var(--sapInformationBorderColor)] rtl:shadow-[inset_-0.375rem_0_0_0_var(--sapInformationBorderColor)]',
-    error: 'shadow-[inset_0.375rem_0_0_0_var(--sapErrorBorderColor)] rtl:shadow-[inset_-0.375rem_0_0_0_var(--sapErrorBorderColor)]',
+        '[box-shadow:inset_0.375rem_0_0_0_var(--sapInformationBorderColor)] rtl:[box-shadow:inset_-0.375rem_0_0_0_var(--sapInformationBorderColor)]',
+    error: '[box-shadow:inset_0.375rem_0_0_0_var(--sapErrorBorderColor)] rtl:[box-shadow:inset_-0.375rem_0_0_0_var(--sapErrorBorderColor)]',
     warning:
-        'shadow-[inset_0.375rem_0_0_0_var(--sapWarningBorderColor)] rtl:shadow-[inset_-0.375rem_0_0_0_var(--sapWarningBorderColor)]',
+        '[box-shadow:inset_0.375rem_0_0_0_var(--sapWarningBorderColor)] rtl:[box-shadow:inset_-0.375rem_0_0_0_var(--sapWarningBorderColor)]',
     success:
-        'shadow-[inset_0.375rem_0_0_0_var(--sapSuccessBorderColor)] rtl:shadow-[inset_-0.375rem_0_0_0_var(--sapSuccessBorderColor)]'
+        '[box-shadow:inset_0.375rem_0_0_0_var(--sapSuccessBorderColor)] rtl:[box-shadow:inset_-0.375rem_0_0_0_var(--sapSuccessBorderColor)]'
 };
 
 /** Late reference to Tree for the item declared before it. */
@@ -208,7 +208,7 @@ function forwardTree(): typeof Tree {
                 >
                     <fd-icon
                         [glyph]="expanded() ? 'navigation-down-arrow' : 'navigation-right-arrow'"
-                        class="text-(length:--tree-exp-icon) text-sap-button-icon-color group-active/row:text-sap-list-active-text-color"
+                        class="text-(length:--tree-exp-icon) leading-none text-sap-button-icon-color group-active/row:text-sap-list-active-text-color"
                     />
                 </span>
             } @else if (countLoading()) {
@@ -234,7 +234,7 @@ function forwardTree(): typeof Tree {
             @if (navigatable() && tree?.navigationIndicator()) {
                 <fd-icon
                     glyph="slim-arrow-right"
-                    class="flex min-h-(--tree-exp) min-w-10 shrink-0 items-center justify-center text-xs text-sap-content-non-interactive-icon-color last:-me-4"
+                    class="flex min-h-(--tree-exp) min-w-10 shrink-0 items-center justify-center text-xs leading-none text-sap-content-non-interactive-icon-color last:-me-4"
                 />
             }
         </div>

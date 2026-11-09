@@ -153,7 +153,7 @@ const TARGET_LABEL: Record<string, string> = {
                     role="presentation"
                     [glyph]="product.icon"
                     [font]="product.font ?? 'SAP-icons'"
-                    class="flex min-h-12 min-w-12 items-center justify-center text-[1.5rem] text-sap-content-icon-color group-active/ps:text-sap-list-active-text-color"
+                    class="flex min-h-12 min-w-12 items-center justify-center text-[1.5rem] leading-none text-sap-content-icon-color group-active/ps:text-sap-list-active-text-color"
                 />
             }
             <div [class]="textClass()">
@@ -216,7 +216,7 @@ export class ProductSwitchBody {
             'outline-2 -outline-offset-2 outline-transparent hover:bg-sap-list-hover-background',
             'active:bg-sap-list-active-background active:outline-sap-content-focus-color',
             'focus:outline-(length:--sapContent_FocusWidth) focus:[outline-style:var(--sapContent_FocusStyle)] focus:outline-sap-content-focus-color',
-            '[&.cdk-drag-preview]:shadow-sap-content-shadow3 [&.cdk-drag-placeholder]:opacity-0',
+            '[&.cdk-drag-preview]:[box-shadow:var(--sapContent_Shadow3)] [&.cdk-drag-placeholder]:opacity-0',
             this.listMode()
                 ? 'min-h-24 max-w-full flex-auto flex-row gap-3 p-4 text-start'
                 : 'min-h-[7.375rem] max-w-[11.25rem] flex-[1_0_25%] flex-col items-center px-2 py-4 text-center'

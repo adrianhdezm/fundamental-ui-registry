@@ -336,7 +336,7 @@ export class Notification {
             // room for the action buttons next to the title
             'has-[[data-nt-actions]_button]:[&_[data-nt-title]]:pe-8 compact:has-[[data-nt-actions]_button]:[&_[data-nt-title]]:pe-11',
             'has-[[data-nt-actions]_button+button]:[&_[data-nt-title]]:pe-[4.375rem] compact:has-[[data-nt-actions]_button+button]:[&_[data-nt-title]]:pe-[4.875rem]',
-            this.config && 'shadow-sap-content-shadow2',
+            this.config && '[box-shadow:var(--sapContent_Shadow2)]',
             this.userClass()
         )
     );

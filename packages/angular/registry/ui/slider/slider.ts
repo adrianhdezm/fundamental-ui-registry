@@ -520,7 +520,7 @@ export class Slider implements ControlValueAccessor {
 
     protected readonly trackClass = computed(() =>
         cn(
-            'relative z-[1] m-0 cursor-pointer rounded-[0.25rem] bg-sap-slider-background p-0 hc:shadow-[inset_0_0_0_0.0625rem_var(--sapSlider_BorderColor)]',
+            'relative z-[1] m-0 cursor-pointer rounded-[0.25rem] bg-sap-slider-background p-0 hc:[box-shadow:inset_0_0_0_0.0625rem_var(--sapSlider_BorderColor)]',
             this.vertical() ? 'h-full w-(--sl-track)' : 'h-(--sl-track) w-full'
         )
     );
@@ -528,7 +528,7 @@ export class Slider implements ControlValueAccessor {
     protected readonly rangeClass = computed(() =>
         cn(
             'absolute box-border rounded-[0.25rem] border border-solid border-sap-slider-selected-border-color bg-sap-slider-selected-background',
-            'hc:border-sap-slider-selected-background hc:shadow-[0_0_0_0.0625rem_var(--sapSlider_Selected_BorderColor)]',
+            'hc:border-sap-slider-selected-background hc:[box-shadow:0_0_0_0.0625rem_var(--sapSlider_Selected_BorderColor)]',
             this.vertical() ? 'left-0 w-full' : 'top-0 h-full'
         )
     );
@@ -564,8 +564,8 @@ export class Slider implements ControlValueAccessor {
 
     protected readonly tooltipClass = computed(() =>
         cn(
-            'absolute z-[5] box-border flex min-h-4 items-center rounded-[0.0625rem] bg-sap-background-color px-2 text-sap-font-small-size leading-4 whitespace-nowrap text-sap-text-color shadow-sap-content-shadow1',
-            'has-[input]:bg-transparent has-[input]:px-0 has-[input]:shadow-none',
+            'absolute z-[5] box-border flex min-h-4 items-center rounded-[0.0625rem] bg-sap-background-color px-2 text-sap-font-small-size leading-4 whitespace-nowrap text-sap-text-color [box-shadow:var(--sapContent_Shadow1)]',
+            'has-[input]:bg-transparent has-[input]:px-0 has-[input]:[box-shadow:none]',
             this.vertical()
                 ? 'left-[calc(100%+var(--sl-hh)/2+0.5rem)] translate-y-1/2'
                 : 'bottom-[calc(var(--sl-hh)/2+0.5rem)] -translate-x-1/2 rtl:translate-x-1/2'

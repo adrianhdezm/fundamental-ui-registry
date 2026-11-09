@@ -71,6 +71,13 @@ function cssColor(variable: string): string {
 }
 
 describe('LayoutPanel', () => {
+    it('the title uses the 72-Bold face with a normal weight, so no synthetic bold is added', async () => {
+        const { q } = await setup();
+        const title = getComputedStyle(q('[fd-layout-panel-title]'));
+        expect(title.fontFamily).toMatch(/^"?72-Bold/);
+        expect(title.fontWeight).toBe('400');
+    });
+
     it('places header, filters, body and footer in that order whatever the projected order', async () => {
         const { q } = await setup();
         const panel = q('fd-layout-panel');
@@ -96,7 +103,8 @@ describe('LayoutPanel', () => {
         expect(actions.right).toBeCloseTo(header.getBoundingClientRect().right - 16, 0);
         const title = q('[fd-layout-panel-title]');
         expect(title.tagName).toBe('H3');
-        expect(getComputedStyle(title).fontWeight).toBe('700');
+        // the 72-Bold face at a normal weight, as fundamental-styles (no synthetic bold)
+        expect(getComputedStyle(title).fontWeight).toBe('400');
         const description = q('fd-layout-panel-description p');
         expect(description.textContent).toBe('Per quarter');
         expect(description.getBoundingClientRect().top).toBeGreaterThanOrEqual(title.getBoundingClientRect().bottom);
