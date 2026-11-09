@@ -415,3 +415,20 @@ describe('Wizard', () => {
         });
     });
 });
+
+describe('Wizard issues', () => {
+    it('keeps the connector of the stacked top step inside its 4rem step (wizard-2)', async () => {
+        const labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+        const { root, host, stable } = await setup({ width: '300px', labels, summary: false });
+        host.go(3);
+        await stable();
+        // the step before the current one, 4rem wide
+        const top = [...root.querySelectorAll<HTMLElement>('[fd-wizard-step][data-stacked]')].find(
+            (step) => step.getBoundingClientRect().width === 64
+        )!;
+        const connector = top.querySelector<HTMLElement>(':scope > div > span:last-child')!;
+        expect(getComputedStyle(connector).display).not.toBe('none');
+        expect(connector.getBoundingClientRect().width).toBe(5);
+        expect(connector.getBoundingClientRect().right).toBeLessThanOrEqual(top.getBoundingClientRect().right);
+    });
+});

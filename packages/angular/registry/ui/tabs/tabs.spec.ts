@@ -430,3 +430,53 @@ describe('TabCount line height', () => {
         fixture.nativeElement.remove();
     });
 });
+
+@Component({
+    imports: [TabList, TabPanel],
+    template: `
+        <div style="width: 800px">
+            <fd-tab-list ariaLabel="Tabs" [mode]="mode()">
+                <fd-tab id="i1" title="One" glyph="home">Content one</fd-tab>
+                <fd-tab id="i2" title="Two" glyph="home">Content two</fd-tab>
+                <fd-tab id="i3" title="Three" glyph="home">Content three</fd-tab>
+            </fd-tab-list>
+        </div>
+    `
+})
+class IssuesHost {
+    readonly mode = signal<TabModes | null>(null);
+}
+
+describe('Tabs issues', () => {
+    async function render(mode: TabModes | null = null) {
+        const fixture = TestBed.createComponent(IssuesHost);
+        fixture.componentInstance.mode.set(mode);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        await wait();
+        await fixture.whenStable();
+        return fixture.nativeElement as HTMLElement;
+    }
+    const starts = (root: HTMLElement) =>
+        tabs(root).map((tab) => {
+            const item = getComputedStyle(tab.parentElement!);
+            const style = getComputedStyle(tab);
+            return [item.marginInlineStart, style.marginInlineStart, style.paddingInlineStart].join(' ');
+        });
+
+    it('gives only the first tab the first tab start spacing, in every mode (tabs-1)', async () => {
+        expect(starts(await render())).toEqual(['0px 3px 0px', '4px 0px 12px', '4px 0px 12px']);
+        expect(starts(await render('icon-only'))).toEqual(['0px 0px 0px', '4px 0px 12px', '4px 0px 12px']);
+    });
+
+    it('shows the tag in the text colour (tabs-2)', async () => {
+        const root = await render();
+        const tag = tabs(root)[1].querySelector<HTMLElement>('[fd-tab-tag], [fdtabtag]')!;
+        const probe = document.createElement('div');
+        probe.style.color = 'var(--sapTextColor)';
+        document.body.appendChild(probe);
+        const text = getComputedStyle(probe).color;
+        probe.remove();
+        expect(getComputedStyle(tag).color).toBe(text);
+    });
+});

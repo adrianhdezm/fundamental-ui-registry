@@ -204,3 +204,89 @@ describe('VerticalNavigation', () => {
         expect(focusedName()).toBe('Calendar');
     });
 });
+
+describe('VerticalNavigation issues', () => {
+    afterEach(() => document.querySelectorAll('fd-vertical-navigation').forEach((el) => el.remove()));
+
+    /** The computed value of a theme variable for a CSS property. */
+    const themed = (property: 'color' | 'fontSize' | 'borderTopLeftRadius', value: string) => {
+        const probe = document.createElement('div');
+        probe.style[property] = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe)[property];
+        probe.remove();
+        return computed;
+    };
+    const text = (name: string) => item(name).querySelector<HTMLElement>('[fd-list-navigation-item-text]')!;
+    const textStart = (name: string) =>
+        text(name).getBoundingClientRect().left + parseFloat(getComputedStyle(text(name)).paddingLeft);
+
+    it('lines first-level texts up with the second-level ones, 0.25rem after the icon (vertical-navigation-1)', async () => {
+        const { fixture, host } = await setup();
+        host.expanded.set(true);
+        await fixture.whenStable();
+        const icon = item('Overview').querySelector('fd-icon')!;
+        expect(getComputedStyle(icon).marginInlineEnd).toBe('4px');
+        expect(textStart('Overview')).toBe(textStart('Today'));
+    });
+
+    it('shows the group header as a list group header title (vertical-navigation-2)', async () => {
+        const { root } = await setup();
+        const header = root.querySelector<HTMLElement>('[fd-vertical-navigation-group-header]')!;
+        const title = header.querySelector<HTMLElement>(':scope > span')!;
+        expect(title.textContent!.trim()).toBe('Services');
+        const style = getComputedStyle(title);
+        expect([style.fontSize, style.lineHeight, style.color]).toEqual([
+            themed('fontSize', 'var(--sapFontHeader6Size)'),
+            '32px',
+            themed('color', 'var(--sapList_TableGroupHeaderTextColor)')
+        ]);
+        expect([getComputedStyle(header).paddingLeft, getComputedStyle(header).paddingBottom]).toEqual(['15px', '0px']);
+    });
+
+    it('lays the condensed panel out as fundamental-styles (vertical-navigation-3)', async () => {
+        const { fixture, host } = await setup(true);
+        host.expanded.set(true);
+        await fixture.whenStable();
+        await wait();
+        const parent = item('Calendar');
+        const header = parent.querySelector<HTMLElement>(':scope > div > div')!;
+        const icon = header.querySelector<HTMLElement>('fd-icon')!;
+        expect(getComputedStyle(header).paddingInlineStart).toBe('0px');
+        expect(getComputedStyle(icon).paddingInlineStart).toBe('14px');
+        expect(getComputedStyle(text('Calendar')).fontSize).toBe(themed('fontSize', 'var(--sapFontSize)'));
+        expect(getComputedStyle(item('Today')).paddingInlineStart).toBe('0px');
+        expect(getComputedStyle(header).borderTopLeftRadius).toBe(
+            themed('borderTopLeftRadius', 'var(--sapPopover_BorderCornerRadius)')
+        );
+        expect(header.getBoundingClientRect().height).toBe(43);
+    });
+
+    it('keeps the pointer cursor of the row in the condensed panel (vertical-navigation-3)', async () => {
+        const { fixture, host } = await setup(true);
+        host.expanded.set(true);
+        await fixture.whenStable();
+        await wait();
+        const header = item('Calendar').querySelector<HTMLElement>(':scope > div > div')!;
+        expect([getComputedStyle(header).cursor, getComputedStyle(text('Calendar')).cursor]).toEqual([
+            'pointer',
+            'pointer'
+        ]);
+    });
+
+    it('sets the vertical nav text style on the column (vertical-navigation-4)', async () => {
+        const fixture = TestBed.createComponent(Host);
+        const root = fixture.nativeElement as HTMLElement;
+        // a page text style the column must not take (Tailwind's preflight sets a 1.5 line height on html)
+        Object.assign(root.style, { lineHeight: '1.5', fontSize: '1.25rem', fontWeight: '700', color: 'red' });
+        document.body.appendChild(root);
+        await fixture.whenStable();
+        const column = getComputedStyle(root.querySelector('fd-vertical-navigation > div')!);
+        expect([column.fontSize, column.lineHeight, column.fontWeight, column.color]).toEqual([
+            themed('fontSize', 'var(--sapFontSize)'),
+            'normal',
+            '400',
+            themed('color', 'var(--sapTextColor)')
+        ]);
+    });
+});

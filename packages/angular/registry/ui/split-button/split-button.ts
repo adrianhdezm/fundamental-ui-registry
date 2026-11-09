@@ -59,15 +59,15 @@ const PAD: Record<ButtonVariant, string> = {
         '[--sb-pad:var(--sapButton_Attention_Background)] [--sb-sep:var(--sapButton_Attention_TextColor)] [--sb-bd:var(--sapButton_Attention_BorderColor)]'
 };
 
-/** High contrast themes keep the own background and border of each button. */
+/** High contrast themes keep the own border of each button; the pad shows through, as in fundamental-styles. */
 const HC_BUTTON: Record<ButtonVariant, string> = {
-    standard: 'hc:bg-sap-button-background hc:border-sap-button-border-color',
-    ghost: 'hc:bg-sap-button-background hc:border-sap-button-border-color',
-    emphasized: 'hc:bg-sap-button-emphasized-background hc:border-sap-button-emphasized-border-color',
-    transparent: 'hc:bg-sap-button-lite-background hc:border-sap-button-lite-border-color',
-    positive: 'hc:bg-sap-button-accept-background hc:border-sap-button-accept-border-color',
-    negative: 'hc:bg-sap-button-reject-background hc:border-sap-button-reject-border-color',
-    attention: 'hc:bg-sap-button-attention-background hc:border-sap-button-attention-border-color'
+    standard: 'hc:border-sap-button-border-color',
+    ghost: 'hc:border-sap-button-border-color',
+    emphasized: 'hc:border-sap-button-emphasized-border-color',
+    transparent: 'hc:border-sap-button-lite-border-color',
+    positive: 'hc:border-sap-button-accept-border-color',
+    negative: 'hc:border-sap-button-reject-border-color',
+    attention: 'hc:border-sap-button-attention-border-color'
 };
 
 /** Pressed look of the arrow button while the menu is open. */
@@ -215,12 +215,18 @@ export class SplitButton {
         cn(
             this.buttonClass(),
             'justify-start hc:rounded-e-none hc:-me-px',
+            // in HC the focus frame follows the square inner corners
+            'hc:focus:after:rounded-s-sap-button-border-corner-radius hc:focus:after:rounded-e-none',
             this.variant() === 'emphasized' && 'hc:-me-(--sapButton_Emphasized_BorderWidth)',
             '[&>span]:block [&>span]:max-w-34 compact:[&>span]:max-w-36 [&>span]:truncate'
         )
     );
     protected readonly arrowClass = computed(() =>
-        cn(this.buttonClass(), 'hc:rounded-s-none', this.menu()?.isOpen() && OPEN[this.variant()])
+        cn(
+            this.buttonClass(),
+            'hc:rounded-s-none hc:focus:after:rounded-s-none hc:focus:after:rounded-e-sap-button-border-corner-radius',
+            this.menu()?.isOpen() && OPEN[this.variant()]
+        )
     );
 
     constructor() {

@@ -10,6 +10,7 @@ import {
     ShellbarBranding,
     ShellbarContextArea,
     ShellbarHidePriority,
+    ShellbarLogo,
     ShellbarSearch,
     ShellbarTitle,
     type ShellbarGroupFlexOptions,
@@ -18,6 +19,7 @@ import {
     type ShellbarUserMenuItem
 } from './shellbar';
 import { iconGlyphChar } from '@/ui/icon/icon';
+import { ProductSwitch, ProductSwitchBody } from '@/ui/product-switch/product-switch';
 
 @Component({
     imports: [
@@ -313,5 +315,106 @@ describe('Shellbar', () => {
         const style = getComputedStyle(product);
         expect([style.minWidth, style.flexShrink, style.flexGrow, style.flexBasis]).toEqual(['0px', '1', '0', 'auto']);
         expect(getComputedStyle(actions).flexShrink).toBe('1');
+    });
+});
+
+@Component({
+    imports: [
+        Shellbar,
+        ShellbarLogo,
+        ShellbarActions,
+        ShellbarAction,
+        ShellbarSearch,
+        ProductMenu,
+        ProductSwitch,
+        ProductSwitchBody
+    ],
+    template: `
+        <div [style.width.px]="width()">
+            <fd-shellbar [size]="size()">
+                <fd-shellbar-logo><span class="block h-[1.875rem] w-[3.75rem]"></span></fd-shellbar-logo>
+                <fd-product-menu control="Corporate Portal" [items]="items" />
+                <fd-shellbar-search />
+                <fd-shellbar-actions [user]="{ fullName: 'Lisa Miller' }" [userMenu]="userMenu">
+                    <fd-shellbar-action glyph="bell" label="Notifications" />
+                    <fd-shellbar-action glyph="feedback" label="Feedback" />
+                    <fd-shellbar-action glyph="sys-help" label="Help" />
+                    <fd-product-switch>
+                        <fd-product-switch-body [products]="products" />
+                    </fd-product-switch>
+                </fd-shellbar-actions>
+            </fd-shellbar>
+        </div>
+    `
+})
+class IssuesHost {
+    readonly width = signal(1300);
+    readonly size = signal<ShellbarSize | undefined>(undefined);
+    readonly items: ShellbarMenuItem[] = [{ name: 'Application A' }, { name: 'Application B' }];
+    readonly userMenu: ShellbarUserMenuItem[] = [{ text: 'Settings' }, { text: 'Sign Out' }];
+    readonly products = [{ title: 'Home', icon: 'home' }];
+}
+
+describe('Shellbar issues', () => {
+    async function render(width = 1300, size?: ShellbarSize) {
+        const fixture = TestBed.createComponent(IssuesHost);
+        fixture.componentInstance.width.set(width);
+        fixture.componentInstance.size.set(size);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        await wait(150);
+        return fixture.nativeElement as HTMLElement;
+    }
+    /** The computed value of a theme variable for a CSS property. */
+    const themed = (property: 'backgroundImage' | 'backgroundSize', value: string) => {
+        const probe = document.createElement('div');
+        probe.style.background = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe)[property];
+        probe.remove();
+        return computed;
+    };
+
+    it('puts the simple user menu before the product switch (shellbar-1)', async () => {
+        const root = await render();
+        const user = root.querySelector('fd-shellbar-user-menu')!.getBoundingClientRect();
+        const productSwitch = root.querySelector('fd-product-switch')!.getBoundingClientRect();
+        expect(user.right).toBeLessThanOrEqual(productSwitch.left);
+    });
+
+    it('draws the search field bottom line with --sapField_BackgroundStyle (shellbar-3)', async () => {
+        const root = await render();
+        const field = getComputedStyle(root.querySelector('fd-shellbar-search')!);
+        const style = 'var(--sapField_BackgroundStyle)';
+        expect(themed('backgroundImage', style)).not.toBe('none');
+        expect([field.backgroundImage, field.backgroundSize]).toEqual([
+            themed('backgroundImage', style),
+            themed('backgroundSize', style)
+        ]);
+    });
+
+    it('keeps the hovered search input transparent in high contrast (shellbar-4)', async () => {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const root = await render();
+            const input = root.querySelector<HTMLInputElement>('fd-shellbar-search input')!;
+            await userEvent.unhover(input);
+            await userEvent.hover(input);
+            expect(getComputedStyle(input).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+            await userEvent.unhover(input);
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
+    it('fits a small bar with a product menu, which shows only its arrow (shellbar-7)', async () => {
+        const root = await render(319, 's');
+        const bar = root.querySelector<HTMLElement>('[data-size]')!;
+        const end = bar.getBoundingClientRect().right;
+        const parts = [...bar.querySelectorAll<HTMLElement>('button')].filter((b) => b.offsetParent !== null);
+        expect(Math.max(...parts.map((b) => b.getBoundingClientRect().right))).toBeLessThanOrEqual(end);
+        const title = root.querySelector<HTMLElement>('fd-product-menu button span')!;
+        expect(getComputedStyle(title).display).toBe('none');
+        expect(title.closest('button')!.getAttribute('aria-label')).toBe('Corporate Portal');
     });
 });

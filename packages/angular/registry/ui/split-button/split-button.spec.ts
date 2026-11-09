@@ -167,3 +167,46 @@ describe('SplitButton', () => {
         }
     });
 });
+
+describe('SplitButton issues', () => {
+    /** Runs `check` in Horizon High Contrast Black. */
+    async function inHc(check: () => Promise<void>) {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            await check();
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    }
+    const radius = () => {
+        const probe = document.createElement('div');
+        probe.style.borderRadius = 'var(--sapButton_BorderCornerRadius)';
+        document.body.appendChild(probe);
+        const value = getComputedStyle(probe).borderTopLeftRadius;
+        probe.remove();
+        return value;
+    };
+
+    it('keeps both buttons transparent on the pad in high contrast (split-button-1)', async () =>
+        inHc(async () => {
+            const { main, arrow } = await setup();
+            await userEvent.unhover(main);
+            expect([main, arrow].map((b) => getComputedStyle(b).backgroundColor)).toEqual([
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)'
+            ]);
+        }));
+
+    it('squares the inner corners of the focus frames in high contrast (split-button-2)', async () =>
+        inHc(async () => {
+            const { main, arrow } = await setup();
+            const corners = (button: HTMLElement) => {
+                const frame = getComputedStyle(button, '::after');
+                return [frame.borderTopLeftRadius, frame.borderTopRightRadius];
+            };
+            main.focus();
+            expect(corners(main)).toEqual([radius(), '0px']);
+            arrow.focus();
+            expect(corners(arrow)).toEqual(['0px', radius()]);
+        }));
+});

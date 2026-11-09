@@ -276,3 +276,37 @@ describe('Pagination', () => {
         expect(host.page()).toBe(12);
     });
 });
+
+describe('Pagination issues', () => {
+    it('keeps the cozy button padding on page and current page buttons (pagination-1)', async () => {
+        const { root } = await setup({ total: 50, page: 2 });
+        const page = button(root, 'Page 1');
+        const current = root.querySelector<HTMLElement>('[aria-current=page]')!;
+        expect([page, current].map((el) => getComputedStyle(el).paddingInlineStart)).toEqual(['9px', '9px']);
+    });
+
+    it('gives the mobile "Page:" and "of N" labels the form label end margin (pagination-2)', async () => {
+        const { root } = await setup({ mobile: true });
+        const labels = [...root.querySelectorAll<HTMLElement>('nav span[id]')];
+        expect(labels.map((el) => getComputedStyle(el).marginInlineEnd)).toEqual(['8px', '8px']);
+    });
+
+    it('centres the nav in the space next to the results text (pagination-3)', async () => {
+        const { fixture, host, root } = await setup({ total: 50 });
+        host.options.set([]);
+        await fixture.whenStable();
+        const outer = root.querySelector('fd-pagination')!.getBoundingClientRect();
+        const nav = root.querySelector('nav')!.getBoundingClientRect();
+        const total = root.querySelector('nav + span')!.getBoundingClientRect();
+        expect(nav.left - (outer.left + 16)).toBeCloseTo(total.left - nav.right, 0);
+    });
+
+    it('shows a text cursor over the labels (pagination-4)', async () => {
+        const { fixture, host, root } = await setup();
+        const labels = () => [...root.querySelectorAll<HTMLElement>('fd-pagination span[id]')];
+        expect(labels().map((el) => getComputedStyle(el).cursor)).toEqual(['text', 'text', 'text', 'text']);
+        host.mobile.set(true);
+        await fixture.whenStable();
+        expect(labels().map((el) => getComputedStyle(el).cursor)).toEqual(['text', 'text']);
+    });
+});

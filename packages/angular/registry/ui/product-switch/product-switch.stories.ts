@@ -100,6 +100,28 @@ class StoryProductSwitchNavigation {
     );
 }
 
+/** fundamental-styles' Large example: the texts of its first products (the second title on two lines), four columns. */
+@Component({
+    selector: 'story-product-switch-reference',
+    imports: [ProductSwitch, ProductSwitchBody],
+    template: `
+        <div class="flex justify-end">
+            <fd-product-switch><fd-product-switch-body [products]="products" /></fd-product-switch>
+        </div>
+    `
+})
+class StoryProductSwitchReference {
+    protected readonly products: ProductSwitchItem[] = [
+        { title: 'SAP Start', subtitle: 'Central Home', icon: 'home' },
+        { title: 'Analytics Cloud Analytics Cloud', subtitle: 'Analytics Cloud', icon: 'business-objects-experience' },
+        { title: 'Catalog', subtitle: 'Ariba', icon: 'contacts' },
+        { title: 'Guided Buying', icon: 'credit-card' },
+        { title: 'Strategic Procurement', icon: 'cart-3' },
+        { title: 'Travel & Expense', subtitle: 'Concur', icon: 'flight' },
+        ...ALL.slice(6)
+    ].map((p) => ({ ...p, callback: () => undefined }));
+}
+
 /** Opens the product switch from its button (named `name`) and waits for the products. */
 function openSwitch(name = 'Product switch'): Story['play'] {
     return async ({ canvasElement }) => {
@@ -111,7 +133,9 @@ function openSwitch(name = 'Product switch'): Story['play'] {
 const meta: Meta<ProductSwitch> = {
     title: 'Components/Product Switch',
     component: ProductSwitch,
-    decorators: [moduleMetadata({ imports: [StoryProductSwitch, StoryProductSwitchNavigation] })],
+    decorators: [
+        moduleMetadata({ imports: [StoryProductSwitch, StoryProductSwitchNavigation, StoryProductSwitchReference] })
+    ],
     parameters: {
         docs: {
             story: { inline: false, iframeHeight: 640 },
@@ -187,5 +211,14 @@ export const OpenNavigation: Story = {
     name: 'Open: URL navigation',
     tags: ['!autodocs'],
     render: () => ({ template: `<story-product-switch-navigation />` }),
+    play: openSwitch()
+};
+export const OpenReference: Story = {
+    name: 'Open: reference',
+    tags: ['!autodocs'],
+    parameters: {
+        docs: { description: { story: "fundamental-styles' Large example, open, for the visual comparison." } }
+    },
+    render: () => ({ template: `<story-product-switch-reference />` }),
     play: openSwitch()
 };

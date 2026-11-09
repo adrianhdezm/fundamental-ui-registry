@@ -140,6 +140,7 @@ export class ToolbarItem implements ToolbarOverflowItem {
     selector: '[fd-toolbar-label], [fdToolbarLabel]',
     providers: [{ provide: FD_TOOLBAR_ITEM, useExisting: forwardRef(() => ToolbarLabel) }],
     host: {
+        'data-toolbar-label': '',
         class: 'truncate font-sap-font-family text-sap-font-size text-sap-content-label-color in-data-[toolbar-overflow]:my-1.5'
     }
 })
@@ -408,13 +409,15 @@ export class Toolbar {
             type === 'transparent' ? 'bg-transparent' : 'bg-sap-toolbar-background',
             type === 'info' && [
                 'relative [--tb-h:2rem] compact:[--tb-h:2rem] bg-sap-infobar-non-interactive-background text-sap-list-text-color',
+                // labels take the text colour of the info bar
+                '[&_[data-toolbar-label]]:text-inherit',
                 '[&_fd-icon]:h-4 [&_fd-icon]:text-base [&_fd-icon]:leading-4 [&_fd-icon]:text-sap-list-text-color'
             ],
             type === 'info' &&
                 this.active() && [
-                    'cursor-pointer outline-none bg-sap-infobar-background text-sap-infobar-text-color [&_fd-icon]:text-sap-infobar-text-color',
+                    'cursor-pointer outline-none bg-sap-infobar-background text-sap-infobar-text-color',
                     'enabled-hover:bg-sap-infobar-hover-background active:bg-sap-infobar-active-background',
-                    "focus:after:pointer-events-none focus:after:absolute focus:after:inset-0.5 focus:after:content-['']",
+                    "focus:after:pointer-events-none focus:after:absolute focus:after:inset-px focus:after:content-['']",
                     'focus:after:border-(length:--sapContent_FocusWidth) focus:after:[border-style:var(--sapContent_FocusStyle)] focus:after:border-sap-content-focus-color'
                 ],
             titled && '[--tb-h:2.75rem] compact:[--tb-h:2.75rem] [--tb-ps:1rem] bg-sap-group-title-background',

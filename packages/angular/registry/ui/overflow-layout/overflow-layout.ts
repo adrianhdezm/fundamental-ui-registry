@@ -251,15 +251,22 @@ export class OverflowLayout {
 
     constructor() {
         const destroyRef = inject(DestroyRef);
+        // created after render only (no ResizeObserver on the server)
+        let resizes: ResizeObserver | undefined;
+        const observer = () => (resizes ??= new ResizeObserver(() => this.measure()));
+        destroyRef.onDestroy(() => resizes?.disconnect());
         afterNextRender(() => {
-            const observer = new ResizeObserver(() => this.measure());
-            observer.observe(this.host);
-            observer.observe(this.row().nativeElement);
-            destroyRef.onDestroy(() => observer.disconnect());
+            observer().observe(this.host);
+            observer().observe(this.row().nativeElement);
         });
-        // the "more" control appears after the first overflow: measure its real width
-        afterRenderEffect(() => {
-            if (this.moreContainer()) untracked(() => this.measure());
+        // the "more" control appears after the first overflow, and its label changes width with the count:
+        // measure it whenever it resizes
+        afterRenderEffect((onCleanup) => {
+            const more = this.moreContainer()?.nativeElement;
+            if (!more) return;
+            untracked(() => this.measure());
+            observer().observe(more);
+            onCleanup(() => observer().unobserve(more));
         });
         effect(() => {
             const { visible, hidden } = this.layout();

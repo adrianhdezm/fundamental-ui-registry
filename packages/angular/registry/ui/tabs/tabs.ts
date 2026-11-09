@@ -76,7 +76,7 @@ export class TabTitle {
 })
 export class TabTag {
     protected readonly computedClass = cn(
-        'relative m-0 inline-block p-0 leading-4 whitespace-nowrap text-(--tab-tag,var(--sapContent_LabelColor)) group-aria-selected/tab:text-(--tab-tag-selected,var(--sapContent_Selected_ForegroundColor)) after:-bottom-[0.875rem]',
+        'relative m-0 inline-block p-0 leading-4 whitespace-nowrap text-(--tab-tag,var(--sapTextColor)) group-aria-selected/tab:text-(--tab-tag-selected,var(--sapContent_Selected_ForegroundColor)) after:-bottom-[0.875rem]',
         SELECTION_BAR,
         FOCUS_FRAME
     );
@@ -204,15 +204,24 @@ export class TabItem {
     /** The header of a filter tab bar. */
     readonly header = input(false, { transform: booleanAttribute });
     readonly disabled = input(false, { transform: booleanAttribute });
+    /**
+     * Whether it is the first item of the bar: no start margin, and its tab no start padding (and 0.1875rem in
+     * without a mode). Undefined decides with `:first-child`.
+     */
+    readonly first = input<boolean | undefined>();
     readonly userClass = input<ClassValue>('', { alias: 'class' });
     private readonly tabs = inject(FD_TABS, { optional: true });
 
     protected readonly computedClass = computed(() => {
         const mode = this.tabs?.mode();
         const state = this.tabItemState();
+        const first = this.first();
         return cn(
-            'relative m-0 mx-1 shrink-0 p-0 first:ms-0',
-            !mode && '[&:first-child>[role=tab]]:ms-[0.1875rem] [&:first-child>[role=tab]]:ps-0',
+            'relative m-0 mx-1 shrink-0 p-0',
+            first === undefined && 'first:ms-0 [&:first-child>[role=tab]]:ps-0',
+            first === undefined && !mode && '[&:first-child>[role=tab]]:ms-[0.1875rem]',
+            first && 'ms-0 [&>[role=tab]]:ps-0',
+            first && !mode && '[&>[role=tab]]:ms-[0.1875rem]',
             mode === 'process' && 'my-0 ms-0 me-1 flex items-center',
             mode === 'filter' && ['m-0 px-1 py-0', this.header() ? 'w-auto' : 'w-[5.375rem]'],
             state && STATE_VARS[state],
@@ -464,11 +473,18 @@ let nextId = 0;
             >
                 @for (tab of tabs(); track tab; let last = $last) {
                     <div
-                        *fdOverflowItemRef="tab; let hidden; forceVisibility: tab === forcedTab() || tab === selected()"
+                        *fdOverflowItemRef="
+                            tab;
+                            let hidden;
+                            let first = first;
+                            forceVisibility: tab === forcedTab() || tab === selected()
+                        "
                         class="flex items-center"
                     >
+                        <!-- each item is the first child of its wrapper: the first visible one is marked -->
                         <div
                             fd-tab-item
+                            [first]="first"
                             [header]="tab.header()"
                             [tabItemState]="tab.tabState()"
                             [disabled]="tab.disabled()"

@@ -589,11 +589,12 @@ export class ShellbarSearch {
         const size = this.shellbar?.size();
         const center = this.shellbar?.searchInCenter();
         return cn(
-            'relative m-0 box-border flex h-sap-element-height items-center border-none p-0',
+            'relative m-0 box-border flex h-sap-element-height cursor-text items-center border-none p-0 text-sap-field-text-color',
             '[--sb-btn-w:1.75rem] [--sb-btn-h:var(--sapElement_Compact_Height)] [--sb-btn-r:1.063rem] hc:[--sb-btn-w:2.25rem] hc:[--sb-btn-h:var(--sapElement_Height)] hc:[--sb-btn-r:var(--sapButton_BorderCornerRadius)]',
-            'rounded-[1.125rem] bg-sap-shell-interactive-background [box-shadow:var(--sapField_Shadow)] hc:rounded-none',
-            'hover:bg-sap-shell-hover-background hover:[box-shadow:var(--sapField_Hover_Shadow)] hc:hover:bg-transparent',
-            'has-[input:focus]:bg-transparent has-[input:focus]:[box-shadow:0_0_0_0.125rem_var(--sapButton_Lite_Active_BorderColor)] hc:has-[input:focus]:[box-shadow:none]',
+            // the field's bottom border line comes with the background style, as fundamental-styles'
+            'rounded-[1.125rem] [background:var(--sapField_BackgroundStyle)_var(--sapShell_InteractiveBackground)] [box-shadow:var(--sapField_Shadow)] hc:rounded-none',
+            'hover:[background:var(--sapField_Hover_BackgroundStyle)_var(--sapShell_Hover_Background)] hover:[box-shadow:var(--sapField_Hover_Shadow)] hc:hover:[background:transparent]',
+            'has-[input:focus]:[background:transparent] has-[input:focus]:[box-shadow:0_0_0_0.125rem_var(--sapButton_Lite_Active_BorderColor)] hc:has-[input:focus]:[box-shadow:none]',
             size === 's'
                 ? 'w-full max-w-full'
                 : center
@@ -611,7 +612,7 @@ export class ShellbarSearch {
             'font-sap-font-family text-sap-font-size text-sap-field-text-color placeholder:text-sap-field-placeholder-text-color placeholder:italic',
             '[&::-webkit-search-cancel-button]:hidden',
             'hc:border-(length:--sapElement_BorderWidth) hc:border-solid hc:border-sap-shell-interactive-border-color hc:bg-sap-shell-interactive-background',
-            'hc:hover:bg-sap-shell-hover-background hc:focus:border-(length:--sapContent_FocusWidth) hc:focus:[border-style:var(--sapContent_FocusStyle)] hc:focus:bg-sap-shell-active-background',
+            'hc:hover:bg-transparent hc:focus:border-(length:--sapContent_FocusWidth) hc:focus:[border-style:var(--sapContent_FocusStyle)] hc:focus:bg-sap-shell-active-background',
             center ? 'w-60' : this.shellbar?.size() === 'm' ? 'w-auto max-w-24' : 'w-auto'
         );
     });
@@ -868,7 +869,7 @@ export class ShellbarActions {
     selector: 'fd-shellbar-user-menu',
     imports: [Button, Avatar, Menu, MenuItem, MenuInteractive, MenuTitle, MenuTrigger],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: { class: 'order-1 flex shrink-0' },
+    host: { class: 'flex shrink-0' },
     template: `
         @if (!customButton()) {
             <button
@@ -954,10 +955,12 @@ export class ShellbarUserMenuButton {}
                 glyph="slim-arrow-down"
                 glyphPosition="after"
                 class="min-w-0 max-w-full"
+                [ariaLabel]="small() ? control() : null"
+                [attr.title]="small() ? control() : null"
                 [disabled]="disabled()"
                 [fdMenuTrigger]="menu"
             >
-                <span [class]="titleClass">{{ control() }}</span>
+                <span [class]="titleClass()">{{ control() }}</span>
             </button>
             <fd-menu
                 #menu
@@ -984,7 +987,7 @@ export class ShellbarUserMenuButton {}
                 }
             </fd-menu>
         } @else {
-            <h1 [class]="titleClass">{{ control() }}</h1>
+            <h1 [class]="titleClass()">{{ control() }}</h1>
         }
     `
 })
@@ -999,8 +1002,15 @@ export class ProductMenu {
     readonly closeOnOutsideClick = input(true, { transform: booleanAttribute });
     readonly closePopoverOnSelect = input(false, { transform: booleanAttribute });
     readonly disabled = input(false, { transform: booleanAttribute });
-    protected readonly titleClass =
-        'm-0 box-border truncate p-0 font-sap-font-semibold-duplex-family text-sap-font-header5-size font-normal text-sap-shell-sub-brand-text-color';
+    private readonly shellbar = inject(FD_SHELLBAR, { optional: true });
+    /** The name hides on small shellbars (as fundamental-styles' title): the menu shows only its arrow, named by it. */
+    protected readonly small = computed(() => this.shellbar?.size() === 's');
+    protected readonly titleClass = computed(() =>
+        cn(
+            'm-0 box-border truncate p-0 font-sap-font-semibold-duplex-family text-sap-font-header5-size font-normal text-sap-shell-sub-brand-text-color',
+            this.small() && 'hidden'
+        )
+    );
 
     protected itemClicked(item: ShellbarMenuItem, event: MouseEvent): void {
         item.callback?.(event);

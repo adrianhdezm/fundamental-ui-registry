@@ -218,7 +218,7 @@ let nextId = 0;
             @if (displayTotalItems() && !compact()) {
                 <span
                     [id]="id + '-total'"
-                    class="shrink-0 font-sap-font-family text-sap-font-size text-sap-content-label-color"
+                    class="shrink-0 cursor-text font-sap-font-family text-sap-font-size text-sap-content-label-color"
                 >
                     <ng-container
                         [ngTemplateOutlet]="displayTextTemplate() ?? totalTpl"
@@ -256,7 +256,7 @@ let nextId = 0;
             @if (!compact()) {
                 <span
                     [id]="id + '-per-page'"
-                    class="shrink-0 font-sap-font-family text-sap-font-size text-sap-content-label-color"
+                    class="shrink-0 cursor-text font-sap-font-family text-sap-font-size text-sap-content-label-color"
                     >{{ itemsPerPageLabel() }}</span
                 >
             }
@@ -439,7 +439,7 @@ export class Pagination {
 
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 box-border flex h-11 w-full items-center justify-between gap-4 px-4 py-0 font-sap-font-family',
+            'm-0 box-border flex h-11 w-full items-center justify-between px-4 py-0 font-sap-font-family',
             this.userClass()
         )
     );
@@ -453,13 +453,16 @@ export class Pagination {
     );
 
     protected readonly iconButtonClass = 'rtl:[&_fd-icon]:rotate-180';
-    protected readonly pageButtonClass = 'min-w-9 px-2 compact:min-w-8';
+    protected readonly pageButtonClass = 'min-w-9 compact:min-w-8';
     /** The current page in short paginations looks pressed. */
     protected readonly currentClass =
-        'min-w-9 px-2 compact:min-w-8 bg-sap-button-lite-active-background border-sap-button-lite-active-border-color text-sap-button-active-text-color';
-    /** "Page:" and "of N" around the page input, visible in the compact layout only (as fundamental-styles). */
+        'min-w-9 compact:min-w-8 bg-sap-button-lite-active-background border-sap-button-lite-active-border-color text-sap-button-active-text-color';
+    /** "Page:" and "of N" around the page input, form labels visible in the compact layout only (as fundamental-styles). */
     protected readonly inputLabelClass = computed(() =>
-        cn('shrink-0 font-sap-font-family text-sap-font-size text-sap-content-label-color', !this.compact() && 'hidden')
+        cn(
+            'me-2 shrink-0 cursor-text font-sap-font-family text-sap-font-size text-sap-content-label-color',
+            !this.compact() && 'hidden'
+        )
     );
 
     protected readonly inputClass = computed(() =>

@@ -471,6 +471,25 @@ class StoryShellbarCollapsible {
     protected readonly products = PRODUCTS.map((p) => ({ ...p, callback: () => undefined }));
 }
 
+/** An extra large shellbar with its search field, as fundamental-styles' first responsiveness bar. */
+@Component({
+    selector: 'story-shellbar-search',
+    imports: [...SHELLBAR],
+    template: `
+        <fd-shellbar size="xl">
+            <fd-shellbar-branding interactiveBranding ariaLabel="Corporate Portal home">
+                <fd-shellbar-title>Corporate Portal</fd-shellbar-title>
+            </fd-shellbar-branding>
+            <fd-shellbar-search placeholder="Search everything" />
+            <fd-shellbar-actions>
+                <fd-shellbar-action glyph="bell" label="Notifications" />
+                <fd-shellbar-action glyph="sys-help" label="Help" />
+            </fd-shellbar-actions>
+        </fd-shellbar>
+    `
+})
+class StoryShellbarSearch {}
+
 /** Clicks the button named `name` in the story and waits for the menu it opens. */
 function openFrom(name: string | RegExp): Story['play'] {
     return async ({ canvasElement }) => {
@@ -490,7 +509,8 @@ const meta: Meta<Shellbar> = {
                 StoryShellbarContext,
                 StoryShellbarSimple,
                 StoryShellbarGrowing,
-                StoryShellbarCollapsible
+                StoryShellbarCollapsible,
+                StoryShellbarSearch
             ]
         })
     ],
@@ -515,6 +535,17 @@ export const Responsive: Story = {
     name: 'Responsive sizes',
     parameters: { docs: { story: { iframeHeight: 520 } } },
     render: () => ({ template: `<story-shellbar-sizes />` })
+};
+export const SearchField: Story = {
+    name: 'Search field',
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' responsiveness example (its extra large bar with the search field), for the visual comparison."
+            }
+        }
+    },
+    render: () => ({ template: `<story-shellbar-search />` })
 };
 export const ContextArea: Story = {
     name: 'Context area',

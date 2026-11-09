@@ -290,3 +290,32 @@ describe('OverflowLayout', () => {
         expect(popoverLabels()).toEqual(['C', 'D']);
     });
 });
+
+describe('OverflowLayout issues', () => {
+    it('re-measures the "more" control when its label changes width (overflow-layout-1)', async () => {
+        const { host, stable, visibleLabels, moreButton } = await setup({ width: 500, max: 4 });
+        host.itemWidth.set(20);
+        host.items.set([...'ABCDEFGHIJKLM']);
+        await stable();
+        expect(moreButton()!.textContent!.trim()).toBe('9 more');
+        const more = () => moreButton()!.closest('fd-popover')!.parentElement!.getBoundingClientRect();
+        // room for four items, the gap and "9 more", with 2px to spare
+        host.width.set(4 * 20 + 4 + Math.ceil(more().width) + 2);
+        host.max.set(Number.POSITIVE_INFINITY);
+        await stable();
+        expect(visibleLabels()).toEqual(['A', 'B', 'C', 'D']);
+        // one more item: "10 more" is wider, so only three items fit
+        host.items.set([...'ABCDEFGHIJKLMN']);
+        await stable();
+        expect(visibleLabels()).toEqual(['A', 'B', 'C']);
+        expect(moreButton()!.textContent!.trim()).toBe('11 more');
+        // back to thirteen: "10 more" is as wide as "11 more", three items still
+        host.items.set([...'ABCDEFGHIJKLM']);
+        await stable();
+        // twelve: "9 more" is narrower again, so four items fit
+        host.items.set([...'ABCDEFGHIJKL']);
+        await stable();
+        expect(moreButton()!.textContent!.trim()).toBe('8 more');
+        expect(visibleLabels()).toEqual(['A', 'B', 'C', 'D']);
+    });
+});
