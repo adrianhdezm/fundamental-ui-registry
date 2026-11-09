@@ -1378,9 +1378,9 @@
       "source": "../../../react/docs/parity/components/wizard.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: a 600px wizard of 7 steps on step 4, the first step stacked and its indicator showing only a glyph: its role=button container has no accessible name (axe-core aria-command-name violation), because the label container of a stacked step is display: none. With a number in the indicator the step is named \"1\" instead of by its label \"A\".",
+      "test": "Wizard › keeps the labels of stacked steps for assistive technology, also when the indicator shows a glyph",
       "fix": "",
       "notes": ""
     },

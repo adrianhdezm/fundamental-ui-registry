@@ -57,7 +57,7 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 **Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 213 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -434,14 +434,14 @@ None.
 
 #### wizard
 
-[React report](../../../react/docs/parity/components/wizard.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/wizard.md) · ⬜ reported: 3 · 🧪 covered: 1
 
-| ID       | Issue                                                                                                                       | Kind          | Confirmed | Pattern              | Status      | Test | Fix | Notes |
-| -------- | --------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | -------------------- | ----------- | ---- | --- | ----- |
-| wizard-1 | The wizard step indicator uses `rounded-full` (a huge pixel radius) instead of fundamental-styles' 50% (not visible).       | computed-only | rendered  | pattern-rounded-full | ⬜ reported |      |     |       |
-| wizard-2 | The connector of the stacked top wizard step keeps `min-w-4`, so it is 16px instead of 5px and runs past its 4rem step.     | visual        | rendered  |                      | ⬜ reported |      |     |       |
-| wizard-3 | The wizard progress bar uses the `shadow-sap-content-header-shadow` utility, which adds Tailwind's transparent ring layers. | computed-only | rendered  | pattern-shadow-ring  | ⬜ reported |      |     |       |
-| wizard-4 | Stacked wizard steps hide their label with `display: none`, so a stacked step with only a glyph has no accessible name.     | a11y          | rendered  |                      | ⬜ reported |      |     |       |
+| ID       | Issue                                                                                                                       | Kind          | Confirmed | Pattern              | Status      | Test                                                                                                       | Fix | Notes |
+| -------- | --------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | -------------------- | ----------- | ---------------------------------------------------------------------------------------------------------- | --- | ----- |
+| wizard-1 | The wizard step indicator uses `rounded-full` (a huge pixel radius) instead of fundamental-styles' 50% (not visible).       | computed-only | rendered  | pattern-rounded-full | ⬜ reported |                                                                                                            |     |       |
+| wizard-2 | The connector of the stacked top wizard step keeps `min-w-4`, so it is 16px instead of 5px and runs past its 4rem step.     | visual        | rendered  |                      | ⬜ reported |                                                                                                            |     |       |
+| wizard-3 | The wizard progress bar uses the `shadow-sap-content-header-shadow` utility, which adds Tailwind's transparent ring layers. | computed-only | rendered  | pattern-shadow-ring  | ⬜ reported |                                                                                                            |     |       |
+| wizard-4 | Stacked wizard steps hide their label with `display: none`, so a stacked step with only a glyph has no accessible name.     | a11y          | rendered  |                      | 🧪 covered  | Wizard › keeps the labels of stacked steps for assistive technology, also when the indicator shows a glyph |     |       |
 
 #### tabs
 

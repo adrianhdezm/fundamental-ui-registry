@@ -433,7 +433,8 @@ export class WizardStep {
     protected readonly labelContainerClass = computed(() =>
         cn(
             'm-0 box-border flex max-h-8 max-w-full min-w-0 flex-col overflow-hidden p-0 text-sap-content-label-color',
-            this.stacked() && 'hidden'
+            // visually hidden, not display: none: the label still names a stacked step (whose indicator may be a glyph)
+            this.stacked() && 'sr-only-sap'
         )
     );
 
