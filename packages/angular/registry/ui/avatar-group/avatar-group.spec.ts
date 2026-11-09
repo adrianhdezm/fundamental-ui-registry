@@ -194,6 +194,24 @@ async function setupAccent() {
 }
 
 describe('AvatarGroup', () => {
+    it('the overflow button is an avatar with button colours, the avatar font size and as wide as its count', async () => {
+        const { overflow, root } = await setup((h) => h.max.set(2));
+        const button = overflow()!.querySelector<HTMLElement>('span')!;
+        const probe = document.createElement('span');
+        root.appendChild(probe);
+        probe.style.backgroundColor = 'var(--sapButton_Background)';
+        probe.style.color = 'var(--sapButton_TextColor)';
+        const style = getComputedStyle(button);
+        expect(style.backgroundColor).toBe(getComputedStyle(probe).backgroundColor);
+        expect(style.color).toBe(getComputedStyle(probe).color);
+        expect(style.fontWeight).toBe('400');
+        // size s: the avatars' 3rem height and 1.125rem font size, at least as wide as high
+        expect(style.fontSize).toBe('18px');
+        expect(button.getBoundingClientRect().height).toBe(48);
+        expect(button.getBoundingClientRect().width).toBeGreaterThanOrEqual(48);
+        probe.remove();
+    });
+
     it('an individual avatar with details hovers with its own hover colours and has its focus frame 0.3125rem out', async () => {
         const { root, resolve, fixture } = await setupAccent();
         const trigger = root.querySelector<HTMLElement>('#individual [data-avatar-group-item] [role=button]')!;

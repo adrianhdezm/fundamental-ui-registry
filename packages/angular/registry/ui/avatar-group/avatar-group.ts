@@ -45,15 +45,30 @@ const GAP: Record<AvatarSize, string> = {
     lg: '[--ag-gap:0.125rem] [--ag-overlap:-2rem]',
     xl: '[--ag-gap:0.25rem] [--ag-overlap:-2.75rem]'
 };
+/**
+ * The overflow button is an avatar with button colours, as fundamental-styles' `fd-avatar--overflow`: the height and
+ * font size of the avatars, and as wide as its count in a row (`--ag-ob` is the avatar size).
+ */
 const OVERFLOW_SIZE: Record<AvatarSize, string> = {
-    xs: 'size-8 text-[0.75rem]',
-    s: 'size-12 text-sap-font-size',
-    sm: 'size-12 text-sap-font-size',
-    m: 'size-16 text-[1.25rem]',
-    md: 'size-16 text-[1.25rem]',
-    l: 'size-20 text-[1.5rem]',
-    lg: 'size-20 text-[1.5rem]',
-    xl: 'size-28 text-[2rem]'
+    xs: '[--ag-ob:2rem] text-[1rem] leading-[normal]',
+    s: '[--ag-ob:3rem] text-[1.125rem] leading-[normal]',
+    sm: '[--ag-ob:3rem] text-[1.125rem] leading-[normal]',
+    m: '[--ag-ob:4rem] text-[1.5rem] leading-[normal]',
+    md: '[--ag-ob:4rem] text-[1.5rem] leading-[normal]',
+    l: '[--ag-ob:5rem] text-[2.25rem] leading-[normal]',
+    lg: '[--ag-ob:5rem] text-[2.25rem] leading-[normal]',
+    xl: '[--ag-ob:7rem] text-[3rem] leading-[normal]'
+};
+/** Radius of a circle overflow button: half its height (a pill when wider). */
+const OVERFLOW_CIRCLE: Record<AvatarSize, string> = {
+    xs: 'rounded-[1rem]',
+    s: 'rounded-[1.5rem]',
+    sm: 'rounded-[1.5rem]',
+    m: 'rounded-[2rem]',
+    md: 'rounded-[2rem]',
+    l: 'rounded-[2.5rem]',
+    lg: 'rounded-[2.5rem]',
+    xl: 'rounded-[3.5rem]'
 };
 
 /** Inner focus frame of round avatar triggers. */
@@ -477,11 +492,20 @@ export class AvatarGroup {
 
     protected readonly overflowButtonClass = computed(() =>
         cn(
-            'box-border inline-flex shrink-0 cursor-pointer items-center justify-center font-sap-font-family font-bold',
-            'border-(length:--av-ob-w) border-solid border-sap-avatar-1-border-color bg-sap-avatar-1-background text-sap-avatar-1-text-color',
-            '[--av-ob-w:0.0625rem] hc:[--av-ob-w:0.125rem] enabled-hover:bg-sap-avatar-1-hover-background',
+            'relative m-0 box-border inline-flex shrink-0 cursor-pointer items-center justify-center p-0 align-middle',
+            'font-sap-font-family font-normal [forced-color-adjust:none]',
+            'h-(--ag-ob) min-h-(--ag-ob) max-h-(--ag-ob) min-w-(--ag-ob)',
+            this.orientation() === 'vertical' ? 'w-(--ag-ob) max-w-(--ag-ob)' : 'w-fit max-w-fit px-2',
+            // button colours; the hover border is the avatars' one, as fundamental-styles computes it
+            '[--av-bg:var(--sapButton_Background)] [--av-border:var(--sapButton_BorderColor)] [--av-color:var(--sapButton_TextColor)]',
+            '[--av-hover-bg:var(--sapButton_Hover_Background)] [--av-hover-border:var(--sapAvatar_Hover_BorderColor)]',
+            '[--av-active-bg:var(--sapButton_Active_Background)] [--av-active-border:var(--sapButton_Active_BorderColor)] [--av-active-color:var(--sapButton_Active_TextColor)]',
+            '[--av-active-hover-bg:var(--sapButton_Active_Background)] [--av-active-hover-border:var(--sapButton_Active_BorderColor)] [--av-active-hover-color:var(--sapButton_Active_TextColor)]',
+            'border-(length:--av-ob-w) border-solid border-(--av-border) bg-(--av-bg) text-(--av-color) [--av-ob-w:0.0625rem] hc:[--av-ob-w:0.125rem]',
             OVERFLOW_SIZE[this.size()],
-            this.overflowButtonShape() === 'circle' ? 'rounded-full' : 'rounded-sap-element-border-corner-radius'
+            this.overflowButtonShape() === 'circle'
+                ? OVERFLOW_CIRCLE[this.size()]
+                : 'rounded-sap-element-border-corner-radius'
         )
     );
 }
