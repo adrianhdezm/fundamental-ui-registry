@@ -693,11 +693,11 @@ None.
 
 #### timeline
 
-[React report](../../../react/docs/parity/components/timeline.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/timeline.md) · 🧪 covered: 1
 
-| ID         | Issue                                                                                                                                      | Kind      | Confirmed          | Pattern | Status      | Test | Fix | Notes |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ------------------ | ------- | ----------- | ---- | --- | ----- |
-| timeline-1 | Switching the timeline `axis` keeps the old axis' inline line length and the double-layout `margin-top` on the nodes (read from the code). | behaviour | read from the code |         | ⬜ reported |      |     |       |
+| ID         | Issue                                                                                                                                      | Kind      | Confirmed          | Pattern | Status     | Test                                                                                                                  | Fix | Notes |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ------------------ | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| timeline-1 | Switching the timeline `axis` keeps the old axis' inline line length and the double-layout `margin-top` on the nodes (read from the code). | behaviour | read from the code |         | 🧪 covered | timeline.spec.ts › Timeline › switching the axis drops the old axis' line length and the double layout's node margins |     |       |
 
 #### micro-process-flow
 

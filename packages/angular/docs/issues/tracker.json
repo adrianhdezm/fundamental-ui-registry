@@ -2290,9 +2290,9 @@
       "source": "../../../react/docs/parity/components/timeline.md",
       "kind": "behaviour",
       "confirmed": "read from the code",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host, layout double): from the vertical axis (nodes 2 and 5 get margin-top 14px and 17px) switch to horizontal: the margins stay ['', '14px', '', '', '17px'], and the lines keep their vertical height (layoutLines only set the new axis' size and reset margins for double vertical layouts).",
+      "test": "timeline.spec.ts › Timeline › switching the axis drops the old axis' line length and the double layout's node margins",
       "fix": "",
       "notes": ""
     },
