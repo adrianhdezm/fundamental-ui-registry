@@ -1881,9 +1881,9 @@
       "source": "../../../react/docs/parity/components/text.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "text.spec.ts, maxLines 2, expandable, isCollapsed false from the start: no toggle is shown (overflow was measured only while collapsed); a text changed while expanded kept its old measurement.",
+      "test": "text.spec.ts › Text › a text that starts expanded shows the Less toggle, and is measured again when it changes",
       "fix": "",
       "notes": ""
     },
