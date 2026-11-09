@@ -157,3 +157,11 @@ describe('Breadcrumb', () => {
         expect(document.activeElement!.textContent!.trim()).toBe('Products');
     });
 });
+
+describe('Breadcrumb issues', () => {
+    it('keeps the 1px vertical padding of the items (breadcrumb-3)', async () => {
+        const { el } = await setup();
+        const item = getComputedStyle(el.querySelector('fd-breadcrumb-item')!);
+        expect([item.paddingTop, item.paddingBottom]).toEqual(['1px', '1px']);
+    });
+});

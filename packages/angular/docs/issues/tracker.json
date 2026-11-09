@@ -1484,8 +1484,8 @@
       "source": "../../../react/docs/parity/components/breadcrumb.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
+      "status": "not-reproducible",
+      "repro": "breadcrumb.spec.ts Host: fd-breadcrumb-item computes padding-top and padding-bottom 1px. Its classes ('… py-px p-0 …') are a static host class, not merged by tailwind-merge, and Tailwind emits py-px after p-0, so the 1px padding applies (the React port merged them with cn, which dropped py-px). The 'more' control's span has 'p-0 py-px'. Kept as 'Breadcrumb issues > keeps the 1px vertical padding of the items (breadcrumb-3)', passing before any change.",
       "test": "",
       "fix": "",
       "notes": ""
