@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { afterEach, describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { Switch } from './switch';
 
 @Component({
@@ -46,6 +46,16 @@ class Host {
 class ReactiveHost {
     readonly control = new FormControl(true);
 }
+
+@Component({
+    imports: [Switch],
+    template: `
+        <fd-switch id="content" semantic>Approved</fd-switch>
+        <fd-switch id="labelled" semantic ariaLabel="Release" />
+        <fd-switch id="plain" ariaLabel="Wi-Fi" />
+    `
+})
+class NamesHost {}
 
 const frame = () => new Promise((r) => requestAnimationFrame(r));
 
@@ -175,6 +185,20 @@ describe('Switch', () => {
         expect(getComputedStyle(accept).visibility).toBe('visible');
         expect(getComputedStyle(decline).visibility).toBe('hidden');
         expect(semanticLabel.textContent!.trim()).toBe('Accept');
+    });
+
+    it('names a semantic switch by its label content or ariaLabel, then the state, with ariaLabel on the input', async () => {
+        const fixture = TestBed.createComponent(NamesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const input = (id: string) => document.querySelector<HTMLInputElement>(`#${id}-input`)!;
+        expect(page.getByRole('switch', { name: 'Approved Decline', exact: true }).element()).toBe(input('content'));
+        expect(page.getByRole('switch', { name: 'Release Decline', exact: true }).element()).toBe(input('labelled'));
+        expect(page.getByRole('switch', { name: 'Wi-Fi', exact: true }).element()).toBe(input('plain'));
+        expect(input('plain').getAttribute('aria-label')).toBe('Wi-Fi');
+        expect(document.querySelector('#plain label')!.hasAttribute('aria-label')).toBe(false);
+        // no content: no empty flex item (and gap) next to the control
+        expect(getComputedStyle(document.querySelector('#plain-text')!).display).toBe('none');
     });
 
     it('the semantic switch uses different track colours than the standard one', async () => {
