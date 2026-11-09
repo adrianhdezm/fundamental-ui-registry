@@ -345,7 +345,7 @@ const DROPDOWN_MAX_WIDTH = 640;
                         />
                     } @else {
                         @let parts = highlight(entry.suggestion.label);
-                        <span class="min-w-0 flex-auto truncate" [attr.title]="entry.suggestion.label"
+                        <span [class]="titleClass()" [attr.title]="entry.suggestion.label"
                             >{{ parts[0] }}<b class="font-bold">{{ parts[1] }}</b
                             >{{ parts[2] }}</span
                         >
@@ -1075,9 +1075,15 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
             this.byline() && 'py-2'
         ));
 
+    /** The title shares the row with the secondary text (at most 24rem), as fundamental-styles' dropdown list. */
+    protected readonly titleClass = computed(() =>
+        cn('min-w-0 flex-auto truncate', this.showSecondaryText() && 'max-w-96')
+    );
+
     protected readonly secondaryClass = computed(() =>
         cn(
-            'ms-auto max-w-[40%] shrink-0 truncate ps-4 text-sap-content-label-color',
+            // fundamental-styles' dropdown list secondary text: neutral, sharing the row with the title (at most 16rem)
+            'ms-auto min-w-0 max-w-64 flex-auto truncate ps-4 text-sap-font-size leading-[normal] text-sap-neutral-text-color',
             this.secondaryTextAlignment() === 'right' ? 'text-end' : 'text-start'
         )
     );
