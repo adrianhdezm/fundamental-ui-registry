@@ -505,12 +505,12 @@ None.
 
 #### product-switch
 
-[React report](../../../react/docs/parity/components/product-switch.md) · ⬜ reported: 1 · ➖ not reproducible: 1
+[React report](../../../react/docs/parity/components/product-switch.md) · 🧪 covered: 1 · ➖ not reproducible: 1
 
-| ID               | Issue                                                                                                          | Kind          | Confirmed | Pattern | Status              | Test | Fix | Notes |
-| ---------------- | -------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ------------------- | ---- | --- | ----- |
-| product-switch-1 | The product-switch product focus frame is inset by 2px; fundamental-styles insets it by 3px.                   | visual        | rendered  |         | ⬜ reported         |      |     |       |
-| product-switch-2 | The product-switch product icon keeps `line-height: normal`; fundamental-styles uses 1 (computed styles only). | computed-only | rendered  |         | ➖ not reproducible |      |     |       |
+| ID               | Issue                                                                                                          | Kind          | Confirmed | Pattern | Status              | Test                                                                                 | Fix | Notes |
+| ---------------- | -------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ------------------- | ------------------------------------------------------------------------------------ | --- | ----- |
+| product-switch-1 | The product-switch product focus frame is inset by 2px; fundamental-styles insets it by 3px.                   | visual        | rendered  |         | 🧪 covered          | ProductSwitch issues > insets the focus frame of a product by 3px (product-switch-1) |     |       |
+| product-switch-2 | The product-switch product icon keeps `line-height: normal`; fundamental-styles uses 1 (computed styles only). | computed-only | rendered  |         | ➖ not reproducible |                                                                                      |     |       |
 
 #### split-button
 

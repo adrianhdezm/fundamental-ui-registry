@@ -1656,9 +1656,9 @@
       "source": "../../../react/docs/parity/components/product-switch.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "product-switch.spec.ts Host, opened, the second product focused: its outline-offset is -2px (the -outline-offset-2 of the active state) instead of fundamental-styles' -3px (-0.1875rem).",
+      "test": "ProductSwitch issues > insets the focus frame of a product by 3px (product-switch-1)",
       "fix": "",
       "notes": ""
     },
