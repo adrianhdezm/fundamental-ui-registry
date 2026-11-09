@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { Button } from '@/ui/button/button';
+import { Icon } from '@/ui/icon/icon';
 import { Menu, MenuInteractive, MenuItem, MenuTitle, MenuTrigger } from '@/ui/menu/menu';
 import { Select, SelectOption } from '@/ui/select/select';
 import {
@@ -454,5 +455,34 @@ describe('toolbarOverflow', () => {
         // only low1 does not fit, but its group overflows with it
         expect(toolbarOverflow(items, 250, 0).map((i) => i.name)).toEqual(['high0', 'high1', 'low1']);
         expect(toolbarOverflow(items, 1000, 0)).toEqual([]);
+    });
+});
+
+@Component({
+    imports: [Toolbar, ToolbarLabel, Icon],
+    template: `
+        <fd-toolbar fdType="info" active ariaLabel="Filter info">
+            <span fd-toolbar-label>Filtered by Category</span>
+            <fd-icon glyph="decline" />
+        </fd-toolbar>
+    `
+})
+class ActiveInfoHost {}
+
+describe('Toolbar issues', () => {
+    /** The computed colour of a theme variable. */
+    const themed = (value: string) => {
+        const probe = document.createElement('div');
+        probe.style.color = value;
+        document.body.appendChild(probe);
+        const color = getComputedStyle(probe).color;
+        probe.remove();
+        return color;
+    };
+
+    it('shows the label of an active info toolbar in the info bar text colour (toolbar-1)', async () => {
+        const { root } = await render(ActiveInfoHost);
+        const label = root.querySelector('[fd-toolbar-label]')!;
+        expect(getComputedStyle(label).color).toBe(themed('var(--sapInfobar_TextColor)'));
     });
 });

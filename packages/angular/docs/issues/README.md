@@ -486,13 +486,13 @@ None.
 
 #### toolbar
 
-[React report](../../../react/docs/parity/components/toolbar.md) · ⬜ reported: 3
+[React report](../../../react/docs/parity/components/toolbar.md) · ⬜ reported: 2 · 🧪 covered: 1
 
-| ID        | Issue                                                                                                             | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| --------- | ----------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| toolbar-1 | In an active info toolbar the label keeps the grey label colour on the teal bar.                                  | visual | rendered  |         | ⬜ reported |      |     |       |
-| toolbar-2 | The icons of an active info toolbar use `--sapInfobar_TextColor`; fundamental-styles keeps `--sapList_TextColor`. | visual | rendered  |         | ⬜ reported |      |     |       |
-| toolbar-3 | The active info toolbar's focus frame is inset by 2px; fundamental-styles uses 1px.                               | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID        | Issue                                                                                                             | Kind   | Confirmed | Pattern | Status      | Test                                                                                               | Fix | Notes |
+| --------- | ----------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------------- | --- | ----- |
+| toolbar-1 | In an active info toolbar the label keeps the grey label colour on the teal bar.                                  | visual | rendered  |         | 🧪 covered  | Toolbar issues > shows the label of an active info toolbar in the info bar text colour (toolbar-1) |     |       |
+| toolbar-2 | The icons of an active info toolbar use `--sapInfobar_TextColor`; fundamental-styles keeps `--sapList_TextColor`. | visual | rendered  |         | ⬜ reported |                                                                                                    |     |       |
+| toolbar-3 | The active info toolbar's focus frame is inset by 2px; fundamental-styles uses 1px.                               | visual | rendered  |         | ⬜ reported |                                                                                                    |     |       |
 
 #### inline-help
 

@@ -1591,9 +1591,9 @@
       "source": "../../../react/docs/parity/components/toolbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "toolbar.spec.ts ActiveInfoHost (active info toolbar with a label and an icon): the label is rgb(85, 107, 130) (--sapContent_LabelColor) instead of the bar's text colour rgb(4, 108, 122) (--sapInfobar_TextColor) in Horizon.",
+      "test": "Toolbar issues > shows the label of an active info toolbar in the info bar text colour (toolbar-1)",
       "fix": "",
       "notes": ""
     },
