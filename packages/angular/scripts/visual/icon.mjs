@@ -4,11 +4,14 @@ const FS = 'sap-design-components-';
 export default [
     {
         label: 'size md',
+        // our stories show other glyphs than fundamental-styles' (lightbulb against cart, diamond…): styles only
+        pixels: false,
         ours: { story: 'components-icon--sizes', selector: 'fd-icon[data-glyph] >> nth=1' },
         ref: { story: `${FS}icons-sap-icons--sizes`, selector: '.sap-icon >> nth=1' }
     },
     {
         label: 'size xxl',
+        pixels: false,
         ours: { story: 'components-icon--sizes', selector: 'fd-icon[data-glyph] >> nth=4' },
         ref: { story: `${FS}icons-sap-icons--sizes`, selector: '.sap-icon >> nth=4' }
     },
@@ -22,16 +25,19 @@ export default [
     },
     {
         label: 'color default',
+        pixels: false,
         ours: { story: 'components-icon--colors', selector: 'fd-icon[data-glyph] >> nth=0' },
         ref: { story: `${FS}icons-sap-icons--colors`, selector: '.sap-icon--color-default' }
     },
     {
         label: 'color negative',
+        pixels: false,
         ours: { story: 'components-icon--colors', selector: 'fd-icon[data-glyph] >> nth=6' },
         ref: { story: `${FS}icons-sap-icons--colors`, selector: '.sap-icon--color-negative' }
     },
     {
         label: 'color information',
+        pixels: false,
         ours: { story: 'components-icon--colors', selector: 'fd-icon[data-glyph] >> nth=9' },
         ref: { story: `${FS}icons-sap-icons--colors`, selector: '.sap-icon--color-information' }
     }

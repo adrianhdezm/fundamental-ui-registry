@@ -85,7 +85,7 @@ export class Text {
     protected readonly paragraphClass = computed(() =>
         cn(
             'm-0 p-0 font-sap-font-family text-sap-font-size leading-[normal] text-sap-text-color',
-            'selection:bg-sap-content-selected-background hc:selection:bg-sap-selected-color selection:text-sap-content-contrast-text-color',
+            'selection:bg-sap-selected-color selection:text-sap-content-contrast-text-color',
             this.whitespaces() && 'whitespace-pre-wrap',
             this.subline() && 'line-clamp-2 text-sap-font-small-size leading-[normal] text-sap-content-label-color',
             this.userClass()
@@ -100,6 +100,7 @@ export class Text {
         afterRenderEffect(() => {
             this.text();
             this.maxLines();
+            this.collapsed();
             const el = this.clamp().nativeElement;
             observer.disconnect();
             observer.observe(el);
@@ -111,11 +112,28 @@ export class Text {
         this.isCollapsed.update((c) => !c);
     }
 
-    /** While clamped, the text overflows when its full height exceeds the visible lines. */
+    /**
+     * Compares the full height of the text with the visible lines. An expanded text (also one that starts expanded,
+     * or changes while expanded) is clamped for a moment to measure it.
+     */
     private measure(): void {
         const el = this.clamp().nativeElement;
-        if (!this.maxLines()) return this.overflows.set(false);
-        // expanded: keep the last measurement (it was clamped and overflowing to get here)
-        if (this.collapsed()) this.overflows.set(el.scrollHeight > el.clientHeight + 1);
+        const lines = this.maxLines() ?? 0;
+        if (lines <= 0) return this.overflows.set(false);
+        const style = el.style;
+        const expanded = !this.collapsed();
+        if (expanded) {
+            style.display = '-webkit-box';
+            style.setProperty('-webkit-box-orient', 'vertical');
+            style.setProperty('-webkit-line-clamp', String(lines));
+            style.overflow = 'hidden';
+        }
+        this.overflows.set(el.scrollHeight > el.clientHeight + 1);
+        if (expanded) {
+            style.removeProperty('display');
+            style.removeProperty('-webkit-box-orient');
+            style.removeProperty('-webkit-line-clamp');
+            style.removeProperty('overflow');
+        }
     }
 }

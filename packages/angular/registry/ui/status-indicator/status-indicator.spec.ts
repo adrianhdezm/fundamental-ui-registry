@@ -95,6 +95,19 @@ function color(value: string): string {
 }
 
 describe('StatusIndicator', () => {
+    it("the root has fundamental-styles' typography: text colour, font size and a normal line height", async () => {
+        const { element } = await setup();
+        const probe = document.createElement('div');
+        document.body.appendChild(probe);
+        probe.style.color = 'var(--sapTextColor)';
+        probe.style.fontSize = 'var(--sapFontSize)';
+        const root = getComputedStyle(element());
+        expect(root.color).toBe(getComputedStyle(probe).color);
+        expect(root.fontSize).toBe(getComputedStyle(probe).fontSize);
+        expect(root.lineHeight).toBe('normal');
+        probe.remove();
+    });
+
     it('fills the shape to the percentage with a gradient mask', async () => {
         const { host, element, stops, update } = await setup();
         expect(stops()).toEqual(['0.4', '0.4']);
@@ -237,7 +250,8 @@ describe('StatusIndicator', () => {
 
     it('status colours the shape with the element colour and the label with the text colour', async () => {
         const { host, element, label, update } = await setup();
-        expect(getComputedStyle(label()!).color).toBe(color('var(--sapContent_LabelColor)'));
+        // a neutral label takes the text colour, as fundamental-styles
+        expect(getComputedStyle(label()!).color).toBe(color('var(--sapTextColor)'));
         const colors: Record<StatusIndicatorColor, [string, string]> = {
             positive: ['--sapPositiveElementColor', '--sapPositiveTextColor'],
             critical: ['--sapCriticalElementColor', '--sapCriticalTextColor'],

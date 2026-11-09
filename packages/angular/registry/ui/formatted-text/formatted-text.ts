@@ -91,7 +91,7 @@ const TYPOGRAPHY = [
     '[&_h4]:text-sap-font-header4-size [&_h5]:text-sap-font-header5-size [&_h6]:text-sap-font-header6-size',
     '[&_strong]:font-sap-font-bold-family [&_strong]:font-bold [&_em]:italic [&_u]:underline [&_abbr]:underline [&_abbr]:decoration-dotted',
     '[&_code]:font-sap-content-monospace-font-family [&_pre]:font-sap-content-monospace-font-family',
-    '[&_a]:text-sap-link-color [&_a:hover]:underline'
+    '[&_a]:text-sap-link-color [&_a]:underline-offset-[0.125rem] [&_a:hover]:text-sap-link-hover-color [&_a:hover]:underline [&_a:focus-visible]:outline-sap'
 ].join(' ');
 
 /**

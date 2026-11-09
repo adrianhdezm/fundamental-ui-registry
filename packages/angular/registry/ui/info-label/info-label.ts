@@ -85,7 +85,8 @@ export class InfoLabel {
 
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 box-border inline-flex w-auto items-center gap-1 px-1.5 py-0 align-middle',
+            // on the baseline as in fundamental-styles (align-middle moved inline labels down)
+            'm-0 box-border inline-flex w-auto items-center gap-1 px-1.5 py-0',
             '[--il-h:1.375rem] [--il-icon:0.75rem] [--il-font:var(--sapFontSize)] h-(--il-h) rounded-[0.25rem]',
             'font-sap-font-family leading-[normal] border border-solid border-(--il-bg) bg-(--il-bg) text-(--il-c)',
             COLOR[this.validColor()],

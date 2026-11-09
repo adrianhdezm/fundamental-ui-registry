@@ -63,6 +63,33 @@ async function setup(configure?: (host: Host) => void) {
 }
 
 describe('Text', () => {
+    it('a text that starts expanded shows the Less toggle, and is measured again when it changes', async () => {
+        const { toggle, update } = await setup((h) => {
+            h.maxLines.set(2);
+            h.expandable.set(true);
+            h.collapsed.set(false);
+        });
+        expect(toggle()?.textContent?.trim()).toBe('Less');
+        // a short text while expanded: nothing to expand any more
+        await update((h) => h.text.set('Short'));
+        expect(toggle()).toBeNull();
+        // long again, still expanded
+        await update((h) => h.text.set(LONG));
+        expect(toggle()?.textContent?.trim()).toBe('Less');
+    });
+
+    it('selected text takes --sapSelectedColor with the contrast text colour, as fundamental-styles', async () => {
+        const { paragraph } = await setup();
+        const probe = document.createElement('div');
+        document.body.appendChild(probe);
+        probe.style.backgroundColor = 'var(--sapSelectedColor)';
+        probe.style.color = 'var(--sapContent_ContrastTextColor)';
+        const selection = getComputedStyle(paragraph, '::selection');
+        expect(selection.backgroundColor).toBe(getComputedStyle(probe).backgroundColor);
+        expect(selection.color).toBe(getComputedStyle(probe).color);
+        probe.remove();
+    });
+
     it('maxLines clamps the text', async () => {
         const { clamp, toggle, update } = await setup();
         const full = clamp.getBoundingClientRect().height;

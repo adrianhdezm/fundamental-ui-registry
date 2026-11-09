@@ -58,6 +58,39 @@ async function setup() {
 }
 
 describe('GenericTag', () => {
+    it('the status icon keeps a 1rem line height', async () => {
+        const fixture = TestBed.createComponent(Host);
+        fixture.componentInstance.type.set('error');
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const icon = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#tag fd-icon')!;
+        expect(getComputedStyle(icon).lineHeight).toBe('16px');
+        fixture.nativeElement.remove();
+    });
+
+    it('the pressed background rule comes after the hover rule, so a pressed (hovered) tag shows it', async () => {
+        const fixture = TestBed.createComponent(Host);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        // the rules setting --gt-bg, in the order of the generated CSS (nested and grouping rules included)
+        const order: string[] = [];
+        const walk = (rules: CSSRuleList) => {
+            for (const rule of rules) {
+                if (rule instanceof CSSStyleRule) {
+                    const value = rule.style.getPropertyValue('--gt-bg');
+                    if (value.includes('Hover_Background') || value.includes('Active_Background')) order.push(value);
+                }
+                if ('cssRules' in rule) walk((rule as CSSGroupingRule).cssRules);
+            }
+        };
+        for (const sheet of document.styleSheets) walk(sheet.cssRules);
+        const hover = order.findIndex((v) => v.includes('sapList_Hover_Background'));
+        const active = order.findLastIndex((v) => v.includes('sapList_Active_Background'));
+        expect(hover).toBeGreaterThanOrEqual(0);
+        expect(active).toBeGreaterThan(hover);
+        fixture.nativeElement.remove();
+    });
+
     it('type (error, warning, success, information) shows the status icon and colors', async () => {
         const { tag, icon, resolve, update } = await setup();
         expect(icon()).toBeNull();

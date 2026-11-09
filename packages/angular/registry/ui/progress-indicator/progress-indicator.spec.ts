@@ -74,6 +74,44 @@ async function setup() {
 }
 
 describe('ProgressIndicator', () => {
+    it('the state icon box is 18px high, as fundamental-styles', async () => {
+        const { fixture, host, root } = await setup();
+        host.state.set('positive');
+        await fixture.whenStable();
+        expect(Math.round(root.querySelector<HTMLElement>('fd-icon')!.getBoundingClientRect().height)).toBe(18);
+    });
+
+    it('the bar sits inside the track border, as wide as its share of it', async () => {
+        const { fixture, host, root, bar: track } = await setup();
+        const fill = () => root.querySelector<HTMLElement>('[role=progressbar] > div')!.getBoundingClientRect();
+        const inner = () => {
+            const t = track.getBoundingClientRect();
+            return { left: t.left + 1, width: t.width - 2 };
+        };
+        expect(fill().left).toBe(inner().left);
+        host.value.set(100);
+        await fixture.whenStable();
+        expect(fill().width).toBeCloseTo(inner().width, 1);
+        host.value.set(1);
+        await fixture.whenStable();
+        // no 10px minimum: 1% of the track
+        expect(fill().width).toBeLessThan(10);
+    });
+
+    it('the label sits 1px inside the track border and is as wide as its text', async () => {
+        const { root, bar } = await setup();
+        const label = root.querySelector<HTMLElement>('[aria-hidden=true]')!;
+        const track = bar.getBoundingClientRect();
+        expect(label.getBoundingClientRect().left - track.left).toBe(1);
+        expect(label.getBoundingClientRect().width).toBeLessThan(track.width / 2);
+    });
+
+    it('the label has a normal line height, as fundamental-styles', async () => {
+        const { root } = await setup();
+        const label = root.querySelector<HTMLElement>('[aria-hidden=true]')!;
+        expect(getComputedStyle(label).lineHeight).toBe('normal');
+    });
+
     it('is a progress bar with its value', async () => {
         const { bar, root } = await setup();
         expect(bar.getAttribute('aria-valuenow')).toBe('42');

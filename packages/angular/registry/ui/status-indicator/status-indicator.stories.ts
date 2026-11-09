@@ -1,4 +1,5 @@
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@analogjs/storybook-angular';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import { StatusIndicator } from './status-indicator';
 
 const CEREAL = [
@@ -140,7 +141,14 @@ export const Clickable: Story = {
         props: { euro: EURO, value: 20 },
         template: `
             <fd-status-indicator size="xl" status="positive" [path]="euro" viewBox="0 0 26 25" clickable focusable role="button"
-                ariaLabel="Add 20%" [statusLabel]="value + '%'" labelPosition="right" labelSize="lg" [fillPercentage]="value"
-                (click)="value = value >= 100 ? 0 : value + 20" (keydown.enter)="value = value >= 100 ? 0 : value + 20" />`
-    })
+                [ariaLabel]="value + '%, add 20%'" [statusLabel]="value + '%'" labelPosition="right" labelSize="lg" [fillPercentage]="value"
+                (click)="value = value >= 100 ? 0 : value + 20" />`
+    }),
+    // the component turns Enter into a click: one press adds 20% once
+    play: async ({ canvasElement }) => {
+        const indicator = canvasElement.querySelector<HTMLElement>('fd-status-indicator')!;
+        indicator.focus();
+        await userEvent.keyboard('{Enter}');
+        await waitFor(() => expect(indicator.textContent).toContain('40%'));
+    }
 };

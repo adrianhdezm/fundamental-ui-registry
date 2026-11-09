@@ -8,6 +8,8 @@
  */
 :root,
 [data-sap-theme='sap_horizon'] {
+    /* busy indicator dots (the contrast dots use --sapContent_ContrastIconColor, or the busy colour in HC) */
+    --fdBusy_Indicator_Dot_Color: #0070f2;
     --fdPopover_Border_Width: 0.0625rem;
     --fdPopover_Border_Color: #acb8c1;
     --fdModal_BackgroundColor: rgb(0 0 0 / 20%);
@@ -40,6 +42,8 @@
 }
 
 [data-sap-theme='sap_horizon_dark'] {
+    /* busy indicator dots (the contrast dots use --sapContent_ContrastIconColor, or the busy colour in HC) */
+    --fdBusy_Indicator_Dot_Color: #0070f2;
     --fdPopover_Border_Width: 0.0625rem;
     --fdPopover_Border_Color: #636669;
     --fdModal_BackgroundColor: rgb(0 0 0 / 20%);
@@ -71,6 +75,8 @@
 }
 
 [data-sap-theme='sap_horizon_hcb'] {
+    /* busy indicator dots (the contrast dots use --sapContent_ContrastIconColor, or the busy colour in HC) */
+    --fdBusy_Indicator_Dot_Color: var(--sapContent_BusyColor);
     --fdPopover_Border_Width: 0.1875rem;
     --fdPopover_Border_Color: #fff;
     --fdModal_BackgroundColor: rgb(0 0 0 / 30%);
@@ -103,6 +109,8 @@
 }
 
 [data-sap-theme='sap_horizon_hcw'] {
+    /* busy indicator dots (the contrast dots use --sapContent_ContrastIconColor, or the busy colour in HC) */
+    --fdBusy_Indicator_Dot_Color: var(--sapContent_BusyColor);
     --fdPopover_Border_Width: 0.1875rem;
     --fdPopover_Border_Color: #000;
     --fdModal_BackgroundColor: rgb(255 255 255 / 80%);

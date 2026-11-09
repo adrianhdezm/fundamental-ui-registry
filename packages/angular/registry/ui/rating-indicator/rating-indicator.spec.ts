@@ -53,6 +53,19 @@ async function setup(
 }
 
 describe('RatingIndicator', () => {
+    it('in high contrast the focus frame has square corners', async () => {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const { root } = await setup();
+            const frame = [...root.querySelectorAll<HTMLElement>('*')].find((el) => el.classList.contains('p-1'))!;
+            expect(getComputedStyle(frame).borderTopLeftRadius).toBe('0px');
+            document.documentElement.removeAttribute('data-sap-theme');
+            expect(getComputedStyle(frame).borderTopLeftRadius).toBe('8px');
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     it('is a slider with the rating as its value', async () => {
         const { root, slider } = await setup();
         expect(slider.getAttribute('aria-valuemin')).toBe('0');

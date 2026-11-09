@@ -68,7 +68,7 @@ export class Link {
     protected readonly computedClass = computed(() =>
         cn(
             'group/link inline-flex items-center cursor-pointer bg-transparent p-0 border-0 font-sap-font-family text-sap-font-size',
-            'leading-4 whitespace-normal break-words [overflow-wrap:break-word] no-underline',
+            'leading-4 whitespace-normal break-words [overflow-wrap:break-word] no-underline underline-offset-[0.125rem]',
             'text-sap-link-color text-shadow-sap-content-text-shadow transition-all duration-[125ms] ease-in',
             'visited:text-sap-link-visited-color hover:text-sap-link-hover-color active:text-sap-link-active-color',
             // Horizon: filled focus; high contrast: outline

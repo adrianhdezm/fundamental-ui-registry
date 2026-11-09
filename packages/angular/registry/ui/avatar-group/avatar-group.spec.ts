@@ -143,7 +143,127 @@ class ShapeHost {
     readonly shapes = ['circle', 'square'] as const;
 }
 
+@Component({
+    imports: [AvatarGroup, AvatarGroupItem, Avatar],
+    template: `
+        <div style="width: 600px">
+            <fd-avatar-group id="group" size="s" type="group">
+                @for (name of names; track name) {
+                    <fd-avatar *fdAvatarGroupItem circle size="s" [colorAccent]="2" [label]="name" />
+                }
+            </fd-avatar-group>
+        </div>
+        <div style="width: 600px">
+            <fd-avatar-group id="individual" size="s">
+                @for (name of names; track name) {
+                    <fd-avatar
+                        *fdAvatarGroupItem="details; title: name"
+                        circle
+                        size="s"
+                        [colorAccent]="2"
+                        [label]="name"
+                    />
+                }
+                <ng-template #details><div class="p-4">Details</div></ng-template>
+            </fd-avatar-group>
+        </div>
+        <span id="probe"></span>
+    `
+})
+class AccentHost {
+    readonly names = ['Ann Lee', 'Bob Ray'];
+}
+
+async function setupAccent() {
+    const fixture = TestBed.createComponent(AccentHost);
+    document.body.appendChild(fixture.nativeElement);
+    for (let i = 0; i < 3; i++) {
+        await fixture.whenStable();
+        await frame();
+    }
+    const root = fixture.nativeElement as HTMLElement;
+    const probe = root.querySelector<HTMLElement>('#probe')!;
+    return {
+        fixture,
+        root,
+        resolve: (variable: string) => {
+            probe.style.backgroundColor = `var(${variable})`;
+            return getComputedStyle(probe).backgroundColor;
+        }
+    };
+}
+
+@Component({
+    imports: [AvatarGroup, AvatarGroupItem, Avatar],
+    template: `
+        <div style="display: flex; width: 800px">
+            <fd-avatar-group size="s">
+                @for (name of names; track name) {
+                    <fd-avatar *fdAvatarGroupItem circle size="s" [label]="name" />
+                }
+            </fd-avatar-group>
+        </div>
+    `
+})
+class HugHost {
+    readonly names = ['Ann Lee', 'Bob Ray', 'Cy Doe'];
+}
+
 describe('AvatarGroup', () => {
+    it('a group that hugs its avatars (in a flex row) keeps them all', async () => {
+        const fixture = TestBed.createComponent(HugHost);
+        document.body.appendChild(fixture.nativeElement);
+        for (let i = 0; i < 8; i++) {
+            await fixture.whenStable();
+            await frame();
+        }
+        const root = fixture.nativeElement as HTMLElement;
+        expect(root.querySelectorAll('[data-avatar-group-item] fd-avatar')).toHaveLength(3);
+        expect(root.querySelector('[data-avatar-group-overflow]')).toBeNull();
+        fixture.nativeElement.remove();
+    });
+
+    it('the overflow button is an avatar with button colours, the avatar font size and as wide as its count', async () => {
+        const { overflow, root } = await setup((h) => h.max.set(2));
+        const button = overflow()!.querySelector<HTMLElement>('span')!;
+        const probe = document.createElement('span');
+        root.appendChild(probe);
+        probe.style.backgroundColor = 'var(--sapButton_Background)';
+        probe.style.color = 'var(--sapButton_TextColor)';
+        const style = getComputedStyle(button);
+        expect(style.backgroundColor).toBe(getComputedStyle(probe).backgroundColor);
+        expect(style.color).toBe(getComputedStyle(probe).color);
+        expect(style.fontWeight).toBe('400');
+        // size s: the avatars' 3rem height and 1.125rem font size, at least as wide as high
+        expect(style.fontSize).toBe('18px');
+        expect(button.getBoundingClientRect().height).toBe(48);
+        expect(button.getBoundingClientRect().width).toBeGreaterThanOrEqual(48);
+        probe.remove();
+    });
+
+    it('an individual avatar with details hovers with its own hover colours and has its focus frame 0.3125rem out', async () => {
+        const { root, resolve, fixture } = await setupAccent();
+        const trigger = root.querySelector<HTMLElement>('#individual [data-avatar-group-item] [role=button]')!;
+        const avatar = trigger.querySelector<HTMLElement>('fd-avatar')!;
+        await userEvent.hover(trigger);
+        expect(getComputedStyle(avatar).backgroundColor).toBe(resolve('--sapAvatar_2_Hover_Background'));
+        await userEvent.unhover(trigger);
+        await userEvent.keyboard('{Tab}');
+        trigger.focus();
+        expect(getComputedStyle(trigger, '::after').top).toBe('-5px');
+        fixture.nativeElement.remove();
+    });
+
+    it('a group-type group hovers each avatar with its own hover background', async () => {
+        const { root, resolve, fixture } = await setupAccent();
+        const row = root.querySelector<HTMLElement>('#group [role=button]')!;
+        await userEvent.hover(row);
+        const avatar = row.querySelector<HTMLElement>('fd-avatar')!;
+        expect(getComputedStyle(avatar).backgroundColor).toBe(resolve('--sapAvatar_2_Hover_Background'));
+        await userEvent.unhover(row);
+        fixture.nativeElement.remove();
+    });
+
     afterEach(() => document.documentElement.removeAttribute('dir'));
 
     it('shows as many avatars as fit and moves the rest into the overflow button ("+N")', async () => {
