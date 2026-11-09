@@ -811,4 +811,10 @@ describe('List styles', () => {
         expect(getComputedStyle(el('list-icon')).fontSize).toBe('32px');
         expect(getComputedStyle(el('icon')).fontSize).toBe('32px');
     });
+
+    it('a hovered link shows the list border colour at its bottom (computed style)', async () => {
+        const { el } = await render(ThumbnailHost);
+        await userEvent.hover(el('link'));
+        expect(getComputedStyle(el('link')).borderBottomColor).toBe(themed('color', 'var(--sapList_BorderColor)'));
+    });
 });

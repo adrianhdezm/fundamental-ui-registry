@@ -448,9 +448,9 @@
       "source": "../../../react/docs/parity/components/list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (ThumbnailHost): a hovered fd-list-link computes border-bottom-color rgba(0, 0, 0, 0); fundamental-styles' hovered link shows the list border colour (rgb(229, 229, 229) in Horizon).",
+      "test": "list.spec.ts › List styles › a hovered link shows the list border colour at its bottom (computed style)",
       "fix": "",
       "notes": ""
     },
