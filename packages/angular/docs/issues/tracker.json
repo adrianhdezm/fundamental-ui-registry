@@ -1735,9 +1735,9 @@
       "source": "../../../react/docs/parity/components/object-marker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "object-marker.spec.ts, a clickable marker: computed line-height 16px (the root's leading-none) instead of normal, 1–2px shorter than fundamental-styles' link markers.",
+      "test": "object-marker.spec.ts › ObjectMarker layout › a clickable marker has a normal line height, as fundamental-styles' link markers",
       "fix": "",
       "notes": ""
     },

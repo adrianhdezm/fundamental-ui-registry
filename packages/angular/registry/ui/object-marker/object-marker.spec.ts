@@ -199,6 +199,15 @@ class MarkerHost {}
 describe('ObjectMarker layout', () => {
     afterEach(() => document.documentElement.removeAttribute('dir'));
 
+    it("a clickable marker has a normal line height, as fundamental-styles' link markers", async () => {
+        const fixture = TestBed.createComponent(MarkerHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const marker = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#clickable')!;
+        expect(getComputedStyle(marker).lineHeight).toBe('normal');
+        fixture.nativeElement.remove();
+    });
+
     it('keeps a 0.25rem gap between a mirrored glyph and the label in RTL', async () => {
         document.documentElement.setAttribute('dir', 'rtl');
         const fixture = TestBed.createComponent(MarkerHost);
