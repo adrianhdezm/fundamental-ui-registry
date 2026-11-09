@@ -180,11 +180,18 @@ let nextId = 0;
                     }
                     @if (isOpen() && showFooter()) {
                         <div fd-popover-body-footer>
-                            <div fd-bar barDesign="footer" class="overflow-hidden">
+                            <!-- the popover's bottom corners and decisive (4rem) buttons, as fundamental-styles'
+                                 footer and the date picker's today footer -->
+                            <div
+                                fd-bar
+                                barDesign="footer"
+                                class="overflow-hidden rounded-b-sap-popover-border-corner-radius"
+                            >
                                 <div fd-bar-right>
                                     <fd-bar-element>
                                         <button
                                             fdButton
+                                            decisive
                                             variant="emphasized"
                                             [label]="labels().okLabel"
                                             [disabled]="!tempDate()"
@@ -194,6 +201,7 @@ let nextId = 0;
                                     <fd-bar-element>
                                         <button
                                             fdButton
+                                            decisive
                                             variant="transparent"
                                             [label]="labels().cancelLabel"
                                             (click)="cancel()"

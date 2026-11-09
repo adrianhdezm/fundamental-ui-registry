@@ -178,6 +178,18 @@ describe('DatetimePicker', () => {
         expect(document.querySelector('#dt-calendar')!.closest('[role="dialog"]')).not.toBeNull();
     });
 
+    it("the footer has the popover's bottom corners and decisive (4rem) OK and Cancel buttons (computed style)", async () => {
+        const { button, stable } = await setup();
+        await userEvent.click(button);
+        await stable();
+        const ok = buttonNamed('OK');
+        const cancel = buttonNamed('Cancel');
+        const bar = ok.closest<HTMLElement>('[fd-bar]')!;
+        expect(getComputedStyle(bar).borderBottomLeftRadius).toBe('8px');
+        expect(getComputedStyle(bar).borderBottomRightRadius).toBe('8px');
+        expect([getComputedStyle(ok).minWidth, getComputedStyle(cancel).minWidth]).toEqual(['64px', '64px']);
+    });
+
     it('opens with F4', async () => {
         const { input, stable } = await setup();
         input.focus();

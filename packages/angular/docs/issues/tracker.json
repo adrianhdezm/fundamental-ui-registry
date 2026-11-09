@@ -2145,9 +2145,9 @@
       "source": "../../../react/docs/parity/components/datetime-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host, open the popover: the footer bar computes border-bottom-*-radius 0px (fundamental-styles: the popover's 8px, 4px in HC) and the OK and Cancel buttons min-width auto (fundamental-styles' footer buttons: 4rem).",
+      "test": "datetime-picker.spec.ts › DatetimePicker › the footer has the popover's bottom corners and decisive (4rem) OK and Cancel buttons (computed style)",
       "fix": "",
       "notes": ""
     },
