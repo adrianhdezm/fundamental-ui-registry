@@ -75,7 +75,9 @@
           "target": "src/styles/themes/sap_horizon_hcw.css"
         }
       ],
-      "css": { "@import \"./styles/fundamental.css\"": {} },
+      "css": {
+        "@import \"./styles/fundamental.css\"": {}
+      },
       "dependencies": ["@angular/cdk"]
     },
     {
@@ -1172,6 +1174,7 @@
         "button",
         "dialog",
         "icon",
+        "input-group",
         "input",
         "link",
         "list",
@@ -1212,6 +1215,7 @@
         "button",
         "dialog",
         "icon",
+        "input-group",
         "input",
         "list",
         "popover",

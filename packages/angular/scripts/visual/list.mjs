@@ -28,7 +28,9 @@ export default [
     {
         label: 'byline unread dot',
         ours: { story: 'components-list--byline-unread', selector: '[fd-list-item] > fd-icon >> nth=0' },
-        ref: { story: `${FS}list-byline--unread-notification`, selector: `${refItem(1)} .fd-list__notification` }
+        // fundamental-styles' first unread item is also selected (is-selected): its dot sits on the selection
+        // background, which differs from the list background in the HC themes. The second is unread only, as ours
+        ref: { story: `${FS}list-byline--unread-notification`, selector: `${refItem(2)} .fd-list__notification` }
     },
     {
         // the thumbnail's icon at 2rem (list-2); another glyph than fundamental-styles' avatar, so by computed style
