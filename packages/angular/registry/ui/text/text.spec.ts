@@ -63,6 +63,18 @@ async function setup(configure?: (host: Host) => void) {
 }
 
 describe('Text', () => {
+    it('selected text takes --sapSelectedColor with the contrast text colour, as fundamental-styles', async () => {
+        const { paragraph } = await setup();
+        const probe = document.createElement('div');
+        document.body.appendChild(probe);
+        probe.style.backgroundColor = 'var(--sapSelectedColor)';
+        probe.style.color = 'var(--sapContent_ContrastTextColor)';
+        const selection = getComputedStyle(paragraph, '::selection');
+        expect(selection.backgroundColor).toBe(getComputedStyle(probe).backgroundColor);
+        expect(selection.color).toBe(getComputedStyle(probe).color);
+        probe.remove();
+    });
+
     it('maxLines clamps the text', async () => {
         const { clamp, toggle, update } = await setup();
         const full = clamp.getBoundingClientRect().height;

@@ -570,12 +570,12 @@ None.
 
 #### text
 
-[React report](../../../react/docs/parity/components/text.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/text.md) · ⬜ reported: 1 · 🧪 covered: 1
 
-| ID     | Issue                                                                                                                                      | Kind      | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------ | --------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| text-1 | Selected text is invisible in Horizon and Dark: the text uses `--sapContent_Selected_Background`, fundamental-styles `--sapSelectedColor`. | visual    | rendered  |         | ⬜ reported |      |     |       |
-| text-2 | A text that starts expanded shows no Less toggle, and a text that changes while expanded is not measured again.                            | behaviour | rendered  |         | ⬜ reported |      |     |       |
+| ID     | Issue                                                                                                                                      | Kind      | Confirmed | Pattern | Status      | Test                                                                                                              | Fix | Notes |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------ | --------- | --------- | ------- | ----------- | ----------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| text-1 | Selected text is invisible in Horizon and Dark: the text uses `--sapContent_Selected_Background`, fundamental-styles `--sapSelectedColor`. | visual    | rendered  |         | 🧪 covered  | text.spec.ts › Text › selected text takes --sapSelectedColor with the contrast text colour, as fundamental-styles |     |       |
+| text-2 | A text that starts expanded shows no Less toggle, and a text that changes while expanded is not measured again.                            | behaviour | rendered  |         | ⬜ reported |                                                                                                                   |     |       |
 
 #### panel
 

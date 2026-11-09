@@ -1868,9 +1868,9 @@
       "source": "../../../react/docs/parity/components/text.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "text.spec.ts: the paragraph's ::selection background is --sapContent_Selected_Background (white in Horizon, #1d232a in Dark), the same as the page, so selected text in the contrast colour is invisible; fundamental-styles uses --sapSelectedColor.",
+      "test": "text.spec.ts › Text › selected text takes --sapSelectedColor with the contrast text colour, as fundamental-styles",
       "fix": "",
       "notes": ""
     },
