@@ -355,7 +355,7 @@ export class TimeColumn<T = unknown> {
     /** The selected value; the column's focus shows on it. */
     protected readonly currentClass = cn(
         ITEM,
-        'cursor-default border-sap-list-selection-border-color bg-sap-list-background hover:bg-sap-list-hover-background',
+        'cursor-default border-sap-list-selection-border-color bg-sap-legend-working-background hover:bg-sap-list-hover-background',
         'group-focus-visible/col:outline-(length:--sapContent_FocusWidth) group-focus-visible/col:[outline-style:var(--sapContent_FocusStyle)] group-focus-visible/col:-outline-offset-[0.1875rem] group-focus-visible/col:outline-sap-content-focus-color'
     );
 }

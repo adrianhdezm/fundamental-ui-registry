@@ -905,9 +905,9 @@
       "source": "../../../react/docs/parity/components/time.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host in sap_horizon_hcb / sap_horizon_hcw: the selected value of the active column computes background rgb(0, 0, 0) / rgb(255, 255, 255) (--sapList_Background); fundamental-styles' Time stories show the working background, #2e2e2e / #d9d9d9.",
+      "test": "time.spec.ts › Time › styles › the selected value has the working background in HC, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },
