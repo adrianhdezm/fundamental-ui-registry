@@ -1630,11 +1630,11 @@
       "source": "../../../react/docs/parity/components/inline-help.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "Spec: <button fdButton label=\"Click me\" fdInlineHelp=\"Explains the action\"> is named \"Click me Explains the action\" (the off-screen copy is inside the button); a <label>Name <span fdInlineHelp=\"Your full name\">?</span></label> reads \"Name ? Your full name\".",
       "test": "InlineHelp › the help text describes a button trigger and adds nothing to its name or to a label around it",
-      "fix": "",
-      "notes": ""
+      "fix": "22f6d86",
+      "notes": "Verified: the test fails before the fix and passes after; the spec of the copy (now hidden, next to the trigger) is updated; pnpm angular check passes."
     },
     {
       "id": "inline-help-2",
