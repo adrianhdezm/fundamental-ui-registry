@@ -444,7 +444,6 @@ export class TreeItem<T = unknown> {
                 'cursor-pointer hover:bg-sap-list-hover-background active:border-sap-list-active-background active:bg-sap-list-active-background',
                 selected && 'hover:bg-sap-list-hover-selection-background'
             ],
-            this.wrapContent() && 'py-1',
             this.state() && HIGHLIGHT[this.state() as TreeItemState],
             this.userClass()
         );

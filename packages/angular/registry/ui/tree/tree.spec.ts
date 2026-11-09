@@ -419,3 +419,23 @@ describe('Tree', () => {
         });
     });
 });
+
+@Component({
+    imports: [Tree, TreeItem, TreeItemText],
+    template: `
+        <fd-tree ariaLabel="Wrap" style="width: 200px">
+            <fd-tree-item value="W" wrapContent
+                ><span fdTreeItemText>A long item text that wraps over two lines at least</span></fd-tree-item
+            >
+        </fd-tree>
+    `
+})
+class WrapHost {}
+
+describe('Tree styles', () => {
+    it('wrapping items have no extra block padding (computed style)', async () => {
+        const { rows } = await render(WrapHost);
+        const style = getComputedStyle(rows()[0]);
+        expect([style.paddingTop, style.paddingBottom]).toEqual(['0px', '0px']);
+    });
+});

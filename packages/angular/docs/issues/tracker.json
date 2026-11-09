@@ -514,9 +514,9 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (WrapHost): an item with wrapContent computes padding-top and -bottom 4px (py-1), so wrapping rows are 8px taller; fundamental-styles pads only rows of an fd-tree--wrap tree, not an item's fd-tree__content--wrap.",
+      "test": "tree.spec.ts › Tree styles › wrapping items have no extra block padding (computed style)",
       "fix": "",
       "notes": ""
     },
