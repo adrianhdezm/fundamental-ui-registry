@@ -4,7 +4,7 @@ import { moduleMetadata, type Meta, type StoryObj } from '@analogjs/storybook-an
 import { DatetimeAdapter, FdDate } from '@/lib/datetime';
 import { Button } from '@/ui/button/button';
 import { Title } from '@/ui/title/title';
-import { Time } from './time';
+import { TIME_LABELS, Time, type FdTimeActiveView } from './time';
 
 const heading = 'mt-6 mb-2 first:mt-0';
 const value = 'font-sap-font-family text-sap-font-size text-sap-text-color';
@@ -106,12 +106,56 @@ class StoryTimeReactiveForm {
     protected readonly form = new FormGroup({ time: new FormControl<FdDate | null>(null) });
 }
 
+/** 04:25:10 as fundamental-styles' Default and Tablet stories, for the visual comparison (scripts/visual/time.mjs). */
+@Component({
+    selector: 'story-time-reference',
+    imports: [Time],
+    template: `
+        @for (row of rows; track row.label) {
+            <div class="flex flex-wrap items-start justify-around" role="group" [attr.aria-label]="row.label">
+                @for (view of views; track $index) {
+                    <div role="group" [attr.aria-label]="row.label + ' ' + ($index + 1)">
+                        <fd-time
+                            keepTwoDigits
+                            [tablet]="row.tablet"
+                            [displaySeconds]="view.seconds"
+                            [meridian]="view.meridian"
+                            [activeView]="view.view"
+                            [time]="time"
+                            [labels]="labels"
+                        />
+                    </div>
+                }
+            </div>
+        }
+    `
+})
+class StoryTimeReference {
+    protected readonly time = new FdDate(2024, 3, 9, 4, 25, 10);
+    protected readonly labels = { period: { ...TIME_LABELS.period, label: 'AM/PM' } };
+    protected readonly rows = [
+        { label: 'Default', tablet: false },
+        { label: 'Tablet', tablet: true }
+    ];
+    protected readonly views: { view: FdTimeActiveView; seconds: boolean; meridian: boolean }[] = [
+        { view: 'hour', seconds: false, meridian: false },
+        { view: 'hour', seconds: true, meridian: false },
+        { view: 'meridian', seconds: true, meridian: true }
+    ];
+}
+
 const meta: Meta<Time<FdDate>> = {
     title: 'Components/Time',
     component: Time,
     decorators: [
         moduleMetadata({
-            imports: [StoryTimeBasic, StoryTimeOptions, StoryTimeProgrammatic, StoryTimeReactiveForm]
+            imports: [
+                StoryTimeBasic,
+                StoryTimeOptions,
+                StoryTimeProgrammatic,
+                StoryTimeReactiveForm,
+                StoryTimeReference
+            ]
         })
     ],
     parameters: {
@@ -131,3 +175,14 @@ export const Basic: Story = { render: () => ({ template: `<story-time-basic />` 
 export const Options: Story = { render: () => ({ template: `<story-time-options />` }) };
 export const Programmatic: Story = { render: () => ({ template: `<story-time-programmatic />` }) };
 export const ReactiveForm: Story = { render: () => ({ template: `<story-time-reactive-form />` }) };
+export const Reference: Story = {
+    name: 'Default and tablet (fundamental-styles reference)',
+    parameters: {
+        docs: {
+            description: {
+                story: "04:25:10 as fundamental-styles' Default and Tablet stories: hours active without and with seconds, and the period active. For the visual comparison."
+            }
+        }
+    },
+    render: () => ({ template: `<story-time-reference />` })
+};

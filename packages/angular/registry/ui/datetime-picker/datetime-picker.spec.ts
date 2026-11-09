@@ -178,6 +178,18 @@ describe('DatetimePicker', () => {
         expect(document.querySelector('#dt-calendar')!.closest('[role="dialog"]')).not.toBeNull();
     });
 
+    it("the footer has the popover's bottom corners and decisive (4rem) OK and Cancel buttons (computed style)", async () => {
+        const { button, stable } = await setup();
+        await userEvent.click(button);
+        await stable();
+        const ok = buttonNamed('OK');
+        const cancel = buttonNamed('Cancel');
+        const bar = ok.closest<HTMLElement>('[fd-bar]')!;
+        expect(getComputedStyle(bar).borderBottomLeftRadius).toBe('8px');
+        expect(getComputedStyle(bar).borderBottomRightRadius).toBe('8px');
+        expect([getComputedStyle(ok).minWidth, getComputedStyle(cancel).minWidth]).toEqual(['64px', '64px']);
+    });
+
     it('opens with F4', async () => {
         const { input, stable } = await setup();
         input.focus();
@@ -220,6 +232,24 @@ describe('DatetimePicker mobile', () => {
         await stable();
         expect(fixture.componentInstance.date()!.day).toBe(11);
         expect(document.querySelector('#dt-calendar')).toBeNull();
+    });
+});
+
+describe('DatetimePicker mobile portrait', () => {
+    it("shows the calendar in its full-width portrait layout, as fundamental-styles' Mobile Portrait", async () => {
+        const fixture = TestBed.createComponent(MobileHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        await userEvent.click((fixture.nativeElement as HTMLElement).querySelector('input')!);
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        const calendar = document.querySelector<HTMLElement>('#dt-calendar')!;
+        const body = calendar.parentElement!;
+        // the calendar spans its row in the dialog (not the 18rem desktop calendar)
+        expect(calendar.getBoundingClientRect().width).toBeCloseTo(body.getBoundingClientRect().width, 0);
+        expect(calendar.getBoundingClientRect().width).toBeGreaterThan(18 * 16 + 1);
+        await userEvent.keyboard('{Escape}');
+        await fixture.whenStable();
     });
 });
 
