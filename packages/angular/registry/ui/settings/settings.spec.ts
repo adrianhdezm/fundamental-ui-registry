@@ -4,6 +4,8 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { List, ListItem, ListLink, ListTitle } from '@/ui/list/list';
 import {
+    SettingsProfileCard,
+    SettingsProfileCardName,
     SettingsContainer,
     SettingsContent,
     SettingsListArea,
@@ -177,5 +179,23 @@ describe('SettingsContainer', () => {
         expect(title()).toBe('User Account');
         expect(root.querySelector('.account')).not.toBeNull();
         expect(back()).toBeNull();
+    });
+});
+
+@Component({
+    imports: [SettingsProfileCard, SettingsProfileCardName],
+    template: `<div fdSettingsProfileCard><div fdSettingsProfileCardName id="name">Jane Doe</div></div>`
+})
+class ProfileHost {}
+
+describe('SettingsProfileCard', () => {
+    it("the name uses fundamental-styles' 72 Bold with a normal line height (computed style)", async () => {
+        const fixture = TestBed.createComponent(ProfileHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const name = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#name')!;
+        const style = getComputedStyle(name);
+        expect(style.fontFamily.split(',')[0].replace(/["']/g, '').trim()).toBe('72-Bold');
+        expect(style.lineHeight).toBe('normal');
     });
 });

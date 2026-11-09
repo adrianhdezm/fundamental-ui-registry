@@ -2896,9 +2896,9 @@
       "source": "../../../react/docs/parity/components/settings.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (ProfileHost): the profile card name computes font-family 72-SemiboldDuplex and line-height 22.4px (1.4rem); fundamental-styles' name is 72 Bold with a normal line height.",
+      "test": "settings.spec.ts › SettingsProfileCard › the name uses fundamental-styles' 72 Bold with a normal line height (computed style)",
       "fix": "",
       "notes": ""
     },

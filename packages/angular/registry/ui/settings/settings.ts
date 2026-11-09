@@ -195,7 +195,7 @@ export class SettingsProfileCard {}
 @Directive({
     selector: '[fd-settings-profile-card-name], [fdSettingsProfileCardName]',
     host: {
-        class: 'm-0 mt-1 box-border p-0 font-sap-font-semibold-duplex-family text-sap-font-large-size leading-[1.4rem] break-all whitespace-normal text-sap-text-color'
+        class: 'm-0 mt-1 box-border p-0 font-sap-font-bold-family text-sap-font-large-size leading-[normal] break-all whitespace-normal text-sap-text-color'
     }
 })
 export class SettingsProfileCardName {}

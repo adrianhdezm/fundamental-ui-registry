@@ -830,12 +830,12 @@ None.
 
 #### settings
 
-[React report](../../../react/docs/parity/components/settings.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/settings.md) · ⬜ reported: 1 · 🧪 covered: 1
 
-| ID         | Issue                                                                                                                                        | Kind   | Confirmed | Pattern                   | Status      | Test | Fix | Notes |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------------------------- | ----------- | ---- | --- | ----- |
-| settings-1 | The settings profile card name uses 72 Semibold Duplex with a 1.4rem line height; fundamental-styles uses 72 Bold with a normal line height. | visual | rendered  |                           | ⬜ reported |      |     |       |
-| settings-2 | In RTL the settings back button uses `navigation-right-arrow`, which the icon mirrors again, so it points left.                              | visual | rendered  | pattern-rtl-double-mirror | ⬜ reported |      |     |       |
+| ID         | Issue                                                                                                                                        | Kind   | Confirmed | Pattern                   | Status      | Test                                                                                                                          | Fix | Notes |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| settings-1 | The settings profile card name uses 72 Semibold Duplex with a 1.4rem line height; fundamental-styles uses 72 Bold with a normal line height. | visual | rendered  |                           | 🧪 covered  | settings.spec.ts › SettingsProfileCard › the name uses fundamental-styles' 72 Bold with a normal line height (computed style) |     |       |
+| settings-2 | In RTL the settings back button uses `navigation-right-arrow`, which the icon mirrors again, so it points left.                              | visual | rendered  | pattern-rtl-double-mirror | ⬜ reported |                                                                                                                               |     |       |
 
 #### content-density
 
