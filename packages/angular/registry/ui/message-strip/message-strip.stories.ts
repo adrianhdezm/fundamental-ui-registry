@@ -186,7 +186,7 @@ export const Links: Story = {
     render: () => ({
         template: `
             <div class="${col}">
-                <fd-message-strip type="information">An information message strip with a <a fdLink href="#">link</a></fd-message-strip>
+                <fd-message-strip type="information">An information message strip with an <a fdLink emphasized href="#">emphasized link</a></fd-message-strip>
                 <fd-message-strip indicationColor="1">Indication color 1 with a <a fdLink href="#">link</a></fd-message-strip>
                 <fd-message-strip indicationColor="1b">Indication color 1b with a <a fdLink href="#">link</a></fd-message-strip>
             </div>`
