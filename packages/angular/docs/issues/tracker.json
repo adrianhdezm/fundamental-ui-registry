@@ -2883,9 +2883,9 @@
       "source": "../../../react/docs/parity/components/notification.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: <ul fd-notification-list> with two <fd-notification>s straight inside (no group): axe-core reports aria-required-children on the ul (the directive makes it role=list, and its fd-notification children have no role). A list of groups passes (fd-notification-group is a listitem).",
+      "test": "Notification › makes notifications and groups the list items of a notification list (axe list rules)",
       "fix": "",
       "notes": ""
     },

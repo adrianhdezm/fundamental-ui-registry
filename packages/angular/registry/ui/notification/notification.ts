@@ -27,6 +27,7 @@ import {
     computed,
     contentChild,
     contentChildren,
+    effect,
     forwardRef,
     inject,
     input,
@@ -408,6 +409,12 @@ function isEditable(target: EventTarget | null, host: HTMLElement): boolean {
 })
 export class NotificationList {
     readonly ariaLabel = input('Notifications');
+    /** Notifications straight in the list (not in a group): the list items of the `role="list"`. */
+    private readonly notifications = contentChildren(forwardRef(() => Notification));
+
+    constructor() {
+        effect(() => this.notifications().forEach((n) => n.role.set('listitem')));
+    }
 }
 
 /** A notification popover body: header toolbar, message strips and the list. */

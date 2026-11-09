@@ -1,5 +1,6 @@
 import { Component, TemplateRef, inject, signal, viewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import axe from 'axe-core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { Button } from '@/ui/button/button';
@@ -202,6 +203,27 @@ class ListHost {
     readonly onKey = (_: KeyboardEvent, key: 'enter' | 'delete') => this.keys.update((k) => [...k, key]);
 }
 
+/** Notifications straight in a notification list, without groups. */
+@Component({
+    imports: [...PARTS, NotificationList],
+    template: `
+        <ul fd-notification-list>
+            @for (n of [1, 2]; track n) {
+                <fd-notification>
+                    <fd-notification-body>
+                        <fd-notification-content>
+                            <fd-notification-header
+                                ><h4 fd-notification-title>Title {{ n }}</h4></fd-notification-header
+                            >
+                        </fd-notification-content>
+                    </fd-notification-body>
+                </fd-notification>
+            }
+        </ul>
+    `
+})
+class PlainListHost {}
+
 @Component({
     imports: [...PARTS],
     template: `
@@ -225,6 +247,24 @@ class TemplateHost {
 const wait = (ms = 80) => new Promise((r) => setTimeout(r, ms));
 
 describe('Notification', () => {
+    it('makes notifications and groups the list items of a notification list (axe list rules)', async () => {
+        for (const host of [ListHost, PlainListHost]) {
+            const fixture = TestBed.createComponent(host as typeof ListHost);
+            document.body.appendChild(fixture.nativeElement);
+            await fixture.whenStable();
+            await new Promise((r) => requestAnimationFrame(r));
+            const root = fixture.nativeElement as HTMLElement;
+            const { violations } = await axe.run(root, {
+                runOnly: ['list', 'listitem', 'aria-required-children', 'aria-required-parent']
+            });
+            expect(
+                violations.map((v) => `${host.name} ${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)
+            ).toEqual([]);
+            fixture.destroy();
+            (fixture.nativeElement as HTMLElement).remove();
+        }
+    });
+
     afterEach(() => TestBed.inject(NotificationService).destroyAll());
 
     it('expands a group from its header and lists its notifications', async () => {
