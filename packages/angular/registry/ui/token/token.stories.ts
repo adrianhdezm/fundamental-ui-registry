@@ -77,10 +77,59 @@ class StoryTokenizer {
     }
 }
 
+/** fundamental-styles' token states, for the visual comparison (scripts/visual/token.mjs). */
+@Component({
+    selector: 'story-token-states',
+    imports: [Token],
+    template: `
+        <div
+            role="listbox"
+            aria-label="Token states"
+            class="grid w-80 grid-cols-[auto_auto] items-center justify-start justify-items-start gap-4"
+        >
+            <fd-token id="token-normal">tokenopolis</fd-token>
+            <fd-token id="token-selected" [selected]="true">tokenopolis</fd-token>
+            <fd-token id="token-readonly" readOnly>tokenopolis</fd-token>
+            <fd-token id="token-disabled" disabled>tokenopolis</fd-token>
+        </div>
+    `
+})
+class StoryTokenStates {}
+
+/** Empty, with tokens and read-only tokenizers, for the visual comparison. */
+@Component({
+    selector: 'story-field-states',
+    imports: [Token, Tokenizer, TokenizerInput],
+    template: `
+        <div class="flex flex-col gap-8">
+            <fd-tokenizer id="tokenizer-empty">
+                <input fdTokenizerInput aria-label="Tokenizer input" placeholder="Type Ahead" />
+            </fd-tokenizer>
+            <fd-tokenizer id="tokenizer-tokens" tokenizerLabel="Tokens">
+                <fd-token>Bibendum</fd-token>
+                <fd-token>Lorem</fd-token>
+                <fd-token>Dolor</fd-token>
+                <fd-token>Filter</fd-token>
+                <fd-token readOnly>Lorem</fd-token>
+                <input fdTokenizerInput aria-label="Tokenizer input" placeholder="Type Ahead" />
+            </fd-tokenizer>
+            <fd-tokenizer id="tokenizer-readonly" readonly tokenizerLabel="Read-only tokens">
+                <fd-token readOnly>Bibendum</fd-token>
+                <fd-token readOnly>Lorem</fd-token>
+                <fd-token readOnly>Dolor</fd-token>
+                <fd-token readOnly>Filter</fd-token>
+                <fd-token readOnly>Lorem</fd-token>
+                <input fdTokenizerInput aria-label="Read-only tokenizer input" readonly />
+            </fd-tokenizer>
+        </div>
+    `
+})
+class StoryFieldStates {}
+
 const meta: Meta<Tokenizer> = {
     title: 'Components/Token',
     component: Tokenizer,
-    decorators: [moduleMetadata({ imports: [StoryTokens, StoryCompactTokens, StoryTokenizer] })],
+    decorators: [moduleMetadata({ imports: [StoryTokens, StoryCompactTokens, StoryTokenizer, StoryTokenStates, StoryFieldStates] })],
     parameters: {
         docs: {
             description: {
@@ -117,3 +166,6 @@ export const OpenOverflow: Story = {
         await waitFor(() => expect(document.querySelector('.cdk-overlay-container [role=list] button')).not.toBeNull());
     }
 };
+
+export const States: Story = { render: () => ({ template: `<story-token-states />` }) };
+export const FieldStates: Story = { name: 'Field states', render: () => ({ template: `<story-field-states />` }) };
