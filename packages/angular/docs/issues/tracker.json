@@ -2712,9 +2712,9 @@
       "source": "../../../react/docs/parity/components/carousel.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (ResizeHost, visibleSlidesCount 1, 300px): Next shows slide 2 at translateX(-300px); after the width becomes 260px the track stays at -300px (another slide shows); after visibleSlidesCount 2 it stays at -300px instead of -150px. Only auto was moved back.",
+      "test": "carousel.spec.ts › Carousel resizing › keeps the shown slide in place when the carousel is resized; … keeps the shown slides in place when visibleSlidesCount changes",
       "fix": "",
       "notes": ""
     },
