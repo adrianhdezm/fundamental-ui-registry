@@ -80,6 +80,38 @@ export const States: Story = {
     })
 };
 
+export const ValidationStates: Story = {
+    name: 'Validation states',
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' interaction states example, for the visual comparison: unchecked, checked and a second unchecked radio (hovered in the comparison) per state."
+            }
+        }
+    },
+    render: () => ({
+        props: {
+            states: [
+                ['default', 'Default'],
+                ['success', 'Success'],
+                ['error', 'Error'],
+                ['warning', 'Warning'],
+                ['information', 'Information']
+            ]
+        },
+        template: `
+            <div class="flex flex-col">
+                @for (s of states; track s[0]) {
+                    <div class="flex flex-wrap">
+                        <fd-radio-button [name]="'vs-' + s[0]" value="a" [state]="s[0]" [ngModel]="'c'">{{ s[1] }} Radio Button</fd-radio-button>
+                        <fd-radio-button [name]="'vs-' + s[0]" value="c" [state]="s[0]" [ngModel]="'c'">{{ s[1] }} Checked Radio Button</fd-radio-button>
+                        <fd-radio-button [name]="'vs-' + s[0]" value="h" [state]="s[0]" [ngModel]="'c'">{{ s[1] }} Hover Radio Button</fd-radio-button>
+                    </div>
+                }
+            </div>`
+    })
+};
+
 export const ReactiveForms: Story = {
     name: 'Reactive form',
     render: () => {

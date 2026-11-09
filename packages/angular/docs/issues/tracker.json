@@ -170,11 +170,11 @@
       "source": "../../../react/docs/parity/components/checkbox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "checkbox.spec.ts StylesHost: the label text's computed colour is rgb(85, 107, 130) (--sapContent_LabelColor, inherited from the label) instead of --sapTextColor rgb(19, 30, 41), and its line height 16px instead of normal.",
+      "test": "Checkbox styles > shows the label text in the text colour with a normal line height (checkbox-1)",
+      "fix": "9a48d79",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the label text case matches in all 16 combinations."
     },
     {
       "id": "checkbox-2",
@@ -183,11 +183,11 @@
       "source": "../../../react/docs/parity/components/checkbox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "checkbox.spec.ts StylesHost with data-sap-theme=sap_horizon_hcb: hovered success, warning and information boxes are rgb(15, 92, 147) (--sapSelectedColor, the default state's hc: hover variable) instead of --sapField_Hover_Background.",
+      "test": "Checkbox styles > hovers a success check box with the field hover background in high contrast (checkbox-2) (also warning and information)",
+      "fix": "6c0b5f6",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the hover of every state, HC included, matches in all 16 combinations."
     },
     {
       "id": "checkbox-3",
@@ -210,11 +210,11 @@
       "source": "../../../react/docs/parity/components/input.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "input.spec.ts CompactHost (data-density=compact): a rows=3 textarea is 26px high, as the compact input: textareaBase sets h-auto but the field's compact:h-* wins in compact.",
+      "test": "Input compact (input-1) > grows compact textareas with their rows",
+      "fix": "06946d9",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the 4-row textarea is as high as fundamental-styles' in all 16 combinations (100px cozy, 90px compact; only Tailwind's transparent shadow layers differ)."
     },
     {
       "id": "layout-panel-1",
@@ -276,11 +276,11 @@
       "source": "../../../react/docs/parity/components/radio.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "radio.spec.ts StylesHost: the label text inherits the label's leading-4 (16px line height instead of normal) and --sapField_TextColor (#fff instead of #f5f6f7 in Horizon Dark).",
+      "test": "Radio styles > shows the label text in the text colour with a normal line height (radio-1)",
+      "fix": "887409f",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the text case matches in all 16 combinations."
     },
     {
       "id": "radio-2",
@@ -289,11 +289,11 @@
       "source": "../../../react/docs/parity/components/radio.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "radio.spec.ts StylesHost with data-sap-theme=sap_horizon_hcb: hovered success, warning and information circles (::before) are rgb(15, 92, 147) (--sapSelectedColor) instead of --sapField_Hover_Background.",
+      "test": "Radio styles > hovers a success radio with the field hover background in high contrast (radio-2) (also warning and information)",
+      "fix": "0e8e441",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: every state at rest, checked and hovered matches in all 16 combinations."
     },
     {
       "id": "radio-3",
@@ -315,11 +315,11 @@
       "source": "../../../react/docs/parity/components/switch.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "switch.spec.ts NamesHost (#plain): hovering the label leaves the track at --sapButton_Track_Background rgb(120, 143, 166) instead of --sapButton_Track_Hover_Background rgb(99, 125, 151): group-hover/sw: sits on the group/sw element itself and only matches descendants.",
+      "test": "Switch hover (switch-1) > changes the track colour on hover, off and on",
+      "fix": "ba3ade3",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: off, off hover, focus and text off/on with hover (whole label, pixels) match in all 16 combinations."
     },
     {
       "id": "switch-2",
@@ -346,7 +346,7 @@
       "repro": "Spec host with <fd-switch semantic>Approved</fd-switch> and <fd-switch semantic ariaLabel=\"Release\" />: getByRole(\"switch\", { name: \"Decline\", exact: true }) finds both inputs (aria-labelledby points at the state text only); <fd-switch ariaLabel=\"Wi-Fi\" /> has aria-label on the <label>, not on the input.",
       "test": "Switch › names a semantic switch by its label content or ariaLabel, then the state, with ariaLabel on the input",
       "fix": "0f269c5",
-      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check (a11y included) passes."
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check (a11y included) passes. Visual check (forms batch): the whole-label switch cases (off, hover, focus, text off and on) match fundamental-styles in all 16 combinations, so the hidden empty label span changes nothing visually."
     },
     {
       "id": "info-label-1",
@@ -748,11 +748,11 @@
       "source": "../../../react/docs/parity/components/input-group.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "input-group.spec.ts IssuesHost: the text addon button (addOnText Go, button) keeps a 1px border (transparent through INPUT_GROUP_BUTTON_VARS), so it is 2px wider than fundamental-styles' (.fd-input-group__button has border: none).",
+      "test": "InputGroup issues > draws addon buttons without a border (input-group-1)",
+      "fix": "94c64a9",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the Submit text button matches by pixels and size in all 16 combinations."
     },
     {
       "id": "input-group-2",
@@ -761,11 +761,11 @@
       "source": "../../../react/docs/parity/components/input-group.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "input-group.spec.ts IssuesHost with data-sap-theme=sap_horizon_hcb: the addon button background is transparent instead of --sapButton_Lite_Background (black in HCB): INPUT_GROUP_BUTTON_VARS sets the lite backgrounds to transparent in every theme.",
+      "test": "InputGroup issues > keeps the lite button background of addon buttons in high contrast (input-group-2)",
+      "fix": "86d2db8",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the addon button matches in all 16 combinations, HC included; on hover only Tailwind's transparent shadow layers differ outside HC (same pixels)."
     },
     {
       "id": "input-group-3",
@@ -774,11 +774,11 @@
       "source": "../../../react/docs/parity/components/input-group.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "input-group.spec.ts IssuesHost: a projected fdInputGroupInput in a [disabled]=true group stays enabled (input.disabled false).",
+      "test": "InputGroup issues > disables projected inputs with the group, unless they set disabled themselves (input-group-3)",
+      "fix": "f55b698",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; behaviour only."
     },
     {
       "id": "input-group-4",
@@ -800,11 +800,11 @@
       "source": "../../../react/docs/parity/components/form.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "form.spec.ts IssuesHost with data-sap-theme=sap_horizon_hcb: the form header shadow line is 3px (hc:[--hdr-bw:calc(var(--sapList_BorderWidth)*3)], plus Tailwind's transparent ring layers) and the group header border 1px (border-b); fundamental-styles uses --sapGroup_TitleBorderWidth, 2px in HC, for both.",
+      "test": "Form issues > draws 2px header and group header lines in high contrast (form-1)",
+      "fix": "2df25a9",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the form header and group header lines match in all 16 combinations."
     },
     {
       "id": "form-2",
@@ -813,11 +813,11 @@
       "source": "../../../react/docs/parity/components/form.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "form.spec.ts IssuesHost: a static 'Short' message in a 30rem block is 352px wide (its max-w-[22rem]): w-auto on a flex box still fills a block container.",
+      "test": "Form issues > makes static messages as wide as their text (form-2)",
+      "fix": "766ec71",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the static message has fundamental-styles' width and pixels in all 16 combinations (only Tailwind's transparent shadow layers differ)."
     },
     {
       "id": "menu-1",
@@ -931,11 +931,11 @@
       "source": "../../../react/docs/parity/components/step-input.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "step-input.spec.ts StatesHost with data-sap-theme=sap_horizon_hcb: the error and warning fields' hc:italic hc:font-bold (fieldStates) are inherited by the input and the buttons, which are italic and bold, so the field is wider.",
+      "test": "StepInput states > keeps the value and buttons regular in high contrast error and warning fields (step-input-1)",
+      "fix": "603b3af",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: HC cozy error and warning fields match (same width); compact semantic buttons are 32px against fundamental-styles' 36px in every theme, a fundamental-styles bug kept as in React."
     },
     {
       "id": "step-input-2",
@@ -944,11 +944,11 @@
       "source": "../../../react/docs/parity/components/step-input.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "step-input.spec.ts StatesHost: focusing the error field's input replaces its state shadow (has-[input:focus]:shadow-none for every state), its buttons keep the field text colour instead of --sapButton_Reject_Selected_TextColor, and in HC they have no active background.",
+      "test": "StepInput states > keeps the state shadow and colours the buttons of a focused state field (step-input-2)",
+      "fix": "94aeeac",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: focused state fields keep their state shadow in Horizon and Dark (pixels match); in HC fundamental-styles' lite-background buttons paint over its own focus outline (about 10% of pixels), kept as in React."
     },
     {
       "id": "select-1",
@@ -2766,11 +2766,11 @@
       "source": "../../../react/docs/parity/components/file-uploader.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "file-uploader.spec.ts IssuesHost: a cozy uploader is 36px high instead of fundamental-styles' 44px: the field's my-0 removes the cozy my-1 of fieldBase (compact:my-[0.1875rem] stays).",
+      "test": "FileUploader issues > keeps the cozy field margins, 44px high (file-uploader-1)",
+      "fix": "bd89acb",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the uploader is 44px high in cozy in all 16 combinations (the width differs with the story only)."
     },
     {
       "id": "file-uploader-2",
@@ -2779,11 +2779,11 @@
       "source": "../../../react/docs/parity/components/file-uploader.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "file-uploader.spec.ts IssuesHost: a dragover on a disabled uploader's drop zone is cancelled (defaultPrevented true), so the drop is accepted and then ignored without preventDefault and the browser opens the file.",
+      "test": "FileUploader issues > is no drop target while disabled (file-uploader-2)",
+      "fix": "80abb67",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; behaviour only."
     },
     {
       "id": "upload-collection-1",
@@ -2792,11 +2792,11 @@
       "source": "../../../react/docs/parity/components/upload-collection.md",
       "kind": "visual",
       "confirmed": "read from the code",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "The React report says this was seen in the React port with the same classes, not checked in Angular itself: treated as read from the code."
+      "status": "verified",
+      "repro": "Reproduced in Angular: upload-collection.spec.ts IssuesHost, an a[fdLink][fd-list-title][fd-upload-collection-title]: its computed colour is rgb(9, 66, 133) instead of --sapLinkColor rgb(0, 100, 217); the list title's colour and line height win over the link's (each directive binds its own class string).",
+      "test": "UploadCollection issues > shows a link title in the link colour on a 1rem line (upload-collection-1)",
+      "fix": "77b04a8",
+      "notes": "The React report says this was seen in the React port with the same classes, not checked in Angular itself: treated as read from the code. Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: colour and line height match in all 16 combinations; the cozy font size stays 14px against 16px (the link's size wins over the list title's; a fix needs the link's transition-all handled, left open as a note)."
     },
     {
       "id": "upload-collection-2",
@@ -2805,11 +2805,11 @@
       "source": "../../../react/docs/parity/components/upload-collection.md",
       "kind": "visual",
       "confirmed": "read from the code",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Reproduced in Angular: upload-collection.spec.ts IssuesHost: the title link's computed pointer-events is none (inherited from the list content), and so is the rename field's after Edit.",
+      "test": "UploadCollection issues > keeps the title link and the rename field interactive (upload-collection-2)",
+      "fix": "ca97562",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; behaviour (pointer events) only."
     },
     {
       "id": "upload-collection-3",
@@ -2818,11 +2818,11 @@
       "source": "../../../react/docs/parity/components/upload-collection.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "upload-collection.spec.ts IssuesHost: the edit and delete button group is 74px wide (flex with gap-0.5) instead of fundamental-styles' 80px (inline buttons, each with a 0.125rem start margin, a space between them).",
+      "test": "UploadCollection issues > spaces the buttons as fundamental-styles (upload-collection-3)",
+      "fix": "1ad63dd",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: the button group, its hovered edit button and the small layout match in all 16 combinations."
     },
     {
       "id": "upload-collection-4",
@@ -2831,11 +2831,11 @@
       "source": "../../../react/docs/parity/components/upload-collection.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "upload-collection.spec.ts IssuesHost: the separator span's computed line height is 14px (leading-none on the span); fundamental-styles sets it on the bullet (::before) and the span keeps the 16px line.",
+      "test": "UploadCollection issues > puts the separator line height on its bullet (upload-collection-4)",
+      "fix": "128bb30",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; computed only, covered by the spec."
     },
     {
       "id": "upload-collection-5",
@@ -2844,11 +2844,11 @@
       "source": "../../../react/docs/parity/components/upload-collection.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "upload-collection.spec.ts IssuesHost: the status group's computed colour is the text colour rgb(19, 30, 41) instead of --sapContent_LabelColor.",
+      "test": "UploadCollection issues > gives the status group the label colour (upload-collection-5)",
+      "fix": "d977e24",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; computed only, covered by the spec."
     },
     {
       "id": "upload-collection-6",
@@ -2857,11 +2857,11 @@
       "source": "../../../react/docs/parity/components/upload-collection.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "upload-collection.spec.ts IssuesHost at 420px with a favorite marker: the long name is not shortened in the middle (no '...'), only cut at the end by the ellipsis: fit() only checks whether the title is as wide as its container.",
+      "test": "UploadCollection issues > shortens a long name next to a marker in the middle (upload-collection-6)",
+      "fix": "6501908",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; spec only: fundamental-styles has no long name with a marker example."
     },
     {
       "id": "notification-1",

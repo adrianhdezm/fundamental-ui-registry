@@ -13,6 +13,7 @@ import {
     booleanAttribute,
     computed,
     contentChild,
+    effect,
     forwardRef,
     inject,
     input,
@@ -46,11 +47,14 @@ export const STATE_BUTTON_VARS: Record<FormState, string> = {
  * corner radius, a hover shadow and a selected icon colour while pressed.
  */
 export const INPUT_GROUP_BUTTON_VARS = [
-    '[--sapButton_Lite_Background:transparent] [--sapButton_Lite_Hover_Background:transparent] [--sapButton_Lite_Active_Background:transparent]',
+    // high contrast keeps the lite button backgrounds, as fundamental-styles
+    'not-hc:[--sapButton_Lite_Background:transparent] not-hc:[--sapButton_Lite_Hover_Background:transparent] not-hc:[--sapButton_Lite_Active_Background:transparent]',
     '[--sapButton_Lite_BorderColor:transparent] [--sapButton_Lite_Hover_BorderColor:transparent] [--sapButton_Lite_Active_BorderColor:transparent]',
     '[--sapButton_Lite_TextColor:var(--sapField_TextColor)] [--sapButton_Lite_Hover_TextColor:var(--sapField_TextColor)]',
     '[--sapButton_Active_TextColor:var(--igBtnFocusColor,var(--sapButton_Selected_TextColor))]',
     '[--sapButton_BorderCornerRadius:var(--sapField_BorderCornerRadius)]',
+    // no button border, as fundamental-styles' .fd-input-group__button (border: none)
+    '[&_button]:border-0',
     '[&_button:hover:not(:disabled)]:[box-shadow:var(--igBtnShadow,var(--sapField_Hover_Shadow))] [&_button:active]:[box-shadow:var(--igBtnShadow,var(--sapField_Hover_Shadow))]'
 ].join(' ');
 
@@ -213,7 +217,7 @@ export class InputGroup implements ControlValueAccessor {
     protected readonly addOnId = `fd-input-group-addon-${nextId}`;
     protected readonly addOnButtonId = `fd-input-group-button-${nextId}`;
 
-    protected readonly disabledState = linkedSignal(() => this.disabled());
+    readonly disabledState = linkedSignal(() => this.disabled());
 
     /** The text or icon addon describes the input, e.g. "$": only while the group renders it (no projected addon). */
     protected readonly describedBy = computed(
@@ -300,6 +304,26 @@ export class InputGroup implements ControlValueAccessor {
 })
 export class InputGroupInput {
     readonly elementRef = inject<ElementRef<HTMLInputElement | HTMLTextAreaElement>>(ElementRef);
+    /** Disables the input; without it the input follows the group's disabled state. */
+    readonly disabled = input<boolean | undefined, unknown>(undefined, {
+        transform: (value: unknown) => (value === undefined || value === null ? undefined : booleanAttribute(value))
+    });
+    private readonly group = inject(
+        forwardRef(() => InputGroup),
+        { optional: true }
+    );
+    protected readonly disabledState = computed(() => this.disabled() ?? this.group?.disabledState() ?? false);
+
+    constructor() {
+        // written only when it disables or undoes its own disabling, so a form control's disabled state is kept
+        let applied = false;
+        effect(() => {
+            const disabled = this.disabledState();
+            if (!disabled && !applied && this.disabled() === undefined) return;
+            this.elementRef.nativeElement.disabled = disabled;
+            applied = disabled;
+        });
+    }
     readonly userClass = input<ClassValue>('', { alias: 'class' });
     protected readonly computedClass = computed(() =>
         cn(

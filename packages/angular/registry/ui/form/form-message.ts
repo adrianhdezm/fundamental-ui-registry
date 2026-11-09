@@ -92,7 +92,7 @@ export class FormMessage {
             'hc:[box-shadow:none] hc:rounded-none hc:border-solid hc:border-[calc(var(--sapField_BorderWidth)*2)] hc:border-sap-field-border-color',
             'before:block before:self-start before:me-1.5 before:font-sap-content-icon-font-family before:text-[1rem] before:content-[attr(data-glyph)]',
             TYPE[this.type()].class,
-            this.static() && 'w-auto',
+            this.static() && 'w-fit',
             this.embedded() && '[box-shadow:none] max-w-full',
             this.userClass()
         )

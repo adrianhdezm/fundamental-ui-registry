@@ -215,3 +215,27 @@ describe('Input', () => {
         expect(input.getBoundingClientRect().height).toBe(26);
     });
 });
+
+@Component({
+    imports: [FormControl],
+    template: `
+        <div data-density="compact">
+            <input fdFormControl id="compact-input" aria-label="Compact input" />
+            <textarea fdFormControl id="compact-area" aria-label="Compact area" rows="3"></textarea>
+        </div>
+    `
+})
+class CompactHost {}
+
+describe('Input compact (input-1)', () => {
+    it('grows compact textareas with their rows', async () => {
+        const fixture = TestBed.createComponent(CompactHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const input = root.querySelector<HTMLElement>('#compact-input')!.getBoundingClientRect().height;
+        const area = root.querySelector<HTMLElement>('#compact-area')!.getBoundingClientRect().height;
+        expect(input).toBe(26);
+        expect(area).toBeGreaterThan(50);
+    });
+});

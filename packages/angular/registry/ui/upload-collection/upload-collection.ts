@@ -162,7 +162,9 @@ export class UploadCollectionTitleContainer {
         '[style.display]': 'item?.editMode() ? "none" : null',
         // a shortened name keeps the full name as its tooltip
         '[attr.title]': 'item?.fullName() ?? null',
-        class: 'me-2 min-w-0 flex-none shrink'
+        // a link title keeps the link colour and its 1rem line over the list title's (fundamental-styles)
+        // a link title stays interactive (the list title and content are pointer-events-none)
+        class: 'me-2 min-w-0 flex-none shrink [a&]:pointer-events-auto [a&]:text-sap-link-color [a&]:leading-4'
     }
 })
 export class UploadCollectionTitle {
@@ -197,7 +199,11 @@ export class UploadCollectionTitle {
         if (!container || !container.clientWidth) return;
         let text = name;
         let guard = 50;
-        while (this.el.getBoundingClientRect().width * 1.05 >= container.getBoundingClientRect().width && guard-- > 0) {
+        // as wide as its container, or shrunk next to markers and cut by its ellipsis
+        const tooLong = () =>
+            this.el.getBoundingClientRect().width * 1.05 >= container.getBoundingClientRect().width ||
+            this.el.scrollWidth > this.el.clientWidth;
+        while (tooLong() && guard-- > 0) {
             const keep = Math.floor(text.length * 0.8);
             if (keep < 4) break;
             const left = Math.floor(keep / 2);
@@ -222,7 +228,8 @@ export class UploadCollectionDescription {}
         '[fd-upload-collection-text-separator], fd-upload-collection-text-separator, [fdUploadCollectionTextSeparator]',
     host: {
         'aria-hidden': 'true',
-        class: "m-0 p-0 leading-none text-sap-content-label-color before:content-['•']"
+        // the bullet has the 1em line height (fundamental-styles), the separator keeps the line of its row
+        class: "m-0 p-0 text-sap-content-label-color before:leading-none before:content-['•']"
     }
 })
 export class UploadCollectionTextSeparator {}
@@ -230,7 +237,9 @@ export class UploadCollectionTextSeparator {}
 /** Statuses of a file, e.g. upload state and approval. */
 @Directive({
     selector: '[fd-upload-collection-status-group], [fdUploadCollectionStatusGroup]',
-    host: { class: 'm-0 mt-1.5 box-border flex min-w-0 items-center truncate p-0 text-sap-font-size leading-4' }
+    host: {
+        class: 'm-0 mt-1.5 box-border flex min-w-0 items-center truncate p-0 text-sap-font-size leading-4 text-sap-content-label-color'
+    }
 })
 export class UploadCollectionStatusGroup {}
 
@@ -258,7 +267,7 @@ export class UploadCollectionStatusItem {}
                 fdFormControl
                 type="text"
                 required
-                class="w-3/5 [[data-small]_&]:w-3/4"
+                class="pointer-events-auto w-3/5 [[data-small]_&]:w-3/4"
                 [attr.aria-label]="ariaLabel()"
                 [placeholder]="placeholder()"
                 [value]="item.draftName()"
@@ -317,7 +326,8 @@ export class UploadCollectionFormItem implements ControlValueAccessor {
     imports: [Button],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'm-0 box-border flex shrink-0 items-center gap-0.5 p-0 ms-4 [[data-small]_&]:ms-0 [[data-small]_&]:mt-3 [[data-small]_&]:basis-full [[data-small]_&]:gap-2'
+        // as fundamental-styles: inline buttons, each with a 0.125rem start margin and a space between them
+        class: 'm-0 ms-4 box-border block shrink-0 p-0 font-sap-font-family text-sap-font-size leading-[normal] whitespace-nowrap [&>button]:ms-0.5 [[data-small]_&]:ms-0 [[data-small]_&]:mt-3 [[data-small]_&]:basis-full [[data-small]_&]:[&>button:not(:first-child)]:ms-2'
     },
     template: `
         @if (!item?.editMode()) {
@@ -330,6 +340,9 @@ export class UploadCollectionFormItem implements ControlValueAccessor {
                     [disabled]="disableFileNameEdit()"
                     (click)="$event.stopPropagation(); edit()"
                 ></button>
+            }
+            @if (allowFileNameEdit() && allowFileDeletion()) {
+                &ngsp;
             }
             @if (allowFileDeletion()) {
                 <button
@@ -349,6 +362,7 @@ export class UploadCollectionFormItem implements ControlValueAccessor {
                 [disabled]="!item.draftName().trim()"
                 (click)="$event.stopPropagation(); ok()"
             ></button>
+            &ngsp;
             <button
                 fdButton
                 variant="transparent"

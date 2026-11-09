@@ -415,3 +415,72 @@ describe('StepInput forms disabled', () => {
         expect(decrement.disabled).toBe(false);
     });
 });
+
+@Component({
+    imports: [StepInput],
+    template: `
+        <fd-step-input id="plain" ariaLabel="Plain" [value]="5" />
+        <fd-step-input id="error" ariaLabel="Error" state="error" [value]="5" />
+        <fd-step-input id="warning" ariaLabel="Warning" state="warning" [value]="5" />
+    `
+})
+class StatesHost {}
+
+describe('StepInput states', () => {
+    async function render() {
+        const fixture = TestBed.createComponent(StatesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const field = (id: string) => root.querySelector<HTMLElement>(`#${id} > div`)!;
+        return { root, field };
+    }
+    const themed = (value: string) => {
+        const probe = document.createElement('div');
+        probe.style.color = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe).color;
+        probe.remove();
+        return computed;
+    };
+
+    it('keeps the value and buttons regular in high contrast error and warning fields (step-input-1)', async () => {
+        const { field } = await render();
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            for (const id of ['error', 'warning']) {
+                expect(getComputedStyle(field(id)).fontStyle).toBe('italic');
+                for (const el of [field(id).querySelector('input')!, ...field(id).querySelectorAll('button')]) {
+                    expect(getComputedStyle(el).fontStyle).toBe('normal');
+                    expect(getComputedStyle(el).fontWeight).toBe('400');
+                }
+            }
+            expect(field('error').getBoundingClientRect().width).toBe(field('plain').getBoundingClientRect().width);
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
+    it('keeps the state shadow and colours the buttons of a focused state field (step-input-2)', async () => {
+        const { field } = await render();
+        await userEvent.unhover(field('error'));
+        const shadow = getComputedStyle(field('error')).boxShadow;
+        expect(shadow).not.toBe('none');
+        field('error').querySelector('input')!.focus();
+        expect(getComputedStyle(field('error')).boxShadow).toBe(shadow);
+        const button = field('error').querySelector('button')!;
+        expect(getComputedStyle(button).color).toBe(themed('var(--sapButton_Reject_Selected_TextColor)'));
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const probe = document.createElement('div');
+            probe.style.backgroundColor = 'var(--sapButton_Lite_Active_Background)';
+            document.body.appendChild(probe);
+            expect(getComputedStyle(button).backgroundColor).toBe(getComputedStyle(probe).backgroundColor);
+            probe.remove();
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+        field('plain').querySelector('input')!.focus();
+        expect(getComputedStyle(field('plain')).boxShadow).toBe('none');
+    });
+});

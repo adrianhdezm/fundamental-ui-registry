@@ -5,9 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { userEvent } from 'vitest/browser';
 import { Checkbox } from '@/ui/checkbox/checkbox';
 import { ListContent, ListItem, ListTitle } from '@/ui/list/list';
+import { Link } from '@/ui/link/link';
+import { ObjectMarker } from '@/ui/object-marker/object-marker';
 import {
     UploadCollection,
     UploadCollectionButtonGroup,
+    UploadCollectionStatusGroup,
+    UploadCollectionStatusItem,
+    UploadCollectionTextSeparator,
     UploadCollectionFormItem,
     UploadCollectionItem,
     UploadCollectionTitle,
@@ -298,5 +303,110 @@ describe('UploadCollection', () => {
             expect(description()).toBe('Selected');
             fixture.destroy();
         });
+    });
+});
+
+@Component({
+    imports: [
+        UploadCollection,
+        UploadCollectionItem,
+        UploadCollectionButtonGroup,
+        UploadCollectionFormItem,
+        UploadCollectionTitle,
+        UploadCollectionTitleContainer,
+        UploadCollectionStatusGroup,
+        UploadCollectionStatusItem,
+        UploadCollectionTextSeparator,
+        ListItem,
+        ListContent,
+        ListTitle,
+        Link,
+        ObjectMarker
+    ],
+    template: `
+        <div style="width: 420px">
+            <fd-upload-collection>
+                <li fd-list-item fd-upload-collection-item [fileName]="name" extension="pdf">
+                    <div fd-list-content>
+                        <div fd-upload-collection-title-container>
+                            <a fdLink fd-list-title fd-upload-collection-title href="#" id="link"></a>
+                            <span fd-object-marker glyph="favorite" ariaLabel="Favorite"></span>
+                            <fd-upload-collection-form-item />
+                        </div>
+                        <div fd-upload-collection-status-group id="statuses">
+                            <span fd-upload-collection-status-item>Uploaded</span>
+                            <span fd-upload-collection-text-separator id="separator"></span>
+                            <span fd-upload-collection-status-item>Approved</span>
+                        </div>
+                    </div>
+                    <fd-upload-collection-button-group />
+                </li>
+            </fd-upload-collection>
+        </div>
+    `
+})
+class IssuesHost {
+    readonly name = 'A_very_long_file_name_with_a_marker_that_needs_to_be_shortened_in_the_middle';
+}
+
+describe('UploadCollection issues', () => {
+    async function render() {
+        const fixture = TestBed.createComponent(IssuesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        await wait();
+        const root = fixture.nativeElement as HTMLElement;
+        return { fixture, root, el: (id: string) => root.querySelector<HTMLElement>(`#${id}`)! };
+    }
+    const themed = (value: string) => {
+        const probe = document.createElement('div');
+        probe.style.color = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe).color;
+        probe.remove();
+        return computed;
+    };
+
+    it('shows a link title in the link colour on a 1rem line (upload-collection-1)', async () => {
+        const { el } = await render();
+        expect(getComputedStyle(el('link')).color).toBe(themed('var(--sapLinkColor)'));
+        expect(getComputedStyle(el('link')).lineHeight).toBe('16px');
+    });
+
+    it('keeps the title link and the rename field interactive (upload-collection-2)', async () => {
+        const { el, root, fixture } = await render();
+        expect(getComputedStyle(el('link')).pointerEvents).toBe('auto');
+        button('Edit')!.click();
+        await fixture.whenStable();
+        const field = root.querySelector<HTMLElement>('fd-upload-collection-form-item input')!;
+        expect(getComputedStyle(field).pointerEvents).toBe('auto');
+    });
+
+    it('spaces the buttons as fundamental-styles (upload-collection-3)', async () => {
+        const { root } = await render();
+        // two 36px buttons, two 2px margins and a space (sub-pixel)
+        expect(root.querySelector('fd-upload-collection-button-group')!.getBoundingClientRect().width).toBeCloseTo(
+            80,
+            0
+        );
+    });
+
+    it('puts the separator line height on its bullet (upload-collection-4)', async () => {
+        const { el } = await render();
+        expect(getComputedStyle(el('separator')).lineHeight).toBe('16px');
+        expect(getComputedStyle(el('separator'), '::before').lineHeight).toBe('14px');
+    });
+
+    it('gives the status group the label colour (upload-collection-5)', async () => {
+        const { el } = await render();
+        expect(getComputedStyle(el('statuses')).color).toBe(themed('var(--sapContent_LabelColor)'));
+    });
+
+    it('shortens a long name next to a marker in the middle (upload-collection-6)', async () => {
+        const { el } = await render();
+        const text = el('link').textContent!.trim();
+        expect(text).toContain('...');
+        expect(text.endsWith('.pdf')).toBe(true);
+        expect(el('link').scrollWidth).toBeLessThanOrEqual(el('link').clientWidth);
     });
 });

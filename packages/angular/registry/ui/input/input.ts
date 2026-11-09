@@ -69,7 +69,7 @@ export const fieldStates: Record<FormState, string> = {
 /** Extra styles of multi-line fields. */
 export const textareaBase = [
     'block h-auto min-w-24 min-h-sap-element-height py-2 px-2.5 whitespace-pre-wrap overflow-auto resize-none leading-(--sapContent_LineHeight)',
-    'compact:min-h-sap-element-compact-height compact:py-[0.1875rem] compact:px-2',
+    'compact:h-auto compact:min-h-sap-element-compact-height compact:py-[0.1875rem] compact:px-2',
     'readonly:border-dashed readonly:border-sap-field-read-only-border-color readonly:border-width-sap-field-border-width',
     'readonly:[background:var(--sapField_ReadOnly_Background)] readonly:hover:[background:var(--sapField_ReadOnly_Background)] readonly:focus:[background:var(--sapField_ReadOnly_Background)]'
 ].join(' ');

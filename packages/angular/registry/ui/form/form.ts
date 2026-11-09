@@ -197,7 +197,8 @@ export class FormGroupHeader {
     protected readonly computedClass = computed(() =>
         cn(
             'box-border flex w-full items-center min-h-sap-element-line-height compact:min-h-sap-element-compact-line-height',
-            'bg-sap-group-title-background border-b border-b-sap-group-title-border-color px-4',
+            // the group title line: 1px, 2px in high contrast, as fundamental-styles
+            'bg-sap-group-title-background border-b-(length:--sapGroup_TitleBorderWidth) border-b-sap-group-title-border-color px-4',
             'font-sap-font-header-family text-sap-group-title-font-size font-bold text-sap-group-title-text-color',
             this.noPadding() && 'px-0',
             this.noBorder() && 'border-b-0',
@@ -217,7 +218,7 @@ export class FormGroupHeader {
     selector: '[fdFormHeader], [fd-form-header]',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'm-0 box-border flex h-sap-element-line-height w-full items-center bg-sap-group-title-background px-4 [--hdr-bw:var(--sapList_BorderWidth)] hc:[--hdr-bw:calc(var(--sapList_BorderWidth)*3)] [--hdr-bc:var(--sapGroup_TitleBorderColor)] [box-shadow:0_var(--hdr-bw)_0_var(--hdr-bc)]'
+        class: 'm-0 box-border flex h-sap-element-line-height w-full items-center bg-sap-group-title-background px-4 [--hdr-bw:var(--sapGroup_TitleBorderWidth)] [--hdr-bc:var(--sapGroup_TitleBorderColor)] [box-shadow:0_var(--hdr-bw)_0_var(--hdr-bc)]'
     },
     template: `<span
         class="m-0 truncate p-0 font-sap-font-header-family text-sap-group-title-font-size text-sap-group-title-text-color"

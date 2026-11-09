@@ -219,3 +219,80 @@ describe('InputGroup', () => {
         });
     });
 });
+
+@Component({
+    imports: [InputGroup, InputGroupInput, InputGroupAddon, ReactiveFormsModule],
+    template: `
+        <fd-input-group id="text-button" ariaLabel="Search" addOnText="Go" button />
+        <fd-input-group id="disabled-group" [disabled]="disabled()">
+            <input fdInputGroupInput aria-label="Projected" />
+            <input fdInputGroupInput aria-label="Own" [disabled]="ownDisabled()" />
+        </fd-input-group>
+        <fd-input-group id="form-group">
+            <input fdInputGroupInput aria-label="Form" [formControl]="control" />
+        </fd-input-group>
+    `
+})
+class IssuesHost {
+    readonly control = new FormControl({ value: 'x', disabled: true });
+    readonly disabled = signal(true);
+    readonly ownDisabled = signal<boolean | undefined>(undefined);
+}
+
+describe('InputGroup issues', () => {
+    async function render() {
+        const fixture = TestBed.createComponent(IssuesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        return { fixture, root: fixture.nativeElement as HTMLElement, host: fixture.componentInstance };
+    }
+    const themed = (value: string) => {
+        const probe = document.createElement('div');
+        probe.style.backgroundColor = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe).backgroundColor;
+        probe.remove();
+        return computed;
+    };
+
+    it('draws addon buttons without a border (input-group-1)', async () => {
+        const { root } = await render();
+        const button = root.querySelector<HTMLElement>('#text-button button')!;
+        expect(getComputedStyle(button).borderTopWidth).toBe('0px');
+        expect(getComputedStyle(button).borderLeftWidth).toBe('0px');
+    });
+
+    it('keeps the lite button background of addon buttons in high contrast (input-group-2)', async () => {
+        const { root } = await render();
+        const button = root.querySelector<HTMLElement>('#text-button button')!;
+        expect(getComputedStyle(button).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            expect(getComputedStyle(button).backgroundColor).toBe(themed('var(--sapButton_Lite_Background)'));
+            expect(getComputedStyle(button).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
+    it('disables projected inputs with the group, unless they set disabled themselves (input-group-3)', async () => {
+        const { root, host, fixture } = await render();
+        const [projected, own] = [...root.querySelectorAll<HTMLInputElement>('#disabled-group input')];
+        expect(projected.disabled).toBe(true);
+        expect(own.disabled).toBe(true);
+        host.ownDisabled.set(false);
+        await fixture.whenStable();
+        expect(own.disabled).toBe(false);
+        host.disabled.set(false);
+        host.ownDisabled.set(undefined);
+        await fixture.whenStable();
+        expect(projected.disabled).toBe(false);
+        expect(own.disabled).toBe(false);
+        // a form control's disabled state is its own
+        const form = root.querySelector<HTMLInputElement>('#form-group input')!;
+        expect(form.disabled).toBe(true);
+        host.control.enable();
+        await fixture.whenStable();
+        expect(form.disabled).toBe(false);
+    });
+});

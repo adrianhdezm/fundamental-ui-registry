@@ -65,15 +65,15 @@ const BOX_STATE: Record<FormState | 'readonly', string> = {
     ].join(' '),
     warning: [
         '[--cb-bg:var(--sapField_WarningBackground)] [--cb-bw:var(--sapField_WarningBorderWidth)] [--cb-bs:var(--sapField_Selector_WarningBorderStyle)]',
-        '[--cb-bc:var(--sapField_WarningColor)] [--cb-mark:var(--sapField_WarningColor)] [--cb-hover-bc:var(--sapField_WarningColor)] [--cb-hover-bg:var(--sapField_Hover_Background)]'
+        '[--cb-bc:var(--sapField_WarningColor)] [--cb-mark:var(--sapField_WarningColor)] [--cb-hover-bc:var(--sapField_WarningColor)] [--cb-hover-bg:var(--sapField_Hover_Background)] hc:[--cb-hover-bg:var(--sapField_Hover_Background)]'
     ].join(' '),
     success: [
         '[--cb-bg:var(--sapField_SuccessBackground)] [--cb-bw:var(--sapField_SuccessBorderWidth)] [--cb-bs:var(--sapField_Selector_SuccessBorderStyle)]',
-        '[--cb-bc:var(--sapField_SuccessColor)] [--cb-mark:var(--sapField_SuccessColor)] [--cb-hover-bc:var(--sapField_SuccessColor)] [--cb-hover-bg:var(--sapField_Hover_Background)]'
+        '[--cb-bc:var(--sapField_SuccessColor)] [--cb-mark:var(--sapField_SuccessColor)] [--cb-hover-bc:var(--sapField_SuccessColor)] [--cb-hover-bg:var(--sapField_Hover_Background)] hc:[--cb-hover-bg:var(--sapField_Hover_Background)]'
     ].join(' '),
     information: [
         '[--cb-bg:var(--sapField_InformationBackground)] [--cb-bw:var(--sapField_InformationBorderWidth)] [--cb-bs:var(--sapField_Selector_InformationBorderStyle)]',
-        '[--cb-bc:var(--sapField_InformationColor)] [--cb-mark:var(--sapField_InformationColor)] [--cb-hover-bc:var(--sapField_InformationColor)] [--cb-hover-bg:var(--sapField_Hover_Background)]'
+        '[--cb-bc:var(--sapField_InformationColor)] [--cb-mark:var(--sapField_InformationColor)] [--cb-hover-bc:var(--sapField_InformationColor)] [--cb-hover-bg:var(--sapField_Hover_Background)] hc:[--cb-hover-bg:var(--sapField_Hover_Background)]'
     ].join(' '),
     readonly: [
         '[--cb-bg:var(--sapField_ReadOnly_Background)] [--cb-bw:var(--sapElement_BorderWidth)] [--cb-bs:var(--sapField_Selector_ReadOnly_BorderStyle)]',
@@ -272,12 +272,16 @@ export class Checkbox implements ControlValueAccessor {
     });
 
     protected readonly containerClass = computed(() =>
-        cn('m-0 flex h-4 max-w-[inherit] items-center truncate p-0', this.wrapLabel() && 'h-auto whitespace-normal')
+        cn(
+            // the text colour with a normal line height, as fundamental-styles (the label itself has the label colour)
+            'm-0 flex h-4 max-w-[inherit] items-center truncate p-0 text-sap-font-size leading-[normal] text-sap-text-color',
+            this.wrapLabel() && 'h-auto whitespace-normal'
+        )
     );
 
     protected readonly textClass = computed(() =>
         cn(
-            'm-0 max-w-[inherit] truncate p-0 empty:m-0',
+            'm-0 max-w-[inherit] truncate p-0 empty:m-0 text-sap-font-size leading-[normal] text-sap-text-color',
             this.wrapLabel() && 'whitespace-normal',
             this.required() &&
                 "relative pe-2 after:absolute after:ps-0.5 after:text-sap-font-size after:font-bold after:text-sap-field-required-color after:content-['*'_/_'']"
