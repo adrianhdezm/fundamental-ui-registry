@@ -162,7 +162,8 @@ export class UploadCollectionTitleContainer {
         '[style.display]': 'item?.editMode() ? "none" : null',
         // a shortened name keeps the full name as its tooltip
         '[attr.title]': 'item?.fullName() ?? null',
-        class: 'me-2 min-w-0 flex-none shrink'
+        // a link title keeps the link colour and its 1rem line over the list title's (fundamental-styles)
+        class: 'me-2 min-w-0 flex-none shrink [a&]:text-sap-link-color [a&]:leading-4'
     }
 })
 export class UploadCollectionTitle {
