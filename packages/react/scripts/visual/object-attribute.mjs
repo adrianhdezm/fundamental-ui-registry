@@ -5,8 +5,8 @@ const OA = 'components-object-attribute--';
 /**
  * Object attribute is a dev component in fundamental-styles: its Storybook renders the markup without
  * object-attribute.css, so colours, cursor, decoration, opacity and truncation are the browser's defaults there.
- * These cases compare the typography and box only; docs/parity/components/object-attribute.md has the full
- * comparison against the published object-attribute.css (fundamental-styles 0.42.0) injected into the same stories.
+ * These cases compare the typography and box only; the rest was compared by hand against the published
+ * object-attribute.css (fundamental-styles 0.42.0) injected into the same stories.
  */
 const UNSTYLED = ['color', 'cursor', 'text-decoration-line', 'opacity'];
 

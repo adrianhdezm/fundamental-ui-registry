@@ -8,16 +8,16 @@ visuals of fundamental-styles as Tailwind v4 utilities on the `@sap-theming/them
 Published at `https://adrianhdezm.github.io/fundamental-ui-registry/react/` (Storybook) and
 `https://adrianhdezm.github.io/fundamental-ui-registry/react/r/<name>.json` (registry).
 
-**The port is complete** (94 of 94 components): `docs/parity/README.md` is the tracker (sources, the definition of
-done, Angular issues found). Read it first, and keep `docs/parity/tracker.json` (then `pnpm tracker`) and the
-component's report in `docs/parity/components/` up to date when a component changes or is added.
+`docs/components/<name>.md` has the notes of each component: its sources, how its API maps to Angular's and
+fundamental-react's, and the differences kept on purpose. Read it before changing the component, and update it (or
+add one for a new component) when its API or one of those decisions changes.
 
 ## Commands
 
 Run in `packages/react/`, or from the repository root as `pnpm react <script>`.
 
 ```sh
-pnpm check                                  # typecheck, styles, registry, tracker, tests, a11y
+pnpm check                                  # typecheck, styles, registry, tests, a11y
 pnpm typecheck && pnpm typecheck:tests      # sources; specs, stories and config
 pnpm test                                   # component tests (Vitest browser mode, project "unit")
 pnpm test:a11y                              # axe on every story, Horizon and Horizon HC Black

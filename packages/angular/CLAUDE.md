@@ -57,5 +57,3 @@ pnpm build-storybook && pnpm visual icon    # compare with fundamental-styles, 1
   without a reason.
 - Stories cover the upstream docs examples. Stories named "Open: …" open their overlay in `play`, so the a11y run
   checks it. A story may turn off an axe rule only where the SAP theme itself is the cause, with a comment.
-- The React package's porting tracker counts each component's Angular stories: after adding or removing stories, run
-  `pnpm react tracker` (it rewrites only `packages/react/docs/parity/README.md`), or the root `pnpm check` fails.

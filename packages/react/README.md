@@ -2,8 +2,8 @@
 
 SAP Fiori Horizon components for React, as copy-paste source files. This is the React package of the
 [fundamental-ui-registry](../../README.md) workspace. All 94 components are ported: the 45 of fundamental-react and
-the other components of the Angular package. The [porting tracker](docs/parity/README.md) lists each component's
-sources, stories, tests and visual comparison.
+the other components of the Angular package. [`docs/components/`](docs/components/README.md) has a note per
+component: its sources, how its API maps to theirs, and the differences kept on purpose.
 
 **Storybook:** https://adrianhdezm.github.io/fundamental-ui-registry/react/ (the registry is served from the same site
 under `/react/r/<name>.json`).
@@ -37,8 +37,7 @@ scripts/
   build-registry.mjs      builds public/r/*.json and checks each component's imports
   check-styles.mjs        compiles every class and flags unknown SAP tokens / broken var() names
   visual.mjs              compares components with the fundamental-styles Storybook (cases in visual/<name>.mjs)
-  tracker.mjs             updates the porting tracker in docs/parity/README.md
-docs/                     Storybook introduction; parity/ tracks the port, one report per component
+docs/                     Storybook introduction; components/ has a note per component
 .storybook/, tests/       Storybook and Vitest setup
 ```
 
@@ -50,11 +49,10 @@ Run `pnpm install` at the repository root, then these in `packages/react/` (or f
 ```sh
 pnpm storybook          # http://localhost:6007
 pnpm build-storybook    # dist/storybook, including the registry under /r (published under /react/)
-pnpm check              # typecheck, style, registry and tracker checks, tests, a11y
+pnpm check              # typecheck, style and registry checks, tests, a11y
 pnpm test               # component tests in Chromium (Vitest browser mode); specs next to each component
 pnpm test:a11y          # every story rendered by Vitest and checked with axe, in Horizon and Horizon HC Black
 pnpm visual <name>      # compare with fundamental-styles in 16 combinations (after pnpm build-storybook)
-pnpm tracker            # rewrite the tracker table after changing docs/parity/tracker.json
 pnpm tokens             # regenerate the theme layer after bumping theming-base-content
 ```
 

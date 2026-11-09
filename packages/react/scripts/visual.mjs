@@ -7,7 +7,8 @@
  *   - the computed styles that make up the look (size, spacing, typography, colours, borders, radius, shadow), and
  *   - element screenshots, pixel by pixel with a tolerance (the markup differs, so pixel-exact is not expected).
  * Style differences and screenshots over the tolerance are listed in .visual/<name>/report.md, with the
- * screenshots (ours, reference, diff) next to it, to be checked by hand and logged in docs/parity/components/.
+ * screenshots (ours, reference, diff) next to it, to be checked by hand. Differences kept on purpose go in
+ * docs/components/<name>.md.
  *
  * Usage:
  *   pnpm build-storybook                     # our Storybook, served from dist/storybook by this script

@@ -2,7 +2,7 @@
 const FS = 'sap-design-components-';
 
 // fundamental-styles has no timeline: its look comes from fundamental-ngx's own timeline styles, which were compared
-// by hand with the fundamental-ngx documentation (see docs/parity/components/timeline.md). These cases check the
+// by hand with the fundamental-ngx documentation. These cases check the
 // fundamental-styles parts of a post: the header avatar, the post text and its More toggle (Text and Link).
 const VERTICAL = 'components-timeline--vertical';
 const COLLAPSED = 'components-timeline--vertical-left';
