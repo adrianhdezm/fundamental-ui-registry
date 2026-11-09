@@ -252,7 +252,11 @@ describe('FileUploader issues', () => {
         zone.dispatchEvent(over);
         expect(over.defaultPrevented).toBe(false);
         const enabled = root.querySelector<HTMLElement>('#cozy [fdFileDragnDrop], #cozy [fdfiledragndrop]')!;
-        const accepted = new DragEvent('dragover', { bubbles: true, cancelable: true, dataTransfer: new DataTransfer() });
+        const accepted = new DragEvent('dragover', {
+            bubbles: true,
+            cancelable: true,
+            dataTransfer: new DataTransfer()
+        });
         enabled.dispatchEvent(accepted);
         expect(accepted.defaultPrevented).toBe(true);
     });

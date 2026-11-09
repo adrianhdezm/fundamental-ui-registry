@@ -308,7 +308,10 @@ export class InputGroupInput {
     readonly disabled = input<boolean | undefined, unknown>(undefined, {
         transform: (value: unknown) => (value === undefined || value === null ? undefined : booleanAttribute(value))
     });
-    private readonly group = inject(forwardRef(() => InputGroup), { optional: true });
+    private readonly group = inject(
+        forwardRef(() => InputGroup),
+        { optional: true }
+    );
     protected readonly disabledState = computed(() => this.disabled() ?? this.group?.disabledState() ?? false);
 
     constructor() {

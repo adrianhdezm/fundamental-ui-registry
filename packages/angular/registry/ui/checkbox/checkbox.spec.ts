@@ -392,7 +392,9 @@ describe('Checkbox styles', () => {
 
     it('shows the label text in the text colour with a normal line height (checkbox-1)', async () => {
         const label = await render();
-        const text = [...label('plain').querySelectorAll<HTMLElement>('span')].find((s) => s.textContent?.trim() === 'Plain')!;
+        const text = [...label('plain').querySelectorAll<HTMLElement>('span')].find(
+            (s) => s.textContent?.trim() === 'Plain'
+        )!;
         const probe = document.createElement('div');
         probe.style.color = 'var(--sapTextColor)';
         probe.style.lineHeight = 'normal';

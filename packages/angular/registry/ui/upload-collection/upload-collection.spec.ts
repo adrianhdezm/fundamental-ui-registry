@@ -385,7 +385,10 @@ describe('UploadCollection issues', () => {
     it('spaces the buttons as fundamental-styles (upload-collection-3)', async () => {
         const { root } = await render();
         // two 36px buttons, two 2px margins and a space (sub-pixel)
-        expect(root.querySelector('fd-upload-collection-button-group')!.getBoundingClientRect().width).toBeCloseTo(80, 0);
+        expect(root.querySelector('fd-upload-collection-button-group')!.getBoundingClientRect().width).toBeCloseTo(
+            80,
+            0
+        );
     });
 
     it('puts the separator line height on its bullet (upload-collection-4)', async () => {
