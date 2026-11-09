@@ -190,10 +190,10 @@ export class ObjectStatusComponent {
         const inverted = this.inverted();
         const clickable = this.clickable();
         const large = this.large();
-        const iconOnly = !this.label() && !this.textTemplate();
         return cn(
             'group/os relative m-0 box-border inline-flex max-w-full items-center justify-center gap-1 p-0 align-middle',
-            'h-fit min-h-(--os-h) min-w-6 break-words',
+            // no minimum width: an icon-only status is as wide as its icon (16px), as fundamental-styles
+            'h-fit min-h-(--os-h) break-words',
             // leading after the font size: tailwind-merge drops a line-height that comes before one
             '[--os-h:1rem] [--os-icon:1rem] [--os-font:var(--sapFontSize)] text-(length:--os-font) leading-(--os-h) font-sap-font-family',
             'text-(--os-c) text-shadow-sap-content-text-shadow',
@@ -202,12 +202,11 @@ export class ObjectStatusComponent {
             clickable &&
                 !inverted && [
                     'cursor-pointer focus:outline-none',
-                    // Horizon: filled focus in the contrast colour; high contrast: dotted outline
+                    // Horizon: filled focus in the contrast colour; high contrast: dotted outline, statuses keep their colours
                     'focus:not-active:rounded-[0.125rem] focus:not-active:bg-sap-content-focus-color focus:not-active:[text-shadow:none]',
                     'focus:not-active:outline-[0.125rem] focus:not-active:outline-solid focus:not-active:outline-sap-content-focus-color',
-                    'focus:not-active:[--os-c:var(--sapContent_ContrastTextColor)] focus:not-active:[--os-ic:var(--sapContent_ContrastTextColor)]',
-                    'hc:focus:not-active:bg-inherit hc:focus:not-active:rounded-none hc:focus:not-active:outline-dotted',
-                    indication ? hcFocus(INDICATION[indication]) : hcFocus(PLAIN[status])
+                    'not-hc:focus:not-active:[--os-c:var(--sapContent_ContrastTextColor)] not-hc:focus:not-active:[--os-ic:var(--sapContent_ContrastTextColor)]',
+                    'hc:focus:not-active:bg-inherit hc:focus:not-active:rounded-none hc:focus:not-active:outline-dotted'
                 ],
             inverted && [
                 'max-h-none overflow-hidden border border-solid border-(--os-bc) bg-(--os-bg) [text-shadow:none]',
@@ -217,7 +216,7 @@ export class ObjectStatusComponent {
                     ? INVERTED_INDICATION[`${indication}${this.secondaryIndication() ? 'b' : ''}`]
                     : INVERTED[status],
                 large &&
-                    'h-auto min-w-7 self-center px-1 py-px [--os-h:1.5rem] [--os-icon:1.5rem] [--os-font:1.25rem] font-sap-font-semibold-family [&>*]:leading-(--os-h)',
+                    'h-auto min-w-7 self-center px-1 py-px [--os-h:1.5rem] [--os-icon:1.5rem] [--os-font:1.25rem] font-sap-font-family [&>*]:leading-(--os-h)',
                 clickable && [
                     'cursor-pointer',
                     'hover:[--os-c:var(--os-h-c)] hover:[--os-ic:var(--os-h-c)] hover:[--os-bg:var(--os-h-bg)] hover:[--os-bc:var(--os-h-bc)]',
@@ -226,13 +225,7 @@ export class ObjectStatusComponent {
                     'focus:[box-shadow:inset_0_0_0_0.125rem_var(--sapContent_ContrastFocusColor)] hc:focus:[box-shadow:none]'
                 ]
             ],
-            iconOnly && 'min-w-6',
             this.userClass()
         );
     });
-}
-
-/** In high contrast, focused statuses keep their colours instead of the contrast text colour. */
-function hcFocus(colors: string): string {
-    return colors.replace(/\[--os-(i?c):/g, 'hc:focus:not-active:[--os-$1:');
 }

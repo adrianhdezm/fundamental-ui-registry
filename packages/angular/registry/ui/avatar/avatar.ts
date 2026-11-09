@@ -65,22 +65,23 @@ const SIZE: Record<AvatarSize, string> = {
     xl: 'size-28 min-w-28 max-w-28 min-h-28 max-h-28 text-[3rem] leading-[normal] [--av-zoom-size:1.75rem] [--av-zoom-font:1rem] [--av-zoom-offset:-0.25rem]'
 };
 
+// the badge border takes the state text colour, as fundamental-styles
 const VALUE_STATE: Record<AvatarValueState, { glyph: string; class: string }> = {
     positive: {
         glyph: 'sys-enter-2',
-        class: 'bg-sap-success-background border-sap-success-border-color text-sap-positive-text-color'
+        class: 'bg-sap-success-background border-sap-positive-text-color text-sap-positive-text-color'
     },
     caution: {
         glyph: 'warning',
-        class: 'bg-sap-warning-background border-sap-warning-border-color text-sap-critical-text-color'
+        class: 'bg-sap-warning-background border-sap-critical-text-color text-sap-critical-text-color'
     },
     negative: {
         glyph: 'error',
-        class: 'bg-sap-error-background border-sap-error-border-color text-sap-negative-text-color'
+        class: 'bg-sap-error-background border-sap-negative-text-color text-sap-negative-text-color'
     },
     information: {
         glyph: 'information',
-        class: 'bg-sap-information-background border-sap-information-border-color text-sap-informative-text-color'
+        class: 'bg-sap-information-background border-sap-informative-text-color text-sap-informative-text-color'
     }
 };
 
@@ -264,13 +265,19 @@ export class Avatar {
             // 100% as fundamental-styles (rounded-full is a huge length: same look, other computed value)
             this.circle() && 'rounded-[100%] focus:after:rounded-[100%] hc:focus:after:rounded-none [--av-zoom-pos:0]',
             this.contain() && 'bg-contain',
-            this.border() && '[--av-border:var(--sapGroup_ContentBorderColor)]',
             this.transparent() &&
                 '[--av-bg:var(--sapAvatar_Lite_Background)] [--av-border:var(--sapAvatar_Lite_BorderColor)] [--av-color:var(--sapContent_IconColor)] [--av-hover-border:var(--sapContent_IconColor)] [--av-hover-bg:var(--sapAvatar_Lite_Background)]',
             this.tile() &&
                 '[--av-bg:var(--sapTile_Background)] [--av-border:var(--sapAvatar_Lite_BorderColor)] [--av-color:var(--sapTile_IconColor)] [--av-hover-border:var(--sapTile_IconColor)] [--av-hover-bg:var(--sapTile_Background)]',
             this.placeholder() &&
                 '[--av-bg:var(--sapContent_ImagePlaceholderBackground)] [--av-border:var(--sapAvatar_Lite_BorderColor)] [--av-color:var(--sapContent_ImagePlaceholderForegroundColor)] [--av-hover-border:var(--sapContent_ImagePlaceholderForegroundColor)] [--av-hover-bg:var(--sapContent_ImagePlaceholderBackground)]',
+            // a loaded image: the lite background and border (none in Horizon), as fundamental-styles' thumbnail
+            this.imageLoaded() &&
+                '[--av-bg:var(--sapAvatar_Lite_Background)] [--av-border:var(--sapAvatar_Lite_BorderColor)]',
+            // after transparent, tile, placeholder and a loaded image: a border wins over their borders, as fundamental-styles'
+            // `fd-avatar--border`, with the avatar hover border
+            this.border() &&
+                '[--av-border:var(--sapGroup_ContentBorderColor)] [--av-hover-border:var(--sapAvatar_Hover_BorderColor)]',
             interactive && [
                 'cursor-pointer hover:bg-(--av-hover-bg) hover:border-(--av-hover-border)',
                 'active:bg-(--av-active-bg) active:border-(--av-active-border) active:text-(--av-active-color)',

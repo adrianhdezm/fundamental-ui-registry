@@ -103,7 +103,7 @@ const STATES: Record<ProgressIndicatorState | 'neutral', { vars: string; glyph: 
                 </fd-popover-body>
             </fd-popover>
         } @else {
-            <span #label aria-hidden="true" [class]="labelClass + ' absolute inset-x-0 top-0'">{{ text() }}</span>
+            <span #label aria-hidden="true" [class]="positionedLabelClass">{{ text() }}</span>
         }
         <div
             role="progressbar"
@@ -116,7 +116,7 @@ const STATES: Record<ProgressIndicatorState | 'neutral', { vars: string; glyph: 
             [class]="trackClass()"
         >
             @if (percent() > 0) {
-                <div [class]="barClass()" [style.width.%]="percent()"></div>
+                <div [class]="barClass()" [style.width.%]="percent()" [style.min-width.%]="percent()"></div>
             }
             @if (glyph(); as glyph) {
                 <fd-icon [glyph]="glyph" [class]="iconClass" />
@@ -183,17 +183,24 @@ export class ProgressIndicator {
         )
     );
 
+    /** A flex item inside the track border, as fundamental-styles' bar (its minimum width is its width). */
     protected readonly barClass = computed(() =>
         cn(
-            'absolute -start-px -bottom-[0.1875rem] box-border h-2.5 min-w-2.5 rounded-[0.5rem] border border-solid border-(--pi-bar-border) bg-(--pi-bar)',
-            this.percent() >= 100 && 'end-[-0.0625rem] w-auto!',
+            '-my-[0.1875rem] box-border h-2.5 shrink-0 rounded-[0.5rem] border border-solid border-(--pi-bar-border) bg-(--pi-bar)',
             this.animate() && 'transition-[width,min-width] duration-500 ease-in-out'
         )
     );
 
     protected readonly labelClass =
-        'block max-w-full truncate leading-normal text-sap-progress-font-size text-sap-field-text-color select-none';
+        'block max-w-full truncate text-sap-progress-font-size leading-[normal] text-sap-field-text-color select-none';
 
+    /** Above the track, inside its border as fundamental-styles: as wide as the text, at most the track. */
+    protected readonly positionedLabelClass = cn(
+        this.labelClass,
+        'absolute start-px top-px max-w-[calc(100%-1.25rem-2px)]'
+    );
+
+    /** fundamental-styles' 14px normal line, with the 16px glyph middle-aligned in it (an 18px box). */
     protected readonly iconClass =
-        'absolute -end-5 -bottom-2.5 text-sap-font-large-size leading-none text-(--pi-icon) [&_*]:align-middle';
+        'absolute -end-5 -bottom-2.5 block w-auto text-sap-font-size leading-[normal] text-sap-text-color before:align-middle before:text-sap-font-large-size before:text-(--pi-icon)';
 }

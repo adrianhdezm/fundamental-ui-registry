@@ -48,7 +48,7 @@ let nextId = 0;
                 [font]="glyphFont()"
                 [attr.role]="label() ? 'presentation' : null"
                 [attr.title]="iconTitle()"
-                class="flex items-center justify-center pe-1 text-base leading-[normal] text-sap-content-marker-icon-color only:px-0"
+                class="flex w-auto items-center justify-center me-1 text-base leading-[normal] text-sap-content-marker-icon-color only:me-0"
             />
         }
         @if (label()) {
@@ -107,7 +107,8 @@ export class ObjectMarker {
             'group/om relative m-0 box-border inline-flex max-w-full items-center p-0 align-middle',
             'font-sap-font-family text-base leading-none [&+&]:ms-2',
             this.clickable() && [
-                'cursor-pointer text-sap-link-color text-shadow-sap-content-text-shadow transition-all duration-[125ms] ease-in break-words',
+                // fundamental-styles' link markers have a normal line height
+                'leading-[normal] cursor-pointer text-sap-link-color text-shadow-sap-content-text-shadow transition-all duration-[125ms] ease-in break-words',
                 'visited:text-sap-link-visited-color hover:text-sap-link-hover-color active:text-sap-link-active-color',
                 // Horizon: filled focus; high contrast: outline
                 'focus:outline-none focus:text-sap-content-contrast-text-color focus:[text-shadow:none]',

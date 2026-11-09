@@ -312,7 +312,7 @@ export class RatingIndicator implements ControlValueAccessor {
 
     protected readonly containerClass = computed(() =>
         cn(
-            'm-0 inline-flex items-center rounded-[0.5rem] p-1 outline-none',
+            'm-0 inline-flex items-center rounded-[0.5rem] p-1 outline-none hc:rounded-none',
             !this.disabledState() &&
                 'focus-visible:outline-(length:--sapContent_FocusWidth) focus-visible:[outline-style:var(--sapContent_FocusStyle)] focus-visible:outline-sap-content-focus-color focus-visible:-outline-offset-2'
         )

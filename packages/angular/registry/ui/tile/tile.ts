@@ -136,7 +136,8 @@ export class Tile {
                 'relative m-0 my-1 me-2 box-border flex h-full max-h-(--tile-lh) min-h-(--tile-lh) w-auto max-w-full min-w-8 cursor-pointer items-center justify-between gap-2 px-2 py-0 last:me-0',
                 '[--tile-lh:2rem] [--tile-lmh:3.25rem] [--tile-lnh:1.625rem] [--tile-ts:0.625rem] compact:[--tile-lh:1.625rem] compact:[--tile-lmh:2.875rem] compact:[--tile-lnh:1.4375rem] compact:[--tile-ts:0.5rem]',
                 'rounded-sap-tile-border-corner-radius border border-sap-tile-border-color bg-sap-tile-background font-sap-font-family text-sap-font-size text-sap-text-color no-underline [box-shadow:var(--sapContent_Shadow0)]',
-                'hover:bg-sap-tile-hover-background hover:[box-shadow:var(--sapContent_Shadow2)] active:bg-sap-tile-active-background',
+                // in HC the 0.125rem border ring of the other tiles (fundamental-styles' --fdTile_Hover_Box_Shadow)
+                'hover:bg-sap-tile-hover-background hover:[box-shadow:var(--sapContent_Shadow2)] hc:hover:[box-shadow:0_0_0_0.125rem_var(--sapTile_BorderColor)] active:bg-sap-tile-active-background',
                 'outline-none focus-visible:z-5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sap-content-focus-color focus-visible:outline-solid',
                 this.disabled() && 'pointer-events-none bg-transparent opacity-50',
                 this.action() && 'pe-0',
@@ -587,10 +588,11 @@ export class TileDot {
     readonly userClass = input<ClassValue>('', { alias: 'class' });
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 me-[0.188rem] box-border block size-1.5 rounded-[50%] p-0 opacity-60 last:m-0',
+            // one shadow for every dot: fundamental-styles' active dot rule does not override it
+            'm-0 me-[0.188rem] box-border block size-1.5 min-h-1.5 min-w-1.5 rounded-[50%] p-0 opacity-60 [box-shadow:0_0_0.125rem_var(--sapContent_ShadowColor)] last:m-0',
             this.active()
-                ? 'bg-sap-tile-overlay-foreground-color [box-shadow:0_0_0.063rem_var(--sapContent_ShadowColor)]'
-                : 'border border-sap-tile-overlay-foreground-color bg-transparent [box-shadow:0_0_0.125rem_var(--sapContent_ShadowColor)]',
+                ? 'bg-sap-tile-overlay-foreground-color'
+                : 'border border-sap-tile-overlay-foreground-color bg-transparent',
             this.userClass()
         )
     );
@@ -617,7 +619,8 @@ export class TileActionClose {
             'm-0 box-border cursor-pointer border-0 bg-transparent p-0 font-sap-font-family outline-none',
             this.tile?.line()
                 ? 'relative -top-2.5 flex size-[1.375rem] min-w-[1.375rem] items-center justify-center rounded-full focus-visible:outline-sap'
-                : 'absolute -end-1.5 -top-1.5 z-5 flex items-start justify-end rounded-full focus-visible:outline-sap',
+                : // a compact transparent button: the 1px lite border (a ring in HC), as fundamental-styles
+                  'absolute -end-1.5 -top-1.5 z-5 flex items-start justify-end rounded-sap-button-border-corner-radius border border-sap-button-lite-border-color hover:border-transparent active:border-transparent focus-visible:outline-sap',
             this.userClass()
         )
     );
@@ -649,8 +652,8 @@ export class TileActionIndicator {
         cn(
             'm-0 box-border inline-flex cursor-pointer items-center justify-center rounded-sap-button-border-corner-radius border-0 bg-transparent p-0 font-sap-font-family outline-none focus-visible:outline-sap',
             this.tile?.line()
-                ? 'relative size-[1.625rem] after:absolute after:start-[60%] after:top-1/2 after:size-8 after:-translate-1/2 after:content-[""] rtl:after:translate-x-1/2'
-                : 'absolute end-0 bottom-0 z-5 me-1 mb-1 h-[1.625rem] min-w-8 px-2',
+                ? 'relative size-[1.625rem] border border-sap-button-lite-border-color hover:border-transparent active:border-transparent after:absolute after:start-[60%] after:top-1/2 after:size-8 after:-translate-1/2 after:content-[""] rtl:after:translate-x-1/2'
+                : 'absolute end-0 bottom-0 z-5 me-1 mb-1 h-[1.625rem] min-w-8 border border-sap-button-lite-border-color px-[calc(0.5rem_-_1px)] hover:border-transparent active:border-transparent',
             this.userClass()
         )
     );

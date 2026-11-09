@@ -308,3 +308,66 @@ describe('ObjectStatus line height', () => {
         fixture.nativeElement.remove();
     });
 });
+
+@Component({
+    imports: [ObjectStatusComponent],
+    template: `
+        <span fd-object-status id="icon" status="positive" glyph="sys-enter-2" glyphAriaLabel="Positive"></span>
+        <span
+            fd-object-status
+            id="inverted-icon"
+            status="positive"
+            inverted
+            glyph="sys-enter-2"
+            glyphAriaLabel="Positive"
+        ></span>
+        <span fd-object-status id="large-inverted" status="positive" inverted large label="Shipped"></span>
+        <span fd-object-status id="clickable" status="positive" clickable label="Shipped"></span>
+        <span id="probe"></span>
+    `
+})
+class VariantsHost {}
+
+async function setupVariants() {
+    const fixture = TestBed.createComponent(VariantsHost);
+    document.body.appendChild(fixture.nativeElement);
+    await fixture.whenStable();
+    const root = fixture.nativeElement as HTMLElement;
+    const q = (id: string) => root.querySelector<HTMLElement>(`#${id}`)!;
+    const probe = q('probe');
+    return {
+        fixture,
+        q,
+        resolve: (variable: string) => {
+            probe.style.color = `var(${variable})`;
+            return getComputedStyle(probe).color;
+        }
+    };
+}
+
+describe('ObjectStatus variants', () => {
+    it('in high contrast a focused clickable status keeps its status colour', async () => {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const { fixture, q, resolve } = await setupVariants();
+            q('clickable').focus();
+            expect(getComputedStyle(q('clickable')).color).toBe(resolve('--sapPositiveTextColor'));
+            fixture.nativeElement.remove();
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
+    it('a large inverted status uses the regular 72 font', async () => {
+        const { fixture, q } = await setupVariants();
+        expect(getComputedStyle(q('large-inverted')).fontFamily).toMatch(/^"?72"?,/);
+        fixture.nativeElement.remove();
+    });
+
+    it('an icon-only status is as wide as its icon (16px), an inverted one 22px', async () => {
+        const { fixture, q } = await setupVariants();
+        expect(q('icon').getBoundingClientRect().width).toBe(16);
+        expect(q('inverted-icon').getBoundingClientRect().width).toBe(22);
+        fixture.nativeElement.remove();
+    });
+});

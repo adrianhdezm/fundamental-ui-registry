@@ -77,6 +77,20 @@ async function setup() {
 }
 
 describe('BusyIndicator', () => {
+    it("the dots use fundamental-styles' dot colour (#0070f2 in Horizon and Horizon Dark, the busy colour in HC)", async () => {
+        const { dots, resolve } = await setup();
+        try {
+            for (const theme of ['sap_horizon', 'sap_horizon_dark']) {
+                document.documentElement.setAttribute('data-sap-theme', theme);
+                for (const dot of dots()) expect(getComputedStyle(dot).color).toBe('rgb(0, 112, 242)');
+            }
+            document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+            for (const dot of dots()) expect(getComputedStyle(dot).color).toBe(resolve('--sapContent_BusyColor'));
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     afterEach(async () => {
         document.documentElement.removeAttribute('data-sap-theme');
         await cdp().send('Emulation.setEmulatedMedia', { features: [] });
@@ -177,7 +191,8 @@ describe('BusyIndicator', () => {
             expect(getComputedStyle(dots()[0]).borderRadius).not.toBe('0px');
         }
         expect(dots()[2].getBoundingClientRect().left).toBeGreaterThan(dots()[0].getBoundingClientRect().right);
-        expect(getComputedStyle(dots()[0]).backgroundColor).toBe(resolve('--sapContent_BusyColor'));
+        // fundamental-styles' --fdBusy_Indicator_Dot_Color (#0070f2 in Horizon)
+        expect(getComputedStyle(dots()[0]).backgroundColor).toBe('rgb(0, 112, 242)');
 
         await update((h) => h.contrast.set(true));
         expect(getComputedStyle(dots()[0]).backgroundColor).toBe(resolve('--sapContent_ContrastIconColor'));

@@ -116,7 +116,7 @@ export class BusyIndicator {
             'relative z-[11] block text-center text-[0] leading-none',
             this.contrast()
                 ? 'text-sap-content-contrast-icon-color hc:text-sap-content-busy-color'
-                : 'text-sap-content-busy-color',
+                : 'text-(--fdBusy_Indicator_Dot_Color)',
             '[:not(:empty)+&]:absolute [:not(:empty)+&]:start-1/2 [:not(:empty)+&]:top-1/2 [:not(:empty)+&]:-translate-1/2 [:not(:empty)+&]:whitespace-nowrap rtl:[:not(:empty)+&]:translate-x-1/2',
             DOTS[this.size()]
         )

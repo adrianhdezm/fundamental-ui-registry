@@ -69,6 +69,11 @@ async function setup() {
 }
 
 describe('Link', () => {
+    it('the underline sits 0.125rem below the text, as fundamental-styles', async () => {
+        const { link } = await setup();
+        expect(getComputedStyle(link).textUnderlineOffset).toBe('2px');
+    });
+
     it('emphasized, subtle, inverted and disabled styles; disabled link is aria-disabled and not navigable', async () => {
         const { host, root, link, resolve, update } = await setup();
         expect(getComputedStyle(link).color).toBe(resolve('--sapLinkColor'));

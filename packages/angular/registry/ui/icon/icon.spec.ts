@@ -55,6 +55,14 @@ async function setup() {
 }
 
 describe('Icon', () => {
+    it('a narrow glyph gets a 1em box, as wide as the font size', async () => {
+        const { icon, update } = await setup();
+        await update((h) => h.glyph.set('slim-arrow-down'));
+        expect(icon.getBoundingClientRect().width).toBe(16);
+        await update((h) => h.size.set('md'));
+        expect(icon.getBoundingClientRect().width).toBe(32);
+    });
+
     afterEach(() => document.documentElement.removeAttribute('dir'));
 
     it('resolves glyph names of SAP-icons, TNT and Business Suite fonts; unknown glyph renders nothing', async () => {
