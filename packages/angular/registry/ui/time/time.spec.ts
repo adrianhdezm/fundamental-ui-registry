@@ -306,5 +306,15 @@ describe('Time forms', () => {
                 expect(getComputedStyle(current()).backgroundColor).toBe(colour);
             }
         });
+
+        it('the collapsed value has the default cursor and the column label the text cursor (computed style)', async () => {
+            const { root, column } = await setup();
+            const collapsed = column('minutes').querySelector<HTMLElement>('span')!;
+            expect(collapsed.textContent!.trim()).toBe('30');
+            expect(getComputedStyle(collapsed).cursor).toBe('default');
+            const label = root.querySelector<HTMLElement>('#t-minutes-label')!;
+            expect(label.textContent!.trim()).toBe('Min');
+            expect(getComputedStyle(label).cursor).toBe('text');
+        });
     });
 });

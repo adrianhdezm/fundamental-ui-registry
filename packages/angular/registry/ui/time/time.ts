@@ -96,9 +96,9 @@ const ITEM =
     'm-0 box-border flex h-(--time-item-h) min-h-(--time-item-h) w-12 shrink-0 items-center justify-center rounded-(--sapButton_BorderCornerRadius) border border-solid p-0';
 
 const LABEL =
-    'm-0 block h-8 overflow-hidden p-0 text-sap-font-small-size leading-8 whitespace-nowrap text-sap-content-label-color';
+    'm-0 block h-8 cursor-text overflow-hidden p-0 text-sap-font-small-size leading-8 whitespace-nowrap text-sap-content-label-color';
 const COLLAPSED =
-    'cursor-pointer border-transparent bg-sap-content-selected-background text-sap-content-selected-text-color hover:bg-sap-content-selected-hover-background group-focus-visible/col:outline-(length:--sapContent_FocusWidth) group-focus-visible/col:[outline-style:var(--sapContent_FocusStyle)] group-focus-visible/col:-outline-offset-[0.1875rem] group-focus-visible/col:outline-sap-content-focus-color';
+    'cursor-default border-transparent bg-sap-content-selected-background text-sap-content-selected-text-color hover:bg-sap-content-selected-hover-background group-focus-visible/col:outline-(length:--sapContent_FocusWidth) group-focus-visible/col:[outline-style:var(--sapContent_FocusStyle)] group-focus-visible/col:-outline-offset-[0.1875rem] group-focus-visible/col:outline-sap-content-focus-color';
 
 /**
  * A column of a time: while active it shows a window of values around the selected one, which

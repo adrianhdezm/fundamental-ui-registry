@@ -315,12 +315,12 @@ None.
 
 #### time
 
-[React report](../../../react/docs/parity/components/time.md) · ⬜ reported: 1 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/time.md) · 🧪 covered: 2
 
-| ID     | Issue                                                                                                                                              | Kind   | Confirmed | Pattern | Status      | Test                                                                                                                       | Fix | Notes |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
-| time-1 | The selected value in HC uses `--sapList_Background` (black/white) instead of the working background fundamental-styles shows (#2e2e2e / #d9d9d9). | visual | rendered  |         | 🧪 covered  | time.spec.ts › Time › styles › the selected value has the working background in HC, as fundamental-styles (computed style) |     |       |
-| time-2 | The collapsed value has `cursor: pointer` (fundamental-styles: default) and the column label lacks `cursor: text`.                                 | visual | rendered  |         | ⬜ reported |                                                                                                                            |     |       |
+| ID     | Issue                                                                                                                                              | Kind   | Confirmed | Pattern | Status     | Test                                                                                                                            | Fix | Notes |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| time-1 | The selected value in HC uses `--sapList_Background` (black/white) instead of the working background fundamental-styles shows (#2e2e2e / #d9d9d9). | visual | rendered  |         | 🧪 covered | time.spec.ts › Time › styles › the selected value has the working background in HC, as fundamental-styles (computed style)      |     |       |
+| time-2 | The collapsed value has `cursor: pointer` (fundamental-styles: default) and the column label lacks `cursor: text`.                                 | visual | rendered  |         | 🧪 covered | time.spec.ts › Time › styles › the collapsed value has the default cursor and the column label the text cursor (computed style) |     |       |
 
 #### step-input
 

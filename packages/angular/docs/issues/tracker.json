@@ -918,9 +918,9 @@
       "source": "../../../react/docs/parity/components/time.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host: the collapsed minutes value computes cursor: pointer and the 'Min' column label cursor: auto; fundamental-styles' Time stories have default and text.",
+      "test": "time.spec.ts › Time › styles › the collapsed value has the default cursor and the column label the text cursor (computed style)",
       "fix": "",
       "notes": ""
     },
