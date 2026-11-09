@@ -122,7 +122,7 @@ export class Token {
                     '[--tk-fg:var(--sapButton_Selected_TextColor)] [--tk-bg:var(--sapButton_Selected_Background)] [--tk-bc:var(--sapButton_Selected_BorderColor)] [--tk-close:var(--sapButton_Selected_TextColor)]',
                     'hover:[--tk-bg:var(--sapButton_Selected_Hover_Background)] font-sap-font-semibold-duplex-family',
                     // a thicker bottom line
-                    'shadow-[inset_0_-0.0625rem_0_0_var(--sapButton_Selected_BorderColor)] focus:outline-sap-content-focus-color hc:focus:outline-sap-content-contrast-focus-color'
+                    '[box-shadow:inset_0_-0.0625rem_0_0_var(--sapButton_Selected_BorderColor)] hc:[box-shadow:none] focus:outline-sap-content-focus-color hc:focus:outline-sap-content-contrast-focus-color'
                 ],
             readOnly && [
                 '[--tk-fg:var(--sapContent_LabelColor)] [--tk-bc:var(--sapField_ReadOnly_BorderColor)] [--tk-ps:0.3125rem] pe-(--tk-ps) compact:[--tk-ps:0.25rem]',
