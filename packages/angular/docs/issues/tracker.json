@@ -144,11 +144,11 @@
       "source": "../../../react/docs/parity/components/busy-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "decision-needed",
+      "status": "reported",
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision: fundamental-styles' `--fdBusy_Indicator_Dot_Color` (#0070f2 in every theme) or the theme's `--sapContent_BusyColor` (the theme parameter; UI5 not checked yet)? React took fundamental-styles'."
+      "notes": "Decided: fundamental-styles’ `--fdBusy_Indicator_Dot_Color` (as React)."
     },
     {
       "id": "layout-grid-1",
@@ -302,11 +302,11 @@
       "source": "../../../react/docs/parity/components/radio.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "decision-needed",
+      "status": "wont-fix",
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision: pointer cursor on a read-only label (fundamental-styles) or `cursor-default` (Angular today: the radio cannot change)? React took the pointer."
+      "notes": "Decided: keep `cursor-default` on the read-only label. A read-only radio cannot change, so a pointer would suggest an action that does not happen (fundamental-styles and React keep the pointer)."
     },
     {
       "id": "switch-1",
@@ -853,11 +853,11 @@
       "source": "../../../react/docs/parity/components/calendar.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "decision-needed",
+      "status": "reported",
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision: long month names (fundamental-styles; fixes the axe failure) or short names with a matching visible label? React took long names."
+      "notes": "Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure."
     },
     {
       "id": "calendar-2",
@@ -892,11 +892,11 @@
       "source": "../../../react/docs/parity/components/message-page.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "decision-needed",
+      "status": "reported",
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision: start-align a multi-line subtitle (fundamental-styles) or keep it centred (the Fiori illustrated-message layout)? React took fundamental-styles'."
+      "notes": "Decided: start-aligned, as fundamental-styles (and React)."
     },
     {
       "id": "time-1",
@@ -1022,11 +1022,11 @@
       "source": "../../../react/docs/parity/components/date-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "decision-needed",
+      "status": "reported",
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision for the second half: italic placeholder in HC (fundamental-styles) or upright (Angular's `hc:placeholder:not-italic`)? React took italic. The compact padding (first half) is a plain fix."
+      "notes": "Decided: italic placeholder in HC, as fundamental-styles (and React); the compact padding (first half) is a plain fix."
     },
     {
       "id": "button-1",
@@ -1115,11 +1115,11 @@
       "source": "../../../react/docs/parity/components/time-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "decision-needed",
+      "status": "reported",
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision: `time-entry-request` (fundamental-styles, UI5) or `fob-watch` (fundamental-ngx, Angular today)? React took `time-entry-request`."
+      "notes": "Decided: `time-entry-request`, as fundamental-styles and UI5 (and React). A visible change from fundamental-ngx."
     },
     {
       "id": "time-picker-2",
@@ -2395,11 +2395,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "decision-needed",
+      "status": "reported",
       "repro": "",
       "test": "",
       "fix": "",
-      "notes": "Decision: fundamental-styles' single truncated 2rem state message line, or a wrapping message (truncation hides text; UI5 to be checked)?"
+      "notes": "Decided: keep a wrapping message (truncation hides text); align the rest of the box with fundamental-styles where it does not prevent wrapping. Check UI5 in the multi-combobox PR."
     },
     {
       "id": "multi-combobox-7",

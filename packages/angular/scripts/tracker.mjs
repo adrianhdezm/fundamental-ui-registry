@@ -102,7 +102,6 @@ const tally = (list) =>
         .map(([s, n]) => `${STATUS[s]}: ${n}`)
         .join(' · ');
 
-const sourceLink = (i) => `[${i.component}](${i.source})`;
 const done = issues.filter((i) => ['verified', 'not-reproducible', 'wont-fix'].includes(i.status)).length;
 const generated = [
     `**Progress:** ${done} of ${issues.length} issues closed (verified, not reproducible or won’t fix).`,
@@ -129,20 +128,32 @@ const generated = [
     '',
     '### Issues',
     '',
-    table(
-        ['ID', 'Component', 'Issue', 'Kind', 'Confirmed', 'Pattern', 'Status', 'Test', 'Fix'],
-        issues.map((i) => [
-            i.id,
-            sourceLink(i),
-            i.issue,
-            i.kind,
-            i.confirmed,
-            i.pattern ?? '',
-            STATUS[i.status],
-            i.test,
-            i.fix
-        ])
-    )
+    // one table per component: a pull request rewrites only the tables of the components it works on (Prettier pads
+    // a table to its widest cell, so one table for every issue would conflict between any two pull requests)
+    ...[...new Set(issues.map((i) => i.component))].flatMap((component) => {
+        const list = issues.filter((i) => i.component === component);
+        return [
+            `#### ${component}`,
+            '',
+            `[React report](${list[0].source}) · ${tally(list)}`,
+            '',
+            table(
+                ['ID', 'Issue', 'Kind', 'Confirmed', 'Pattern', 'Status', 'Test', 'Fix', 'Notes'],
+                list.map((i) => [
+                    i.id,
+                    i.issue,
+                    i.kind,
+                    i.confirmed,
+                    i.pattern ?? '',
+                    STATUS[i.status],
+                    i.test,
+                    i.fix,
+                    i.notes
+                ])
+            ),
+            ''
+        ];
+    })
 ].join('\n');
 
 const readme = readFileSync(readmePath, 'utf8');
