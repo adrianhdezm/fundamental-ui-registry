@@ -65,15 +65,15 @@ const BOX_STATE: Record<FormState | 'readonly', string> = {
     ].join(' '),
     warning: [
         '[--cb-bg:var(--sapField_WarningBackground)] [--cb-bw:var(--sapField_WarningBorderWidth)] [--cb-bs:var(--sapField_Selector_WarningBorderStyle)]',
-        '[--cb-bc:var(--sapField_WarningColor)] [--cb-mark:var(--sapField_WarningColor)] [--cb-hover-bc:var(--sapField_WarningColor)] [--cb-hover-bg:var(--sapField_Hover_Background)]'
+        '[--cb-bc:var(--sapField_WarningColor)] [--cb-mark:var(--sapField_WarningColor)] [--cb-hover-bc:var(--sapField_WarningColor)] [--cb-hover-bg:var(--sapField_Hover_Background)] hc:[--cb-hover-bg:var(--sapField_Hover_Background)]'
     ].join(' '),
     success: [
         '[--cb-bg:var(--sapField_SuccessBackground)] [--cb-bw:var(--sapField_SuccessBorderWidth)] [--cb-bs:var(--sapField_Selector_SuccessBorderStyle)]',
-        '[--cb-bc:var(--sapField_SuccessColor)] [--cb-mark:var(--sapField_SuccessColor)] [--cb-hover-bc:var(--sapField_SuccessColor)] [--cb-hover-bg:var(--sapField_Hover_Background)]'
+        '[--cb-bc:var(--sapField_SuccessColor)] [--cb-mark:var(--sapField_SuccessColor)] [--cb-hover-bc:var(--sapField_SuccessColor)] [--cb-hover-bg:var(--sapField_Hover_Background)] hc:[--cb-hover-bg:var(--sapField_Hover_Background)]'
     ].join(' '),
     information: [
         '[--cb-bg:var(--sapField_InformationBackground)] [--cb-bw:var(--sapField_InformationBorderWidth)] [--cb-bs:var(--sapField_Selector_InformationBorderStyle)]',
-        '[--cb-bc:var(--sapField_InformationColor)] [--cb-mark:var(--sapField_InformationColor)] [--cb-hover-bc:var(--sapField_InformationColor)] [--cb-hover-bg:var(--sapField_Hover_Background)]'
+        '[--cb-bc:var(--sapField_InformationColor)] [--cb-mark:var(--sapField_InformationColor)] [--cb-hover-bc:var(--sapField_InformationColor)] [--cb-hover-bg:var(--sapField_Hover_Background)] hc:[--cb-hover-bg:var(--sapField_Hover_Background)]'
     ].join(' '),
     readonly: [
         '[--cb-bg:var(--sapField_ReadOnly_Background)] [--cb-bw:var(--sapElement_BorderWidth)] [--cb-bs:var(--sapField_Selector_ReadOnly_BorderStyle)]',
