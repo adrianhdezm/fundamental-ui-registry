@@ -371,6 +371,8 @@ describe('UploadCollection issues', () => {
         const { el } = await render();
         expect(getComputedStyle(el('link')).color).toBe(themed('var(--sapLinkColor)'));
         expect(getComputedStyle(el('link')).lineHeight).toBe('16px');
+        // the list title's size (1rem in cozy), not the link's 0.875rem
+        expect(getComputedStyle(el('link')).fontSize).toBe('16px');
     });
 
     it('keeps the title link and the rename field interactive (upload-collection-2)', async () => {
