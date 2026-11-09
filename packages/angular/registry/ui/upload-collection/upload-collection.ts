@@ -319,7 +319,8 @@ export class UploadCollectionFormItem implements ControlValueAccessor {
     imports: [Button],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'm-0 box-border flex shrink-0 items-center gap-0.5 p-0 ms-4 [[data-small]_&]:ms-0 [[data-small]_&]:mt-3 [[data-small]_&]:basis-full [[data-small]_&]:gap-2'
+        // as fundamental-styles: inline buttons, each with a 0.125rem start margin and a space between them
+        class: 'm-0 ms-4 box-border block shrink-0 p-0 font-sap-font-family text-sap-font-size leading-[normal] whitespace-nowrap [&>button]:ms-0.5 [[data-small]_&]:ms-0 [[data-small]_&]:mt-3 [[data-small]_&]:basis-full [[data-small]_&]:[&>button:not(:first-child)]:ms-2'
     },
     template: `
         @if (!item?.editMode()) {
@@ -332,6 +333,9 @@ export class UploadCollectionFormItem implements ControlValueAccessor {
                     [disabled]="disableFileNameEdit()"
                     (click)="$event.stopPropagation(); edit()"
                 ></button>
+            }
+            @if (allowFileNameEdit() && allowFileDeletion()) {
+                &ngsp;
             }
             @if (allowFileDeletion()) {
                 <button
@@ -351,6 +355,7 @@ export class UploadCollectionFormItem implements ControlValueAccessor {
                 [disabled]="!item.draftName().trim()"
                 (click)="$event.stopPropagation(); ok()"
             ></button>
+            &ngsp;
             <button
                 fdButton
                 variant="transparent"
