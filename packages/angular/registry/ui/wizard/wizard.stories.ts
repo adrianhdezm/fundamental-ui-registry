@@ -549,6 +549,40 @@ class StoryWizardDialog {
 })
 class StoryWizardLoading {}
 
+/** fundamental-styles' mobile example: seven glyph steps in 300px, the fourth current. */
+@Component({
+    selector: 'story-wizard-stacked',
+    imports: [...PARTS],
+    template: `
+        <div class="max-w-[300px]">
+            <fd-wizard contentHeight="16rem" [appendToWizard]="false">
+                <fd-wizard-navigation>
+                    <ul fd-wizard-progress-bar size="sm" aria-label="Wizard steps">
+                        @for (step of steps; track step.label; let i = $index) {
+                            <li fd-wizard-step [status]="status[i]" [label]="step.label" [optionalText]="step.optional">
+                                <fd-wizard-step-indicator [glyph]="step.glyph" />
+                                <fd-wizard-content size="sm"><p class="m-0">This is the {{ step.label }} step.</p></fd-wizard-content>
+                            </li>
+                        }
+                    </ul>
+                </fd-wizard-navigation>
+            </fd-wizard>
+        </div>
+    `
+})
+class StoryWizardStacked {
+    protected readonly steps = [
+        { label: 'Customer', glyph: 'person-placeholder', optional: '' },
+        { label: 'Contact', glyph: 'contacts', optional: '(Optional)' },
+        { label: 'Payment', glyph: 'money-bills', optional: '' },
+        { label: 'Bill To', glyph: 'batch-payments', optional: '' },
+        { label: 'Ship To', glyph: 'shipping-status', optional: '' },
+        { label: 'Products', glyph: 'product', optional: '' },
+        { label: 'Additional Information', glyph: 'course-program', optional: '' }
+    ];
+    protected readonly status = statuses(7, 3);
+}
+
 const meta: Meta<Wizard> = {
     title: 'Components/Wizard',
     component: Wizard,
@@ -558,6 +592,7 @@ const meta: Meta<Wizard> = {
                 StoryWizardDefault,
                 StoryWizardBranching,
                 StoryWizardNarrow,
+                StoryWizardStacked,
                 StoryWizardCustomizable,
                 StoryWizardMobile,
                 StoryWizardDialog,
@@ -592,6 +627,17 @@ export const Branching: Story = {
 export const Narrow: Story = {
     name: 'Stacked steps and a footer',
     render: () => ({ template: `<story-wizard-narrow />` })
+};
+export const Stacked: Story = {
+    name: 'Stacked',
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' mobile example, for the visual comparison: seven steps in 300px, the fourth current."
+            }
+        }
+    },
+    render: () => ({ template: `<story-wizard-stacked />` })
 };
 export const Customizable: Story = {
     name: 'Customizable',

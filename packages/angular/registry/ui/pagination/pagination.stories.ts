@@ -141,6 +141,53 @@ class StoryPaginationMobile {
     protected readonly page = signal(2);
 }
 
+/** fundamental-styles' Middle Page example: one item per page, with more than nine pages and with less. */
+@Component({
+    selector: 'story-pagination-middle',
+    imports: [Pagination],
+    template: `
+        <p class="${small} mb-2">&gt; 9 Pages</p>
+        <fd-pagination
+            id="pg-middle-long"
+            ariaLabel="Middle page example, pagination with more than 9 pages"
+            [totalItems]="500"
+            [itemsPerPage]="1"
+            [(currentPage)]="long"
+        />
+        <p class="${small} mt-6 mb-2">&lt; 9 Pages</p>
+        <fd-pagination
+            id="pg-middle-short"
+            ariaLabel="Middle page example, pagination with less than 9 pages"
+            [totalItems]="3"
+            [itemsPerPage]="1"
+            [(currentPage)]="short"
+        />
+    `
+})
+class StoryPaginationMiddle {
+    protected readonly long = signal(300);
+    protected readonly short = signal(2);
+}
+
+/** fundamental-styles' Mobile example: 2000 items, 4 per page, page 500. */
+@Component({
+    selector: 'story-pagination-mobile-reference',
+    imports: [Pagination],
+    template: `
+        <fd-pagination
+            ariaLabel="Mobile pagination"
+            mobile
+            [totalItems]="2000"
+            [itemsPerPage]="4"
+            [itemsPerPageOptions]="[4, 8, 16, 32]"
+            [(currentPage)]="page"
+        />
+    `
+})
+class StoryPaginationMobileReference {
+    protected readonly page = signal(500);
+}
+
 const meta: Meta<Pagination> = {
     title: 'Components/Pagination',
     component: Pagination,
@@ -151,7 +198,9 @@ const meta: Meta<Pagination> = {
                 StoryPaginationBasic,
                 StoryPaginationShowing,
                 StoryPaginationPerPage,
-                StoryPaginationMobile
+                StoryPaginationMobile,
+                StoryPaginationMiddle,
+                StoryPaginationMobileReference
             ]
         })
     ],
@@ -211,6 +260,22 @@ export const Mobile: Story = {
         }
     },
     render: () => ({ template: `<story-pagination-mobile />` })
+};
+
+export const MiddlePage: Story = {
+    name: 'Middle page',
+    parameters: {
+        docs: { description: { story: "fundamental-styles' Middle Page example, for the visual comparison." } }
+    },
+    render: () => ({ template: `<story-pagination-middle />` })
+};
+
+export const MobileReference: Story = {
+    name: 'Mobile reference',
+    parameters: {
+        docs: { description: { story: "fundamental-styles' Mobile example, for the visual comparison." } }
+    },
+    render: () => ({ template: `<story-pagination-mobile-reference />` })
 };
 
 export const OpenItemsPerPage: Story = {

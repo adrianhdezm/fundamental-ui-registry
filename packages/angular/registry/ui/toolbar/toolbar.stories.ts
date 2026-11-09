@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { argsToTemplate, moduleMetadata, type Meta, type StoryObj } from '@analogjs/storybook-angular';
 import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button } from '@/ui/button/button';
@@ -42,10 +43,32 @@ const MENU = `
     <li fd-menu-item><div fd-menu-interactive><span fd-menu-title>Option 2</span></div></li>`;
 const col = 'flex flex-col gap-6';
 
+/** fundamental-styles' info toolbars, not active and active, as wide as in its Storybook (76rem). */
+@Component({
+    selector: 'story-toolbar-info',
+    imports: [Toolbar, ToolbarLabel, ToolbarSpacer, Icon],
+    template: `
+        <div class="flex max-w-[76rem] flex-col gap-6">
+            <fd-toolbar fdType="info" ariaLabel="Info, not active toolbar">
+                <span fd-toolbar-label>3 item selected</span>
+                <fd-toolbar-spacer />
+                <fd-icon glyph="undo" />
+            </fd-toolbar>
+            <fd-toolbar fdType="info" active ariaLabel="Info, active toolbar">
+                <span fd-toolbar-label>3 item selected</span>
+                <fd-toolbar-spacer />
+                <fd-icon glyph="undo" />
+            </fd-toolbar>
+        </div>
+    `
+})
+class StoryToolbarInfo {}
+
+
 const meta: Meta<Toolbar> = {
     title: 'Components/Toolbar',
     component: Toolbar,
-    decorators: [moduleMetadata({ imports: IMPORTS })],
+    decorators: [moduleMetadata({ imports: [...IMPORTS, StoryToolbarInfo] })],
     parameters: {
         docs: {
             description: {
@@ -89,6 +112,18 @@ export const Types: Story = {
                 <fd-toolbar fdType="info" active ariaLabel="Active info toolbar"><fd-icon glyph="filter" /><span fd-toolbar-label>Info active: filtered by Category</span></fd-toolbar>
             </div>`
     })
+};
+
+export const InfoTypes: Story = {
+    name: 'Info types',
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' info and active info toolbars example, for the visual comparison."
+            }
+        }
+    },
+    render: () => ({ template: `<story-toolbar-info />` })
 };
 
 export const TitleSpacerSeparator: Story = {

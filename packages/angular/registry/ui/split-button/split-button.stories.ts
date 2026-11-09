@@ -137,10 +137,44 @@ class StorySplitButtonProgrammatic {
     protected readonly selected = signal<MenuItem | null>(null);
 }
 
+/** fundamental-styles' split menu buttons: each variant with its name as the main action. */
+@Component({
+    selector: 'story-split-button-variants',
+    imports: [SplitButton, Menu, MenuItem, MenuInteractive, MenuTitle],
+    template: `
+        <div class="flex flex-wrap items-center gap-2">
+            @for (variant of variants; track variant.variant) {
+                <fd-split-button
+                    [variant]="variant.variant"
+                    [ariaLabel]="variant.label + ' split button'"
+                    [mainAction]="{ mainActionTitle: variant.label, keepMainAction: true }"
+                    [fixedWidth]="false"
+                >
+                    ${MENU()}
+                </fd-split-button>
+            }
+        </div>
+    `
+})
+class StorySplitButtonVariants {
+    protected readonly variants: { variant: ButtonVariant; label: string }[] = [
+        { variant: 'emphasized', label: 'Emphasized' },
+        { variant: 'standard', label: 'Standard' },
+        { variant: 'transparent', label: 'Transparent' },
+        { variant: 'ghost', label: 'Ghost' },
+        { variant: 'positive', label: 'Positive' },
+        { variant: 'negative', label: 'Negative' },
+        { variant: 'attention', label: 'Attention' }
+    ];
+    protected log(_text: string): void {}
+}
+
 const meta: Meta<SplitButton> = {
     title: 'Components/Split Button',
     component: SplitButton,
-    decorators: [moduleMetadata({ imports: [StorySplitButton, StorySplitButtonProgrammatic] })],
+    decorators: [
+        moduleMetadata({ imports: [StorySplitButton, StorySplitButtonProgrammatic, StorySplitButtonVariants] })
+    ],
     parameters: {
         docs: {
             story: { inline: false, iframeHeight: 360 },
@@ -170,6 +204,18 @@ export const Template: Story = {
 export const Programmatic: Story = {
     name: 'Programmatic selection and open / close',
     render: () => ({ template: `<story-split-button-programmatic />` })
+};
+
+export const Variants: Story = {
+    name: 'Variants',
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' split menu button example, for the visual comparison: the variants with their names."
+            }
+        }
+    },
+    render: () => ({ template: `<story-split-button-variants />` })
 };
 
 export const OpenMenu: Story = {
