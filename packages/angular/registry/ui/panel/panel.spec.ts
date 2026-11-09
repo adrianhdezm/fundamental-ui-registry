@@ -96,6 +96,13 @@ async function setup(config: { fixed?: boolean; expanded?: boolean } = {}) {
 }
 
 describe('Panel', () => {
+    it('the title uses the 72-Bold face with a normal weight, so no synthetic bold is added', async () => {
+        const { root } = await setup();
+        const title = getComputedStyle(root.querySelector<HTMLElement>('[fd-panel-title]')!);
+        expect(title.fontFamily).toMatch(/^"?72-Bold/);
+        expect(title.fontWeight).toBe('400');
+    });
+
     afterEach(() => {
         document.documentElement.removeAttribute('data-density');
     });

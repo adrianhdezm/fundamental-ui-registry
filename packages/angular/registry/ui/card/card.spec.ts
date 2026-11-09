@@ -428,6 +428,13 @@ const ringLayers = (root: Element) =>
     );
 
 describe('Card', () => {
+    it('the title uses the 72-Bold face with a normal weight, so no synthetic bold is added', async () => {
+        const { q } = await render(InteractiveHost);
+        const title = style(q('[fd-card-title]'));
+        expect(title.fontFamily).toMatch(/^"?72-Bold/);
+        expect(title.fontWeight).toBe('400');
+    });
+
     it('the card shadow has no transparent ring layers', async () => {
         const { root, q } = await render(InteractiveHost);
         expect(style(q('#card')).boxShadow).not.toBe('none');

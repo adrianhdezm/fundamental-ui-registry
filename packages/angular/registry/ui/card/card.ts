@@ -480,7 +480,7 @@ export class CardTitle {
     private readonly card = inject(Card, { optional: true });
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 max-h-[4.2rem] max-w-full p-0 font-sap-font-header-family text-sap-font-header6-size font-bold break-words text-sap-tile-title-text-color line-clamp-3',
+            'm-0 max-h-[4.2rem] max-w-full p-0 font-sap-font-header-family text-sap-font-header6-size font-normal break-words text-sap-tile-title-text-color line-clamp-3',
             this.card?.cardType() === 'analytical' && 'max-h-[2.8rem] line-clamp-2'
         )
     );
