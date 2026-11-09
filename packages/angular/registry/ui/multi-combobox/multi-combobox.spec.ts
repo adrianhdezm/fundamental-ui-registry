@@ -60,6 +60,7 @@ class Host {
             [openDropdownOnAddOnClicked]="openOnAddon()"
             [mobile]="mobile()"
             [mobileConfig]="mobileConfig()"
+            [stateMessage]="message()"
             [dataSource]="data()"
             [(selectedItems)]="selected"
             (selectionChange)="changes.set(changes() + 1)"
@@ -81,6 +82,7 @@ class ModelHost {
     });
     readonly changes = signal(0);
     readonly addonClicks = signal(0);
+    readonly message = signal<string | null>(null);
 }
 
 @Component({
@@ -381,6 +383,17 @@ describe('MultiCombobox', () => {
         expect(options().map((o) => o.getAttribute('aria-selected'))).toEqual(['false', 'true', 'false', 'false']);
     });
 
+    it('keeps the polite live region mounted, so a state message that appears is announced', async () => {
+        const { fixture, host, root } = await setupModel();
+        const region = root.querySelector<HTMLElement>('[aria-live=polite]');
+        expect(region).not.toBeNull();
+        expect(region!.textContent!.trim()).toBe('');
+        host.message.set('Pick at least one');
+        await fixture.whenStable();
+        expect(root.querySelector('[aria-live=polite]')).toBe(region);
+        expect(region!.textContent!.trim()).toBe('Pick at least one');
+    });
+
     describe('mobile', () => {
         const mobileSetup = () =>
             setupModel((h) => {
@@ -393,6 +406,20 @@ describe('MultiCombobox', () => {
             await wait();
             expect(document.querySelector('[role=dialog] [role=listbox]')).not.toBeNull();
         };
+
+        it('renders the state message description once for the page and the dialog field', async () => {
+            const { fixture, host, addon, input } = await setupModel((h) => {
+                h.mobile.set(true);
+                h.message.set('Pick at least one');
+            });
+            await openDialog(fixture, addon);
+            const dialogInput = document.querySelector<HTMLInputElement>('[role=dialog] input[role=combobox]')!;
+            const id = input.getAttribute('aria-describedby')!;
+            expect(dialogInput.getAttribute('aria-describedby')).toBe(id);
+            expect(document.querySelectorAll(`[id="${id}"]`)).toHaveLength(1);
+            expect(document.getElementById(id)!.textContent!.trim()).toBe('Pick at least one');
+            host.message.set(null);
+        });
 
         it('Approve commits once and Cancel restores the selection', async () => {
             const { fixture, host, addon } = await mobileSetup();
