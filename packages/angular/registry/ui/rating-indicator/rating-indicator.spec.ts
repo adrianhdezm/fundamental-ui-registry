@@ -282,3 +282,21 @@ describe('RatingIndicator events and forms', () => {
         expect(slider.hasAttribute('aria-disabled')).toBe(false);
     });
 });
+
+@Component({
+    imports: [RatingIndicator],
+    template: `<fd-rating-indicator ariaLabel="Halves" allowHalves [value]="2.5" />`
+})
+class HalvesHost {}
+
+describe('RatingIndicator line height', () => {
+    it('the half-star icons keep line-height 1 (24px at md)', async () => {
+        const fixture = TestBed.createComponent(HalvesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const icons = [...(fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('fd-icon')];
+        expect(icons.length).toBeGreaterThan(0);
+        for (const icon of icons) expect(getComputedStyle(icon).lineHeight).toBe('24px');
+        fixture.nativeElement.remove();
+    });
+});

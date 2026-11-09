@@ -81,7 +81,7 @@ export class WizardProgressBar {
     protected readonly computedClass = computed(() =>
         cn(
             'relative z-10 m-0 box-border table h-16 w-full table-fixed list-none p-0 pt-4',
-            'bg-sap-object-header-background font-sap-font-family text-sap-font-size text-sap-text-color shadow-sap-content-header-shadow',
+            'bg-sap-object-header-background font-sap-font-family text-sap-font-size text-sap-text-color [box-shadow:var(--sapContent_HeaderShadow)]',
             SIZE_PADDING[this.size() as WizardSize],
             this.userClass()
         )
@@ -227,7 +227,11 @@ export class WizardContent {
         }
         <ng-template #content>
             @if (glyph(); as glyph) {
-                <fd-icon [glyph]="glyph" [font]="glyphFont()" class="text-sap-font-large-size text-(--wz-icon)" />
+                <fd-icon
+                    [glyph]="glyph"
+                    [font]="glyphFont()"
+                    class="text-sap-font-large-size leading-none text-(--wz-icon)"
+                />
             }
             <ng-content />
         </ng-template>
@@ -255,7 +259,7 @@ export class WizardStepIndicator {
 
     protected readonly indicatorClass = computed(() =>
         cn(
-            'relative m-0 ms-[0.1875rem] me-2 box-border flex size-8 min-h-8 min-w-8 shrink-0 items-center justify-center rounded-full border border-solid p-0',
+            'relative m-0 ms-[0.1875rem] me-2 box-border flex size-8 min-h-8 min-w-8 shrink-0 items-center justify-center rounded-[50%] border border-solid p-0',
             'border-(--wz-border) bg-(--wz-bg) font-sap-font-family text-sap-font-size text-(--wz-color)',
             // the selection bar under the current step
             this.step?.status() === 'current' &&

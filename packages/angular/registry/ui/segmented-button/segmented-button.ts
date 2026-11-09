@@ -182,7 +182,7 @@ export class SegmentedButton implements ControlValueAccessor {
             'relative box-border inline-flex w-fit align-middle [&>button]:m-0 [&>button:hover]:z-[1]',
             // Horizon: transparent buttons on a pad; high contrast: joined bordered buttons
             'rounded-sap-button-border-corner-radius bg-sap-button-background',
-            '[--seg-bw:var(--sapButton_BorderWidth)] [--seg-bc:var(--sapButton_BorderColor)] shadow-[inset_0_0_0_var(--seg-bw)_var(--seg-bc)]',
+            '[--seg-bw:var(--sapButton_BorderWidth)] [--seg-bc:var(--sapButton_BorderColor)] [box-shadow:inset_0_0_0_var(--seg-bw)_var(--seg-bc)]',
             '[&>button]:border-transparent [&>button]:bg-transparent hc:[&>button]:border-sap-button-border-color hc:[&>button]:bg-sap-button-background',
             vertical
                 ? [

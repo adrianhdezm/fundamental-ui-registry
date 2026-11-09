@@ -335,10 +335,8 @@ describe('Tree', () => {
             for (const [state, variable] of states) {
                 host.state.set(state);
                 await stable();
-                // the indicator is the last of Tailwind's composed shadows
-                expect(getComputedStyle(b).boxShadow.endsWith(`, ${themeColor(variable)} 6px 0px 0px 0px inset`)).toBe(
-                    true
-                );
+                // the indicator is the whole box-shadow (no transparent ring layers)
+                expect(getComputedStyle(b).boxShadow).toBe(`${themeColor(variable)} 6px 0px 0px 0px inset`);
             }
         });
 

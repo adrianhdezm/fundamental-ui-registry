@@ -421,7 +421,26 @@ class ExtendedHost {
     readonly align = signal<'top' | 'bottom' | null>('bottom');
 }
 
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
 describe('Card', () => {
+    it('the title uses the 72-Bold face with a normal weight, so no synthetic bold is added', async () => {
+        const { q } = await render(InteractiveHost);
+        const title = style(q('[fd-card-title]'));
+        expect(title.fontFamily).toMatch(/^"?72-Bold/);
+        expect(title.fontWeight).toBe('400');
+    });
+
+    it('the card shadow has no transparent ring layers', async () => {
+        const { root, q } = await render(InteractiveHost);
+        expect(style(q('#card')).boxShadow).not.toBe('none');
+        expect(ringLayers(root)).toEqual([]);
+    });
+
     it('header, content and footer render in order; badges at the top end corner (two at most)', async () => {
         const { host, q, all, stable } = await render(StandardHost);
         const card = q('#card');

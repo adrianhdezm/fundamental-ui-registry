@@ -46,7 +46,22 @@ async function setup(mobile = false, change?: (host: Host) => void) {
     return { fixture, host: fixture.componentInstance, control };
 }
 
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
 describe('ActionSheet', () => {
+    it('the shadows are the theme shadows only, without transparent ring layers', async () => {
+        await setup();
+        const shadows = [...document.querySelectorAll('.cdk-overlay-container *')].filter(
+            (el) => getComputedStyle(el).boxShadow !== 'none'
+        );
+        expect(shadows.length).toBeGreaterThan(0);
+        expect(ringLayers(document.querySelector('.cdk-overlay-container')!)).toEqual([]);
+    });
+
     for (const mobile of [false, true]) {
         describe(mobile ? 'mobile' : 'popover', () => {
             it('opens a menu of actions and focuses the first one', async () => {

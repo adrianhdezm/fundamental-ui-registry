@@ -137,7 +137,6 @@ const END_SEPARATOR_NEXT: Partial<Record<FlexibleColumnLayout, FlexibleColumnLay
                 <button
                     fdButton
                     variant="transparent"
-                    data-density="compact"
                     [glyph]="'slim-arrow-' + direction"
                     [ariaLabel]="separatorLabel(direction, collapseTitleStartBtn(), expandTitleStartBtn())"
                     [attr.title]="separatorLabel(direction, collapseTitleStartBtn(), expandTitleStartBtn())"
@@ -158,7 +157,6 @@ const END_SEPARATOR_NEXT: Partial<Record<FlexibleColumnLayout, FlexibleColumnLay
                 <button
                     fdButton
                     variant="transparent"
-                    data-density="compact"
                     [glyph]="'slim-arrow-' + direction"
                     [ariaLabel]="separatorLabel(direction, collapseTitleEndBtn(), expandTitleEndBtn())"
                     [attr.title]="separatorLabel(direction, collapseTitleEndBtn(), expandTitleEndBtn())"
@@ -309,7 +307,7 @@ export class FlexibleColumnLayoutComponent {
     }
 
     protected readonly buttonClass =
-        'absolute start-1/2 top-1/2 z-2 h-8 w-6 min-w-6 -translate-1/2 justify-center p-0 rtl:translate-x-1/2';
+        'absolute start-1/2 top-1/2 z-2 h-8 w-6 min-w-6 -translate-1/2 justify-center p-0 rtl:translate-x-1/2 compact:min-w-6 compact:px-0';
 
     protected columnClass(width: number): string {
         return cn(
@@ -327,8 +325,9 @@ export class FlexibleColumnLayoutComponent {
             design === 'solid' && 'bg-sap-content-foreground-color',
             design === 'translucent' && 'bg-sap-group-content-background hc:bg-sap-background-color',
             design === 'transparent' && 'bg-transparent hc:bg-sap-background-color',
-            "before:absolute before:start-1/2 before:bottom-[calc(50%_+_1rem)] before:block before:h-16 before:w-px before:-translate-x-1/2 before:bg-linear-to-t before:from-sap-highlight-color before:to-transparent before:transition-all before:duration-100 before:ease-in before:content-[''] rtl:before:translate-x-1/2",
-            "after:absolute after:start-1/2 after:top-[calc(50%_+_1rem)] after:block after:h-16 after:w-px after:-translate-x-1/2 after:bg-linear-to-b after:from-sap-highlight-color after:to-transparent after:transition-all after:duration-100 after:ease-in after:content-[''] rtl:after:translate-x-1/2",
+            // gradient lines above and below the button, in sRGB as fundamental-styles' linear-gradient
+            "before:absolute before:start-1/2 before:bottom-[calc(50%_+_1rem)] before:block before:h-16 before:w-px before:-translate-x-1/2 before:[background-image:linear-gradient(to_top,var(--sapHighlightColor),transparent)] before:transition-all before:duration-100 before:ease-in before:content-[''] rtl:before:translate-x-1/2",
+            "after:absolute after:start-1/2 after:top-[calc(50%_+_1rem)] after:block after:h-16 after:w-px after:-translate-x-1/2 after:[background-image:linear-gradient(to_bottom,var(--sapHighlightColor),transparent)] after:transition-all after:duration-100 after:ease-in after:content-[''] rtl:after:translate-x-1/2",
             'hover:before:h-28 hover:after:h-28'
         );
     });

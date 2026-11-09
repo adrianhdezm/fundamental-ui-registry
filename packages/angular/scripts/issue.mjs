@@ -40,7 +40,16 @@ if (command === 'set') {
     writeFileSync(path, json);
     execFileSync('node', [join(root, 'scripts/tracker.mjs')], { stdio: 'inherit' });
 } else if (command === 'table') {
-    const cell = (s) => (s || '—').replace(/\|/g, '\\|').replace(/\n+/g, ' ');
+    // `<` outside code spans becomes `&lt;` so GitHub does not read it as a tag (inside code spans it shows as is).
+    const escape = (s) =>
+        s
+            .split(/(`[^`]*`)/)
+            .map((part, i) => (i % 2 ? part : part.replace(/</g, '&lt;')))
+            .join('');
+    const cell = (s) =>
+        escape(s || '—')
+            .replace(/\|/g, '\\|')
+            .replace(/\n+/g, ' ');
     const STATUS = { verified: '✅ verified', fixed: '🔧 fixed', covered: '🧪 covered', reproduced: '🔍 reproduced' };
     const rows = args.map((id) => {
         const e = find(id);

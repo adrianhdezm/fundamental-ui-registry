@@ -181,7 +181,7 @@ export class FeedListFooterByline {}
                         fdLink
                         emphasized
                         target="_blank"
-                        class="inline-block max-w-3/4 truncate align-top"
+                        class="inline-block max-w-3/4 truncate align-top font-normal"
                         [attr.href]="authorLink()"
                         [attr.title]="authorTitle()"
                         >{{ authorTitle() }}</a

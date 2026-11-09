@@ -307,6 +307,17 @@ describe('Menu', () => {
         expect(dot()).toBeNull();
         expect(mark(item('Desc')).querySelector('span')).not.toBeNull();
     });
+
+    it('keeps the line height of the toggle check mark and the submenu arrow at 1 (16px high)', async () => {
+        await open();
+        await userEvent.click(item('Toggle'));
+        const check = item('Toggle').querySelector<HTMLElement>('[aria-hidden=true] fd-icon')!;
+        const arrow = item('Parent').querySelector<HTMLElement>('fd-menu-addon fd-icon')!;
+        for (const icon of [check, arrow]) {
+            expect(getComputedStyle(icon).lineHeight).toBe('16px');
+            expect(icon.getBoundingClientRect().height).toBe(16);
+        }
+    });
 });
 
 async function setup(init: (host: ConfigHost) => void = () => {}) {

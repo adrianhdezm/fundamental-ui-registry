@@ -87,7 +87,7 @@ export class Text {
             'm-0 p-0 font-sap-font-family text-sap-font-size leading-[normal] text-sap-text-color',
             'selection:bg-sap-content-selected-background hc:selection:bg-sap-selected-color selection:text-sap-content-contrast-text-color',
             this.whitespaces() && 'whitespace-pre-wrap',
-            this.subline() && 'line-clamp-2 text-sap-font-small-size text-sap-content-label-color',
+            this.subline() && 'line-clamp-2 text-sap-font-small-size leading-[normal] text-sap-content-label-color',
             this.userClass()
         )
     );

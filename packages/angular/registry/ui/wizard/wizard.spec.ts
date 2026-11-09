@@ -156,7 +156,34 @@ async function setup(config: Partial<{ append: boolean; width: string; labels: s
     };
 }
 
+/** Elements whose radius is rounded-full's computed length (3.35544e+07px) instead of a percentage. */
+const hugeRadius = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
+
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
 describe('Wizard', () => {
+    it('the progress bar shadow is the header shadow, without transparent ring layers', async () => {
+        const { root } = await setup();
+        const shadows = [...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).boxShadow !== 'none');
+        expect(shadows.length).toBeGreaterThan(0);
+        expect(ringLayers(root)).toEqual([]);
+    });
+
+    it('the step indicators are rounded with 50%, as fundamental-styles', async () => {
+        const { root } = await setup();
+        const indicators = [...root.querySelectorAll<HTMLElement>('[fd-wizard-step] *')].filter((el) =>
+            el.classList.contains('size-8')
+        );
+        expect(indicators.length).toBeGreaterThan(0);
+        for (const el of indicators) expect(getComputedStyle(el).borderTopLeftRadius).toBe('50%');
+        expect(hugeRadius(root)).toEqual([]);
+    });
+
     it('shows the steps in a list and the content of the current step', async () => {
         const { root, contents, container } = await setup();
         expect(root.querySelector('fd-wizard')!.getAttribute('role')).toBe('region');

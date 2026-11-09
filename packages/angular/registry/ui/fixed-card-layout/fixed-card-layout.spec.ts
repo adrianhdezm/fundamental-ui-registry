@@ -140,7 +140,43 @@ afterEach(() => {
     document.documentElement.removeAttribute('dir');
 });
 
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
 describe('FixedCardLayout', () => {
+    it('the drag preview has the theme shadow without transparent ring layers', async () => {
+        const { item } = await setup();
+        const from = item('Card 1');
+        const start = from.getBoundingClientRect();
+        const fire = (el: EventTarget, type: string, x: number, y: number) =>
+            el.dispatchEvent(
+                new MouseEvent(type, {
+                    bubbles: true,
+                    cancelable: true,
+                    clientX: x,
+                    clientY: y,
+                    button: 0,
+                    buttons: type === 'mouseup' ? 0 : 1,
+                    detail: 1
+                })
+            );
+        fire(from, 'mousedown', start.left + 20, start.top + 20);
+        await frame();
+        fire(document, 'mousemove', start.left + 30, start.top + 30);
+        await frame();
+        fire(document, 'mousemove', start.left + 31, start.top + 31);
+        await frame();
+        const preview = document.querySelector<HTMLElement>('.cdk-drag-preview')!;
+        expect(preview).toBeTruthy();
+        expect(getComputedStyle(preview).boxShadow).not.toBe('none');
+        expect(ringLayers(preview)).toEqual([]);
+        fire(document, 'mouseup', start.left + 31, start.top + 31);
+        await frame();
+    });
+
     it('a larger cardMinimumWidth reduces the number of columns (never below 20rem)', async () => {
         const { host, stable, columns, columnLefts, items } = await setup();
         expect(columns()).toBe(3);

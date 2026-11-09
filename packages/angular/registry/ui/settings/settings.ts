@@ -4,7 +4,6 @@
  * Modified for fundamental-ui-registry: rewritten with Angular signals, the Angular CDK and Tailwind CSS.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { Directionality } from '@angular/cdk/bidi';
 import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -47,7 +46,7 @@ export const SETTINGS_DIALOG_CLASS = [
     'w-[60rem] h-[42.5rem] max-w-[60rem] max-h-[42.5rem]',
     'has-[[data-settings-view=md]]:w-[80%] has-[[data-settings-view=md]]:max-w-[40rem] has-[[data-settings-view=md]]:h-[88%]',
     'has-[[data-settings-view=sm]]:w-full has-[[data-settings-view=sm]]:max-w-full has-[[data-settings-view=sm]]:h-full has-[[data-settings-view=sm]]:max-h-full',
-    'has-[[data-settings-view=sm]]:rounded-none has-[[data-settings-view=sm]]:shadow-none'
+    'has-[[data-settings-view=sm]]:rounded-none has-[[data-settings-view=sm]]:[box-shadow:none]'
 ].join(' ');
 
 /** Dialog options for settings: no body paddings and the settings window size. */
@@ -267,7 +266,7 @@ export class SettingsDialogContent {}
                                     fdButton
                                     fd-settings-header-button
                                     variant="transparent"
-                                    [glyph]="rtl() ? 'navigation-right-arrow' : 'navigation-left-arrow'"
+                                    glyph="navigation-left-arrow"
                                     [ariaLabel]="backBtnAriaLabel()"
                                     [attr.title]="backBtnAriaLabel()"
                                     (click)="onHeaderBackClick()"
@@ -303,7 +302,6 @@ export class SettingsContainer {
 
     private readonly items = contentChildren(SettingsListItem, { descendants: true });
     private readonly el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
-    private readonly direction = inject(Directionality, { optional: true });
     private readonly injector = inject(Injector);
     private readonly width = signal(typeof window === 'undefined' ? 1280 : window.innerWidth);
     private readonly viewStack = signal<SettingsStackedView[]>([]);
@@ -311,7 +309,6 @@ export class SettingsContainer {
     private readonly detailOpen = signal(false);
     readonly activeItem = signal<SettingsListItem | null>(null);
 
-    readonly rtl = computed(() => this.direction?.valueSignal() === 'rtl');
     /** lg from 1024px, md from 600px, sm below (window width). */
     readonly viewMode = computed<SettingsViewMode>(() => {
         const width = this.width();

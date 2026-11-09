@@ -102,7 +102,30 @@ function drag(track: HTMLElement, axis: 'x' | 'y', from: number, to: number): vo
     fire('pointerup', document, to);
 }
 
+/** Elements whose radius is rounded-full's computed length (3.35544e+07px) instead of a percentage. */
+const hugeRadius = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
+
 describe('Carousel', () => {
+    it('the navigation buttons have no padding in compact density either', async () => {
+        const { previous, next } = await setup();
+        document.documentElement.setAttribute('data-density', 'compact');
+        try {
+            for (const button of [previous(), next()]) {
+                expect(getComputedStyle(button).paddingLeft).toBe('0px');
+                expect(getComputedStyle(button).paddingRight).toBe('0px');
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
+    it('the navigation buttons and page dots are rounded with 50%, as fundamental-styles', async () => {
+        const { root, previous, next } = await setup();
+        for (const button of [previous(), next()]) expect(getComputedStyle(button).borderTopLeftRadius).toBe('50%');
+        expect(hugeRadius(root)).toEqual([]);
+    });
+
     it('is a listbox of slides with page indicators', async () => {
         const { root, listbox, selected, live, previous, next } = await setup();
         expect(listbox.getAttribute('aria-roledescription')).toBe('Carousel');

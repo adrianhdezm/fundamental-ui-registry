@@ -193,8 +193,9 @@ export class ObjectStatusComponent {
         const iconOnly = !this.label() && !this.textTemplate();
         return cn(
             'group/os relative m-0 box-border inline-flex max-w-full items-center justify-center gap-1 p-0 align-middle',
-            'h-fit min-h-(--os-h) min-w-6 leading-(--os-h) break-words',
-            '[--os-h:1rem] [--os-icon:1rem] text-(length:--os-font) [--os-font:var(--sapFontSize)] font-sap-font-family',
+            'h-fit min-h-(--os-h) min-w-6 break-words',
+            // leading after the font size: tailwind-merge drops a line-height that comes before one
+            '[--os-h:1rem] [--os-icon:1rem] [--os-font:var(--sapFontSize)] text-(length:--os-font) leading-(--os-h) font-sap-font-family',
             'text-(--os-c) text-shadow-sap-content-text-shadow',
             indication ? INDICATION[indication] : PLAIN[status],
             large && '[--os-h:1.5rem] [--os-icon:1.5rem] [--os-font:1.5rem] font-sap-font-light-family',
@@ -222,7 +223,7 @@ export class ObjectStatusComponent {
                     'hover:[--os-c:var(--os-h-c)] hover:[--os-ic:var(--os-h-c)] hover:[--os-bg:var(--os-h-bg)] hover:[--os-bc:var(--os-h-bc)]',
                     'active:[--os-c:var(--os-a-c)] active:[--os-ic:var(--os-a-ic)] active:[--os-bg:var(--os-a-bg)] active:[--os-bc:var(--os-a-bc)]',
                     'focus:border-sap-content-focus-color focus:outline focus:outline-1 focus:[outline-style:var(--sapContent_FocusStyle)] focus:outline-sap-content-focus-color focus:-outline-offset-2',
-                    'focus:shadow-[inset_0_0_0_0.125rem_var(--sapContent_ContrastFocusColor)] hc:focus:shadow-none'
+                    'focus:[box-shadow:inset_0_0_0_0.125rem_var(--sapContent_ContrastFocusColor)] hc:focus:[box-shadow:none]'
                 ]
             ],
             iconOnly && 'min-w-6',

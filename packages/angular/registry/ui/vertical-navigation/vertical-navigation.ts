@@ -88,7 +88,7 @@ export class VerticalNavigation {
 
     protected readonly navClass = computed(() =>
         cn(
-            'm-0 box-border flex h-full flex-col justify-between bg-sap-list-alternating-background p-0 font-sap-font-family shadow-sap-content-shadow0',
+            'm-0 box-border flex h-full flex-col justify-between bg-sap-list-alternating-background p-0 font-sap-font-family [box-shadow:var(--sapContent_Shadow0)]',
             this.condensed() ? 'w-[3.25rem]' : 'w-60',
             this.userClass()
         )
@@ -285,9 +285,9 @@ export class ListNavigationItem implements FocusableOption {
 
     protected readonly panelClass = 'absolute start-[0.325rem] top-0 z-[3] flex cursor-default flex-col';
     protected readonly panelHeaderClass =
-        'box-border flex h-11 w-[14.325rem] items-center whitespace-nowrap rounded-t-sap-element-border-corner-radius rounded-es-sap-element-border-corner-radius bg-sap-list-alternating-background ps-[0.875rem] shadow-sap-content-shadow1 rtl:ps-[0.875rem] [&>fd-icon]:mx-0! [&>fd-icon]:pe-2';
+        'box-border flex h-11 w-[14.325rem] items-center whitespace-nowrap rounded-t-sap-element-border-corner-radius rounded-es-sap-element-border-corner-radius bg-sap-list-alternating-background ps-[0.875rem] [box-shadow:var(--sapContent_Shadow1)] rtl:ps-[0.875rem] [&>fd-icon]:mx-0! [&>fd-icon]:pe-2';
     protected readonly panelListClass =
-        'ms-[2.925rem] box-border block w-[11.4rem] overflow-hidden rounded-b-sap-element-border-corner-radius bg-sap-list-alternating-background shadow-sap-content-shadow1';
+        'ms-[2.925rem] box-border block w-[11.4rem] overflow-hidden rounded-b-sap-element-border-corner-radius bg-sap-list-alternating-background [box-shadow:var(--sapContent_Shadow1)]';
 
     protected readonly computedClass = computed(() => {
         const child = !!this.parent;

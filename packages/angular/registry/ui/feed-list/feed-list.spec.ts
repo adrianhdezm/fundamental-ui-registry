@@ -66,6 +66,13 @@ async function setupOptions() {
 }
 
 describe('FeedList', () => {
+    it('the author link uses the 72-Bold face with a normal weight, so no synthetic bold is added', async () => {
+        const { root } = await setup();
+        const link = getComputedStyle(root.querySelector<HTMLElement>('a[href="https://example.com/"]')!);
+        expect(link.fontFamily).toMatch(/^"?72-Bold/);
+        expect(link.fontWeight).toBe('400');
+    });
+
     it('renders a list of posts with the author as a link', async () => {
         const { root } = await setup();
         expect(root.querySelector('fd-feed-list')!.getAttribute('role')).toBe('list');

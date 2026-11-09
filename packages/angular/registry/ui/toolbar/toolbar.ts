@@ -226,7 +226,7 @@ let nextId = 0;
                 [attr.aria-level]="headingLevel()"
                 [attr.title]="title()"
                 [id]="titleId()"
-                class="min-w-[6.25rem] shrink truncate text-sap-group-title-font-size text-sap-group-title-text-color"
+                class="min-w-[6.25rem] shrink truncate text-sap-group-title-font-size leading-[normal] text-sap-group-title-text-color"
                 >{{ title() }}</span
             >
         }

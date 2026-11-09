@@ -156,7 +156,7 @@ const COLLAPSIBLE = 'data-shellbar-collapsible';
                     <button
                         fdButton
                         variant="transparent"
-                        [glyph]="rtl() ? 'slim-arrow-right' : 'nav-back'"
+                        glyph="nav-back"
                         [ariaLabel]="backButtonLabel()"
                         [attr.title]="backButtonLabel()"
                         (click)="backButtonClicked.emit($event)"
@@ -247,7 +247,7 @@ export class Shellbar implements ShellbarContext {
         const size = this.size();
         return cn(
             'relative m-0 box-border flex h-[3.25rem] items-center justify-between gap-2 py-0',
-            'bg-sap-shell-color shadow-[inset_0_-0.0625rem_0_0_var(--sapShell_BorderColor)] font-sap-font-family text-sap-font-size text-sap-shell-text-color',
+            'bg-sap-shell-color [box-shadow:inset_0_-0.0625rem_0_0_var(--sapShell_BorderColor)] font-sap-font-family text-sap-font-size text-sap-shell-text-color',
             SHELL_BUTTON_VARS,
             this.showNavigationButton() ? 'ps-3.5 pe-4' : size === 's' ? 'px-4' : size === 'xl' ? 'px-12' : 'px-8',
             this.contextArea() && 'justify-start',
@@ -591,9 +591,9 @@ export class ShellbarSearch {
         return cn(
             'relative m-0 box-border flex h-sap-element-height items-center border-none p-0',
             '[--sb-btn-w:1.75rem] [--sb-btn-h:var(--sapElement_Compact_Height)] [--sb-btn-r:1.063rem] hc:[--sb-btn-w:2.25rem] hc:[--sb-btn-h:var(--sapElement_Height)] hc:[--sb-btn-r:var(--sapButton_BorderCornerRadius)]',
-            'rounded-[1.125rem] bg-sap-shell-interactive-background shadow-sap-field-shadow hc:rounded-none',
-            'hover:bg-sap-shell-hover-background hover:shadow-sap-field-hover-shadow hc:hover:bg-transparent',
-            'has-[input:focus]:bg-transparent has-[input:focus]:shadow-[0_0_0_0.125rem_var(--sapButton_Lite_Active_BorderColor)] hc:has-[input:focus]:shadow-none',
+            'rounded-[1.125rem] bg-sap-shell-interactive-background [box-shadow:var(--sapField_Shadow)] hc:rounded-none',
+            'hover:bg-sap-shell-hover-background hover:[box-shadow:var(--sapField_Hover_Shadow)] hc:hover:bg-transparent',
+            'has-[input:focus]:bg-transparent has-[input:focus]:[box-shadow:0_0_0_0.125rem_var(--sapButton_Lite_Active_BorderColor)] hc:has-[input:focus]:[box-shadow:none]',
             size === 's'
                 ? 'w-full max-w-full'
                 : center
@@ -874,7 +874,7 @@ export class ShellbarActions {
             <button
                 fdButton
                 variant="transparent"
-                class="h-fit! max-h-none! min-w-fit! rounded-full! p-0! focus:after:rounded-full!"
+                class="h-fit! max-h-none! min-w-fit! rounded-[20rem]! p-0! focus:after:rounded-[20rem]!"
                 [disabled]="disabled()"
                 [fdMenuTrigger]="menu"
             >
@@ -934,7 +934,7 @@ export class ShellbarUserMenu {
 /** A custom button of a shellbar user menu; give it `[fdMenuTrigger]` of your menu. */
 @Directive({
     selector: '[fdShellbarUserMenuButton]',
-    host: { class: 'h-fit! max-h-none! min-w-fit! rounded-full! p-0! focus:after:rounded-full!' }
+    host: { class: 'h-fit! max-h-none! min-w-fit! rounded-[20rem]! p-0! focus:after:rounded-[20rem]!' }
 })
 export class ShellbarUserMenuButton {}
 
