@@ -85,7 +85,11 @@ export default [
     },
     {
         label: 'mobile select all button',
-        ours: { story: `${OURS}open-mobile`, selector: '[role="dialog"] button[aria-label="Select all"]', overlay: true },
+        ours: {
+            story: `${OURS}open-mobile`,
+            selector: '[role="dialog"] button[aria-label="Select all"]',
+            overlay: true
+        },
         ref: { story: `${MI}mobile-mode`, selector: '.fd-dialog__subheader .fd-bar__element >> nth=1 >> button' }
     }
 ];
