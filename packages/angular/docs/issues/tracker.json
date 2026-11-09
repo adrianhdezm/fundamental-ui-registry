@@ -237,9 +237,9 @@
       "source": "../../../react/docs/parity/components/layout-panel.md",
       "kind": "visual",
       "confirmed": "read from the code",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Built Storybook, components-layout-panel--default at a 120px panel: the head shrinks to 29px while the title's widest word needs 52px, so it runs under the 59px actions (spec NarrowHost: title scrollWidth 52 > head 29). One-line flex header with a min-w-0 head.",
+      "test": "layout-panel.spec.ts › LayoutPanel in a narrow column › the head keeps room for the title, which does not run under the actions",
       "fix": "",
       "notes": ""
     },
