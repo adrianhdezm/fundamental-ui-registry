@@ -10,7 +10,7 @@ const INPUT = '#todaySelectionDateInput';
 const BODY = '[role=dialog][aria-label="Choose date"]';
 
 // fundamental-styles' story has its calendar open: in the HC themes and compact, the popover's shadow falls on the
-// bottom rows of the field, the input and the button (React's report: 3.1–4.6% of the pixels); the computed
+// bottom rows of the field, the input and the button (3.1–4.6% of the pixels); the computed
 // styles are the same.
 export default [
     // the field: an input group with the calendar button

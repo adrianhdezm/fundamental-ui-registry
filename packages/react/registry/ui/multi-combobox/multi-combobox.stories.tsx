@@ -460,7 +460,7 @@ export const InsideDialog: Story = {
 
 /*
  * fundamental-styles' multi comboboxes are inline blocks as wide as their content; their input's padding differs from
- * the tokenizer input's (see the report), so the reference stories take their widths (cozy, then compact and high
+ * the tokenizer input's, so the reference stories take their widths (cozy, then compact and high
  * contrast differences) for a pixel comparison.
  */
 const AS_FORM_ITEM_WIDTH =

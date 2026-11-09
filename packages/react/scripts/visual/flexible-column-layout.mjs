@@ -32,7 +32,7 @@ export default [
         label: 'start column',
         pixels: false,
         props: ['margin-top', 'margin-left', 'visibility'],
-        // percent of the layout width (fundamental-styles' minimum of 20rem is not Angular's, see the report)
+        // percent of the layout width (fundamental-styles' minimum of 20rem is not Angular's)
         ignore: ['width'],
         ours: ours('default', `${COLUMN} >> nth=0`),
         ref: ref('three-columns-layout', '.fd-flexible-column-layout__column >> nth=0')

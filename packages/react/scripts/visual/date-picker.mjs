@@ -2,7 +2,7 @@
 const FS = 'sap-design-patterns-';
 
 // our Reference stories are fundamental-styles' Today Selection Button story: the same label, placeholder and button
-// name; the field closed (fundamental-styles' static story does not mark its button as expanded, see the report),
+// name; the field closed (fundamental-styles' static story does not mark its button as expanded),
 // and the calendar open and rendered into the page
 const OURS = 'components-date-picker--reference';
 const OPEN = 'components-date-picker--reference-open';

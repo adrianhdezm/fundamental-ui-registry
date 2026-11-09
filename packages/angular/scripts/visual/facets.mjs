@@ -1,7 +1,7 @@
 /** Visual cases for facets; see ../visual.config.mjs for the fields. */
 const FS = 'sap-design-dev-';
 
-// targeted cases of the facet issues; the texts differ, so by computed style
+// a case per fixed facet issue (the id in parentheses, as in the fix commit); the texts differ, so by computed style
 export default [
     {
         // the 1rem margin under the title (facets-1)

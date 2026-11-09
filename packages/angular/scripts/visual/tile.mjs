@@ -37,7 +37,7 @@ export default [
         ref: ref('tile-in-action-mode', '.fd-tile__action-indicator >> nth=0')
     },
     // line tile hover: the border ring in HC (tile-1). fundamental-styles' line tile border declaration is invalid
-    // (no border there, the 1px tile border here, as the React report found): borders and size are not compared
+    // (no border there, the 1px tile border here): borders and size are not compared
     {
         label: 'line tile hover',
         hover: true,

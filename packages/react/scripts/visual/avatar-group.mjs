@@ -16,7 +16,7 @@ const GROUP_OVERFLOW = '[aria-hidden="true"][data-avatar-group-overflow] > span 
 const REF_GROUP_AVATAR = (nth) => `.fd-avatar-group--group-type >> nth=0 >> .fd-avatar >> nth=${nth}`;
 
 // In RTL fundamental-styles shows the count as "4+" (the "+" is reordered to the end); ours keeps "+4" in a
-// <bdi dir="ltr">, as Angular: the overflow button pixels differ there, on purpose (see the report).
+// <bdi dir="ltr">, as Angular: the overflow button pixels differ there, on purpose.
 
 export default [
     {

@@ -1,7 +1,8 @@
 /** Visual cases for tree; see ../visual.config.mjs for the fields. */
 const FS = 'sap-design-components-';
 
-// targeted cases of the tree issues; the texts differ from fundamental-styles', so by computed style
+// a case per fixed tree issue (the id in parentheses, as in the fix commit); the texts differ from
+// fundamental-styles', so by computed style
 export default [
     {
         // the button corner radius (tree-4)
