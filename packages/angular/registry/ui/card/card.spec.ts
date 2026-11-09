@@ -911,4 +911,12 @@ describe('Card styles', () => {
         expect(style(badge).minHeight).toBe('14px');
         expect(rect(badge).height).toBe(18);
     });
+
+    it('in HC banner cards keep their 1px ring, other cards have no shadow (computed style)', async () => {
+        const { q } = await render(MediaHost);
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        expect(style(q('#banner')).boxShadow).not.toBe('none');
+        expect(style(q('#banner')).boxShadow).toMatch(/0px 0px 0px 1px/);
+        expect(style(q('#image-card')).boxShadow).toBe('none');
+    });
 });

@@ -1816,9 +1816,9 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (MediaHost) in sap_horizon_hcb: the banner card computes box-shadow none (hc:[--card-shadow:none] applies to every card); fundamental-styles' fd-card--banner keeps var(--sapContent_Shadow0), a 1px ring.",
+      "test": "card.spec.ts › Card styles › in HC banner cards keep their 1px ring, other cards have no shadow (computed style)",
       "fix": "",
       "notes": ""
     },

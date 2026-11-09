@@ -309,7 +309,8 @@ export class Card {
                 "data-selected:before:pointer-events-none data-selected:before:absolute data-selected:before:inset-px data-selected:before:z-[3] data-selected:before:rounded-(--card-r) data-selected:before:content-['']",
                 'data-selected:before:border-(length:--sapContent_FocusWidth) data-selected:before:[border-style:var(--sapContent_FocusStyle)] data-selected:before:border-sap-content-focus-color'
             ],
-            this.cardType() === 'banner' && 'h-full',
+            // banners keep their 1px ring in HC (fundamental-styles' fd-card--banner)
+            this.cardType() === 'banner' && 'h-full hc:[--card-shadow:var(--sapContent_Shadow0)]',
             this.userClass()
         );
     });
