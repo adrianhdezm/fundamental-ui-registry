@@ -194,6 +194,19 @@ async function setupAccent() {
 }
 
 describe('AvatarGroup', () => {
+    it('an individual avatar with details hovers with its own hover colours and has its focus frame 0.3125rem out', async () => {
+        const { root, resolve, fixture } = await setupAccent();
+        const trigger = root.querySelector<HTMLElement>('#individual [data-avatar-group-item] [role=button]')!;
+        const avatar = trigger.querySelector<HTMLElement>('fd-avatar')!;
+        await userEvent.hover(trigger);
+        expect(getComputedStyle(avatar).backgroundColor).toBe(resolve('--sapAvatar_2_Hover_Background'));
+        await userEvent.unhover(trigger);
+        await userEvent.keyboard('{Tab}');
+        trigger.focus();
+        expect(getComputedStyle(trigger, '::after').top).toBe('-5px');
+        fixture.nativeElement.remove();
+    });
+
     it('a group-type group hovers each avatar with its own hover background', async () => {
         const { root, resolve, fixture } = await setupAccent();
         const row = root.querySelector<HTMLElement>('#group [role=button]')!;

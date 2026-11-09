@@ -2065,9 +2065,9 @@
       "source": "../../../react/docs/parity/components/avatar-group.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "avatar-group.spec.ts, an individual group of accent-2 avatars with details: hovering an avatar's trigger leaves its background unchanged (fundamental-styles' avatar buttons take their hover colours), and the keyboard focus frame is 0.25rem out (-4px) instead of 0.3125rem.",
+      "test": "avatar-group.spec.ts › AvatarGroup › an individual avatar with details hovers with its own hover colours and has its focus frame 0.3125rem out",
       "fix": "",
       "notes": ""
     },

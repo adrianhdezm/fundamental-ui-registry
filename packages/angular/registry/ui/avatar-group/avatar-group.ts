@@ -61,6 +61,18 @@ const FOCUS_RING =
     "relative rounded-full outline-none focus-visible:after:pointer-events-none focus-visible:after:absolute focus-visible:after:-inset-1 focus-visible:after:rounded-full focus-visible:after:content-[''] focus-visible:after:border-(length:--sapContent_FocusWidth) focus-visible:after:[border-style:var(--sapContent_FocusStyle)] focus-visible:after:border-sap-content-focus-color";
 
 /**
+ * The button around an avatar with details (and the overflow button of individual groups). The avatar inside takes
+ * the hover and press colours of an interactive avatar and the focus frame sits where the avatar's own would be
+ * (0.3125rem out), as fundamental-styles' avatar buttons.
+ */
+const AVATAR_TRIGGER = [
+    "relative flex cursor-pointer rounded-full outline-none [&>*]:cursor-pointer focus-visible:z-[5] focus-visible:after:pointer-events-none focus-visible:after:absolute focus-visible:after:-inset-[0.3125rem] focus-visible:after:rounded-full focus-visible:after:content-[''] focus-visible:after:border-(length:--sapContent_FocusWidth) focus-visible:after:[border-style:var(--sapContent_FocusStyle)] focus-visible:after:border-sap-content-focus-color",
+    'hover:[&>*]:[--av-bg:var(--av-hover-bg)] hover:[&>*]:[--av-border:var(--av-hover-border)]',
+    'active:[&>*]:[--av-bg:var(--av-active-bg)] active:[&>*]:[--av-border:var(--av-active-border)] active:[&>*]:[--av-color:var(--av-active-color)]',
+    'active:hover:[&>*]:[--av-bg:var(--av-active-hover-bg)] active:hover:[&>*]:[--av-border:var(--av-active-hover-border)] active:hover:[&>*]:[--av-color:var(--av-active-hover-color)]'
+].join(' ');
+
+/**
  * An avatar of a group: `<fd-avatar *fdAvatarGroupItem="details; title: 'Jane Doe'" ... />`.
  * The optional details template is shown in a popover (individual groups) or the overflow list.
  */
@@ -217,12 +229,7 @@ export class AvatarGroupOverflowList {
                                 [bodyAriaLabel]="item.fdAvatarGroupItemTitle()"
                             >
                                 <fd-popover-control>
-                                    <div
-                                        role="button"
-                                        tabindex="0"
-                                        aria-haspopup="dialog"
-                                        [class]="focusRing + ' flex cursor-pointer'"
-                                    >
+                                    <div role="button" tabindex="0" aria-haspopup="dialog" [class]="avatarTrigger">
                                         <ng-container [ngTemplateOutlet]="item.templateRef" />
                                     </div>
                                 </fd-popover-control>
@@ -246,7 +253,7 @@ export class AvatarGroupOverflowList {
                                     tabindex="0"
                                     aria-haspopup="dialog"
                                     [attr.aria-label]="'+' + hiddenItems().length + ' more'"
-                                    [class]="focusRing + ' flex cursor-pointer'"
+                                    [class]="avatarTrigger"
                                 >
                                     <ng-container [ngTemplateOutlet]="overflowButtonTemplate" />
                                 </div>
@@ -333,7 +340,7 @@ export class AvatarGroup {
 
     readonly visibleCountChange = output<number>();
 
-    protected readonly focusRing = FOCUS_RING;
+    protected readonly avatarTrigger = AVATAR_TRIGGER;
     protected readonly effectivePlacement = computed<Placement>(
         () => this.placement() ?? (this.orientation() === 'vertical' ? 'right' : 'bottom')
     );
