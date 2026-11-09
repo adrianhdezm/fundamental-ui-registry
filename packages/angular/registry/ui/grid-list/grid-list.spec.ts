@@ -342,4 +342,10 @@ describe('GridList styles', () => {
         const title = el.querySelector<HTMLElement>('[data-grid-list-item] [role="heading"]')!;
         expect(getComputedStyle(title).fontFamily.split(',')[0].replace(/["']/g, '').trim()).toBe('72');
     });
+
+    it('the title bar text has the text colour (computed style)', async () => {
+        const el = await renderGroups();
+        const heading = el.querySelector<HTMLElement>('fd-grid-list-title-bar [role="heading"]')!;
+        expect(getComputedStyle(heading).color).toBe(colour('--sapTextColor'));
+    });
 });

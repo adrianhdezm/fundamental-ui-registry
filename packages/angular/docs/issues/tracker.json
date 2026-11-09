@@ -2672,9 +2672,9 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (GroupsHost): the title bar heading computes color rgb(85, 107, 130) (the toolbar label colour, --sapContent_LabelColor); fundamental-styles' title bar text is plain toolbar text in --sapTextColor, rgb(19, 30, 41).",
+      "test": "grid-list.spec.ts › GridList styles › the title bar text has the text colour (computed style)",
       "fix": "",
       "notes": ""
     },

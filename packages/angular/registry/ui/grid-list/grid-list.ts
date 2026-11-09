@@ -743,7 +743,10 @@ export class GridListTitleBar {
     readonly headingLevel = input(2);
     readonly userClass = input<ClassValue>('', { alias: 'class' });
     protected readonly roles = rowRoles();
-    protected readonly computedClass = computed(() => cn(FULL_ROW, this.userClass()));
+    // the title in the text colour, as fundamental-styles' plain toolbar text (not a toolbar label's colour)
+    protected readonly computedClass = computed(() =>
+        cn(FULL_ROW, '[&_[fd-toolbar-label]]:text-sap-text-color', this.userClass())
+    );
 }
 
 /** Pushes the following title bar content to the end. */
