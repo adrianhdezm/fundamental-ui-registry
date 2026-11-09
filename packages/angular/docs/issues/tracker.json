@@ -1537,9 +1537,9 @@
       "source": "../../../react/docs/parity/components/shellbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "shellbar.spec.ts IssuesHost in Horizon HC Black, the search input hovered: its background is rgb(121, 81, 0) (hc:hover:bg-sap-shell-hover-background) instead of transparent.",
+      "test": "Shellbar issues > keeps the hovered search input transparent in high contrast (shellbar-4)",
       "fix": "",
       "notes": ""
     },

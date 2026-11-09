@@ -383,4 +383,18 @@ describe('Shellbar issues', () => {
             themed('backgroundSize', style)
         ]);
     });
+
+    it('keeps the hovered search input transparent in high contrast (shellbar-4)', async () => {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const root = await render();
+            const input = root.querySelector<HTMLInputElement>('fd-shellbar-search input')!;
+            await userEvent.unhover(input);
+            await userEvent.hover(input);
+            expect(getComputedStyle(input).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+            await userEvent.unhover(input);
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
 });

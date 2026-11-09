@@ -612,7 +612,7 @@ export class ShellbarSearch {
             'font-sap-font-family text-sap-font-size text-sap-field-text-color placeholder:text-sap-field-placeholder-text-color placeholder:italic',
             '[&::-webkit-search-cancel-button]:hidden',
             'hc:border-(length:--sapElement_BorderWidth) hc:border-solid hc:border-sap-shell-interactive-border-color hc:bg-sap-shell-interactive-background',
-            'hc:hover:bg-sap-shell-hover-background hc:focus:border-(length:--sapContent_FocusWidth) hc:focus:[border-style:var(--sapContent_FocusStyle)] hc:focus:bg-sap-shell-active-background',
+            'hc:hover:bg-transparent hc:focus:border-(length:--sapContent_FocusWidth) hc:focus:[border-style:var(--sapContent_FocusStyle)] hc:focus:bg-sap-shell-active-background',
             center ? 'w-60' : this.shellbar?.size() === 'm' ? 'w-auto max-w-24' : 'w-auto'
         );
     });
