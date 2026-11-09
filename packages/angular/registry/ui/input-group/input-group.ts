@@ -46,7 +46,8 @@ export const STATE_BUTTON_VARS: Record<FormState, string> = {
  * corner radius, a hover shadow and a selected icon colour while pressed.
  */
 export const INPUT_GROUP_BUTTON_VARS = [
-    '[--sapButton_Lite_Background:transparent] [--sapButton_Lite_Hover_Background:transparent] [--sapButton_Lite_Active_Background:transparent]',
+    // high contrast keeps the lite button backgrounds, as fundamental-styles
+    'not-hc:[--sapButton_Lite_Background:transparent] not-hc:[--sapButton_Lite_Hover_Background:transparent] not-hc:[--sapButton_Lite_Active_Background:transparent]',
     '[--sapButton_Lite_BorderColor:transparent] [--sapButton_Lite_Hover_BorderColor:transparent] [--sapButton_Lite_Active_BorderColor:transparent]',
     '[--sapButton_Lite_TextColor:var(--sapField_TextColor)] [--sapButton_Lite_Hover_TextColor:var(--sapField_TextColor)]',
     '[--sapButton_Active_TextColor:var(--igBtnFocusColor,var(--sapButton_Selected_TextColor))]',
