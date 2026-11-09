@@ -881,7 +881,7 @@
       "confirmed": "rendered",
       "status": "verified",
       "repro": "Spec host with activeView=\"year\" and selectedDate 2018-03-01: the first year cell reads 2026 (today's year) and no year is selected; switching to the view with the header button starts at 2018.",
-      "test": "calendar.spec.ts › Calendar views and header › a calendar that starts in the year view starts at the shown year",
+      "test": "calendar.spec.ts › Calendar header › a calendar that starts in the year view starts at the shown year",
       "fix": "4735503",
       "notes": "Verified: the test fails before the fix (2026) and passes after; pnpm visual calendar: the year view (Reference story, starting in it) matches fundamental-styles' Years story in all 16; pnpm angular check passes."
     },
