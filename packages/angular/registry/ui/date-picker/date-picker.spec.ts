@@ -186,6 +186,24 @@ describe('DatePicker', () => {
         expect(document.querySelector('#dp-calendar')).toBeNull();
     });
 
+    it("the today footer has the popover's bottom corners and a decisive (4rem) button, in both densities (computed style)", async () => {
+        const { button, stable } = await setup((h) => h.today.set(true));
+        await userEvent.click(button());
+        await stable();
+        const today = [...document.querySelectorAll('button')].find((b) => b.textContent!.trim() === 'Today')!;
+        const bar = today.closest<HTMLElement>('[fd-bar]')!;
+        expect(getComputedStyle(bar).borderBottomLeftRadius).toBe('8px');
+        expect(getComputedStyle(bar).borderBottomRightRadius).toBe('8px');
+        expect(getComputedStyle(today).minWidth).toBe('64px');
+        document.documentElement.setAttribute('data-density', 'compact');
+        try {
+            expect(getComputedStyle(today).minWidth).toBe('64px');
+            expect(today.getBoundingClientRect().width).toBeGreaterThanOrEqual(64);
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
     it('references the state and the message from aria-describedby', async () => {
         const { host, input, stable } = await setup();
         expect(input().hasAttribute('aria-describedby')).toBe(false);

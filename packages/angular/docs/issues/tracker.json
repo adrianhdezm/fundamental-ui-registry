@@ -1009,9 +1009,9 @@
       "source": "../../../react/docs/parity/components/date-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host with showTodayButton, open: the footer bar computes border-bottom-*-radius 0px (fundamental-styles: the popover's 8px, 4px in HC) and the Today button min-width auto (53–57px wide; fundamental-styles 4rem).",
+      "test": "date-picker.spec.ts › DatePicker › the today footer has the popover's bottom corners and a decisive (4rem) button, in both densities (computed style)",
       "fix": "",
       "notes": ""
     },

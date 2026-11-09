@@ -276,10 +276,17 @@ let nextId = 0;
                 (selectedMultipleDateRangesChange)="pickRanges($event)"
             />
             @if (showTodayButton()) {
-                <div fd-bar barDesign="footer" class="overflow-hidden">
+                <!-- the popover's bottom corners, and a decisive (4rem) button, as fundamental-styles' footer -->
+                <div
+                    fd-bar
+                    barDesign="footer"
+                    [class]="
+                        mobile() ? 'overflow-hidden' : 'overflow-hidden rounded-b-sap-popover-border-corner-radius'
+                    "
+                >
                     <div fd-bar-right>
                         <fd-bar-element>
-                            <button fdButton [label]="todayButtonLabel()" (click)="selectToday()"></button>
+                            <button fdButton decisive [label]="todayButtonLabel()" (click)="selectToday()"></button>
                         </fd-bar-element>
                     </div>
                 </div>
