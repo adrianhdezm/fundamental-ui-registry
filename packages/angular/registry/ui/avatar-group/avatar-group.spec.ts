@@ -193,7 +193,36 @@ async function setupAccent() {
     };
 }
 
+@Component({
+    imports: [AvatarGroup, AvatarGroupItem, Avatar],
+    template: `
+        <div style="display: flex; width: 800px">
+            <fd-avatar-group size="s">
+                @for (name of names; track name) {
+                    <fd-avatar *fdAvatarGroupItem circle size="s" [label]="name" />
+                }
+            </fd-avatar-group>
+        </div>
+    `
+})
+class HugHost {
+    readonly names = ['Ann Lee', 'Bob Ray', 'Cy Doe'];
+}
+
 describe('AvatarGroup', () => {
+    it('a group that hugs its avatars (in a flex row) keeps them all', async () => {
+        const fixture = TestBed.createComponent(HugHost);
+        document.body.appendChild(fixture.nativeElement);
+        for (let i = 0; i < 8; i++) {
+            await fixture.whenStable();
+            await frame();
+        }
+        const root = fixture.nativeElement as HTMLElement;
+        expect(root.querySelectorAll('[data-avatar-group-item] fd-avatar')).toHaveLength(3);
+        expect(root.querySelector('[data-avatar-group-overflow]')).toBeNull();
+        fixture.nativeElement.remove();
+    });
+
     it('the overflow button is an avatar with button colours, the avatar font size and as wide as its count', async () => {
         const { overflow, root } = await setup((h) => h.max.set(2));
         const button = overflow()!.querySelector<HTMLElement>('span')!;

@@ -2091,9 +2091,9 @@
       "source": "../../../react/docs/parity/components/avatar-group.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "avatar-group.spec.ts, three avatars in a 800px flex row (the group hugs them): after a few measures the group shows fewer avatars and an overflow button; every measured width counts a gap, the last one too, so the avatars no longer fit the width they set.",
+      "test": "avatar-group.spec.ts › AvatarGroup › a group that hugs its avatars (in a flex row) keeps them all",
       "fix": "",
       "notes": ""
     },

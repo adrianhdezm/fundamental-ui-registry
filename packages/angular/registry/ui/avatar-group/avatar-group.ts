@@ -454,7 +454,9 @@ export class AvatarGroup {
         });
         const overflow = row.querySelector<HTMLElement>(':scope > [data-avatar-group-overflow]');
         if (overflow) this.widths.set('overflow', overflow.getBoundingClientRect().width + gap);
-        this.available.set(this.host.clientWidth);
+        // each width counts a gap, but the last one has none (and half a pixel for sub-pixel widths): a group that
+        // hugs its avatars (e.g. in a flex row) keeps them
+        this.available.set(this.host.clientWidth + gap + 0.5);
         this.measured.update((n) => n + 1);
     }
 
