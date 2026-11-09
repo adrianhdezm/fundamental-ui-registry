@@ -55,9 +55,9 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 <!-- tracker:start -->
 
-**Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
+**Progress:** 3 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 212 · ✅ verified: 2 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -299,13 +299,13 @@ None.
 
 #### calendar
 
-[React report](../../../react/docs/parity/components/calendar.md) · ⬜ reported: 2 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/calendar.md) · ⬜ reported: 2 · ✅ verified: 1
 
-| ID         | Issue                                                                                                                                              | Kind      | Confirmed | Pattern | Status      | Test                                                                                                           | Fix | Notes                                                                                          |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------------------------- | --- | ---------------------------------------------------------------------------------------------- |
-| calendar-1 | The month view's short names ("Jan" in a cell named "January 2018") fail axe's `label-content-name-mismatch`; fundamental-styles shows long names. | a11y      | rendered  |         | 🧪 covered  | Calendar › shows long month names in the month view, matching the cell names (axe label-content-name-mismatch) |     | Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure. |
-| calendar-2 | The next arrow's wrapper has `ms-auto` instead of a 0.25rem start margin, so the month and year header buttons are 2px wider.                      | visual    | rendered  |         | ⬜ reported |                                                                                                                |     |                                                                                                |
-| calendar-3 | A calendar opened in the year view starts at today's year instead of the shown year.                                                               | behaviour | rendered  |         | ⬜ reported |                                                                                                                |     |                                                                                                |
+| ID         | Issue                                                                                                                                              | Kind      | Confirmed | Pattern | Status      | Test                                                                                                           | Fix     | Notes                                                                                                                                                                                                                          |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| calendar-1 | The month view's short names ("Jan" in a cell named "January 2018") fail axe's `label-content-name-mismatch`; fundamental-styles shows long names. | a11y      | rendered  |         | ✅ verified | Calendar › shows long month names in the month view, matching the cell names (axe label-content-name-mismatch) | 4a4f004 | Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure. Verified: the test fails before the fix (11 cells) and passes after; the long names fit their cells; pnpm angular check passes. |
+| calendar-2 | The next arrow's wrapper has `ms-auto` instead of a 0.25rem start margin, so the month and year header buttons are 2px wider.                      | visual    | rendered  |         | ⬜ reported |                                                                                                                |         |                                                                                                                                                                                                                                |
+| calendar-3 | A calendar opened in the year view starts at today's year instead of the shown year.                                                               | behaviour | rendered  |         | ⬜ reported |                                                                                                                |         |                                                                                                                                                                                                                                |
 
 #### message-page
 
