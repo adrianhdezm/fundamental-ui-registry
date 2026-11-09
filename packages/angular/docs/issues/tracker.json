@@ -659,7 +659,7 @@
       "confirmed": "rendered",
       "status": "covered",
       "repro": "Spec (DialogService, draggable): with the pointer outside the window the header computes cursor: grab ([@media(hover:hover)] applies at rest on any hover-capable device); fundamental-styles shows it only while the window is hovered.",
-      "test": "dialog.spec.ts › … › shows the grab cursor on a draggable header only while the window is hovered (computed style)",
+      "test": "dialog.spec.ts › Dialog › shows the grab cursor on a draggable header only while the window is hovered (computed style)",
       "fix": "",
       "notes": ""
     },
@@ -683,11 +683,11 @@
       "source": "../../../react/docs/parity/components/dialog.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "not-reproducible",
+      "repro": "Not in Angular: the title's fd-bar-element is as wide as the title in every open dialog story of the built Storybook (open-template 187px of a 1152px bar, open-component 154/400, open-object 82/400, open-complex 99/384, open-mobile 220/1280, open-form 187/480, open-position 220/400) and in the spec (33px of a 480px dialog): fullWidth's w-full resolves against the content-sized fd-bar-left. The 592px was the React port's element (its bar-left grows).",
+      "test": "dialog.spec.ts › Dialog › the title bar element is as wide as the title, not the whole bar (computed style) — passes before any change; kept as a guard",
       "fix": "",
-      "notes": ""
+      "notes": "Not reproducible: measured in Storybook and in a spec."
     },
     {
       "id": "token-1",

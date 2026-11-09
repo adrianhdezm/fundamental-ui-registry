@@ -370,6 +370,15 @@ describe('Dialog', () => {
         expect(getComputedStyle(header).cursor).toBe('grab');
     });
 
+    it('the title bar element is as wide as the title, not the whole bar (computed style)', async () => {
+        const { open } = await setup();
+        await open({ width: '30rem' });
+        const title = windows()[0].querySelector<HTMLElement>('[fd-title]')!;
+        const element = title.parentElement!;
+        near(element.getBoundingClientRect().width, title.getBoundingClientRect().width);
+        expect(element.getBoundingClientRect().width).toBeLessThan(200);
+    });
+
     it('resizes with the handle when resizable and announces it', async () => {
         const { open } = await setup();
         await open({ width: '20rem' });
