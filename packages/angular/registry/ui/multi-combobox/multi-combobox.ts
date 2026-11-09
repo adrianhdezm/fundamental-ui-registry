@@ -109,6 +109,9 @@ let nextId = 0;
  * <fd-multi-combobox inputId="fruits" displayKey="name" lookupKey="id" [dataSource]="fruits" [(selectedItems)]="chosen" />
  * ```
  */
+/** The dropdown width of fundamental-styles (40rem): the most the popup takes from a wider field. */
+const DROPDOWN_MAX_WIDTH = 640;
+
 @Component({
     selector: 'fd-multi-combobox',
     exportAs: 'fdMultiCombobox',
@@ -151,7 +154,7 @@ let nextId = 0;
                 [noArrow]="true"
                 [disabled]="disabledState() || readonly()"
                 [closeOnEscapeKey]="false"
-                [fillControlMode]="fillControlMode()"
+                [fillControlMode]="popoverFill()"
                 [maxWidth]="popoverMaxWidth()"
                 [focusTrapped]="false"
                 [focusAutoCapture]="false"
@@ -163,7 +166,7 @@ let nextId = 0;
                 <fd-popover-control>
                     <ng-container [ngTemplateOutlet]="controlTpl" [ngTemplateOutletContext]="{ dialog: false }" />
                 </fd-popover-control>
-                <fd-popover-body>
+                <fd-popover-body [minWidth]="popoverMinWidth()">
                     <ng-container [ngTemplateOutlet]="listTpl" [ngTemplateOutletContext]="{ dialog: false }" />
                 </fd-popover-body>
             </fd-popover>
@@ -586,9 +589,22 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
     });
     protected readonly popoverMaxWidth = computed(() => {
         const max = this.bodyMaxWidth();
-        if (max === 'none') return null;
+        // fundamental-styles' dropdown stops at 40rem, also on a wider field
+        if (max === 'none') return DROPDOWN_MAX_WIDTH;
         if (typeof max === 'number') return max;
         return this.elementRef.nativeElement.getBoundingClientRect().width;
+    });
+
+    /** The popover fills the field itself, unless the list is as wide as the field (`bodyMaxWidth="container"`). */
+    protected readonly popoverFill = computed(() =>
+        this.fillControlMode() === 'at-least' && this.bodyMaxWidth() !== 'container' ? null : this.fillControlMode()
+    );
+    /** fundamental-styles' dropdown fill: at least the field width less two group borders, up to the maximum width. */
+    protected readonly popoverMinWidth = computed(() => {
+        if (this.fillControlMode() !== 'at-least' || this.popoverFill() !== null || !this.listShown()) return null;
+        const fill = `calc(${this.elementRef.nativeElement.getBoundingClientRect().width}px - 2 * var(--sapGroup_BorderWidth))`;
+        const max = this.popoverMaxWidth();
+        return max === null ? fill : `min(${fill}, ${max}px)`;
     });
 
     constructor() {
@@ -1034,7 +1050,7 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
     protected readonly listClass = computed(() =>
         cn(
             'relative m-0 box-border block min-w-20 list-none overflow-auto bg-sap-list-background p-0 outline-none scrollbar-sap',
-            this.mobile() ? 'w-full' : 'w-full max-w-[37.5rem]'
+            this.mobile() ? 'w-full' : 'w-full max-w-[40rem]'
         )
     );
 
