@@ -1324,9 +1324,9 @@
       "source": "../../../react/docs/parity/components/overflow-layout.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "overflow-layout.spec.ts Host, 20px items, the width set to four items + gap + '9 more' + 2px: going to 14 items shows A-C and '11 more' (the row shrinks, so its ResizeObserver re-measures), but back to 12 items the stale '11 more' width (87px instead of 80px) keeps three items and '9 more' instead of four and '8 more': the more control was measured only when it appeared.",
+      "test": "OverflowLayout issues > re-measures the \"more\" control when its label changes width (overflow-layout-1)",
       "fix": "",
       "notes": ""
     },

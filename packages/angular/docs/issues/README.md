@@ -424,11 +424,11 @@ None.
 
 #### overflow-layout
 
-[React report](../../../react/docs/parity/components/overflow-layout.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/overflow-layout.md) · 🧪 covered: 1
 
-| ID                | Issue                                                                                                                                      | Kind      | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| overflow-layout-1 | The overflow-layout "more" control is measured only when it first appears, so a growing label ("9 more" to "10 more") keeps a stale width. | behaviour | rendered  |         | ⬜ reported |      |     |       |
+| ID                | Issue                                                                                                                                      | Kind      | Confirmed | Pattern | Status     | Test                                                                                                    | Fix | Notes |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------- | --------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------- | --- | ----- |
+| overflow-layout-1 | The overflow-layout "more" control is measured only when it first appears, so a growing label ("9 more" to "10 more") keeps a stale width. | behaviour | rendered  |         | 🧪 covered | OverflowLayout issues > re-measures the "more" control when its label changes width (overflow-layout-1) |     |       |
 
 #### wizard
 
