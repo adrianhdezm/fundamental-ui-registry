@@ -2303,9 +2303,9 @@
       "source": "../../../react/docs/parity/components/micro-process-flow.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host): fd-micro-process-flow computes line-height 21px (leading-(--sapContent_LineHeight)), inherited by every part; fundamental-styles' root has normal (computed only).",
+      "test": "micro-process-flow.spec.ts › MicroProcessFlow › the root has a normal line height, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },
