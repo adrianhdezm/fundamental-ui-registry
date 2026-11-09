@@ -408,6 +408,52 @@ class StoryCalendarLocaleSwitch {
     }
 }
 
+const REFERENCE_RULES: SpecialDayRule<FdDate>[] = [
+    { specialDayNumber: 7, rule: (d) => d.month === 2 && d.day === 17 },
+    { specialDayNumber: 1, rule: (d) => d.month === 2 && d.day === 18 },
+    { specialDayNumber: 5, rule: (d) => d.month === 2 && d.day === 19 },
+    { specialDayNumber: 3, rule: (d) => d.month === 2 && d.day === 24 },
+    { specialDayNumber: 9, rule: (d) => d.month === 2 && d.day === 25 }
+];
+
+/** The dates of fundamental-styles' Calendar stories, for the visual comparison (scripts/visual/calendar.mjs). */
+@Component({
+    selector: 'story-calendar-reference',
+    imports: [Calendar, CalendarLegend],
+    template: `
+        <div class="${row}">
+            <fd-calendar
+                aria-label="Days"
+                showWeekNumbers
+                [startingDayOfWeek]="1"
+                calType="range"
+                [selectedRangeDate]="range"
+                [specialDaysRules]="rules"
+            />
+            <fd-calendar aria-label="Months" activeView="month" [selectedDate]="march" />
+            <fd-calendar aria-label="Years" activeView="year" [selectedDate]="march" />
+            <fd-calendar aria-label="Today" [selectedDate]="null" [markWeekends]="false" />
+            <fd-calendar aria-label="Today selected" [markWeekends]="false" />
+            <fd-calendar-legend
+                class="min-w-[420px]"
+                [labels]="{ dateSelectedLabel: 'Selected', workDayLabel: 'Work Day', nonWorkDayLabel: 'Non-Work Day' }"
+                [specialDaysRules]="legendRules"
+            />
+        </div>
+    `
+})
+class StoryCalendarReference {
+    protected readonly range = new DateRange(new FdDate(2018, 2, 13), new FdDate(2018, 2, 18));
+    protected readonly march = new FdDate(2018, 3, 1);
+    protected readonly rules = REFERENCE_RULES;
+    protected readonly legendRules: SpecialDayRule<FdDate>[] = [
+        { specialDayNumber: 1, legendText: 'Holiday', rule: () => false },
+        { specialDayNumber: 2, legendText: 'School Vacation', rule: () => false },
+        { specialDayNumber: 3, legendText: 'Wedding', rule: () => false },
+        { specialDayNumber: 11, legendText: 'Appointment', appointment: true, rule: () => false }
+    ];
+}
+
 const meta: Meta<Calendar<FdDate>> = {
     title: 'Components/Calendar',
     component: Calendar,
@@ -422,7 +468,8 @@ const meta: Meta<Calendar<FdDate>> = {
                 StoryCalendarMobile,
                 StoryCalendarReactive,
                 StoryCalendarProgrammatic,
-                StoryCalendarLocaleSwitch
+                StoryCalendarLocaleSwitch,
+                StoryCalendarReference
             ]
         })
     ],
@@ -474,4 +521,15 @@ export const OpenMobilePortrait: Story = {
     tags: ['!autodocs'],
     render: () => ({ template: `<story-calendar-mobile />` }),
     play: ({ canvasElement }) => openMobile(canvasElement, 'portrait')
+};
+export const Reference: Story = {
+    name: 'Views (fundamental-styles reference)',
+    parameters: {
+        docs: {
+            description: {
+                story: 'February 2018 with a range from the 13th to the 18th, special days and week numbers; the month and year views of 2018; today, unselected and selected (the default selection); a legend. The dates of the fundamental-styles stories, for the visual comparison.'
+            }
+        }
+    },
+    render: () => ({ template: `<story-calendar-reference />` })
 };

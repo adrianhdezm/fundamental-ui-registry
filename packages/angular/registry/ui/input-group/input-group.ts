@@ -304,8 +304,10 @@ export class InputGroupInput {
     protected readonly computedClass = computed(() =>
         cn(
             'relative z-[1] m-0 box-border h-full min-h-0 w-full min-w-0 flex-[1_1_10rem] appearance-none self-stretch truncate border-0 bg-transparent px-1 py-0 first:ps-2.5 last:pe-2.5',
+            // compact inputs keep fundamental-styles' compact field padding (0.5rem), at the group's edges too
+            'compact:px-2 compact:first:ps-2 compact:last:pe-2',
             'font-sap-font-family text-sap-font-size leading-[normal] font-normal text-sap-field-text-color [box-shadow:none] outline-none',
-            'placeholder:italic placeholder:text-sap-field-placeholder-text-color hc:placeholder:not-italic rtl:placeholder:indent-[0.125rem]',
+            'placeholder:italic placeholder:text-sap-field-placeholder-text-color rtl:placeholder:indent-[0.125rem]',
             'selection:bg-sap-selected-color selection:text-sap-content-contrast-text-color',
             'disabled:placeholder:opacity-0 readonly:placeholder:opacity-0',
             '[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none',

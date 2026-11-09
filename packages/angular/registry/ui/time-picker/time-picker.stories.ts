@@ -7,6 +7,7 @@ import { Button } from '@/ui/button/button';
 import { Select, SelectOption } from '@/ui/select/select';
 import { FormItem, FormLabel } from '@/ui/form/form';
 import { Title } from '@/ui/title/title';
+import { TIME_LABELS } from '@/ui/time/time';
 import { TimePicker } from './time-picker';
 
 const heading = 'mt-6 mb-2 first:mt-0';
@@ -137,10 +138,37 @@ class StoryTimePickerLocale {
     }
 }
 
+/** fundamental-styles' time picker pattern, 4:25:10 PM in tablet mode, for the visual comparison (scripts/visual/time-picker.mjs). */
+@Component({
+    selector: 'story-time-picker-reference',
+    imports: [TimePicker, FormLabel],
+    template: `
+        <label fd-form-label for="tabletTimepicker">Cozy Timepicker</label>
+        <fd-time-picker
+            id="reference"
+            inputId="tabletTimepicker"
+            keepTwoDigitsTime
+            tablet
+            [time]="time"
+            [displayFormat]="format"
+            [timeLabels]="labels"
+        />
+    `
+})
+class StoryTimePickerReference {
+    protected readonly time = new FdDate(2024, 3, 9, 16, 25, 10);
+    protected readonly format = { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true };
+    protected readonly labels = { period: { ...TIME_LABELS.period, label: 'AM/PM' } };
+}
+
 const meta: Meta<TimePicker<FdDate>> = {
     title: 'Components/Time Picker',
     component: TimePicker,
-    decorators: [moduleMetadata({ imports: [StoryTimePickerBasic, StoryTimePickerForm, StoryTimePickerLocale] })],
+    decorators: [
+        moduleMetadata({
+            imports: [StoryTimePickerBasic, StoryTimePickerForm, StoryTimePickerLocale, StoryTimePickerReference]
+        })
+    ],
     parameters: {
         docs: {
             description: {
@@ -185,4 +213,16 @@ export const OpenTimeColumnsSeconds: Story = {
         />`
     }),
     play: ({ canvasElement }) => openPicker(canvasElement)
+};
+export const Reference: Story = {
+    name: 'fundamental-styles reference',
+    tags: ['!autodocs'],
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' time picker pattern: 4:25:10 PM with seconds, two digits and the tablet columns. For the visual comparison."
+            }
+        }
+    },
+    render: () => ({ template: `<story-time-picker-reference />` })
 };

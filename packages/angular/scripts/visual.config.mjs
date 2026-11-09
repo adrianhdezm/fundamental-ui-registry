@@ -6,6 +6,8 @@
  *
  *   label     name in the report
  *   ours      { story: Storybook story id, selector: Playwright selector of the element }
+ *             (`overlay: true` looks for it in the whole page: popovers and dialogs render in a CDK overlay outside
+ *             the story root)
  *   ref       the same for https://sap.github.io/fundamental-styles/
  *   hover     hover the element before capturing
  *   focus     focus our element with the keyboard (:focus-visible); fundamental-styles' stories usually show focus

@@ -857,7 +857,7 @@
       "repro": "Spec: open the month view (\"March, Select month\"); the cells read Jan, Feb, Mar, … while each cell is named \"January 2024\", …; axe-core label-content-name-mismatch flags 11 of the 12 cells (#cal-month-view-month-0, …; only May has the same short and long name).",
       "test": "Calendar › shows long month names in the month view, matching the cell names (axe label-content-name-mismatch)",
       "fix": "4a4f004",
-      "notes": "Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure. Verified: the test fails before the fix (11 cells) and passes after; the long names fit their cells; pnpm angular check passes."
+      "notes": "Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure. Verified: the test fails before the fix (11 cells) and passes after; the long names fit their cells; pnpm angular check passes. Visual: pnpm visual calendar, the month and selected month cells (long names) match fundamental-styles' Months story in all 16 combinations."
     },
     {
       "id": "calendar-2",
@@ -866,11 +866,11 @@
       "source": "../../../react/docs/parity/components/calendar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "components-calendar--single (and the spec host): the next arrow's wrapper computes margin-inline-start 0px (ms-auto with nothing to push), fundamental-styles 0.25rem; the month and year buttons share 2×2px more.",
+      "test": "calendar.spec.ts › Calendar header › the next arrow has a 0.25rem start margin, as fundamental-styles (computed style)",
+      "fix": "f5b6446",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual calendar: header month, header previous and the calendar match fundamental-styles' Days story in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "calendar-3",
@@ -879,11 +879,11 @@
       "source": "../../../react/docs/parity/components/calendar.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host with activeView=\"year\" and selectedDate 2018-03-01: the first year cell reads 2026 (today's year) and no year is selected; switching to the view with the header button starts at 2018.",
+      "test": "calendar.spec.ts › Calendar header › a calendar that starts in the year view starts at the shown year",
+      "fix": "4735503",
+      "notes": "Verified: the test fails before the fix (2026) and passes after; pnpm visual calendar: the year view (Reference story, starting in it) matches fundamental-styles' Years story in all 16; pnpm angular check passes."
     },
     {
       "id": "message-page-1",
@@ -905,11 +905,11 @@
       "source": "../../../react/docs/parity/components/time.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host in sap_horizon_hcb / sap_horizon_hcw: the selected value of the active column computes background rgb(0, 0, 0) / rgb(255, 255, 255) (--sapList_Background); fundamental-styles' Time stories show the working background, #2e2e2e / #d9d9d9.",
+      "test": "time.spec.ts › Time › styles › the selected value has the working background in HC, as fundamental-styles (computed style)",
+      "fix": "2342286",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual time: selected value and selection border match fundamental-styles in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "time-2",
@@ -918,11 +918,11 @@
       "source": "../../../react/docs/parity/components/time.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host: the collapsed minutes value computes cursor: pointer and the 'Min' column label cursor: auto; fundamental-styles' Time stories have default and text.",
+      "test": "time.spec.ts › Time › styles › the collapsed value has the default cursor and the column label the text cursor (computed style)",
+      "fix": "21d7e21",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual time: collapsed value (+hover) and column label match in all 16 (cursor included); pnpm angular check passes."
     },
     {
       "id": "step-input-1",
@@ -996,11 +996,11 @@
       "source": "../../../react/docs/parity/components/date-picker.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host: a single date picker with dateRangeFormat=\"month\" on 2024-03-09; open, pick June: the value stays 2024-03-09 (the calendar only started a range); a second pick then wrote a DateRange into selectedDate.",
+      "test": "date-picker.spec.ts › DatePicker dateRangeFormat › picks months of a single date with dateRangeFormat",
+      "fix": "8e454a9",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "date-picker-2",
@@ -1009,11 +1009,11 @@
       "source": "../../../react/docs/parity/components/date-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host with showTodayButton, open: the footer bar computes border-bottom-*-radius 0px (fundamental-styles: the popover's 8px, 4px in HC) and the Today button min-width auto (53–57px wide; fundamental-styles 4rem).",
+      "test": "date-picker.spec.ts › DatePicker › the today footer has the popover's bottom corners and a decisive (4rem) button, in both densities (computed style)",
+      "fix": "7b8ee03",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual date-picker: today footer, today button and its hover match fundamental-styles' Today Selection Button in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "date-picker-3",
@@ -1022,11 +1022,11 @@
       "source": "../../../react/docs/parity/components/date-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Decided: italic placeholder in HC, as fundamental-styles (and React); the compact padding (first half) is a plain fix."
+      "status": "verified",
+      "repro": "Spec host: in compact density the date picker input (first of its group) computes padding-inline-start/end 10px (first:ps-2.5 wins over nothing); fundamental-styles has the compact field padding, 8px. In sap_horizon_hcb its ::placeholder computes font-style normal (hc:placeholder:not-italic); fundamental-styles keeps italic.",
+      "test": "date-picker.spec.ts › DatePicker › the input keeps the compact field padding and an italic placeholder in HC, as fundamental-styles (computed style)",
+      "fix": "123fd65",
+      "notes": "Decided: italic placeholder in HC, as fundamental-styles (and React); the compact padding (first half) is a plain fix. Verified: the test fails before the fix (both halves) and passes after; pnpm visual date-picker: the input matches in all 16 by styles (8px compact padding); 3.1–4.6% pixels in HC from the reference's open popover shadow on the field (as React); pnpm angular check passes."
     },
     {
       "id": "button-1",
@@ -1115,11 +1115,11 @@
       "source": "../../../react/docs/parity/components/time-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Decided: `time-entry-request`, as fundamental-styles and UI5 (and React). A visible change from fundamental-ngx."
+      "status": "verified",
+      "repro": "Spec host: the button's icon has data-glyph U+E168 (fob-watch); fundamental-styles' Time Picker pattern and UI5 show time-entry-request (U+E0A4).",
+      "test": "time-picker.spec.ts › TimePicker › the button shows fundamental-styles' and UI5's time-entry-request glyph",
+      "fix": "d552a13",
+      "notes": "Decided: `time-entry-request`, as fundamental-styles and UI5 (and React). A visible change from fundamental-ngx. Verified: the test fails before the fix and passes after; pnpm visual time-picker: the button icon matches the pattern's glyph by pixels (0.0%) in all 16 (its line height differs: icon-1); pnpm angular check passes."
     },
     {
       "id": "time-picker-2",
@@ -1128,11 +1128,11 @@
       "source": "../../../react/docs/parity/components/time-picker.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host: open the columns with the button, click the #after button outside: the columns close and the focus moves back to the input instead of staying on the pressed button.",
+      "test": "time-picker.spec.ts › TimePicker › leaves the focus on the element a press outside focused, and returns it to the input otherwise",
+      "fix": "9a2b53c",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "multi-input-1",
@@ -2145,11 +2145,11 @@
       "source": "../../../react/docs/parity/components/datetime-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host, open the popover: the footer bar computes border-bottom-*-radius 0px (fundamental-styles: the popover's 8px, 4px in HC) and the OK and Cancel buttons min-width auto (fundamental-styles' footer buttons: 4rem).",
+      "test": "datetime-picker.spec.ts › DatetimePicker › the footer has the popover's bottom corners and decisive (4rem) OK and Cancel buttons (computed style)",
+      "fix": "346a58e",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual datetime-picker: footer bar, OK button and its hover (min-width 64px) match in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "datetime-picker-2",
@@ -2158,11 +2158,11 @@
       "source": "../../../react/docs/parity/components/datetime-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host with mobile (portrait): open the dialog; the calendar is 288px (18rem) wide in a 1248px dialog row; fundamental-styles' Mobile Portrait calendar spans the dialog.",
+      "test": "datetime-picker.spec.ts › DatetimePicker mobile portrait › shows the calendar in its full-width portrait layout, as fundamental-styles' Mobile Portrait",
+      "fix": "c06ccb4",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual datetime-picker: the mobile calendar matches fundamental-styles' Mobile Portrait in the 8 cozy combinations (compact: fundamental-styles' own compact padding wins over its mobile layout, as React); pnpm angular check passes."
     },
     {
       "id": "datetime-picker-3",

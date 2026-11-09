@@ -115,7 +115,7 @@ export const buttonVariants = cva(
             },
             /** Minimum width for decisive actions (OK, Cancel) in dialogs and footers. */
             decisive: {
-                // also in compact, over the compact minimum (`compact:min-w-8`)
+                // also in compact, over the compact minimum width
                 true: 'min-w-16 compact:min-w-16',
                 false: ''
             }
