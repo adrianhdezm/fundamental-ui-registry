@@ -136,7 +136,8 @@ export class Tile {
                 'relative m-0 my-1 me-2 box-border flex h-full max-h-(--tile-lh) min-h-(--tile-lh) w-auto max-w-full min-w-8 cursor-pointer items-center justify-between gap-2 px-2 py-0 last:me-0',
                 '[--tile-lh:2rem] [--tile-lmh:3.25rem] [--tile-lnh:1.625rem] [--tile-ts:0.625rem] compact:[--tile-lh:1.625rem] compact:[--tile-lmh:2.875rem] compact:[--tile-lnh:1.4375rem] compact:[--tile-ts:0.5rem]',
                 'rounded-sap-tile-border-corner-radius border border-sap-tile-border-color bg-sap-tile-background font-sap-font-family text-sap-font-size text-sap-text-color no-underline [box-shadow:var(--sapContent_Shadow0)]',
-                'hover:bg-sap-tile-hover-background hover:[box-shadow:var(--sapContent_Shadow2)] active:bg-sap-tile-active-background',
+                // in HC the 0.125rem border ring of the other tiles (fundamental-styles' --fdTile_Hover_Box_Shadow)
+                'hover:bg-sap-tile-hover-background hover:[box-shadow:var(--sapContent_Shadow2)] hc:hover:[box-shadow:0_0_0_0.125rem_var(--sapTile_BorderColor)] active:bg-sap-tile-active-background',
                 'outline-none focus-visible:z-5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sap-content-focus-color focus-visible:outline-solid',
                 this.disabled() && 'pointer-events-none bg-transparent opacity-50',
                 this.action() && 'pe-0',

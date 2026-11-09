@@ -618,9 +618,9 @@
       "source": "../../../react/docs/parity/components/tile.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "tile.spec.ts, a hovered line tile in sap_horizon_hcb: computed box-shadow is --sapContent_Shadow2 instead of the 0 0 0 0.125rem --sapTile_BorderColor ring of the other tiles (fundamental-styles' --fdTile_Hover_Box_Shadow).",
+      "test": "tile.spec.ts › Tile › a hovered line tile shows the 0.125rem border ring in high contrast, as the other tiles",
       "fix": "",
       "notes": ""
     },

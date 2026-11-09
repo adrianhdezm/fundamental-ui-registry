@@ -237,11 +237,11 @@ None.
 
 #### tile
 
-[React report](../../../react/docs/parity/components/tile.md) · ⬜ reported: 2 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/tile.md) · ⬜ reported: 1 · 🧪 covered: 2
 
 | ID     | Issue                                                                                                                                                                             | Kind          | Confirmed | Pattern | Status      | Test                                                                                                                   | Fix | Notes |
 | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ---------------------------------------------------------------------------------------------------------------------- | --- | ----- |
-| tile-1 | Line tiles hover with `--sapContent_Shadow2` in HC instead of the 0.125rem tile border ring of the other tiles.                                                                   | visual        | rendered  |         | ⬜ reported |                                                                                                                        |     |       |
+| tile-1 | Line tiles hover with `--sapContent_Shadow2` in HC instead of the 0.125rem tile border ring of the other tiles.                                                                   | visual        | rendered  |         | 🧪 covered  | tile.spec.ts › Tile › a hovered line tile shows the 0.125rem border ring in high contrast, as the other tiles          |     |       |
 | tile-2 | The action close button and the indicator buttons lack fundamental-styles' 1px `--sapButton_Lite_BorderColor` border, so there is no ring in HC.                                  | visual        | rendered  |         | 🧪 covered  | tile.spec.ts › Tile › the action close and indicator buttons have the 1px lite button border (a ring in high contrast) |     |       |
 | tile-3 | The KPI value uses `font-light` (300) where fundamental-styles uses `lighter`, and the active page dot uses the 0.063rem active shadow instead of 0.125rem; computed styles only. | computed-only | rendered  |         | ⬜ reported |                                                                                                                        |     |       |
 

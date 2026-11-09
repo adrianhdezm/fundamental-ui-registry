@@ -360,6 +360,23 @@ class NumericHost {
 }
 
 describe('Tile', () => {
+    it('a hovered line tile shows the 0.125rem border ring in high contrast, as the other tiles', async () => {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const { all } = await render(LineHost);
+            const tile = all('[fd-tile]')[0];
+            await userEvent.hover(tile);
+            const probe = document.createElement('div');
+            document.body.appendChild(probe);
+            probe.style.boxShadow = '0 0 0 0.125rem var(--sapTile_BorderColor)';
+            expect(getComputedStyle(tile).boxShadow).toBe(getComputedStyle(probe).boxShadow);
+            probe.remove();
+            await userEvent.unhover(tile);
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     it('the action close and indicator buttons have the 1px lite button border (a ring in high contrast)', async () => {
         document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
         try {
