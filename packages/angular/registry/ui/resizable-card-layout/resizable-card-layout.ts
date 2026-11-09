@@ -279,7 +279,9 @@ export class ResizableCardItem implements FocusableOption {
         const span = Math.floor(width / horizontalResizeStep);
         const thresholdReached = width - (span * horizontalResizeStep + span * gap) > horizontalResizeOffset;
         if (clientX !== this.prevX) {
-            this.cardState = clientX > this.prevX ? 1 : -1;
+            // growing or shrinking, whatever the direction (in RTL a card grows to the left)
+            const rtl = getComputedStyle(this.element).direction === 'rtl';
+            this.cardState = clientX > this.prevX !== rtl ? 1 : -1;
             const future = (span + 1) * horizontalResizeStep + span * gap;
             this.indicationWidth.set(thresholdReached ? future - width : 0);
         }

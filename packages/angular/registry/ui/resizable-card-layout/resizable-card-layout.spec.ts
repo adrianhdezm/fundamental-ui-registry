@@ -557,4 +557,18 @@ describe('ResizableCardLayout corner and RTL', () => {
         expect(style.rotate).toBe('none');
         expect(style.transform).toBe('matrix(0, 1, -1, 0, 0, 0)');
     });
+
+    it('in RTL growing a card past half a column moves the card at the end of its row down', async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        const { handle, position, stable, host } = await setup();
+        expect(position('D')[1]).toBe(0);
+        const gesture = await drag(handle('A', 'ew')!, -200, 0, 10, false);
+        await stable();
+        // as in LTR: D (end of the row) moves down, after E
+        const ranks = (config: ResizableCardLayoutConfig) => config.map((c) => `${c.title}${c.rank}`);
+        expect(ranks(host.layouts.at(-1)!)).toEqual(['A1', 'B2', 'C3', 'D5', 'E4']);
+        expect(position('D')[1]).toBe(176);
+        await gesture.up();
+        await stable();
+    });
 });

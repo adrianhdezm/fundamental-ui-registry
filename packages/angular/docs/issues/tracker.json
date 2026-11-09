@@ -2593,9 +2593,9 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host in RTL): dragging card A's edge 200px to the left (growing it past half a column) keeps the ranks A1 B2 C3 D4 E5: cardState is -1 for a leftward move, read as shrinking, so D (end of the row) never moves down; in LTR the same growth gives D5 E4.",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › in RTL growing a card past half a column moves the card at the end of its row down",
       "fix": "",
       "notes": ""
     },
