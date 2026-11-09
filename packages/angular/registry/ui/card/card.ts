@@ -270,7 +270,8 @@ export class Card {
     );
 
     protected readonly badgeClass =
-        'max-w-full min-h-0 rounded-lg px-1 py-0 [&>span]:truncate [&>span]:leading-[0.875rem] [&>*]:leading-[0.875rem]';
+        // fundamental-styles' 0.875rem minimum height, with the object status' own line height
+        'max-w-full min-h-[0.875rem] rounded-lg px-1 py-0 [&>span]:truncate';
 
     protected readonly roleDescription = computed(() => {
         const type = this.cardType();

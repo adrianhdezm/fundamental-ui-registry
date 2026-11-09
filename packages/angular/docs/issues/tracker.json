@@ -1789,9 +1789,9 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (StandardHost): the badge computes min-height 0px and is 16px high (min-h-0 and a 0.875rem text line height); fundamental-styles' badge has a 0.875rem minimum height and the object status' 1rem line height: 18px.",
+      "test": "card.spec.ts › Card styles › badges are 18px high: a 0.875rem minimum height and the object status line height (computed style)",
       "fix": "",
       "notes": ""
     },

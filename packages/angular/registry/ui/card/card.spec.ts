@@ -904,4 +904,11 @@ describe('Card styles', () => {
         expect(style(counter).lineHeight).toBe('16px');
         expect(rect(counter).height).toBe(16);
     });
+
+    it('badges are 18px high: a 0.875rem minimum height and the object status line height (computed style)', async () => {
+        const { q } = await render(StandardHost);
+        const badge = q('#card-badge');
+        expect(style(badge).minHeight).toBe('14px');
+        expect(rect(badge).height).toBe(18);
+    });
 });
