@@ -634,7 +634,7 @@ export class Select<T = unknown> implements ControlValueAccessor {
         return cn(
             fieldBase,
             // the field shadow is drawn by a frame that the focus does not remove; value states keep theirs
-            "shadow-none focus:shadow-none after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-sap-field-shadow after:content-['']",
+            "[box-shadow:none] focus:[box-shadow:none] after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:[box-shadow:var(--sapField_Shadow)] after:content-['']",
             fieldStates[state],
             'group/select my-0 flex cursor-pointer items-center justify-between gap-1 overflow-visible p-0 compact:my-0 compact:p-0',
             'aria-expanded:outline-none',
@@ -665,15 +665,15 @@ export class Select<T = unknown> implements ControlValueAccessor {
         return cn(
             buttonVariants({ variant: 'transparent' }),
             'shrink-0 rounded-sap-field-border-corner-radius border-0 text-sap-font-size leading-[normal]',
-            'hover:shadow-sap-field-hover-shadow',
+            'hover:[box-shadow:var(--sapField_Hover_Shadow)]',
             state === 'success' &&
-                'hover:shadow-sap-content-positive-shadow group-focus/select:text-sap-button-accept-selected-text-color group-focus/select:shadow-sap-content-positive-shadow',
+                'hover:[box-shadow:var(--sapContent_Positive_Shadow)] group-focus/select:text-sap-button-accept-selected-text-color group-focus/select:[box-shadow:var(--sapContent_Positive_Shadow)]',
             state === 'error' &&
-                'hover:shadow-sap-content-negative-shadow group-focus/select:text-sap-button-reject-selected-text-color group-focus/select:shadow-sap-content-negative-shadow',
+                'hover:[box-shadow:var(--sapContent_Negative_Shadow)] group-focus/select:text-sap-button-reject-selected-text-color group-focus/select:[box-shadow:var(--sapContent_Negative_Shadow)]',
             state === 'warning' &&
-                'hover:shadow-sap-content-critical-shadow group-focus/select:text-sap-button-attention-selected-text-color group-focus/select:shadow-sap-content-critical-shadow',
+                'hover:[box-shadow:var(--sapContent_Critical_Shadow)] group-focus/select:text-sap-button-attention-selected-text-color group-focus/select:[box-shadow:var(--sapContent_Critical_Shadow)]',
             state === 'information' &&
-                'hover:shadow-sap-content-informative-shadow group-focus/select:text-sap-button-selected-text-color group-focus/select:shadow-sap-content-informative-shadow'
+                'hover:[box-shadow:var(--sapContent_Informative_Shadow)] group-focus/select:text-sap-button-selected-text-color group-focus/select:[box-shadow:var(--sapContent_Informative_Shadow)]'
         );
     });
 

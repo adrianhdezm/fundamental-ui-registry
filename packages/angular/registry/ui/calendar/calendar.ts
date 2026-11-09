@@ -192,11 +192,11 @@ const TEXT =
 const SIDE_HELPER =
     'relative m-px box-border inline-flex h-[1.875rem] min-w-8 flex-1 items-center justify-center self-center border-0 bg-sap-list-background p-0 text-sap-font-small-size font-normal text-sap-content-label-color';
 const TODAY =
-    "border-2 border-sap-legend-current-date-time shadow-[inset_0_0_0_0.0625rem_var(--sapList_Background)] after:pointer-events-none after:absolute after:inset-px after:rounded-[0.3125rem] after:content-['']";
+    "border-2 border-sap-legend-current-date-time [box-shadow:inset_0_0_0_0.0625rem_var(--sapList_Background)] after:pointer-events-none after:absolute after:inset-px after:rounded-[0.3125rem] after:content-['']";
 const TODAY_SELECTED = 'after:border after:border-solid after:border-sap-list-selection-border-color';
 /** Special day markers: a coloured bar at the bottom, a rounded one on today. */
 const SPECIAL =
-    "[&_[data-cal-wrapper]]:after:absolute [&_[data-cal-wrapper]]:after:inset-x-0 [&_[data-cal-wrapper]]:after:bottom-0 [&_[data-cal-wrapper]]:after:h-[0.3125rem] [&_[data-cal-wrapper]]:after:shadow-[inset_0_-0.3125rem_0_var(--cal-legend)] [&_[data-cal-wrapper]]:after:content-['']";
+    "[&_[data-cal-wrapper]]:after:absolute [&_[data-cal-wrapper]]:after:inset-x-0 [&_[data-cal-wrapper]]:after:bottom-0 [&_[data-cal-wrapper]]:after:h-[0.3125rem] [&_[data-cal-wrapper]]:after:[box-shadow:inset_0_-0.3125rem_0_var(--cal-legend)] [&_[data-cal-wrapper]]:after:content-['']";
 const SPECIAL_SELECTED = '[&_[data-cal-wrapper]]:after:h-1';
 const SPECIAL_TODAY =
     "[&_[data-cal-wrapper]]:after:absolute [&_[data-cal-wrapper]]:after:start-px [&_[data-cal-wrapper]]:after:bottom-px [&_[data-cal-wrapper]]:after:h-1 [&_[data-cal-wrapper]]:after:w-[calc(100%-0.125rem)] [&_[data-cal-wrapper]]:after:rounded-b-[0.3125rem] [&_[data-cal-wrapper]]:after:border-b-4 [&_[data-cal-wrapper]]:after:border-solid [&_[data-cal-wrapper]]:after:border-(--cal-legend) [&_[data-cal-wrapper]]:after:content-['']";
@@ -234,7 +234,7 @@ export class CalendarLegendItem {
     protected readonly computedClass = computed(() =>
         cn(
             'm-0 box-border flex min-w-[7.5rem] gap-2 rounded-[0.25rem] p-1 font-sap-font-family outline-none compact:p-0.5',
-            'focus:shadow-[inset_0_0_0_var(--sapContent_FocusWidth)_var(--sapContent_FocusColor)] active:shadow-[inset_0_0_0_var(--sapContent_FocusWidth)_var(--sapContent_FocusColor)]',
+            'focus:[box-shadow:inset_0_0_0_var(--sapContent_FocusWidth)_var(--sapContent_FocusColor)] active:[box-shadow:inset_0_0_0_var(--sapContent_FocusWidth)_var(--sapContent_FocusColor)]',
             this.userClass()
         )
     );

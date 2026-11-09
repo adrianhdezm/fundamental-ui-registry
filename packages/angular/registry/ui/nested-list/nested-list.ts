@@ -571,7 +571,7 @@ export class NestedListExpandIcon {
                 <div #body ${SCOPE} class="min-w-48 font-sap-font-family">
                     <div
                         aria-hidden="true"
-                        class="m-0 box-border flex h-11 items-center truncate rounded-t-sap-popover-border-corner-radius px-4 font-sap-font-family text-sap-font-large-size font-bold text-sap-list-text-color shadow-[0_0_0.25rem_0_var(--sapContent_ShadowColor),inset_0_-0.0625rem_0_0_var(--sapList_BorderColor)] compact:h-8 compact:text-sap-font-size"
+                        class="m-0 box-border flex h-11 items-center truncate rounded-t-sap-popover-border-corner-radius px-4 font-sap-font-family text-sap-font-large-size font-bold text-sap-list-text-color [box-shadow:0_0_0.25rem_0_var(--sapContent_ShadowColor),inset_0_-0.0625rem_0_0_var(--sapList_BorderColor)] compact:h-8 compact:text-sap-font-size"
                     >
                         {{ heading() }}
                     </div>

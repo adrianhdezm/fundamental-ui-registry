@@ -792,7 +792,7 @@ export class TabList implements TabsContext {
 /** Classes of a tab bar. */
 function tabBarClass(mode: TabModes | null | undefined, size: TabSizes, userClass: ClassValue): string {
     return cn(
-        'm-0 flex items-center bg-sap-object-header-background p-0 font-sap-font-family text-sap-font-size text-sap-content-label-color shadow-sap-content-header-shadow',
+        'm-0 flex items-center bg-sap-object-header-background p-0 font-sap-font-family text-sap-font-size text-sap-content-label-color [box-shadow:var(--sapContent_HeaderShadow)]',
         size === 's' ? 'px-4' : size === 'xl' || size === 'xxl' ? 'px-12' : 'px-8',
         userClass
     );

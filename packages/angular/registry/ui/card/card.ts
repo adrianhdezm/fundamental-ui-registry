@@ -294,7 +294,7 @@ export class Card {
         const interactive = this.interactive() || this.role() === 'listitem' || this.role() === 'button';
         return cn(
             'relative m-0 box-border flex min-h-full w-full flex-1 flex-col p-0 font-sap-font-family text-sap-font-size',
-            'rounded-(--card-r) border border-solid border-(--card-bc) bg-(--card-bg) shadow-(--card-shadow)',
+            'rounded-(--card-r) border border-solid border-(--card-bc) bg-(--card-bg) [box-shadow:var(--card-shadow)]',
             '[--card-r:var(--sapTile_BorderCornerRadius)] [--card-fr:var(--card-r)] [--card-bc:var(--sapTile_BorderColor)] [--card-bg:var(--sapTile_Background)]',
             '[--card-shadow:var(--sapContent_Shadow0)] hc:[--card-shadow:none] [--card-hts:0.25rem] compact:[--card-hts:0.5rem]',
             // media defaults, overridden by media colours and banner layout

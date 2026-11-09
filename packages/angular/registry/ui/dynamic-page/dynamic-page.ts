@@ -398,7 +398,7 @@ export class DynamicPageSubheader {
     protected readonly visibilityClass = computed(() =>
         cn(
             'relative z-2 m-0 flex min-h-px items-center justify-center bg-sap-object-header-background p-0',
-            !this.page?.hasTabs() && 'shadow-sap-content-header-shadow'
+            !this.page?.hasTabs() && '[box-shadow:var(--sapContent_HeaderShadow)]'
         )
     );
 }
@@ -479,7 +479,9 @@ export class DynamicPageFooter {
 /** Tabs (or another navigation) between the header and the content. */
 @Directive({
     selector: '[fd-dynamic-page-tabs], [fdDynamicPageTabs]',
-    host: { class: 'relative z-1 block px-(--dp-px) shadow-sap-content-header-shadow bg-sap-object-header-background' }
+    host: {
+        class: 'relative z-1 block px-(--dp-px) [box-shadow:var(--sapContent_HeaderShadow)] bg-sap-object-header-background'
+    }
 })
 export class DynamicPageTabs {}
 
@@ -644,7 +646,7 @@ export class DynamicPage {
     protected readonly headerClass = computed(() =>
         cn(
             'relative z-15 m-0 flex flex-col justify-between p-0',
-            !this.collapsible() && !this.hasTabs() && 'shadow-sap-content-header-shadow'
+            !this.collapsible() && !this.hasTabs() && '[box-shadow:var(--sapContent_HeaderShadow)]'
         )
     );
 

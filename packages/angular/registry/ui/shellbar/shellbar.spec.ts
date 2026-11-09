@@ -126,7 +126,20 @@ async function setup(width = 1300, context = false) {
     return { fixture, host: fixture.componentInstance, root, bar, button };
 }
 
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
 describe('Shellbar', () => {
+    it('the bar and search shadows have no transparent ring layers', async () => {
+        const { root } = await setup();
+        const shadows = [...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).boxShadow !== 'none');
+        expect(shadows.length).toBeGreaterThan(1);
+        expect(ringLayers(root)).toEqual([]);
+    });
+
     it('takes its size from its width and shows the search in the middle when extra large', async () => {
         const { bar, root } = await setup(1300);
         expect(bar.dataset['size']).toBe('xl');

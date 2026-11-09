@@ -81,7 +81,7 @@ export class WizardProgressBar {
     protected readonly computedClass = computed(() =>
         cn(
             'relative z-10 m-0 box-border table h-16 w-full table-fixed list-none p-0 pt-4',
-            'bg-sap-object-header-background font-sap-font-family text-sap-font-size text-sap-text-color shadow-sap-content-header-shadow',
+            'bg-sap-object-header-background font-sap-font-family text-sap-font-size text-sap-text-color [box-shadow:var(--sapContent_HeaderShadow)]',
             SIZE_PADDING[this.size() as WizardSize],
             this.userClass()
         )

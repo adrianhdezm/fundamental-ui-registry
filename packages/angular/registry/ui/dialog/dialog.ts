@@ -600,7 +600,7 @@ export class Dialog {
         return cn(
             'relative m-0 box-border flex flex-col p-0 outline-none [--dlg-px:1rem]',
             'min-w-80 min-h-[7.5rem] max-w-[calc(100vw_-_10%)] max-h-[calc(100vh_-_6%)]',
-            'rounded-sap-element-border-corner-radius shadow-sap-content-shadow3',
+            'rounded-sap-element-border-corner-radius [box-shadow:var(--sapContent_Shadow3)]',
             !this.resizable() && 'overflow-hidden',
             full &&
                 'fixed! inset-0! size-full! min-w-full! max-w-full! min-h-full! max-h-full! translate-none! rounded-none',

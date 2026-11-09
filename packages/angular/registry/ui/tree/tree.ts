@@ -152,12 +152,12 @@ function levelIndent(level: number, expandedLevel: number): number {
 
 const HIGHLIGHT: Record<TreeItemState, string> = {
     default:
-        'shadow-[inset_0.375rem_0_0_0_var(--sapInformationBorderColor)] rtl:shadow-[inset_-0.375rem_0_0_0_var(--sapInformationBorderColor)]',
-    error: 'shadow-[inset_0.375rem_0_0_0_var(--sapErrorBorderColor)] rtl:shadow-[inset_-0.375rem_0_0_0_var(--sapErrorBorderColor)]',
+        '[box-shadow:inset_0.375rem_0_0_0_var(--sapInformationBorderColor)] rtl:[box-shadow:inset_-0.375rem_0_0_0_var(--sapInformationBorderColor)]',
+    error: '[box-shadow:inset_0.375rem_0_0_0_var(--sapErrorBorderColor)] rtl:[box-shadow:inset_-0.375rem_0_0_0_var(--sapErrorBorderColor)]',
     warning:
-        'shadow-[inset_0.375rem_0_0_0_var(--sapWarningBorderColor)] rtl:shadow-[inset_-0.375rem_0_0_0_var(--sapWarningBorderColor)]',
+        '[box-shadow:inset_0.375rem_0_0_0_var(--sapWarningBorderColor)] rtl:[box-shadow:inset_-0.375rem_0_0_0_var(--sapWarningBorderColor)]',
     success:
-        'shadow-[inset_0.375rem_0_0_0_var(--sapSuccessBorderColor)] rtl:shadow-[inset_-0.375rem_0_0_0_var(--sapSuccessBorderColor)]'
+        '[box-shadow:inset_0.375rem_0_0_0_var(--sapSuccessBorderColor)] rtl:[box-shadow:inset_-0.375rem_0_0_0_var(--sapSuccessBorderColor)]'
 };
 
 /** Late reference to Tree for the item declared before it. */

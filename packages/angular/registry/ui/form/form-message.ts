@@ -88,12 +88,12 @@ export class FormMessage {
         cn(
             'm-0 box-border flex w-full min-w-24 max-w-[22rem] items-center p-2',
             'font-sap-font-family text-sap-font-small-size font-normal leading-[1.125rem] text-sap-text-color whitespace-pre-line',
-            'shadow-sap-content-shadow1 rounded-sap-popover-border-corner-radius',
-            'hc:shadow-none hc:rounded-none hc:border-solid hc:border-[calc(var(--sapField_BorderWidth)*2)] hc:border-sap-field-border-color',
+            '[box-shadow:var(--sapContent_Shadow1)] rounded-sap-popover-border-corner-radius',
+            'hc:[box-shadow:none] hc:rounded-none hc:border-solid hc:border-[calc(var(--sapField_BorderWidth)*2)] hc:border-sap-field-border-color',
             'before:block before:self-start before:me-1.5 before:font-sap-content-icon-font-family before:text-[1rem] before:content-[attr(data-glyph)]',
             TYPE[this.type()].class,
             this.static() && 'w-auto',
-            this.embedded() && 'shadow-none max-w-full',
+            this.embedded() && '[box-shadow:none] max-w-full',
             this.userClass()
         )
     );

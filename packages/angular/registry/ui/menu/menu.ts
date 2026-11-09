@@ -570,7 +570,7 @@ export class Submenu extends MenuList {
             mobile
                 ? ['static max-w-full', MOBILE_VARS]
                 : [
-                      'absolute start-full top-0 z-[2] mt-1 -ms-1 min-w-full bg-sap-list-background shadow-sap-content-shadow1',
+                      'absolute start-full top-0 z-[2] mt-1 -ms-1 min-w-full bg-sap-list-background [box-shadow:var(--sapContent_Shadow1)]',
                       // in a menu with icons, a submenu without icons gets wider paddings
                       !this.icons() &&
                           '[[data-menu-icons]_&]:[--mi-pl:var(--mi-sub-pad)] [[data-menu-icons]_&]:[--mi-pr:var(--mi-sub-pad)]'

@@ -231,7 +231,10 @@ export class FixedCardLayout {
     });
 
     protected readonly onlyFirst = (index: number): boolean => index === 0;
-    protected readonly previewClass = ['rounded-sap-element-border-corner-radius', 'shadow-sap-content-shadow2'];
+    protected readonly previewClass = [
+        'rounded-sap-element-border-corner-radius',
+        '[box-shadow:var(--sapContent_Shadow2)]'
+    ];
 
     constructor() {
         const destroyRef = inject(DestroyRef);

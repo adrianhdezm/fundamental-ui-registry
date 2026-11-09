@@ -47,7 +47,7 @@ export const SETTINGS_DIALOG_CLASS = [
     'w-[60rem] h-[42.5rem] max-w-[60rem] max-h-[42.5rem]',
     'has-[[data-settings-view=md]]:w-[80%] has-[[data-settings-view=md]]:max-w-[40rem] has-[[data-settings-view=md]]:h-[88%]',
     'has-[[data-settings-view=sm]]:w-full has-[[data-settings-view=sm]]:max-w-full has-[[data-settings-view=sm]]:h-full has-[[data-settings-view=sm]]:max-h-full',
-    'has-[[data-settings-view=sm]]:rounded-none has-[[data-settings-view=sm]]:shadow-none'
+    'has-[[data-settings-view=sm]]:rounded-none has-[[data-settings-view=sm]]:[box-shadow:none]'
 ].join(' ');
 
 /** Dialog options for settings: no body paddings and the settings window size. */

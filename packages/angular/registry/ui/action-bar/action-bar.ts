@@ -36,7 +36,7 @@ export class ActionBar {
     protected readonly computedClass = computed(() =>
         cn(
             'm-0 box-border block max-h-[4.25rem] min-h-12 justify-between py-2 break-words font-sap-font-family text-sap-font-size',
-            'bg-sap-page-header-background shadow-sap-content-header-shadow',
+            'bg-sap-page-header-background [box-shadow:var(--sapContent_HeaderShadow)]',
             PADDING[this.size()],
             this.userClass()
         )

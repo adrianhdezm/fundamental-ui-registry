@@ -120,7 +120,25 @@ async function setup(config: { mode?: 'single' | 'range'; custom?: boolean; valu
     return { fixture, host, root, handles: () => [...root.querySelectorAll<HTMLElement>('[role=slider]')] };
 }
 
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
 describe('Slider', () => {
+    it('the high-contrast track and progress shadows have no transparent ring layers', async () => {
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            const { root } = await setup();
+            const shadows = [...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).boxShadow !== 'none');
+            expect(shadows.length).toBeGreaterThan(0);
+            expect(ringLayers(root)).toEqual([]);
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     it('exposes the value as an ARIA slider', async () => {
         const { handles } = await setup();
         const [handle] = handles();

@@ -160,7 +160,20 @@ async function setup(config: Partial<{ append: boolean; width: string; labels: s
 const hugeRadius = (root: Element) =>
     [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
 
+/** Elements whose box-shadow has Tailwind's transparent ring layers (the shadow-* utilities add them). */
+const ringLayers = (root: Element) =>
+    [root, ...root.querySelectorAll('*')].filter((el) =>
+        getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
+    );
+
 describe('Wizard', () => {
+    it('the progress bar shadow is the header shadow, without transparent ring layers', async () => {
+        const { root } = await setup();
+        const shadows = [...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).boxShadow !== 'none');
+        expect(shadows.length).toBeGreaterThan(0);
+        expect(ringLayers(root)).toEqual([]);
+    });
+
     it('the step indicators are rounded with 50%, as fundamental-styles', async () => {
         const { root } = await setup();
         const indicators = [...root.querySelectorAll<HTMLElement>('[fd-wizard-step] *')].filter((el) =>

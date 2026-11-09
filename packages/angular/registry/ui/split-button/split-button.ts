@@ -197,7 +197,7 @@ export class SplitButton {
             PAD[variant],
             // the pad behind the buttons: background and border of a single button
             "before:absolute before:inset-0 before:rounded-sap-button-border-corner-radius before:bg-(--sb-pad) before:content-['']",
-            'before:shadow-[inset_0_0_0_var(--sapButton_BorderWidth)_var(--sb-bd)] hc:before:shadow-none',
+            'before:[box-shadow:inset_0_0_0_var(--sapButton_BorderWidth)_var(--sb-bd)] hc:before:[box-shadow:none]',
             // the separator between the buttons
             "after:absolute after:end-[2.125rem] after:top-1/2 after:z-10 after:mx-0.5 after:block after:h-4 after:w-(--sapButton_BorderWidth) after:-translate-y-1/2 after:bg-(--sb-sep) after:content-['']",
             'compact:after:end-[1.875rem] hover:after:hidden hc:after:hidden',
@@ -207,7 +207,7 @@ export class SplitButton {
 
     private readonly buttonClass = computed(() =>
         cn(
-            'm-0 border-transparent bg-transparent enabled-hover:z-[1] enabled-hover:shadow-none focus:z-[2]',
+            'm-0 border-transparent bg-transparent enabled-hover:z-[1] enabled-hover:[box-shadow:none] focus:z-[2]',
             HC_BUTTON[this.variant()]
         )
     );

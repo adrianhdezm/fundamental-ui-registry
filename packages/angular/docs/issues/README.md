@@ -65,7 +65,7 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ----------- | --- |
 | `pattern-leading-merge`: tailwind-merge drops a leading-* that comes before a text-* size            | tailwind-merge treats a font-size utility as also setting the line height, so a `leading-*` placed before a `text-*` size in the same class list (or merged in from a component) is removed.                                                         | Put `leading-*` after the `text-*` size in the same string or variant.                                                   | icon-1, menu-2, list-1, rating-indicator-2, checkbox-3, switch-2, object-status-4, tabs-3, panel-2, object-number-1 | 🧪 covered  |     |
 | `pattern-rounded-full`: `rounded-full` computes to a huge pixel radius instead of 50%                | Tailwind v4's `rounded-full` is `calc(infinity * 1px)` (3.35544e+07px computed); fundamental-styles uses `50%`.                                                                                                                                      | Use `rounded-[50%]` where fundamental-styles has 50% (and `100%` where it has that).                                     | avatar-4, wizard-1, tabs-4, shellbar-6, micro-process-flow-2, carousel-4                                            | 🧪 covered  |     |
-| `pattern-shadow-ring`: `shadow-sap-*` utilities add Tailwind's transparent ring layers               | Tailwind's `shadow-*` utilities compose `--tw-inset-shadow`, `--tw-inset-ring-shadow`, `--tw-ring-offset-shadow` and `--tw-ring-shadow` with the shadow, so the computed `box-shadow` has extra transparent layers that fundamental-styles' has not. | Write shadows as `[box-shadow:var(--sap…)]`.                                                                             | action-sheet-3, wizard-3, shellbar-5, card-4, slider-1, fixed-card-layout-2                                         | ⬜ reported |     |
+| `pattern-shadow-ring`: `shadow-sap-*` utilities add Tailwind's transparent ring layers               | Tailwind's `shadow-*` utilities compose `--tw-inset-shadow`, `--tw-inset-ring-shadow`, `--tw-ring-offset-shadow` and `--tw-ring-shadow` with the shadow, so the computed `box-shadow` has extra transparent layers that fundamental-styles' has not. | Write shadows as `[box-shadow:var(--sap…)]`.                                                                             | action-sheet-3, wizard-3, shellbar-5, card-4, slider-1, fixed-card-layout-2                                         | 🧪 covered  |     |
 | `pattern-synthetic-bold`: Synthetic bold: `font-bold` on the 72-Bold font                            | The 72-Bold face is registered with a normal weight; `font-bold` on top of it makes the browser embolden it again.                                                                                                                                   | Use `font-normal` with the bold font family, as fundamental-styles.                                                      | layout-panel-1, card-1, panel-1, feed-list-3                                                                        | ⬜ reported |     |
 | `pattern-rtl-double-mirror`: `rtl:rotate-180` / a right arrow mirroring an icon that already mirrors | The icon component mirrors directional glyphs in RTL by itself; choosing the opposite glyph in RTL or rotating it again flips it back.                                                                                                               | Keep the LTR glyph and let the icon mirror it; no extra RTL rotation or glyph swap.                                      | nested-list-2, shellbar-2, user-menu-1, grid-list-4, settings-2                                                     | ⬜ reported |     |
 | `pattern-compact-button-size`: `compact:*` button size classes override explicit sizes               | Button's `compact:min-w-8`, `compact:h-*` and `compact:px-*` are variant classes, so tailwind-merge keeps them next to a caller's unprefixed `min-w-*`, `h-*`, `w-*` or `p-0`, and they win in compact density.                                      | Pass the size for both densities (also `compact:`-prefixed), or have Button drop its compact sizes when a size is given. | button-1, dynamic-page-1, flexible-column-layout-1, carousel-3                                                      | ⬜ reported |     |
@@ -413,14 +413,14 @@ None.
 
 #### action-sheet
 
-[React report](../../../react/docs/parity/components/action-sheet.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/action-sheet.md) · ⬜ reported: 3 · 🧪 covered: 1
 
-| ID             | Issue                                                                                                                                                          | Kind          | Confirmed | Pattern             | Status      | Test | Fix | Notes |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ---- | --- | ----- |
-| action-sheet-1 | The mobile action-sheet list keeps rounded top corners under the title bar: `[[data-sheet-bar]+&]` never matches, the list sits inside `fd-action-sheet-body`. | visual        | rendered  |                     | ⬜ reported |      |     |       |
-| action-sheet-2 | The action-sheet title bar is raised (`z-[2]`) over the list, so its shadow falls on the first action; in fundamental-styles the list is on top.               | visual        | rendered  |                     | ⬜ reported |      |     |       |
-| action-sheet-3 | The action-sheet `shadow-sap-content-shadow1/2` utilities add transparent ring layers.                                                                         | computed-only | rendered  | pattern-shadow-ring | ⬜ reported |      |     |       |
-| action-sheet-4 | The action-sheet popover list has no corner radius, unlike fundamental-styles.                                                                                 | visual        | rendered  |                     | ⬜ reported |      |     |       |
+| ID             | Issue                                                                                                                                                          | Kind          | Confirmed | Pattern             | Status      | Test                                                                                                         | Fix | Notes |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------ | --- | ----- |
+| action-sheet-1 | The mobile action-sheet list keeps rounded top corners under the title bar: `[[data-sheet-bar]+&]` never matches, the list sits inside `fd-action-sheet-body`. | visual        | rendered  |                     | ⬜ reported |                                                                                                              |     |       |
+| action-sheet-2 | The action-sheet title bar is raised (`z-[2]`) over the list, so its shadow falls on the first action; in fundamental-styles the list is on top.               | visual        | rendered  |                     | ⬜ reported |                                                                                                              |     |       |
+| action-sheet-3 | The action-sheet `shadow-sap-content-shadow1/2` utilities add transparent ring layers.                                                                         | computed-only | rendered  | pattern-shadow-ring | 🧪 covered  | action-sheet.spec.ts › ActionSheet › the shadows are the theme shadows only, without transparent ring layers |     |       |
+| action-sheet-4 | The action-sheet popover list has no corner radius, unlike fundamental-styles.                                                                                 | visual        | rendered  |                     | ⬜ reported |                                                                                                              |     |       |
 
 #### overflow-layout
 
@@ -432,13 +432,13 @@ None.
 
 #### wizard
 
-[React report](../../../react/docs/parity/components/wizard.md) · ⬜ reported: 2 · 🧪 covered: 1 · ✅ verified: 1
+[React report](../../../react/docs/parity/components/wizard.md) · ⬜ reported: 1 · 🧪 covered: 2 · ✅ verified: 1
 
 | ID       | Issue                                                                                                                       | Kind          | Confirmed | Pattern              | Status      | Test                                                                                                       | Fix     | Notes                                                                                                    |
 | -------- | --------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | -------------------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
 | wizard-1 | The wizard step indicator uses `rounded-full` (a huge pixel radius) instead of fundamental-styles' 50% (not visible).       | computed-only | rendered  | pattern-rounded-full | 🧪 covered  | wizard.spec.ts › Wizard › the step indicators are rounded with 50%, as fundamental-styles                  |         |                                                                                                          |
 | wizard-2 | The connector of the stacked top wizard step keeps `min-w-4`, so it is 16px instead of 5px and runs past its 4rem step.     | visual        | rendered  |                      | ⬜ reported |                                                                                                            |         |                                                                                                          |
-| wizard-3 | The wizard progress bar uses the `shadow-sap-content-header-shadow` utility, which adds Tailwind's transparent ring layers. | computed-only | rendered  | pattern-shadow-ring  | ⬜ reported |                                                                                                            |         |                                                                                                          |
+| wizard-3 | The wizard progress bar uses the `shadow-sap-content-header-shadow` utility, which adds Tailwind's transparent ring layers. | computed-only | rendered  | pattern-shadow-ring  | 🧪 covered  | wizard.spec.ts › Wizard › the progress bar shadow is the header shadow, without transparent ring layers    |         |                                                                                                          |
 | wizard-4 | Stacked wizard steps hide their label with `display: none`, so a stacked step with only a glyph has no accessible name.     | a11y          | rendered  |                      | ✅ verified | Wizard › keeps the labels of stacked steps for assistive technology, also when the indicator shows a glyph | 30a6b47 | Verified: the test fails before the fix (aria-command-name) and passes after; pnpm angular check passes. |
 
 #### tabs
@@ -472,7 +472,7 @@ None.
 
 #### shellbar
 
-[React report](../../../react/docs/parity/components/shellbar.md) · ⬜ reported: 6 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/shellbar.md) · ⬜ reported: 5 · 🧪 covered: 2
 
 | ID         | Issue                                                                                                                | Kind          | Confirmed | Pattern                   | Status      | Test                                                                                                             | Fix | Notes |
 | ---------- | -------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------- | --- | ----- |
@@ -480,7 +480,7 @@ None.
 | shellbar-2 | The RTL shellbar back button uses `slim-arrow-right`, which the icon mirrors, so it points left.                     | visual        | rendered  | pattern-rtl-double-mirror | ⬜ reported |                                                                                                                  |     |       |
 | shellbar-3 | The shellbar search field has no `--sapField_BackgroundStyle` bottom border.                                         | visual        | rendered  |                           | ⬜ reported |                                                                                                                  |     |       |
 | shellbar-4 | In HC the hovered shellbar search input takes the shell hover colour instead of staying transparent.                 | visual        | rendered  |                           | ⬜ reported |                                                                                                                  |     |       |
-| shellbar-5 | The shellbar bar and search shadows use `shadow-[…]` / `shadow-sap-field-shadow`, which add transparent ring layers. | computed-only | rendered  | pattern-shadow-ring       | ⬜ reported |                                                                                                                  |     |       |
+| shellbar-5 | The shellbar bar and search shadows use `shadow-[…]` / `shadow-sap-field-shadow`, which add transparent ring layers. | computed-only | rendered  | pattern-shadow-ring       | 🧪 covered  | shellbar.spec.ts › Shellbar › the bar and search shadows have no transparent ring layers                         |     |       |
 | shellbar-6 | `rounded-full` on the shellbar user menu button computes to 3.35544e+07px (computed styles only).                    | computed-only | rendered  | pattern-rounded-full      | 🧪 covered  | shellbar.spec.ts › Shellbar › the user menu button has a 20rem radius, not rounded-full (a 3.35544e+07px length) |     |       |
 | shellbar-7 | The shellbar `ProductMenu` never shrinks or hides, so a size-s bar with one overflows.                               | visual        | rendered  |                           | ⬜ reported |                                                                                                                  |     |       |
 
@@ -548,16 +548,16 @@ None.
 
 #### card
 
-[React report](../../../react/docs/parity/components/card.md) · ⬜ reported: 6
+[React report](../../../react/docs/parity/components/card.md) · ⬜ reported: 5 · 🧪 covered: 1
 
-| ID     | Issue                                                                                                                                                      | Kind          | Confirmed | Pattern                | Status      | Test | Fix | Notes |
-| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ---------------------- | ----------- | ---- | --- | ----- |
-| card-1 | The card title uses `font-bold` on the 72-Bold font, so the browser adds synthetic bold; fundamental-styles uses normal weight.                            | visual        | rendered  | pattern-synthetic-bold | ⬜ reported |      |     |       |
-| card-2 | The card counter inherits `line-height: normal` (14px instead of 16px), so the header is 2px shorter.                                                      | visual        | rendered  |                        | ⬜ reported |      |     |       |
-| card-3 | Card badges are 16px instead of 18px (`min-h-0` and a 0.875rem line height).                                                                               | visual        | rendered  |                        | ⬜ reported |      |     |       |
-| card-4 | `shadow-(--card-shadow)` adds Tailwind's transparent ring layers (computed styles only).                                                                   | computed-only | rendered  | pattern-shadow-ring    | ⬜ reported |      |     |       |
-| card-5 | In HC banner cards lose their 1px ring: `hc:[--card-shadow:none]` applies to every card.                                                                   | visual        | rendered  |                        | ⬜ reported |      |     |       |
-| card-6 | An `isOverlay` banner card keeps the image at 50% and the text at 50% − 3rem below 1024px; fundamental-styles uses a full-width image and 80% − 3rem text. | visual        | rendered  |                        | ⬜ reported |      |     |       |
+| ID     | Issue                                                                                                                                                      | Kind          | Confirmed | Pattern                | Status      | Test                                                                 | Fix | Notes |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ---------------------- | ----------- | -------------------------------------------------------------------- | --- | ----- |
+| card-1 | The card title uses `font-bold` on the 72-Bold font, so the browser adds synthetic bold; fundamental-styles uses normal weight.                            | visual        | rendered  | pattern-synthetic-bold | ⬜ reported |                                                                      |     |       |
+| card-2 | The card counter inherits `line-height: normal` (14px instead of 16px), so the header is 2px shorter.                                                      | visual        | rendered  |                        | ⬜ reported |                                                                      |     |       |
+| card-3 | Card badges are 16px instead of 18px (`min-h-0` and a 0.875rem line height).                                                                               | visual        | rendered  |                        | ⬜ reported |                                                                      |     |       |
+| card-4 | `shadow-(--card-shadow)` adds Tailwind's transparent ring layers (computed styles only).                                                                   | computed-only | rendered  | pattern-shadow-ring    | 🧪 covered  | card.spec.ts › Card › the card shadow has no transparent ring layers |     |       |
+| card-5 | In HC banner cards lose their 1px ring: `hc:[--card-shadow:none]` applies to every card.                                                                   | visual        | rendered  |                        | ⬜ reported |                                                                      |     |       |
+| card-6 | An `isOverlay` banner card keeps the image at 50% and the text at 50% − 3rem below 1024px; fundamental-styles uses a full-width image and 80% − 3rem text. | visual        | rendered  |                        | ⬜ reported |                                                                      |     |       |
 
 #### generic-tag
 
@@ -644,11 +644,11 @@ None.
 
 #### slider
 
-[React report](../../../react/docs/parity/components/slider.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/slider.md) · 🧪 covered: 1
 
-| ID       | Issue                                                                                                            | Kind          | Confirmed | Pattern             | Status      | Test | Fix | Notes |
-| -------- | ---------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ---- | --- | ----- |
-| slider-1 | The slider HC track and progress `hc:shadow-[…]` adds Tailwind's transparent ring layers (computed styles only). | computed-only | rendered  | pattern-shadow-ring | ⬜ reported |      |     |       |
+| ID       | Issue                                                                                                            | Kind          | Confirmed | Pattern             | Status     | Test                                                                                                   | Fix | Notes |
+| -------- | ---------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ---------- | ------------------------------------------------------------------------------------------------------ | --- | ----- |
+| slider-1 | The slider HC track and progress `hc:shadow-[…]` adds Tailwind's transparent ring layers (computed styles only). | computed-only | rendered  | pattern-shadow-ring | 🧪 covered | slider.spec.ts › Slider › the high-contrast track and progress shadows have no transparent ring layers |     |       |
 
 #### rating-indicator
 
@@ -746,12 +746,12 @@ None.
 
 #### fixed-card-layout
 
-[React report](../../../react/docs/parity/components/fixed-card-layout.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/fixed-card-layout.md) · ⬜ reported: 1 · 🧪 covered: 1
 
-| ID                  | Issue                                                                                                                      | Kind          | Confirmed | Pattern             | Status      | Test | Fix | Notes |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ---- | --- | ----- |
-| fixed-card-layout-1 | The fixed card layout has `align-items: flex-start`; fundamental-styles has `center` (computed only).                      | computed-only | rendered  |                     | ⬜ reported |      |     |       |
-| fixed-card-layout-2 | The fixed-card-layout drag preview's `shadow-sap-content-shadow2` adds Tailwind's transparent ring layers (computed only). | computed-only | rendered  | pattern-shadow-ring | ⬜ reported |      |     |       |
+| ID                  | Issue                                                                                                                      | Kind          | Confirmed | Pattern             | Status      | Test                                                                                                                | Fix | Notes |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| fixed-card-layout-1 | The fixed card layout has `align-items: flex-start`; fundamental-styles has `center` (computed only).                      | computed-only | rendered  |                     | ⬜ reported |                                                                                                                     |     |       |
+| fixed-card-layout-2 | The fixed-card-layout drag preview's `shadow-sap-content-shadow2` adds Tailwind's transparent ring layers (computed only). | computed-only | rendered  | pattern-shadow-ring | 🧪 covered  | fixed-card-layout.spec.ts › FixedCardLayout › the drag preview has the theme shadow without transparent ring layers |     |       |
 
 #### resizable-card-layout
 

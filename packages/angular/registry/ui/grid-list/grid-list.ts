@@ -683,15 +683,15 @@ export class GridListItem<T = unknown> {
         const hoverable = link || mode === 'singleSelect';
         const selected = this.selected() && hoverable;
         return cn(
-            'relative m-0 box-border flex flex-col overflow-hidden rounded-(--gl-r) bg-sap-list-background p-0 font-sap-font-family text-sap-font-size text-sap-list-text-color shadow-sap-content-shadow0 outline-none',
+            'relative m-0 box-border flex flex-col overflow-hidden rounded-(--gl-r) bg-sap-list-background p-0 font-sap-font-family text-sap-font-size text-sap-list-text-color [box-shadow:var(--sapContent_Shadow0)] outline-none',
             '[--gl-r:var(--sapTile_BorderCornerRadius)] hc:[--gl-r:1rem]',
             "focus:before:pointer-events-none focus:before:absolute focus:before:inset-0 focus:before:z-1 focus:before:block focus:before:rounded-(--gl-r) focus:before:content-['']",
-            'focus:before:border-[0.1775rem] focus:before:border-solid focus:before:border-sap-list-background focus:before:shadow-[inset_0_0_0_var(--sapContent_FocusWidth)_var(--sapContent_FocusColor)]',
-            'hc:focus:before:inset-[0.1875rem] hc:focus:before:border-(length:--sapContent_FocusWidth) hc:focus:before:border-sap-content-focus-color hc:focus:before:shadow-none hc:focus:before:[border-style:var(--sapContent_FocusStyle)]',
+            'focus:before:border-[0.1775rem] focus:before:border-solid focus:before:border-sap-list-background focus:before:[box-shadow:inset_0_0_0_var(--sapContent_FocusWidth)_var(--sapContent_FocusColor)]',
+            'hc:focus:before:inset-[0.1875rem] hc:focus:before:border-(length:--sapContent_FocusWidth) hc:focus:before:border-sap-content-focus-color hc:focus:before:[box-shadow:none] hc:focus:before:[border-style:var(--sapContent_FocusStyle)]',
             this.autoHeight() ? 'h-auto' : 'h-full',
             this.state() === 'unread' && '[&_[data-gl-body]_*]:font-bold',
             hoverable &&
-                'cursor-pointer hover:bg-sap-list-hover-background hover:shadow-[0_0_0_0.0625rem_var(--sapTile_Interactive_BorderColor),var(--sapContent_Shadow2)]',
+                'cursor-pointer hover:bg-sap-list-hover-background hover:[box-shadow:0_0_0_0.0625rem_var(--sapTile_Interactive_BorderColor),var(--sapContent_Shadow2)]',
             link &&
                 !selected &&
                 'active:bg-sap-list-active-background active:[&_*]:text-sap-list-active-text-color! active:[&_*]:[text-shadow:none]!',
@@ -699,7 +699,7 @@ export class GridListItem<T = unknown> {
                 this.navigated() &&
                 "after:absolute after:inset-y-0 after:end-0 after:block after:w-[0.1875rem] after:rounded-e-(--gl-r) after:bg-sap-list-selection-border-color after:content-['']",
             selected &&
-                'bg-sap-list-selection-background-color shadow-[0_0_0_0.125rem_var(--sapList_SelectionBorderColor)] hover:bg-sap-list-hover-selection-background focus:before:border-sap-list-selection-background-color'
+                'bg-sap-list-selection-background-color [box-shadow:0_0_0_0.125rem_var(--sapList_SelectionBorderColor)] hover:bg-sap-list-hover-selection-background focus:before:border-sap-list-selection-background-color'
         );
     });
 
@@ -829,7 +829,7 @@ export class GridListFilterBar {
             <div
                 role="button"
                 tabindex="0"
-                class="group/more m-0 box-border cursor-pointer rounded-(--gl-r) bg-sap-group-content-background p-[0.813rem] text-center font-sap-font-family text-sap-font-size shadow-sap-content-shadow0 outline-none hover:bg-sap-list-hover-background focus:outline-sap focus:-outline-offset-[0.1875rem] active:bg-sap-list-active-background [--gl-r:var(--sapTile_BorderCornerRadius)] hc:[--gl-r:1rem]"
+                class="group/more m-0 box-border cursor-pointer rounded-(--gl-r) bg-sap-group-content-background p-[0.813rem] text-center font-sap-font-family text-sap-font-size [box-shadow:var(--sapContent_Shadow0)] outline-none hover:bg-sap-list-hover-background focus:outline-sap focus:-outline-offset-[0.1875rem] active:bg-sap-list-active-background [--gl-r:var(--sapTile_BorderCornerRadius)] hc:[--gl-r:1rem]"
                 (click)="showMore.emit()"
                 (keydown.enter)="showMore.emit()"
                 (keydown.space)="$event.preventDefault(); showMore.emit()"

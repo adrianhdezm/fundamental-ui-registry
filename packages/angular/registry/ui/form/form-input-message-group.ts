@@ -46,7 +46,7 @@ import { FormMessage } from './form-message';
     template: `
         <fd-popover
             class="block"
-            additionalBodyClass="shadow-none border-0 z-[999]"
+            additionalBodyClass="[box-shadow:none] border-0 z-[999]"
             [placement]="placement()"
             [triggers]="triggers()"
             [noArrow]="noArrow()"

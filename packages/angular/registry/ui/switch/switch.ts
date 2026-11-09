@@ -178,7 +178,7 @@ export class Switch implements ControlValueAccessor {
             'relative m-0 block box-content p-0 rounded-[0.75rem] border-0',
             'h-6 w-10 compact:h-5 compact:w-8',
             this.hasText() && 'w-[2.875rem] compact:w-[2.75rem]',
-            'bg-(--sw-track-bg) shadow-[inset_0_0_0_0.0625rem_var(--sw-track-bc)]',
+            'bg-(--sw-track-bg) [box-shadow:inset_0_0_0_0.0625rem_var(--sw-track-bc)]',
             // focus frame around the track
             "peer-focus:before:absolute peer-focus:before:block peer-focus:before:content-['']",
             'peer-focus:before:-inset-[calc(var(--sapContent_FocusWidth)*2)] peer-focus:before:rounded-[calc(0.75rem_+_var(--sapContent_FocusWidth)*2)]',

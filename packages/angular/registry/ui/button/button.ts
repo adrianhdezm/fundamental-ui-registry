@@ -37,8 +37,8 @@ export const buttonVariants = cva(
         "focus:z-[5] focus:after:pointer-events-none focus:after:absolute focus:after:inset-(--sapButton_BorderWidth) focus:after:content-['']",
         'focus:after:rounded-[calc(var(--sapButton_BorderCornerRadius)_-_var(--sapContent_FocusWidth))]',
         'focus:after:border-(length:--sapContent_FocusWidth) focus:after:[border-style:var(--sapContent_FocusStyle)] focus:after:border-sap-content-focus-color',
-        'disabled:cursor-not-allowed disabled:opacity-(--sapContent_DisabledOpacity) disabled:shadow-none',
-        'aria-disabled:cursor-not-allowed aria-disabled:opacity-(--sapContent_DisabledOpacity) aria-disabled:shadow-none'
+        'disabled:cursor-not-allowed disabled:opacity-(--sapContent_DisabledOpacity) disabled:[box-shadow:none]',
+        'aria-disabled:cursor-not-allowed aria-disabled:opacity-(--sapContent_DisabledOpacity) aria-disabled:[box-shadow:none]'
     ],
     {
         variants: {

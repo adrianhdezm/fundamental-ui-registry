@@ -688,7 +688,7 @@ export class ListLink {
                   ]
                 : indication && "after:min-w-10 after:content-['']",
             this.navigated() &&
-                '[--li-nav:var(--sapList_SelectionBorderColor)] shadow-[inset_-0.1875rem_0_0_0_var(--li-nav)] rtl:shadow-[inset_0.1875rem_0_0_0_var(--li-nav)]',
+                '[--li-nav:var(--sapList_SelectionBorderColor)] [box-shadow:inset_-0.1875rem_0_0_0_var(--li-nav)] rtl:[box-shadow:inset_0.1875rem_0_0_0_var(--li-nav)]',
             this.userClass()
         );
     });

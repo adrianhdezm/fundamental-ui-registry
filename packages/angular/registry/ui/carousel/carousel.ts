@@ -846,7 +846,7 @@ export class Carousel {
         return cn(
             'm-1 size-[2.125rem] min-w-0 shrink-0 rounded-[50%] p-0 focus:after:rounded-[50%] [&+button]:ms-2',
             inContent && [
-                'absolute z-1 m-0 hidden shadow-sap-content-shadow0 group-hover/carousel:flex',
+                'absolute z-1 m-0 hidden [box-shadow:var(--sapContent_Shadow0)] group-hover/carousel:flex',
                 this.vertical()
                     ? ['start-1/2 -translate-x-1/2 rtl:translate-x-1/2', which === 'previous' ? 'top-2' : 'bottom-2']
                     : ['top-1/2 -translate-y-1/2', which === 'previous' ? 'start-2' : 'end-2']
