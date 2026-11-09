@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+@import '../registry/styles/fundamental.css';
+
+@source '../registry';
+@source './';
+@source '../docs';
+
+body {
+    min-height: 100vh;
+    background-color: var(--sapBackgroundColor);
+}
+
+/* Tailwind's preflight removes list markers; Storybook's docs styles bring them back for <ul> only */
+.sbdocs ol {
+    list-style-type: decimal;
+}

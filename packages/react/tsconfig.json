@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/lib/*": ["./registry/lib/*"],
+      "@/ui/*": ["./registry/ui/*"]
+    },
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "module": "preserve",
+    "jsx": "react-jsx",
+    "lib": ["ES2023", "dom", "dom.iterable"],
+    "types": []
+  },
+  "include": ["registry/**/*.ts", "registry/**/*.tsx"],
+  "exclude": ["registry/**/*.stories.tsx", "registry/**/*.spec.tsx"]
+}

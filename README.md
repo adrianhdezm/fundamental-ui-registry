@@ -4,9 +4,10 @@ SAP Fiori Horizon components as copy-paste source files, distributed as [shadcn]
 
 **Site:** https://adrianhdezm.github.io/fundamental-ui-registry/
 
-| Package                                  | Port of                                                                      | Storybook                                                                     | Registry                                                                      |
-| ---------------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| [`packages/angular`](./packages/angular) | [`@fundamental-ngx/core`](https://sap.github.io/fundamental-ngx/#/core/home) | [`/angular/`](https://adrianhdezm.github.io/fundamental-ui-registry/angular/) | `https://adrianhdezm.github.io/fundamental-ui-registry/angular/r/<name>.json` |
+| Package                                                                                                       | Port of                                                                                          | Storybook                                                                     | Registry                                                                      |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [`packages/angular`](./packages/angular)                                                                      | [`@fundamental-ngx/core`](https://sap.github.io/fundamental-ngx/#/core/home)                     | [`/angular/`](https://adrianhdezm.github.io/fundamental-ui-registry/angular/) | `https://adrianhdezm.github.io/fundamental-ui-registry/angular/r/<name>.json` |
+| [`packages/react`](./packages/react) (in progress, see the [tracker](./packages/react/docs/parity/README.md)) | [fundamental-react](https://github.com/SAP/fundamental-react), on [Base UI](https://base-ui.com) | [`/react/`](https://adrianhdezm.github.io/fundamental-ui-registry/react/)     | `https://adrianhdezm.github.io/fundamental-ui-registry/react/r/<name>.json`   |
 
 Each package is an independent registry with its own `registry.json`, Storybook, tests and dependencies. They share
 the approach, not code:
@@ -20,14 +21,15 @@ the approach, not code:
 - **Themes**: Horizon, Horizon Dark, Horizon HC Black, Horizon HC White. **Density**: cozy, compact (and condensed).
   **RTL**.
 
-See [`packages/angular/README.md`](./packages/angular/README.md) for the Angular components: installing them in an
-app, theming, and the token utilities.
+See [`packages/angular/README.md`](./packages/angular/README.md) and [`packages/react/README.md`](./packages/react/README.md)
+for installing the components in an app, theming, and the token utilities.
 
 ## Repository layout
 
 ```
 packages/
   angular/                the Angular registry (registry.json, registry/, Storybook, tests, scripts)
+  react/                  the React registry, the same layout
 site/index.html           landing page at the site root
 scripts/build-site.mjs    assembles dist/site: the landing page and each package's Storybook under /<package>/
 pnpm-workspace.yaml       the pnpm workspace (and its settings)
@@ -44,6 +46,7 @@ pnpm check              # every package's checks: typecheck, style and registry 
 pnpm format             # Prettier, whole repository
 pnpm build-site         # every package's Storybook and registry, assembled into dist/site
 pnpm angular <script>   # a script of packages/angular, e.g. `pnpm angular storybook`
+pnpm react <script>     # a script of packages/react, e.g. `pnpm react storybook`
 ```
 
 ## License and attribution
@@ -56,6 +59,8 @@ Apache-2.0:
 - The Angular components are **ports of [fundamental-ngx](https://github.com/SAP/fundamental-ngx)**
   (`@fundamental-ngx/core`): behaviour, keyboard handling, ARIA and APIs come from it, rewritten with signals, the
   Angular CDK and Tailwind CSS.
+- The React components are **rewrites of [fundamental-react](https://github.com/SAP/fundamental-react)** with the
+  behaviour of the Angular package, built on Base UI and Tailwind CSS.
 - Their **visual design follows [fundamental-styles](https://github.com/SAP/fundamental-styles)**, rebuilt as Tailwind
   utilities; `packages/angular/registry/styles/extensions.css` holds theme values taken from it.
 - The **theme values, the "72" typeface and the SAP icon fonts** come from

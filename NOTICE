@@ -10,25 +10,34 @@ licensed under the Apache License, Version 2.0:
   The components in packages/angular/registry/ui are ports of its components: their
   behaviour, keyboard handling, ARIA, APIs and parts of their logic. They were rewritten
   (Angular signals, the Angular CDK, Tailwind CSS); each ported file states this in its header.
+  The components in packages/react/registry/ui carry the same behaviour, ported again from
+  the Angular package to React.
+
+- fundamental-react, https://github.com/SAP/fundamental-react
+  Copyright (c) SAP SE or an SAP affiliate company and Fundamental Library contributors.
+  The components in packages/react/registry/ui are rewrites of its components: their APIs,
+  examples and behaviour, rewritten in React 19 with Base UI and Tailwind CSS; each file
+  states this in its header.
 
 - fundamental-styles, https://github.com/SAP/fundamental-styles
   Copyright (c) SAP SE or an SAP affiliate company and Fundamental Library contributors.
   The visual design of the components (sizes, spacing, states, per-theme values) follows
-  fundamental-styles and was rebuilt as Tailwind CSS utilities.
-  packages/angular/registry/styles/extensions.css contains theme values taken from
-  fundamental-styles.
+  fundamental-styles and was rebuilt as Tailwind CSS utilities. The extensions.css files in
+  packages/angular/registry/styles and packages/react/registry/styles contain theme values
+  taken from fundamental-styles.
 
 - SAP Theming Base Content (@sap-theming/theming-base-content),
   https://github.com/SAP/theming-base-content
   Copyright (c) SAP SE or an SAP affiliate company.
-  In packages/angular: registry/styles/themes, registry/styles/tokens.css,
+  In packages/angular and packages/react: registry/styles/themes, registry/styles/tokens.css,
   registry/styles/fonts.css, registry/styles/fonts (the "72" typeface and the SAP icon fonts)
   and registry/ui/icon/icon-glyphs.ts are generated from or copied out of this package.
 
 - UI5 Web Components for Fiori (@ui5/webcomponents-fiori), https://github.com/UI5/webcomponents
   Copyright (c) SAP SE or an SAP affiliate company.
-  The SAP illustrations in packages/angular/docs/assets/illustrations are copied unmodified
-  from this package; they are used by the Storybook stories only.
+  The SAP illustrations in packages/angular/docs/assets/illustrations and
+  packages/react/docs/assets/illustrations are copied unmodified from this package; they
+  are used by the Storybook stories only.
 
 SAP, SAP Fiori and other SAP products and services mentioned herein are trademarks or
 registered trademarks of SAP SE in Germany and other countries. This project is not

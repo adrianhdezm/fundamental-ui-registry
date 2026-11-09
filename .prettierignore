@@ -5,3 +5,8 @@ packages/angular/registry/styles/themes
 packages/angular/registry/styles/tokens.css
 packages/angular/registry/styles/fonts.css
 packages/angular/registry/ui/icon/icon-glyphs.ts
+packages/react/registry/styles/themes
+packages/react/registry/styles/tokens.css
+packages/react/registry/styles/fonts.css
+packages/react/registry/ui/icon/icon-glyphs.ts
+packages/*/.visual

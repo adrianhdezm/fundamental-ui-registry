@@ -1,0 +1,1553 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "fundamental-ui-registry-react",
+  "homepage": "https://github.com/adrianhdezm/fundamental-ui-registry/tree/main/packages/react",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "cn() and variants",
+      "description": "Class name merging (clsx + tailwind-merge, aware of the SAP token utilities) and cva variants.",
+      "dependencies": ["clsx", "tailwind-merge", "class-variance-authority"],
+      "files": [
+        {
+          "path": "registry/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "theme",
+      "type": "registry:style",
+      "title": "SAP Horizon theme",
+      "description": "SAP theme tokens for Tailwind v4: Horizon, Horizon Dark, Horizon HC Black and Horizon HC White, the 72 and SAP icon fonts, density and state variants.",
+      "files": [
+        {
+          "path": "registry/styles/fundamental.css",
+          "type": "registry:file",
+          "target": "src/styles/fundamental.css"
+        },
+        {
+          "path": "registry/styles/tokens.css",
+          "type": "registry:file",
+          "target": "src/styles/tokens.css"
+        },
+        {
+          "path": "registry/styles/extensions.css",
+          "type": "registry:file",
+          "target": "src/styles/extensions.css"
+        },
+        {
+          "path": "registry/styles/fonts.css",
+          "type": "registry:file",
+          "target": "src/styles/fonts.css"
+        },
+        {
+          "path": "registry/styles/themes/sap_horizon.css",
+          "type": "registry:file",
+          "target": "src/styles/themes/sap_horizon.css"
+        },
+        {
+          "path": "registry/styles/themes/sap_horizon_dark.css",
+          "type": "registry:file",
+          "target": "src/styles/themes/sap_horizon_dark.css"
+        },
+        {
+          "path": "registry/styles/themes/sap_horizon_hcb.css",
+          "type": "registry:file",
+          "target": "src/styles/themes/sap_horizon_hcb.css"
+        },
+        {
+          "path": "registry/styles/themes/sap_horizon_hcw.css",
+          "type": "registry:file",
+          "target": "src/styles/themes/sap_horizon_hcw.css"
+        }
+      ],
+      "css": {
+        "@import \"./styles/fundamental.css\"": {}
+      }
+    },
+    {
+      "name": "icon",
+      "type": "registry:ui",
+      "title": "Icon",
+      "description": "Icons from the SAP-icons, SAP-icons-TNT and Business Suite fonts.",
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/icon/icon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/icon/icon-glyphs.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Buttons in every SAP type, with glyphs, menu arrow, toggled and selected states, badges and semantic descriptions for screen readers. On Base UI's Button.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/button/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "type": "registry:ui",
+      "title": "Title",
+      "description": "Headings with the SAP header typography; the visual size can differ from the heading level.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/title/title.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "link",
+      "type": "registry:ui",
+      "title": "Link",
+      "description": "Links in the standard, emphasized, subtle, undecorated, inverted and disabled styles, with icons and a touch target size.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/link/link.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "busy-indicator",
+      "type": "registry:ui",
+      "title": "Busy Indicator",
+      "description": "Three pulsing dots that show loading; wraps content to cover it and make it inert while loading.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/busy-indicator/busy-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "action-bar",
+      "type": "registry:ui",
+      "title": "Action Bar",
+      "description": "The header of a page with a back button, title, description and page actions.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "title"],
+      "files": [
+        {
+          "path": "registry/ui/action-bar/action-bar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/action-bar/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "layout-grid",
+      "type": "registry:ui",
+      "title": "Layout Grid",
+      "description": "A responsive 12-column grid with gutters, spans and offsets per breakpoint (600, 1024 and 1440px), growing columns and nesting.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/layout-grid/layout-grid.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "counter",
+      "type": "registry:ui",
+      "title": "Counter",
+      "description": "A small badge with a number, such as unread items, inline with text or as a notification on an icon.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/counter/counter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox with a label, value states, read-only and display-only modes, and an optional selectable third state.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/checkbox/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Single-line and multi-line text fields with value states, read-only and disabled styles, and a character counter. On Base UI's Input.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/input/input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/input/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "layout-panel",
+      "type": "registry:ui",
+      "title": "Layout Panel",
+      "description": "A rounded content container with a header (title, description, actions), filters, a body that can bleed to the edges and an aligned footer.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/layout-panel/layout-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Content in an overlay next to its trigger, with placements, an optional arrow, header and footer, on Base UI's Popover.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/popover/popover.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/popover/popover-position.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio",
+      "type": "registry:ui",
+      "title": "Radio",
+      "description": "Radio buttons in a radio group, with value states, read-only and disabled modes, and an inline layout.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/radio/radio.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "On/off switch on Base UI's Switch, with semantic accept/decline colours, short on/off texts and a clickable label.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/switch/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "info-label",
+      "type": "registry:ui",
+      "title": "Info Label",
+      "description": "A small non-interactive coloured label for a status, category or count, with an optional icon, ten accent colours and a display size.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/info-label/info-label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "An image, initials or an icon for a person or object, with accent colours, zoom and value state badges, and image fallbacks. On Base UI's Avatar.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/avatar/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "registry:ui",
+      "title": "List",
+      "description": "List with standard, byline and subline items, secondary texts, icons, links, checkbox and radio selection, group headers, footers and arrow-key navigation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "checkbox", "radio"],
+      "files": [
+        {
+          "path": "registry/ui/list/list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "object-status",
+      "type": "registry:ui",
+      "title": "Object Status",
+      "description": "The status of an object in semantic or generic indication colours, with an optional icon, as text, an inverted badge or a clickable button, in regular and large sizes.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/object-status/object-status.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tree",
+      "type": "registry:ui",
+      "title": "Tree",
+      "description": "A hierarchy of items that expand and collapse, with keyboard navigation, highlights, navigatable items, single and multiple selection and lazily loaded data.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "button", "checkbox", "radio", "skeleton"],
+      "files": [
+        {
+          "path": "registry/ui/tree/tree.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "bar",
+      "type": "registry:ui",
+      "title": "Bar",
+      "description": "A horizontal container for titles and actions in left, middle and right areas, used as the header, subheader or footer of pages, dialogs and popovers.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button"],
+      "files": [
+        {
+          "path": "registry/ui/bar/bar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/bar/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message-strip",
+      "type": "registry:ui",
+      "title": "Message Strip",
+      "description": "Inline messages coloured by type or indication colour, dismissible or dismissing themselves after a delay, and alerts at the edges of the screen.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/message-strip/message-strip.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/message-strip/message-strip-alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tile",
+      "type": "registry:ui",
+      "title": "Tile",
+      "description": "Launch, KPI, feed, slide and line (link) tiles of the SAP Fiori launchpad, in regular and small sizes and double width, with numeric content and an action mode.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/tile/tile.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/tile/numeric-content.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "segmented-button",
+      "type": "registry:ui",
+      "title": "Segmented Button",
+      "description": "A group of buttons of which one, or several with toggle, is selected, on Base UI's ToggleGroup, with roving focus and a vertical layout.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button"],
+      "files": [
+        {
+          "path": "registry/ui/segmented-button/segmented-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal window with a header, body and footer that can be draggable, resizable, full screen and mobile, opened from a trigger or from code, on Base UI's Dialog.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "busy-indicator", "button", "icon", "title"],
+      "files": [
+        {
+          "path": "registry/ui/dialog/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "A shimmering placeholder shaped like content that is still loading: a rectangle, a circle, text lines or custom SVG shapes.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/skeleton/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "token",
+      "type": "registry:ui",
+      "title": "Token",
+      "description": "Removable tokens for chosen values, and a tokenizer that shares one field with an input, with keyboard selection and removal and an overflow popover.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "button", "input", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/token/token.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "A field with an input and text, icon or button addons before or after it, as one control or composed from parts, with value states, read-only and disabled styles. On Base UI's Input.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "button", "input"],
+      "files": [
+        {
+          "path": "registry/ui/input-group/input-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/input-group/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message-box",
+      "type": "registry:ui",
+      "title": "Message Box",
+      "description": "A modal alert dialog for errors, warnings, successes, information and confirmations, with a semantic header line and icon, declared in a Dialog or opened from code.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "dialog", "icon", "title"],
+      "files": [
+        {
+          "path": "registry/ui/message-box/message-box.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "Form building blocks: header, fieldset and legend, groups, items, labels with required and colon markers, and value state messages in a popover under their field, on Base UI.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "inline-help", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/form/form.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/form/form-message.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/form/form-input-message-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "search-input",
+      "type": "registry:ui",
+      "title": "Search Input",
+      "description": "A search field with clear and search buttons that suggests matching entries while typing, with value states, on Base UI's Autocomplete.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "input", "input-group", "list", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/search-input/search-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "Menu",
+      "description": "A list of actions in a popover opened by a trigger, with submenus, icons, shortcuts, toggles, single-choice groups, inputs and a mobile mode in a dialog, on Base UI's Menu.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "icon", "input", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/menu/menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "datetime",
+      "type": "registry:lib",
+      "title": "Datetime",
+      "description": "Date and time adapter (FdDate and an Intl based default), display and parse formats, React contexts and hooks for them, and format functions for the calendar, time and the pickers.",
+      "files": [
+        {
+          "path": "registry/lib/datetime.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Calendar picking a date, several dates, a range or several ranges, with month, year and years range views, week numbers, special days with a legend, and keyboard navigation across months.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "datetime", "button"],
+      "files": [
+        {
+          "path": "registry/ui/calendar/calendar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/calendar/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message-page",
+      "type": "registry:ui",
+      "title": "Message Page",
+      "description": "A full-page message when there is nothing to show, such as no items, no search or filter results or an error, with an icon, a title, a subtitle and actions announced as a polite status.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/message-page/message-page.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "time",
+      "type": "registry:ui",
+      "title": "Time",
+      "description": "Time picking hours, minutes, seconds and the period in spinbutton columns, changed with the arrow keys, the mouse wheel, dragging, typing and spinner buttons.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "datetime", "button"],
+      "files": [
+        {
+          "path": "registry/ui/time/time.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/time/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "step-input",
+      "type": "registry:ui",
+      "title": "Step Input",
+      "description": "A number field with decrement and increment buttons that repeat while pressed, formatted for the locale as a decimal or a currency.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "input", "input-group"],
+      "files": [
+        {
+          "path": "registry/ui/step-input/step-input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/step-input/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A field that opens a list of options, with value state messages, keyboard selection and typeahead, and a mobile dialog mode, on Base UI's Select.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "icon", "input", "list", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/select/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "Date field with a button that opens a calendar in a popover (or a dialog on mobile), for a date, several dates, a range or several ranges, with typed dates, validation, value states and a today button.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "datetime",
+        "bar",
+        "button",
+        "calendar",
+        "dialog",
+        "form",
+        "input-group",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/date-picker/date-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/date-picker/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "An input that suggests values from a list while typing, with inline completion, groups, item templates, value states and a mobile dialog, on Base UI's Combobox.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "bar",
+        "button",
+        "dialog",
+        "form",
+        "icon",
+        "input",
+        "input-group",
+        "list",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/combobox/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "nested-list",
+      "type": "registry:ui",
+      "title": "Nested List",
+      "description": "A tree of navigation items with groups, headers, icons and expandable children, and a condensed mode whose children open in a popover.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/nested-list/nested-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "time-picker",
+      "type": "registry:ui",
+      "title": "Time Picker",
+      "description": "A time field with a button that opens the time columns in a popover; typed times are read on Enter and blur, unreadable ones set the error state, with value state messages.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "datetime", "button", "form", "input-group", "popover", "time"],
+      "files": [
+        {
+          "path": "registry/ui/time-picker/time-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/time-picker/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "multi-input",
+      "type": "registry:ui",
+      "title": "Multi Input",
+      "description": "A tokenizer field with a filterable list of check box options, inline completion, new tokens and a mobile dialog with select all.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "bar",
+        "button",
+        "dialog",
+        "icon",
+        "input",
+        "input-group",
+        "link",
+        "list",
+        "popover",
+        "token"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/multi-input/multi-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Previous and next buttons, page numbers with ellipses or a page input, an optional items per page select and the number of results, as one keyboard tab stop.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button", "input", "select"],
+      "files": [
+        {
+          "path": "registry/ui/pagination/pagination.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/pagination/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "action-sheet",
+      "type": "registry:ui",
+      "title": "Action Sheet",
+      "description": "A menu of actions for the control that opens it, in a popover or, on phones, in a sheet at the bottom of the screen with a title bar.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/action-sheet/action-sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-spy",
+      "type": "registry:ui",
+      "title": "Scroll Spy",
+      "description": "A scroll container and a hook that report which tracked child is at the top, e.g. to highlight the current entry of a table of contents.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ui/scroll-spy/scroll-spy.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "overflow-layout",
+      "type": "registry:ui",
+      "title": "Overflow Layout",
+      "description": "Single-row layout that moves the items that do not fit into a \"N more\" popover.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/overflow-layout/overflow-layout.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/overflow-layout/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "wizard",
+      "type": "registry:ui",
+      "title": "Wizard",
+      "description": "Breaks a long task into steps: a progress bar of steps over the content of the visited steps, which scrolls and updates the current step, with stacking steps on narrow screens.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "action-sheet", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/wizard/wizard.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tab bar with panels, counts, value states, icon-only, process and filter modes, a \"More\" menu for tabs that do not fit, and stacked content that follows the scrolling.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "menu", "overflow-layout", "scroll-spy"],
+      "files": [
+        {
+          "path": "registry/ui/tabs/tabs.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/tabs/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "side-navigation",
+      "type": "registry:ui",
+      "title": "Side Navigation",
+      "description": "A navigation column with main and utility nested lists, arrow-key navigation across both and a condensed mode with icons only.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "nested-list"],
+      "files": [
+        {
+          "path": "registry/ui/side-navigation/side-navigation.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Navigation trail from the root to the current page, with the items that do not fit collapsed into a menu at the start.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "icon", "link", "menu", "overflow-layout"],
+      "files": [
+        {
+          "path": "registry/ui/breadcrumb/breadcrumb.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/breadcrumb/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "shellbar",
+      "type": "registry:ui",
+      "title": "Shellbar",
+      "description": "The top bar of an application: branding, context area, search, actions with an overflow menu, user menu and product switch, adapting to its width.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "action-sheet",
+        "avatar",
+        "button",
+        "icon",
+        "menu",
+        "popover",
+        "user-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/shellbar/shellbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toolbar",
+      "type": "registry:ui",
+      "title": "Toolbar",
+      "description": "A row of actions with an optional title that moves the items that do not fit into an overflow popover, by priority and group.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "popover", "title"],
+      "files": [
+        {
+          "path": "registry/ui/toolbar/toolbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message-toast",
+      "type": "registry:ui",
+      "title": "Message Toast",
+      "description": "A short message that disappears by itself, opened from code with a service and stacked at a screen edge or next to an element.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/message-toast/message-toast.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "inline-help",
+      "type": "registry:ui",
+      "title": "Inline Help",
+      "description": "Help text in a small popover with an arrow that opens on hover and focus of its trigger (a question-mark icon by default) and describes the trigger for screen readers, on Base UI's Tooltip.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/inline-help/inline-help.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "product-switch",
+      "type": "registry:ui",
+      "title": "Product Switch",
+      "description": "A grid button that opens the products of the user in a popover: a grid of two to four columns or a list, reorderable by drag and drop, with arrow key navigation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "avatar", "busy-indicator", "button", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/product-switch/product-switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "split-button",
+      "type": "registry:ui",
+      "title": "Split Button",
+      "description": "A main action and an arrow that opens a menu of alternative actions, where the chosen action becomes the main one, on the registry's Button and Menu (Base UI's Menu).",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "icon", "menu"],
+      "files": [
+        {
+          "path": "registry/ui/split-button/split-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "user-menu",
+      "type": "registry:ui",
+      "title": "User Menu",
+      "description": "The signed-in user's name, details and actions in a popover opened from an avatar, with submenus and a full-screen mobile mode.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "icon", "popover", "title"],
+      "files": [
+        {
+          "path": "registry/ui/user-menu/user-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "object-identifier",
+      "type": "registry:ui",
+      "title": "Object Identifier",
+      "description": "The key identifier of an object as a title, optionally bold or a link, with a description below, in large or medium size.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/object-identifier/object-identifier.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "object-marker",
+      "type": "registry:ui",
+      "title": "Object Marker",
+      "description": "A technical status of an object, such as draft, locked or favourite, as an icon, text or both, optionally a clickable link.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/object-marker/object-marker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "object-number",
+      "type": "registry:ui",
+      "title": "Object Number",
+      "description": "A number formatted for the locale with its unit, coloured by value state, optionally emphasized, large, an inverted badge or an interactive button.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/object-number/object-number.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "A container for one topic: a header with title, subtitle, avatar, counter and KPI, content, footer actions, badges, media and banners, with interactive cards in an arrow-key card list.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "avatar", "object-status"],
+      "files": [
+        {
+          "path": "registry/ui/card/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "object-attribute",
+      "type": "registry:ui",
+      "title": "Object Attribute",
+      "description": "A single-line property of an object, its label and value truncated with an ellipsis, optionally with an action link.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/object-attribute/object-attribute.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "generic-tag",
+      "type": "registry:ui",
+      "title": "Generic Tag",
+      "description": "A key figure of an object, a name and a value with an optional status, shown as a focusable button in object page headers.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/generic-tag/generic-tag.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "type": "registry:ui",
+      "title": "Text",
+      "description": "A paragraph of text with an optional line limit, a More/Less toggle, preserved whitespace and hyphenation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "link"],
+      "files": [
+        {
+          "path": "registry/ui/text/text.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "illustrated-message",
+      "type": "registry:ui",
+      "title": "Illustrated Message",
+      "description": "An SAP illustration with a title, a text and actions for empty states and errors, in scene, dialog, spot, dot and text-only sizes or responsive to its width.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/illustrated-message/illustrated-message.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "panel",
+      "type": "registry:ui",
+      "title": "Panel",
+      "description": "A container with a title bar whose content expands and collapses with an arrow button, or is always shown when fixed.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button"],
+      "files": [
+        {
+          "path": "registry/ui/panel/panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scrollbar",
+      "type": "registry:ui",
+      "title": "Scrollbar",
+      "description": "A scroll container with SAP-themed scrollbars, either direction of which can be turned off or kept always visible.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/scrollbar/scrollbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "infinite-scroll",
+      "type": "registry:ui",
+      "title": "Infinite Scroll",
+      "description": "A scroll container and a hook that call back when the content is scrolled near its end, e.g. to load more list items.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ui/infinite-scroll/infinite-scroll.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "status-indicator",
+      "type": "registry:ui",
+      "title": "Status Indicator",
+      "description": "An SVG shape, or a set of shapes, filled to a percentage linearly, at an angle or radially and coloured by status, announced as a progress bar.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/status-indicator/status-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress-indicator",
+      "type": "registry:ui",
+      "title": "Progress Indicator",
+      "description": "A bar that shows the progress of a task, with its value or a text above it, an icon for a value state, and a popover for a truncated text.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button", "icon", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/progress-indicator/progress-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "formatted-text",
+      "type": "registry:ui",
+      "title": "Formatted Text",
+      "description": "Renders a sanitised subset of HTML (paragraphs, headings, lists, emphasis, links, code) with the SAP typography, optionally in a fixed-size scrolling box.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/formatted-text/formatted-text.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "quick-view",
+      "type": "registry:ui",
+      "title": "Quick View",
+      "description": "A short overview of a person, an object or a company in a popover or dialog: a header, a subheader with an avatar and groups of label-value pairs.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "form", "popover", "title"],
+      "files": [
+        {
+          "path": "registry/ui/quick-view/quick-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar-group",
+      "type": "registry:ui",
+      "title": "Avatar Group",
+      "description": "Avatars of a team, each with its own details popover or overlapping in one group button, with the avatars that do not fit in a \"+N\" overflow popover.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "avatar", "bar", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/avatar-group/avatar-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/avatar-group/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Slider on Base UI's Slider for a number, a range or custom values, with ticks, labels, a vertical layout and read-only or editable tooltips.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/slider/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rating-indicator",
+      "type": "registry:ui",
+      "title": "Rating Indicator",
+      "description": "Star rating as a slider, with half values, display mode, custom icons, sizes and the votes per rating in a popover.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "icon", "link", "popover"],
+      "files": [
+        {
+          "path": "registry/ui/rating-indicator/rating-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "datetime-picker",
+      "type": "registry:ui",
+      "title": "Datetime Picker",
+      "description": "Date and time field with a button that opens a calendar and time columns in a popover (or a dialog on mobile), applied with OK or at once, with typed values, validation and value states.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [
+        "utils",
+        "theme",
+        "datetime",
+        "bar",
+        "button",
+        "calendar",
+        "dialog",
+        "form",
+        "input-group",
+        "popover",
+        "segmented-button",
+        "time"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/datetime-picker/datetime-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/datetime-picker/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "vertical-navigation",
+      "type": "registry:ui",
+      "title": "Vertical Navigation",
+      "description": "The side navigation of SAP Fiori: items with icons, texts and second-level items, an indicator for the current page and a condensed mode that opens second-level items in a panel.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/vertical-navigation/vertical-navigation.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dynamic-page",
+      "type": "registry:ui",
+      "title": "Dynamic Page",
+      "description": "A page with a title area, a header that collapses on click or scroll and can be pinned, optional tabs, scrolling content and a footer, with paddings that follow its width.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button", "tabs", "toolbar"],
+      "files": [
+        {
+          "path": "registry/ui/dynamic-page/dynamic-page.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/dynamic-page/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "Posts in chronological order along a vertical or horizontal line, on one side or alternating on both sides, with loading placeholders.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "skeleton", "text"],
+      "files": [
+        {
+          "path": "registry/ui/timeline/timeline.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "micro-process-flow",
+      "type": "registry:ui",
+      "title": "Micro Process Flow",
+      "description": "A compact row of process steps in value-state colours, joined by connectors, with overflow links and arrow-key navigation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/micro-process-flow/micro-process-flow.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "multi-combobox",
+      "type": "registry:ui",
+      "title": "Multi Combobox",
+      "description": "Chooses several items from a filtered list of check box options, shown as tokens, with groups, two columns and a mobile dialog.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "bar", "dialog", "input", "input-group", "list", "popover", "token"],
+      "files": [
+        {
+          "path": "registry/ui/multi-combobox/multi-combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "facets",
+      "type": "registry:ui",
+      "title": "Facets",
+      "description": "Key information blocks for an object page header: form, key-value, rating and image facets in a wrapping facet group, and a flex container for custom facets.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/facets/facets.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/facets/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "flexible-column-layout",
+      "type": "registry:ui",
+      "title": "Flexible Column Layout",
+      "description": "Up to three columns (list, detail, detail of the detail) whose widths follow the layout, with separator buttons that expand or collapse them and fewer columns on narrow widths.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "button"],
+      "files": [
+        {
+          "path": "registry/ui/flexible-column-layout/flexible-column-layout.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/ui/flexible-column-layout/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "fixed-card-layout",
+      "type": "registry:ui",
+      "title": "Fixed Card Layout",
+      "description": "Cards of the same width in as many 20rem columns as fit, placed row by row, reordered by drag and drop or Alt with the arrow keys.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/fixed-card-layout/fixed-card-layout.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "resizable-card-layout",
+      "type": "registry:ui",
+      "title": "Resizable Card Layout",
+      "description": "Cards in one to four 20rem columns that users resize by their edges or corner, snapping to columns and 1rem rows, while the other cards make room.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "icon"],
+      "files": [
+        {
+          "path": "registry/ui/resizable-card-layout/resizable-card-layout.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "feed-input",
+      "type": "registry:ui",
+      "title": "Feed Input",
+      "description": "A text area to post to a feed that grows with its text, with the user avatar and a send button enabled once there is text.",
+      "dependencies": [],
+      "registryDependencies": ["utils", "theme", "avatar", "button", "icon", "input"],
+      "files": [
+        {
+          "path": "registry/ui/feed-input/feed-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "feed-list",
+      "type": "registry:ui",
+      "title": "Feed List",
+      "description": "Posts and comments with an author, a collapsible or rich text, an avatar, actions and a footer of bylines, with a mobile layout.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "formatted-text", "link"],
+      "files": [
+        {
+          "path": "registry/ui/feed-list/feed-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dynamic-side-content",
+      "type": "registry:ui",
+      "title": "Dynamic Side Content",
+      "description": "Main content with supplementary side content to the left, to the right, below or in an equal split, with sizes that hide the side content or set the share of the main content.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme"],
+      "files": [
+        {
+          "path": "registry/ui/dynamic-side-content/dynamic-side-content.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "grid-list",
+      "type": "registry:ui",
+      "title": "Grid List",
+      "description": "Cards in a responsive grid with multiple, single (item or radio) and delete selection modes, item types and states, highlights, title bar, group headers, filter bar, more button, footer and grid keyboard navigation.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "checkbox", "icon", "object-status", "radio", "toolbar"],
+      "files": [
+        {
+          "path": "registry/ui/grid-list/grid-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Shows one or more slides at a time with navigation buttons, page indicators (dots or numbers), arrow keys, looping and swiping.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "busy-indicator", "button"],
+      "files": [
+        {
+          "path": "registry/ui/carousel/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-uploader",
+      "type": "registry:ui",
+      "title": "File Uploader",
+      "description": "A field with the chosen file names and a Browse button that opens the file dialog and accepts dropped files, split by accepted extensions, size limits and a file limit.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "input"],
+      "files": [
+        {
+          "path": "registry/ui/file-uploader/file-uploader.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "upload-collection",
+      "type": "registry:ui",
+      "title": "Upload Collection",
+      "description": "A list of uploaded files with thumbnails, names shortened in the middle, descriptions and statuses, and buttons to rename a file in place or delete it.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "button", "input", "list", "object-status"],
+      "files": [
+        {
+          "path": "registry/ui/upload-collection/upload-collection.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "notification",
+      "type": "registry:ui",
+      "title": "Notification",
+      "description": "Notifications with title, description, footnotes, actions and More/Less, in lists, collapsible groups with arrow-key navigation and a popover, or as banners opened by a service.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "icon", "link"],
+      "files": [
+        {
+          "path": "registry/ui/notification/notification.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "type": "registry:ui",
+      "title": "Settings",
+      "description": "A list of settings next to the view of the selected one, responsive to the window width, with pushed detail views, profile card, spacing and a settings dialog size.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils", "theme", "bar", "button", "dialog", "list", "title"],
+      "files": [
+        {
+          "path": "registry/ui/settings/settings.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "content-density",
+      "type": "registry:ui",
+      "title": "Content Density",
+      "description": "Sets cozy, compact or condensed density for an element and everything inside it through data-density, with a hook that carries it into portals.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "registry/ui/content-density/content-density.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}

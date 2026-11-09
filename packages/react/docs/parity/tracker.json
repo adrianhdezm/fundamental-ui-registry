@@ -1,0 +1,722 @@
+{
+  "components": [
+    {
+      "name": "action-bar",
+      "phase": 1,
+      "source": ["src/ActionBar/__stories__/ActionBar.stories.js"],
+      "sourceStories": 7,
+      "status": "done",
+      "visual": "204/208",
+      "notes": "4 RTL compact diffs kept (back arrow mirrors, as Fiori)"
+    },
+    {
+      "name": "action-sheet",
+      "phase": 2,
+      "status": "done",
+      "visual": "224/224"
+    },
+    {
+      "name": "avatar",
+      "phase": 1,
+      "source": ["src/Avatar/__stories__/Avatar.stories.js"],
+      "sourceStories": 12,
+      "status": "done",
+      "visual": "2160/2160"
+    },
+    {
+      "name": "avatar-group",
+      "phase": 2,
+      "status": "done",
+      "visual": "120/144",
+      "notes": "kept: RTL '+4' (bdi, as Angular) vs fundamental-styles' '4+' on the overflow button (24)"
+    },
+    {
+      "name": "bar",
+      "phase": 1,
+      "source": ["src/Bar/__stories__/Bar.stories.js"],
+      "sourceStories": 7,
+      "status": "done",
+      "visual": "384/384"
+    },
+    {
+      "name": "breadcrumb",
+      "phase": 1,
+      "source": ["src/Breadcrumb/__stories__/Breadcrumb.stories.js"],
+      "sourceStories": 3,
+      "status": "done",
+      "visual": "288/288"
+    },
+    {
+      "name": "busy-indicator",
+      "phase": 1,
+      "source": ["src/BusyIndicator/__stories__/BusyIndicator.stories.js"],
+      "sourceStories": 4,
+      "status": "done",
+      "visual": "128/128"
+    },
+    {
+      "name": "button",
+      "phase": 1,
+      "source": ["src/Button/__stories__/Button.stories.js"],
+      "sourceStories": 9,
+      "status": "done",
+      "visual": "256/256"
+    },
+    {
+      "name": "calendar",
+      "phase": 1,
+      "source": ["src/Calendar/__stories__/Calendar.stories.js"],
+      "sourceStories": 10,
+      "status": "done",
+      "visual": "432/432"
+    },
+    {
+      "name": "card",
+      "phase": 2,
+      "status": "done",
+      "visual": "704/704",
+      "notes": "press state not compared"
+    },
+    {
+      "name": "carousel",
+      "phase": 2,
+      "status": "done",
+      "visual": "352/352",
+      "notes": "fundamental-styles' vertical bar compared without its height (its one example uses ol/li dots)"
+    },
+    {
+      "name": "checkbox",
+      "phase": 1,
+      "source": ["src/Forms/__stories__/Checkbox.stories.js"],
+      "sourceStories": 9,
+      "status": "done",
+      "visual": "512/512"
+    },
+    {
+      "name": "combobox",
+      "phase": 1,
+      "source": ["src/ComboboxInput/__stories__/ComboboxInput.stories.js"],
+      "sourceStories": 12,
+      "status": "done",
+      "visual": "368/368",
+      "notes": "fundamental-react's selectionType=\"auto\" has no equivalent; Escape keeps the text (as Angular); Base UI hides the rest of the page while the list is open"
+    },
+    {
+      "name": "content-density",
+      "phase": 2,
+      "status": "done",
+      "visual": "48/48",
+      "notes": "renders nothing of its own: a button and an input in nested densities compared; fundamental.css compact variant extended to 4 alternating levels"
+    },
+    {
+      "name": "counter",
+      "phase": 1,
+      "source": ["src/Counter/__stories__/Counter.stories.js"],
+      "sourceStories": 5,
+      "status": "done",
+      "visual": "240/240"
+    },
+    {
+      "name": "date-picker",
+      "phase": 1,
+      "source": ["src/DatePicker/__stories__/DatePicker.stories.js"],
+      "sourceStories": 19,
+      "status": "done",
+      "visual": "168/192",
+      "notes": "kept: in 24 HC/compact cases fundamental-styles' reference has its calendar open and the popover shadow falls on the field (styles equal)"
+    },
+    {
+      "name": "datetime-picker",
+      "phase": 2,
+      "status": "done",
+      "visual": "228/256",
+      "notes": "kept: `date-time` glyph vs the reference's `appointment-2` (12), the open reference calendar's HC shadow on the field (16); references are fundamental-styles' date picker pattern and Mobile Portrait"
+    },
+    {
+      "name": "dialog",
+      "phase": 1,
+      "source": ["src/Dialog/__stories__/Dialog.stories.js"],
+      "sourceStories": 10,
+      "status": "done",
+      "visual": "224/224"
+    },
+    {
+      "name": "dynamic-page",
+      "phase": 2,
+      "status": "done",
+      "visual": "336/336",
+      "notes": "title row with layout actions above 1280px not compared (both Storybooks render at 1248px)"
+    },
+    {
+      "name": "dynamic-side-content",
+      "phase": 2,
+      "status": "done",
+      "visual": "176/176",
+      "notes": "styles and box sizes only (fundamental-styles' examples use their own docs boxes)"
+    },
+    {
+      "name": "facets",
+      "phase": 2,
+      "status": "done",
+      "visual": "192/192"
+    },
+    {
+      "name": "feed-input",
+      "phase": 2,
+      "status": "done",
+      "visual": "202/208",
+      "notes": "kept: RTL send glyph mirrored (6, as Angular and UI5)"
+    },
+    {
+      "name": "feed-list",
+      "phase": 2,
+      "status": "done",
+      "visual": "352/352",
+      "notes": "More/Less label not capitalised (fundamental-styles capitalises it), so custom labels show as written"
+    },
+    {
+      "name": "file-uploader",
+      "phase": 2,
+      "status": "done",
+      "visual": "240/240",
+      "notes": "fundamental-styles' File Uploader With Files list has no Angular counterpart (not ported)"
+    },
+    {
+      "name": "fixed-card-layout",
+      "phase": 2,
+      "status": "done",
+      "visual": "80/80",
+      "notes": "drag and drop with mouse/pen only (no touch drag), as product-switch"
+    },
+    {
+      "name": "flexible-column-layout",
+      "phase": 2,
+      "status": "done",
+      "visual": "148/176",
+      "notes": "kept: fundamental-styles does not mirror the separator arrows (24) or the start column border (4) in RTL"
+    },
+    {
+      "name": "form",
+      "phase": 1,
+      "source": [
+        "src/Forms/__stories__/FormFieldset.stories.js",
+        "src/Forms/__stories__/FormGroup.stories.js",
+        "src/Forms/__stories__/FormItem.stories.js",
+        "src/Forms/__stories__/FormLabel.stories.js",
+        "src/Forms/__stories__/FormLegend.stories.js"
+      ],
+      "sourceStories": 18,
+      "status": "done",
+      "visual": "288/288"
+    },
+    {
+      "name": "formatted-text",
+      "phase": 2,
+      "status": "done",
+      "visual": "64/64",
+      "notes": "no fundamental-styles reference; typography compared with title, text and link"
+    },
+    {
+      "name": "generic-tag",
+      "phase": 2,
+      "status": "done",
+      "visual": "208/208",
+      "notes": "active state compared by hand (the script cannot press)"
+    },
+    {
+      "name": "grid-list",
+      "phase": 2,
+      "status": "done",
+      "visual": "344/368",
+      "notes": "kept: RTL highlight bar corners (24, fundamental-styles rounds the left ones); fundamental-styles hard-codes compact title bars and item toolbars (compared without height)"
+    },
+    {
+      "name": "icon",
+      "phase": 1,
+      "source": ["src/Icon/__stories__/Icon.stories.js"],
+      "sourceStories": 4,
+      "status": "done",
+      "visual": "96/96"
+    },
+    {
+      "name": "illustrated-message",
+      "phase": 2,
+      "status": "done",
+      "visual": "544/544"
+    },
+    {
+      "name": "infinite-scroll",
+      "phase": 2,
+      "status": "done",
+      "visual": "64/64",
+      "notes": "no visual design of its own: style cases check the demo list"
+    },
+    {
+      "name": "info-label",
+      "phase": 1,
+      "source": ["src/InfoLabel/__stories__/InfoLabel.stories.js"],
+      "sourceStories": 6,
+      "status": "done",
+      "visual": "688/688"
+    },
+    {
+      "name": "inline-help",
+      "phase": 2,
+      "status": "done",
+      "visual": "80/80"
+    },
+    {
+      "name": "input",
+      "phase": 1,
+      "source": ["src/Forms/__stories__/FormInput.stories.js", "src/Forms/__stories__/FormTextarea.stories.js"],
+      "sourceStories": 15,
+      "status": "done",
+      "visual": "352/352"
+    },
+    {
+      "name": "input-group",
+      "phase": 1,
+      "source": ["src/InputGroup/__stories__/InputGroup.stories.js"],
+      "sourceStories": 10,
+      "status": "done",
+      "visual": "520/528"
+    },
+    {
+      "name": "layout-grid",
+      "phase": 1,
+      "source": ["src/LayoutGrid/__stories__/LayoutGrid.stories.js"],
+      "sourceStories": 8,
+      "status": "done",
+      "visual": "400/400",
+      "notes": "fundamental-react's auto-span of unspanned columns is `colGrow` (no children cloning)"
+    },
+    {
+      "name": "layout-panel",
+      "phase": 1,
+      "source": ["src/LayoutPanel/__stories__/LayoutPanel.stories.js"],
+      "sourceStories": 4,
+      "status": "done",
+      "visual": "192/192",
+      "notes": "SingleLayoutPanel story: popover menus and tile are placeholders until menu, popover and tile"
+    },
+    {
+      "name": "link",
+      "phase": 1,
+      "source": ["src/Link/__stories__/Link.stories.js"],
+      "sourceStories": 4,
+      "status": "done",
+      "visual": "112/112"
+    },
+    {
+      "name": "list",
+      "phase": 1,
+      "source": ["src/List/__stories__/List.stories.js"],
+      "sourceStories": 14,
+      "status": "done",
+      "visual": "520/544",
+      "notes": "kept: action-item hover (16, Fiori has one), HC unread dot anti-aliasing (8)"
+    },
+    {
+      "name": "menu",
+      "phase": 1,
+      "source": ["src/Menu/__stories__/Menu.stories.js"],
+      "sourceStories": 5,
+      "status": "done",
+      "visual": "432/432",
+      "notes": "Placement story uses radio groups until select"
+    },
+    {
+      "name": "message-box",
+      "phase": 1,
+      "source": ["src/MessageBox/__stories__/MessageBox.stories.js"],
+      "sourceStories": 3,
+      "status": "done",
+      "visual": "416/416"
+    },
+    {
+      "name": "message-page",
+      "phase": 1,
+      "source": ["src/MessagePage/__stories__/MessagePage.stories.js"],
+      "sourceStories": 3,
+      "status": "done",
+      "visual": "304/304"
+    },
+    {
+      "name": "message-strip",
+      "phase": 1,
+      "source": ["src/MessageStrip/__stories__/MessageStrip.stories.js"],
+      "sourceStories": 7,
+      "status": "done",
+      "visual": "464/512",
+      "notes": "48 kept: filled type icons as UI5 Web Components 2.28.1 (alert, sys-enter-2, error, information), fundamental-styles uses outlined message-* glyphs"
+    },
+    {
+      "name": "message-toast",
+      "phase": 2,
+      "status": "done",
+      "visual": "32/32"
+    },
+    {
+      "name": "micro-process-flow",
+      "phase": 2,
+      "status": "done",
+      "visual": "320/320"
+    },
+    {
+      "name": "multi-combobox",
+      "phase": 2,
+      "status": "done",
+      "visual": "306/320",
+      "notes": "kept: HC compact input inside the field border (12, as multi-input), compact hover anti-aliasing (2); mobile approve mode reports once on approve; dataSource is an array (no Observable)"
+    },
+    {
+      "name": "multi-input",
+      "phase": 1,
+      "source": ["src/MultiInput/__stories__/MultiInput.stories.js"],
+      "sourceStories": 6,
+      "status": "done",
+      "visual": "228/256",
+      "notes": "kept: RTL value-help icon mirrored (16, as Angular); HC compact input inside the field border (12, as the tokenizer); mobile approve mode fires onSelectedChange once on approve"
+    },
+    {
+      "name": "nested-list",
+      "phase": 2,
+      "status": "done",
+      "visual": "272/272",
+      "notes": "fundamental-styles' Storybook has no nested-list story any more: the visual cases render its fd-nested-list markup in a fundamental-styles page; kept: the left-pointing collapsed arrow in RTL"
+    },
+    {
+      "name": "notification",
+      "phase": 2,
+      "status": "done",
+      "visual": "240/336",
+      "notes": "kept: HC (96): fundamental-styles defines its notification variables for Horizon and Dark only; ours stay on the SAP tokens"
+    },
+    {
+      "name": "object-attribute",
+      "phase": 2,
+      "status": "done",
+      "visual": "96/96",
+      "notes": "fundamental-styles' Storybook renders this dev component unstyled: styles subset; 80/96 against the published CSS injected (disabled link height auto vs 16px, not visible)"
+    },
+    {
+      "name": "object-identifier",
+      "phase": 2,
+      "status": "done",
+      "visual": "272/272"
+    },
+    {
+      "name": "object-marker",
+      "phase": 2,
+      "status": "done",
+      "visual": "208/224",
+      "notes": "kept: RTL request glyph mirrored (as UI5) and focused clickable icon in contrast colour (16)"
+    },
+    {
+      "name": "object-number",
+      "phase": 2,
+      "status": "done",
+      "visual": "344/400",
+      "notes": "kept: RTL negative numbers keep the leading minus (bdi, as Angular; 56)"
+    },
+    {
+      "name": "object-status",
+      "phase": 1,
+      "source": ["src/ObjectStatus/__stories__/ObjectStatus.stories.js"],
+      "sourceStories": 10,
+      "status": "done",
+      "visual": "560/560"
+    },
+    {
+      "name": "overflow-layout",
+      "phase": 2,
+      "status": "done",
+      "visual": "128/128"
+    },
+    {
+      "name": "pagination",
+      "phase": 1,
+      "source": ["src/Pagination/__stories__/Pagination.stories.js"],
+      "sourceStories": 11,
+      "status": "done",
+      "visual": "464/464",
+      "notes": "fundamental-react's visiblePageTotal not ported: the page window follows Angular"
+    },
+    {
+      "name": "panel",
+      "phase": 2,
+      "status": "done",
+      "visual": "320/320"
+    },
+    {
+      "name": "popover",
+      "phase": 1,
+      "source": ["src/Popover/__stories__/Popover.stories.js"],
+      "sourceStories": 8,
+      "status": "done",
+      "visual": "120/128",
+      "notes": "8 LTR resize-handle cases 0.7px off (reference at a fractional position, not visible); fundamental-react maxTarget, preventSpaceKeyScroll not ported"
+    },
+    {
+      "name": "product-switch",
+      "phase": 2,
+      "status": "done",
+      "visual": "232/256",
+      "notes": "kept: HC hover over fundamental-styles' thumbnail avatars (24); drag and drop with mouse/pen only (no touch drag)"
+    },
+    {
+      "name": "progress-indicator",
+      "phase": 2,
+      "status": "done",
+      "visual": "416/416"
+    },
+    {
+      "name": "quick-view",
+      "phase": 2,
+      "status": "done",
+      "visual": "384/384"
+    },
+    {
+      "name": "radio",
+      "phase": 1,
+      "source": ["src/Forms/__stories__/FormRadioGroup.stories.js"],
+      "sourceStories": 7,
+      "status": "done",
+      "visual": "512/512"
+    },
+    {
+      "name": "rating-indicator",
+      "phase": 2,
+      "status": "done",
+      "visual": "352/352",
+      "notes": "votes link is a popover trigger (role button, opens on hover and focus)"
+    },
+    {
+      "name": "resizable-card-layout",
+      "phase": 2,
+      "status": "done",
+      "visual": "128/128",
+      "notes": "no keyboard resizing (none in Angular)"
+    },
+    {
+      "name": "scroll-spy",
+      "phase": 2,
+      "status": "done",
+      "visual": "64/64",
+      "notes": "no visual design of its own: style cases check the table of contents' link and title"
+    },
+    {
+      "name": "scrollbar",
+      "phase": 2,
+      "status": "done",
+      "visual": "16/16",
+      "notes": "headless Chromium hides scrollbars: the bars themselves checked by eye"
+    },
+    {
+      "name": "search-input",
+      "phase": 1,
+      "source": ["src/SearchInput/__stories__/SearchInput.stories.js"],
+      "sourceStories": 7,
+      "status": "done",
+      "visual": "352/352",
+      "notes": "Base UI's Autocomplete hides the rest of the page (aria-hidden) while the list is open"
+    },
+    {
+      "name": "segmented-button",
+      "phase": 1,
+      "source": ["src/Button/__stories__/ButtonSegmented.stories.js"],
+      "sourceStories": 3,
+      "status": "done",
+      "visual": "176/176",
+      "notes": "tab stop does not follow a value changed by the app (Base UI ToggleGroup); disabled and text groups checked by eye (no fundamental-styles story)"
+    },
+    {
+      "name": "select",
+      "phase": 1,
+      "source": ["src/Select/__stories__/Select.stories.js"],
+      "sourceStories": 8,
+      "status": "done",
+      "visual": "492/496",
+      "notes": "kept: one pixel column of the item icon outside the option (4 cases, Horizon/Dark LTR)"
+    },
+    {
+      "name": "settings",
+      "phase": 2,
+      "status": "done",
+      "visual": "176/176",
+      "notes": "md/sm view modes follow the window width: tested in the spec, not compared visually"
+    },
+    {
+      "name": "shellbar",
+      "phase": 1,
+      "source": ["src/Shellbar/__stories__/Shellbar.stories.js"],
+      "sourceStories": 6,
+      "status": "done",
+      "visual": "240/368",
+      "notes": "kept: cozy-only shellbar in compact pages (96, as Angular; fundamental-styles compacts it), fundamental-styles' Arial search input, product switch button stays a bordered action in HC"
+    },
+    {
+      "name": "side-navigation",
+      "phase": 1,
+      "source": ["src/SideNavigation/__stories__/SideNav.stories.js"],
+      "sourceStories": 8,
+      "status": "done",
+      "visual": "240/240",
+      "notes": "lists compared against fd-nested-list markup injected into a fundamental-styles page; the fd-side-nav column by style only"
+    },
+    {
+      "name": "skeleton",
+      "phase": 2,
+      "status": "done",
+      "visual": "64/128",
+      "notes": "kept: fundamental-styles' mask inherits the gradient fill and turns translucent in Dark/HC (62-64 cases); theme shimmer colour instead of fundamental-styles' fixed #999. All Horizon combinations match"
+    },
+    {
+      "name": "slider",
+      "phase": 2,
+      "status": "done",
+      "visual": "292/304",
+      "notes": "kept: fundamental-styles' RTL Range story does not mirror (8), sub-pixel anti-aliasing on off-grid handles and HC RTL labels (4); keys follow Angular, a range stays sorted (values swap, focus follows)"
+    },
+    {
+      "name": "split-button",
+      "phase": 2,
+      "status": "done",
+      "visual": "336/336"
+    },
+    {
+      "name": "status-indicator",
+      "phase": 2,
+      "status": "done",
+      "visual": "320/320"
+    },
+    {
+      "name": "step-input",
+      "phase": 1,
+      "source": ["src/StepInput/__stories__/StepInput.stories.js"],
+      "sourceStories": 7,
+      "status": "done",
+      "visual": "380/528",
+      "notes": "kept: fundamental-styles' cozy button width in compact for semantic fields (120), its HC buttons paint over the focus frame (28)"
+    },
+    {
+      "name": "switch",
+      "phase": 1,
+      "source": ["src/Switch/__stories__/Switch.stories.js"],
+      "sourceStories": 9,
+      "status": "done",
+      "visual": "272/272",
+      "notes": "checked standard and semantic switches have no fundamental-styles story: compared with a one-off script that clicks them (64/64)"
+    },
+    {
+      "name": "tabs",
+      "phase": 1,
+      "source": ["src/Tabs/__stories__/TabGroup.stories.js"],
+      "sourceStories": 7,
+      "status": "done",
+      "visual": "440/448",
+      "notes": "kept: fundamental-styles' RTL start padding on the first filter tab (8)"
+    },
+    {
+      "name": "text",
+      "phase": 2,
+      "status": "done",
+      "visual": "208/208",
+      "notes": "fundamental-styles' AI highlight n/a (not in Angular)"
+    },
+    {
+      "name": "tile",
+      "phase": 1,
+      "source": ["src/Tile/__stories__/Tile.stories.js"],
+      "sourceStories": 5,
+      "status": "done",
+      "visual": "1136/1136"
+    },
+    {
+      "name": "time",
+      "phase": 1,
+      "source": ["src/Time/__stories__/Time.stories.js"],
+      "sourceStories": 11,
+      "status": "done",
+      "visual": "208/224",
+      "notes": "kept: tablet keeps touch-sized values in compact (16, as Angular's spec); fundamental-react's carrying between columns not ported"
+    },
+    {
+      "name": "time-picker",
+      "phase": 1,
+      "source": ["src/TimePicker/__stories__/TimePicker.stories.js"],
+      "sourceStories": 6,
+      "status": "done",
+      "visual": "128/176",
+      "notes": "kept: tablet keeps touch-sized values in compact (16, as time); compact input padding 8px (32, as input-group); Locale story uses a segmented button; no OK/Cancel footer (as Angular)"
+    },
+    {
+      "name": "timeline",
+      "phase": 2,
+      "status": "done",
+      "visual": "80/80",
+      "notes": "no fundamental-styles timeline: the line and nodes compared by hand with fundamental-ngx's docs; the script checks the avatar, post text and More toggle"
+    },
+    {
+      "name": "title",
+      "phase": 1,
+      "source": ["src/Title/__stories__/Title.stories.js"],
+      "sourceStories": 5,
+      "status": "done",
+      "visual": "128/128"
+    },
+    {
+      "name": "token",
+      "phase": 1,
+      "source": ["src/Token/__stories__/Token.stories.js"],
+      "sourceStories": 5,
+      "status": "done",
+      "visual": "184/272",
+      "notes": "88 kept where fundamental-styles is inconsistent: selected token background dropped by its shorthand (24), no tokenizer border in HC (40), read-only line (24); Angular's no-op compactCollapse and fundamental-react's buttonLabel not ported"
+    },
+    {
+      "name": "toolbar",
+      "phase": 2,
+      "status": "done",
+      "visual": "360/384",
+      "notes": "kept: active info cursor, label colour and title font (reference story lacks those styles), RTL-mirrored undo glyph (16), reference popover / first-item focus pixels (8)"
+    },
+    {
+      "name": "tree",
+      "phase": 1,
+      "source": ["src/Tree/__stories__/Tree.stories.js"],
+      "sourceStories": 13,
+      "status": "done",
+      "visual": "296/336",
+      "notes": "kept: hover on navigatable rows (16), pointer cursor on selectable rows (16), mirrored account icon in RTL (8)"
+    },
+    {
+      "name": "upload-collection",
+      "phase": 2,
+      "status": "done",
+      "visual": "304/304"
+    },
+    {
+      "name": "user-menu",
+      "phase": 2,
+      "status": "done",
+      "visual": "336/336"
+    },
+    {
+      "name": "vertical-navigation",
+      "phase": 2,
+      "status": "done",
+      "visual": "440/464",
+      "notes": "kept: HC indicated text colour (8, as Angular; fundamental-styles' about 3:1 on black), panel header 1px and RTL radius token (16); second-level lists span the row (as Angular)"
+    },
+    {
+      "name": "wizard",
+      "phase": 1,
+      "source": ["src/Wizard/__stories__/Wizard.stories.js"],
+      "sourceStories": 14,
+      "status": "done",
+      "visual": "464/464",
+      "notes": "fundamental-react noLabels n/a (narrow steps stack instead)"
+    }
+  ]
+}

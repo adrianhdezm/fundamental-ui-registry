@@ -4,9 +4,10 @@ SAP Fiori Horizon components distributed shadcn-style (copy-paste source), as a 
 registries. Each package has its own `registry.json`, Storybook, tests, tsconfig and dependencies, and imports nothing
 from the others. See `README.md` for the layout and usage.
 
-| Package            | Port of                 | Published at (site root `https://adrianhdezm.github.io/fundamental-ui-registry/`) |
-| ------------------ | ----------------------- | --------------------------------------------------------------------------------- |
-| `packages/angular` | `@fundamental-ngx/core` | Storybook `/angular/`, registry `/angular/r/<name>.json`                          |
+| Package            | Port of                                  | Published at (site root `https://adrianhdezm.github.io/fundamental-ui-registry/`) |
+| ------------------ | ---------------------------------------- | --------------------------------------------------------------------------------- |
+| `packages/angular` | `@fundamental-ngx/core`                  | Storybook `/angular/`, registry `/angular/r/<name>.json`                          |
+| `packages/react`   | fundamental-react, Base UI (in progress) | Storybook `/react/`, registry `/react/r/<name>.json`                              |
 
 Each package has its own `CLAUDE.md` with its component and test rules; read it before working in that package.
 
@@ -26,6 +27,7 @@ Each package has its own `CLAUDE.md` with its component and test rules; read it 
 
 ```
 packages/angular/         the Angular registry (see packages/angular/CLAUDE.md)
+packages/react/           the React registry (see packages/react/CLAUDE.md)
 site/index.html           landing page at the site root
 scripts/build-site.mjs    assembles dist/site: the landing page and each package's Storybook under /<package>/
 .github/workflows/        GitHub Pages deployment of dist/site
@@ -41,4 +43,5 @@ pnpm check                  # every package's check, one package at a time
 pnpm format                 # Prettier, whole repository (config at the root)
 pnpm build-site             # every package's Storybook and registry, assembled into dist/site
 pnpm angular <script>       # a script of packages/angular, e.g. `pnpm angular test`
+pnpm react <script>         # a script of packages/react, e.g. `pnpm react storybook`
 ```

@@ -7,6 +7,7 @@
   "packageManager": "pnpm@10.28.0",
   "scripts": {
     "angular": "pnpm --filter @fundamental-ui-registry/angular",
+    "react": "pnpm --filter @fundamental-ui-registry/react",
     "check": "pnpm --recursive --workspace-concurrency=1 run check",
     "build-site": "pnpm --recursive --workspace-concurrency=1 run build-storybook && node scripts/build-site.mjs",
     "format": "prettier --write .",

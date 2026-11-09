@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# fundamental-ui-registry for React
+
+SAP Fiori Horizon components for React, styled with Tailwind CSS v4 on the SAP theme tokens and built on
+[Base UI](https://base-ui.com). A modern rewrite of [fundamental-react](https://github.com/SAP/fundamental-react), with
+the behaviour, ARIA and keyboard support of the Angular package (ported from
+[`@fundamental-ngx/core`](https://sap.github.io/fundamental-ngx/#/core/home)) and the visuals of
+[fundamental-styles](https://sap.github.io/fundamental-styles/).
+
+They are not an npm package. Like [shadcn/ui](https://ui.shadcn.com), each component is source you copy into your app
+and own. The shadcn registry is published under
+`https://adrianhdezm.github.io/fundamental-ui-registry/react/r/` (`<registry>` below), and the
+[source](https://github.com/adrianhdezm/fundamental-ui-registry/tree/main/packages/react) is on GitHub.
+
+**Work in progress:** the components are being ported one by one; the
+[porting tracker](https://github.com/adrianhdezm/fundamental-ui-registry/blob/main/packages/react/docs/parity/README.md)
+lists what is done.
+
+## Toolbar
+
+- **Theme**: SAP Horizon, Horizon Dark, Horizon High Contrast Black and Horizon High Contrast White.
+- **Density**: cozy (touch) and compact (mouse and keyboard).
+- **Direction**: left-to-right and right-to-left.
+
+## Setup in your app
+
+1. Install the runtime dependencies: `pnpm add @base-ui/react clsx tailwind-merge class-variance-authority`.
+2. Copy `styles/` (or `npx shadcn add <registry>/theme.json`) and import it after Tailwind in your global stylesheet:
+
+    ```css
+    @import 'tailwindcss';
+    @import './styles/fundamental.css';
+    ```
+
+3. Copy `lib/utils.ts` and add the path aliases the components import from:
+
+    ```json
+    "paths": { "@/lib/*": ["./src/lib/*"], "@/ui/*": ["./src/components/ui/*"] }
+    ```
+
+4. Add components: copy `registry/ui/<name>/` or run `npx shadcn add <registry>/<name>.json`.
+
+## Theming and density
+
+Set `data-sap-theme` on `<html>` (or any element, to theme a subtree) to `sap_horizon`, `sap_horizon_dark`,
+`sap_horizon_hcb` or `sap_horizon_hcw`. Set `data-density="compact"` the same way. Set `dir="rtl"` for right-to-left
+layouts, and wrap the app in Base UI's `DirectionProvider` so popups follow it.
+
+Every `--sap*` variable of the theme is a Tailwind value: drop `sap`, split camelCase and `_`, kebab-case it, and
+prefix `sap-`, e.g. `--sapButton_Hover_Background` is `bg-sap-button-hover-background`.

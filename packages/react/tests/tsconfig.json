@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["vitest/importMeta", "node"],
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "../registry/**/*.ts",
+    "../registry/**/*.tsx",
+    "../docs/**/*.ts",
+    "../docs/**/*.tsx",
+    "../.storybook/*.ts",
+    "../.storybook/*.tsx",
+    "./*.ts",
+    "../vitest.config.ts"
+  ],
+  "exclude": []
+}
