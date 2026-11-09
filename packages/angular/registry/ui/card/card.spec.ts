@@ -877,3 +877,31 @@ describe('Card', () => {
         expect(Math.abs(rect(q('#end-column')).top - rect(q('#start-column')).top)).toBeLessThan(1);
     });
 });
+
+@Component({
+    imports: [Card, CardMedia, CardMediaImageContainer, CardMediaImage, CardMediaContentContainer, CardMediaHeading],
+    template: `
+        <fd-card id="overlay-banner" cardType="banner" style="height: 288px">
+            <fd-card-media>
+                <div fd-card-media-content-container isOverlay [legendColor]="13">
+                    <div fd-card-media-heading [level]="3">Overlay</div>
+                </div>
+                <div fd-card-media-image-container><img fd-card-media-image [src]="img" alt="Landscape" /></div>
+            </fd-card-media>
+        </fd-card>
+    `
+})
+class OverlayHost {
+    readonly img = IMG;
+}
+
+describe('Card styles', () => {
+    afterEach(() => document.documentElement.removeAttribute('data-sap-theme'));
+
+    it('the counter has a 1rem line height and minimum height, as the object status (computed style)', async () => {
+        const { q } = await render(StandardHost);
+        const counter = q('#counter');
+        expect(style(counter).lineHeight).toBe('16px');
+        expect(rect(counter).height).toBe(16);
+    });
+});

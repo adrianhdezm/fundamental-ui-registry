@@ -518,7 +518,8 @@ export class CardCounter {
     readonly status = input<CardKpiStatus | 'neutral' | null | undefined>('neutral');
     protected readonly computedClass = computed(() =>
         cn(
-            'm-0 ms-4 mt-[0.125rem] p-0 text-sap-font-small-size whitespace-nowrap',
+            // an object status: flex, with a 1rem line height and minimum height
+            'm-0 ms-4 mt-[0.125rem] flex min-h-4 p-0 text-sap-font-small-size leading-4 whitespace-nowrap',
             TEXT_STATUS[this.status() ?? 'neutral']
         )
     );
