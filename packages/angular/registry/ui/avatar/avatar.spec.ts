@@ -137,6 +137,25 @@ const hugeRadius = (root: Element) =>
     [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
 
 describe('Avatar', () => {
+    it('value state badges have a border in the state text colour', async () => {
+        const { avatar, update } = await setup();
+        const probe = document.createElement('div');
+        document.body.appendChild(probe);
+        const states = [
+            ['positive', '--sapPositiveTextColor'],
+            ['caution', '--sapCriticalTextColor'],
+            ['negative', '--sapNegativeTextColor'],
+            ['information', '--sapInformativeTextColor']
+        ] as const;
+        for (const [state, variable] of states) {
+            await update((h) => h.valueState.set(state));
+            probe.style.border = `1px solid var(${variable})`;
+            const badge = avatar.querySelector<HTMLElement>('fd-icon.absolute')!;
+            expect(getComputedStyle(badge).borderTopColor).toBe(getComputedStyle(probe).borderTopColor);
+        }
+        probe.remove();
+    });
+
     it('border wins over the transparent, tile and placeholder borders, with the avatar hover border', async () => {
         const { avatar, resolve, update } = await setup();
         const root = getComputedStyle(document.documentElement);

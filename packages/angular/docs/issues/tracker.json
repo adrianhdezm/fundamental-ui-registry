@@ -394,9 +394,9 @@
       "source": "../../../react/docs/parity/components/avatar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "avatar.spec.ts, each valueState: the badge border computes to the state border colour (e.g. --sapErrorBorderColor #e90b0b) instead of the state text colour (#aa0808), as fundamental-styles.",
+      "test": "avatar.spec.ts › Avatar › value state badges have a border in the state text colour",
       "fix": "",
       "notes": ""
     },

@@ -65,22 +65,23 @@ const SIZE: Record<AvatarSize, string> = {
     xl: 'size-28 min-w-28 max-w-28 min-h-28 max-h-28 text-[3rem] leading-[normal] [--av-zoom-size:1.75rem] [--av-zoom-font:1rem] [--av-zoom-offset:-0.25rem]'
 };
 
+// the badge border takes the state text colour, as fundamental-styles
 const VALUE_STATE: Record<AvatarValueState, { glyph: string; class: string }> = {
     positive: {
         glyph: 'sys-enter-2',
-        class: 'bg-sap-success-background border-sap-success-border-color text-sap-positive-text-color'
+        class: 'bg-sap-success-background border-sap-positive-text-color text-sap-positive-text-color'
     },
     caution: {
         glyph: 'warning',
-        class: 'bg-sap-warning-background border-sap-warning-border-color text-sap-critical-text-color'
+        class: 'bg-sap-warning-background border-sap-critical-text-color text-sap-critical-text-color'
     },
     negative: {
         glyph: 'error',
-        class: 'bg-sap-error-background border-sap-error-border-color text-sap-negative-text-color'
+        class: 'bg-sap-error-background border-sap-negative-text-color text-sap-negative-text-color'
     },
     information: {
         glyph: 'information',
-        class: 'bg-sap-information-background border-sap-information-border-color text-sap-informative-text-color'
+        class: 'bg-sap-information-background border-sap-informative-text-color text-sap-informative-text-color'
     }
 };
 
