@@ -297,10 +297,16 @@ describe('Switch hover (switch-1)', () => {
         expect(getComputedStyle(slider).backgroundColor).toBe(themed('var(--sapButton_Track_Hover_Background)'));
         await userEvent.click(label);
         await fixture.whenStable();
+        await frame();
+        await fixture.whenStable();
+        expect(label.parentElement!.querySelector('input')!.checked).toBe(true);
+        // the track colour animates for 100ms
+        await new Promise((r) => setTimeout(r, 200));
         expect(getComputedStyle(slider).backgroundColor).toBe(
             themed('var(--sapButton_Track_Selected_Hover_Background)')
         );
         await userEvent.unhover(label);
+        await new Promise((r) => setTimeout(r, 200));
         expect(getComputedStyle(slider).backgroundColor).toBe(themed('var(--sapButton_Track_Selected_Background)'));
     });
 });
