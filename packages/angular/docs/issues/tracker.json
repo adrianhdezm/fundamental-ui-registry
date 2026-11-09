@@ -527,9 +527,9 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (FeaturesHost): the fdTreeItemButton of item B computes margin-inline-start 2px (ms-(--fdList_Button_Spacing,0.125rem)); fundamental-styles' --fdTree_Button_Spacing is var(--fdList_Button_Spacing), undefined in a tree, so 0.",
+      "test": "tree.spec.ts › Tree styles › item buttons have no start margin, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },

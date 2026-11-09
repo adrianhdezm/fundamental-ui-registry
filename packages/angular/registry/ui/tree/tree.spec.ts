@@ -438,4 +438,10 @@ describe('Tree styles', () => {
         const style = getComputedStyle(rows()[0]);
         expect([style.paddingTop, style.paddingBottom]).toEqual(['0px', '0px']);
     });
+
+    it('item buttons have no start margin, as fundamental-styles (computed style)', async () => {
+        const { root } = await render(FeaturesHost);
+        const button = [...root.querySelectorAll<HTMLElement>('[fdTreeItemButton]')][0];
+        expect(getComputedStyle(button).marginInlineStart).toBe('0px');
+    });
 });

@@ -137,7 +137,8 @@ export class TreeItemText {}
 /** An action button at the end of a tree item. */
 @Directive({
     selector: '[fdTreeItemButton]',
-    host: { class: 'ms-(--fdList_Button_Spacing,0.125rem) shrink-0' }
+    // no start margin: fundamental-styles' --fdTree_Button_Spacing is a list variable, undefined in a tree
+    host: { class: 'shrink-0' }
 })
 export class TreeItemButton {}
 
