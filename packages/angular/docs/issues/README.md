@@ -88,11 +88,11 @@ None.
 
 #### link
 
-[React report](../../../react/docs/parity/components/link.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/link.md) · 🧪 covered: 1
 
-| ID     | Issue                                                                                                                                                                                                      | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| link-1 | No `text-underline-offset`: the underline sits 2px higher than fundamental-styles' (0.125rem), visible on subtle links and in the high-contrast themes. Fixed in React with `underline-offset-[0.125rem]`. | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID     | Issue                                                                                                                                                                                                      | Kind   | Confirmed | Pattern | Status     | Test                                                                                    | Fix | Notes |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | --------------------------------------------------------------------------------------- | --- | ----- |
+| link-1 | No `text-underline-offset`: the underline sits 2px higher than fundamental-styles' (0.125rem), visible on subtle links and in the high-contrast themes. Fixed in React with `underline-offset-[0.125rem]`. | visual | rendered  |         | 🧪 covered | link.spec.ts › Link › the underline sits 0.125rem below the text, as fundamental-styles |     |       |
 
 #### busy-indicator
 

@@ -131,9 +131,9 @@
       "source": "../../../react/docs/parity/components/link.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "link.spec.ts, the default link: computed text-underline-offset auto; fundamental-styles has 0.125rem (2px).",
+      "test": "link.spec.ts › Link › the underline sits 0.125rem below the text, as fundamental-styles",
       "fix": "",
       "notes": ""
     },
