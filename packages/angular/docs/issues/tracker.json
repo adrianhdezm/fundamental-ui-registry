@@ -17,11 +17,11 @@
         "panel-2",
         "object-number-1"
       ],
-      "status": "covered",
+      "status": "verified",
       "repro": "Logged every class tailwind-merge drops in cn() while running all stories (a11y:sap_horizon) and all specs: 30+ places lost a leading-* to a later text-* size, among them every fd-icon (icon-1) and the rows of this pattern; each row is reproduced by its spec.",
       "test": "The spec of each row (icon, menu, list, rating-indicator, checkbox, switch, object-status, tabs, panel, object-number), each failing before the fix.",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-rounded-full",
@@ -29,11 +29,11 @@
       "cause": "Tailwind v4's `rounded-full` is `calc(infinity * 1px)` (3.35544e+07px computed); fundamental-styles uses `50%`.",
       "rule": "Use `rounded-[50%]` where fundamental-styles has 50% (and `100%` where it has that).",
       "issues": ["avatar-4", "wizard-1", "tabs-4", "shellbar-6", "micro-process-flow-2", "carousel-4"],
-      "status": "covered",
+      "status": "verified",
       "repro": "Every row's spec measures getComputedStyle(…).borderTopLeftRadius: 3.35544e+07px (calc(infinity * 1px)) before the fix. The specs also check that no element in the component has that length.",
       "test": "The spec of each row (avatar, wizard, tabs, shellbar, micro-process-flow, carousel), each failing before the fix.",
-      "fix": "",
-      "notes": ""
+      "fix": "fc14b61",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-shadow-ring",
@@ -41,11 +41,11 @@
       "cause": "Tailwind's `shadow-*` utilities compose `--tw-inset-shadow`, `--tw-inset-ring-shadow`, `--tw-ring-offset-shadow` and `--tw-ring-shadow` with the shadow, so the computed `box-shadow` has extra transparent layers that fundamental-styles' has not.",
       "rule": "Write shadows as `[box-shadow:var(--sap…)]`.",
       "issues": ["action-sheet-3", "wizard-3", "shellbar-5", "card-4", "slider-1", "fixed-card-layout-2"],
-      "status": "covered",
+      "status": "verified",
       "repro": "Every row's spec scans the component for a computed box-shadow containing 'rgba(0, 0, 0, 0) 0px 0px 0px 0px' (Tailwind's --tw-inset-shadow, --tw-inset-ring-shadow, --tw-ring-offset-shadow, --tw-ring-shadow); each failed before the fix.",
       "test": "The spec of each row (action-sheet, wizard, shellbar, card, slider, fixed-card-layout), each failing before the fix.",
-      "fix": "",
-      "notes": ""
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-synthetic-bold",
@@ -53,11 +53,11 @@
       "cause": "The 72-Bold face is registered with a normal weight; `font-bold` on top of it makes the browser embolden it again.",
       "rule": "Use `font-normal` with the bold font family, as fundamental-styles.",
       "issues": ["layout-panel-1", "card-1", "panel-1", "feed-list-3"],
-      "status": "covered",
+      "status": "verified",
       "repro": "Each row's spec reads the computed font-family (72-Bold) and font-weight (700 before the fix, 400 in fundamental-styles).",
       "test": "The spec of each row (layout-panel, card, panel, feed-list), each failing before the fix.",
-      "fix": "",
-      "notes": ""
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-rtl-double-mirror",
@@ -65,11 +65,11 @@
       "cause": "The icon component mirrors directional glyphs in RTL by itself; choosing the opposite glyph in RTL or rotating it again flips it back.",
       "rule": "Keep the LTR glyph and let the icon mirror it; no extra RTL rotation or glyph swap.",
       "issues": ["nested-list-2", "shellbar-2", "user-menu-1", "grid-list-4", "settings-2"],
-      "status": "covered",
+      "status": "verified",
       "repro": "Each row's spec, in dir=rtl, checks the glyph is the LTR one and counts the horizontal flips (transform, scale, rotate) of the icon and its ancestors: an even number before the fix.",
       "test": "The spec of each row (nested-list, shellbar, user-menu, grid-list, settings), each failing before the fix.",
-      "fix": "",
-      "notes": ""
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-compact-button-size",
@@ -77,11 +77,11 @@
       "cause": "Button's `compact:min-w-8`, `compact:h-*` and `compact:px-*` are variant classes, so tailwind-merge keeps them next to a caller's unprefixed `min-w-*`, `h-*`, `w-*` or `p-0`, and they win in compact density.",
       "rule": "Pass the size for both densities (also `compact:`-prefixed), or have Button drop its compact sizes when a size is given.",
       "issues": ["button-1", "dynamic-page-1", "flexible-column-layout-1", "carousel-3"],
-      "status": "covered",
+      "status": "verified",
       "repro": "Each row's spec measures the button (size, min-width or padding) with data-density=compact on the document; each failed before the fix.",
       "test": "The spec of each row (button, dynamic-page, flexible-column-layout, carousel), each failing before the fix.",
-      "fix": "",
-      "notes": ""
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "pattern-oklab-gradient",
@@ -89,11 +89,11 @@
       "cause": "Tailwind v4's `bg-linear-to-*` interpolates `in oklab`; fundamental-styles' gradients use the default sRGB.",
       "rule": "Use `bg-linear-[to_top,…]`-style arbitrary gradients (sRGB) or `bg-linear-to-*/srgb`.",
       "issues": ["dynamic-page-3", "flexible-column-layout-2"],
-      "status": "covered",
+      "status": "verified",
       "repro": "Each row's spec reads the computed background-image of the gradient lines: 'in oklab' before the fix.",
       "test": "The spec of each row (dynamic-page, flexible-column-layout), each failing before the fix.",
-      "fix": "",
-      "notes": ""
+      "fix": "9c597b7",
+      "notes": "Verified: the spec passes and pnpm check passes."
     }
   ],
   "issues": [
@@ -105,11 +105,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "`pnpm visual icon` (components-icon--sizes, --colors against fundamental-styles icons-sap-icons--sizes, --colors), 16 of 16 combinations: the md icon box is 35px high with `line-height: normal` (fundamental-styles: 32px, line-height 32px); xxl 87px against 80px.",
       "test": "icon.spec.ts › Icon › every size keeps line-height 1, so the box is as high as the font size (32px at md)",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual icon: size md and xxl boxes are 32px and 80px high in 16/16 combinations; the remaining width difference is icon-2."
     },
     {
       "id": "icon-2",
@@ -197,11 +197,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "checkbox.spec.ts, a checked displayOnly checkbox: the 16px box's computed line-height is 16px (inherited) instead of normal; text-[1rem] drops leading-[normal].",
       "test": "checkbox.spec.ts › Checkbox display-only line height › the display-only box keeps a normal line height",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "input-1",
@@ -224,11 +224,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-synthetic-bold",
-      "status": "covered",
+      "status": "verified",
       "repro": "layout-panel.spec.ts, the default panel: the [fd-layout-panel-title] has font-family 72-Bold and computed font-weight 700 (synthetic bold); fundamental-styles has 400.",
       "test": "layout-panel.spec.ts › LayoutPanel › the title uses the 72-Bold face with a normal weight, so no synthetic bold is added",
-      "fix": "",
-      "notes": ""
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual layout-panel: title matches by styles in 16/16."
     },
     {
       "id": "layout-panel-2",
@@ -329,11 +329,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "switch.spec.ts, a switch with icons and one with activeText/inactiveText: the icons' computed line-height is normal instead of 22px (and the texts lose their leading-none); text-sap-font-large-size and text-sap-font-small-size drop the leading-* that come before them.",
       "test": "switch.spec.ts › Switch line height › the on/off icons are 22px and the texts 1 line high (computed line height)",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "switch-3",
@@ -408,11 +408,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "covered",
+      "status": "verified",
       "repro": "avatar.spec.ts, a circle avatar with zoomGlyph: the avatar and its badge have a computed border-radius of 3.35544e+07px instead of 100%. The badge line height (second half) is fixed by pattern-leading-merge: the badge class now has leading-none after its font size.",
       "test": "avatar.spec.ts › Avatar › a circle avatar and its badge are rounded with 100%, as fundamental-styles",
-      "fix": "",
-      "notes": "The badge line height (second half) is not part of the pattern."
+      "fix": "fc14b61",
+      "notes": "The badge line height (second half) is not part of the pattern. Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "list-1",
@@ -422,11 +422,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "list.spec.ts, a byline list with an unread item and fd-list-icon: the icon's computed line-height is normal instead of 18px, and the unread dot loses leading-none too (text-(length:--li-ifs) and text-[0.375rem] drop the icon's leading-none).",
       "test": "list.spec.ts › List › icons and the unread dot keep line-height 1 (18px and 6px high)",
-      "fix": "",
-      "notes": "The unread dot is part of the same row; check it separately from the icon."
+      "fix": "115fbfa",
+      "notes": "The unread dot is part of the same row; check it separately from the icon. Verified: the spec passes and pnpm check passes. pnpm visual list: icon before/after and the byline unread dot match by styles in 16/16; the dot differs by 11–24% of pixels in the 8 HC combinations only, fundamental-styles' dot sitting at a fractional y (anti-aliasing, as the React report found)."
     },
     {
       "id": "list-2",
@@ -501,11 +501,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "object-status.spec.ts, a positive status with a label: the root's computed line-height is normal instead of 16px; text-(length:--os-font) drops leading-(--os-h).",
       "test": "object-status.spec.ts › ObjectStatus line height › the root keeps its 1rem line height",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "tree-1",
@@ -840,11 +840,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "menu.spec.ts, a toggle that is on and a submenu parent: the check mark and arrow fd-icon have line-height normal instead of 16px (17px high); text-[1rem] from the menu drops the icon's leading-none.",
       "test": "menu.spec.ts › Menu › keeps the line height of the toggle check mark and the submenu arrow at 1 (16px high)",
-      "fix": "",
-      "notes": "Same cause as icon-1: may be fixed by it."
+      "fix": "115fbfa",
+      "notes": "Same cause as icon-1: may be fixed by it. Verified: the spec passes and pnpm check passes. No visual case: the menu renders in the CDK overlay, outside #storybook-root where scripts/visual.mjs looks; the spec measures 16px."
     },
     {
       "id": "calendar-1",
@@ -1036,11 +1036,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-compact-button-size",
-      "status": "covered",
+      "status": "verified",
       "repro": "button.spec.ts, a decisive button in data-density=compact: computed min-width 32px instead of 64px (compact:min-w-8 wins over min-w-16); fullWidth's min-w-full loses the same way.",
       "test": "button.spec.ts › Button › decisive and fullWidth keep their minimum widths in compact density",
-      "fix": "",
-      "notes": ""
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: no story shows a compact decisive button; the spec measures a 64px minimum width in compact."
     },
     {
       "id": "combobox-1",
@@ -1102,11 +1102,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "covered",
+      "status": "verified",
       "repro": "nested-list.spec.ts with dir=rtl: the collapsed expand icon has the navigation-left-arrow glyph and Icon mirrors it (scale -1), so it points right; LTR glyph mirrored once points left.",
       "test": "nested-list.spec.ts › NestedList › in RTL the collapsed arrow is the right arrow, mirrored once by the icon (it points left)",
-      "fix": "",
-      "notes": ""
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual nested-list: the collapsed and expanded expand buttons match by pixels in 16/16, RTL included."
     },
     {
       "id": "time-picker-1",
@@ -1298,11 +1298,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "covered",
+      "status": "verified",
       "repro": "action-sheet.spec.ts, the open desktop action sheet: the popover body's computed box-shadow starts with four 'rgba(0, 0, 0, 0) 0px 0px 0px 0px' layers before --sapContent_Shadow1/2.",
       "test": "action-sheet.spec.ts › ActionSheet › the shadows are the theme shadows only, without transparent ring layers",
-      "fix": "",
-      "notes": ""
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "action-sheet-4",
@@ -1338,11 +1338,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "covered",
+      "status": "verified",
       "repro": "wizard.spec.ts, the default wizard: every step indicator's computed border-radius is 3.35544e+07px instead of 50%.",
       "test": "wizard.spec.ts › Wizard › the step indicators are rounded with 50%, as fundamental-styles",
-      "fix": "",
-      "notes": ""
+      "fix": "fc14b61",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "wizard-2",
@@ -1365,11 +1365,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "covered",
+      "status": "verified",
       "repro": "wizard.spec.ts, the default wizard: the progress bar's computed box-shadow has four transparent ring layers before --sapContent_HeaderShadow.",
       "test": "wizard.spec.ts › Wizard › the progress bar shadow is the header shadow, without transparent ring layers",
-      "fix": "",
-      "notes": ""
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "wizard-4",
@@ -1418,11 +1418,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "tabs.spec.ts, fdTabCount in a filter-mode tab list: font-size 12px and line-height normal instead of 16px; text-sap-font-small-size drops leading-4.",
       "test": "tabs.spec.ts › TabCount line height › keeps its 1rem line height in a mode, where it takes the small font size",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual tabs: icon count matches by styles in 16/16."
     },
     {
       "id": "tabs-4",
@@ -1432,11 +1432,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "covered",
+      "status": "verified",
       "repro": "tabs.spec.ts, an icon-only tab list: the fd-tab-icon's computed border-radius is 3.35544e+07px instead of 50%. The 16px line height (first half) is not part of this pattern.",
       "test": "tabs.spec.ts › TabList with changing tabs › the round tab icon is rounded with 50%, as fundamental-styles",
-      "fix": "",
-      "notes": "The 16px line height (first half) is not part of the pattern."
+      "fix": "fc14b61",
+      "notes": "The 16px line height (first half) is not part of the pattern. Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "side-navigation-1",
@@ -1511,11 +1511,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "covered",
+      "status": "verified",
       "repro": "shellbar.spec.ts with dir=rtl and showBackButton: the back button's icon is slim-arrow-right, which Icon mirrors, so it points left.",
       "test": "shellbar.spec.ts › Shellbar › in RTL the back button keeps the nav-back glyph, mirrored once by the icon (it points right)",
-      "fix": "",
-      "notes": ""
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: no fundamental-styles shellbar story has a back button to compare with; the spec checks the glyph and a single flip."
     },
     {
       "id": "shellbar-3",
@@ -1551,11 +1551,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "covered",
+      "status": "verified",
       "repro": "shellbar.spec.ts, the default shellbar: the bar's inset border shadow and the search field's --sapField_Shadow have four transparent ring layers each.",
       "test": "shellbar.spec.ts › Shellbar › the bar and search shadows have no transparent ring layers",
-      "fix": "",
-      "notes": ""
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "shellbar-6",
@@ -1565,11 +1565,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "covered",
+      "status": "verified",
       "repro": "shellbar.spec.ts, a shellbar with [user]: the user menu button's computed border-radius is 3.35544e+07px; fundamental-styles has 20rem (320px).",
       "test": "shellbar.spec.ts › Shellbar › the user menu button has a 20rem radius, not rounded-full (a 3.35544e+07px length)",
-      "fix": "",
-      "notes": ""
+      "fix": "fc14b61",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "shellbar-7",
@@ -1709,11 +1709,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "covered",
+      "status": "verified",
       "repro": "user-menu.spec.ts, mobile mode with dir=rtl, opening the Language submenu: the Go back button's icon is navigation-right-arrow, which Icon mirrors, so it points left.",
       "test": "user-menu.spec.ts › UserMenu › in RTL the mobile back button keeps the left arrow, mirrored once by the icon (it points right)",
-      "fix": "",
-      "notes": ""
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: the mobile user menu is a dialog in the overlay, outside #storybook-root; the spec checks the glyph and a single flip."
     },
     {
       "id": "object-marker-1",
@@ -1749,11 +1749,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "object-number.spec.ts, regular, inverted and large numbers: regular and inverted have line-height normal instead of 16px (large is 32px); the size classes drop leading-4.",
       "test": "object-number.spec.ts › ObjectNumber line height › regular and inverted numbers keep a 1rem line height, large ones 2rem",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual object-number: positive and large positive match by styles in 16/16 (other digits than fundamental-styles', so no pixels)."
     },
     {
       "id": "card-1",
@@ -1763,11 +1763,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-synthetic-bold",
-      "status": "covered",
+      "status": "verified",
       "repro": "card.spec.ts, a card with a title: the [fd-card-title] has font-family 72-Bold and computed font-weight 700 (synthetic bold); fundamental-styles has 400.",
       "test": "card.spec.ts › Card › the title uses the 72-Bold face with a normal weight, so no synthetic bold is added",
-      "fix": "",
-      "notes": ""
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual card: title matches by styles in 16/16."
     },
     {
       "id": "card-2",
@@ -1803,11 +1803,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "covered",
+      "status": "verified",
       "repro": "card.spec.ts, a card: its computed box-shadow (shadow-(--card-shadow)) has four transparent ring layers before the card shadow.",
       "test": "card.spec.ts › Card › the card shadow has no transparent ring layers",
-      "fix": "",
-      "notes": ""
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "card-5",
@@ -1895,11 +1895,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-synthetic-bold",
-      "status": "covered",
+      "status": "verified",
       "repro": "panel.spec.ts, the default panel: the [fd-panel-title] has font-family 72-Bold and computed font-weight 700 (synthetic bold); fundamental-styles has 400.",
       "test": "panel.spec.ts › Panel › the title uses the 72-Bold face with a normal weight, so no synthetic bold is added",
-      "fix": "",
-      "notes": ""
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual panel: title (styles) and expand button (styles and pixels) match in 16/16."
     },
     {
       "id": "panel-2",
@@ -1909,11 +1909,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "panel.spec.ts, an expandable panel: the expand button's computed line-height is 24px (inherited) instead of normal; the panel's text-base drops the button's leading-[normal].",
       "test": "panel.spec.ts › Panel expand button line height › the expand button keeps a normal line height",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual panel: expand button matches in 16/16."
     },
     {
       "id": "panel-3",
@@ -2105,11 +2105,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "covered",
+      "status": "verified",
       "repro": "slider.spec.ts, a slider in sap_horizon_hcb: the track's and the progress's hc box-shadows have four transparent ring layers.",
       "test": "slider.spec.ts › Slider › the high-contrast track and progress shadows have no transparent ring layers",
-      "fix": "",
-      "notes": ""
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "rating-indicator-1",
@@ -2132,11 +2132,11 @@
       "kind": "visual",
       "confirmed": "read from the code",
       "pattern": "pattern-leading-merge",
-      "status": "covered",
+      "status": "verified",
       "repro": "rating-indicator.spec.ts, allowHalves with value 2.5 at md: every half-star fd-icon has line-height normal instead of 24px (text-(length:--ri-size) drops the icon's leading-none).",
       "test": "rating-indicator.spec.ts › RatingIndicator line height › the half-star icons keep line-height 1 (24px at md)",
-      "fix": "",
-      "notes": "Same cause as icon-1: may be fixed by it."
+      "fix": "115fbfa",
+      "notes": "Same cause as icon-1: may be fixed by it. Verified: the spec passes and pnpm check passes. pnpm visual rating-indicator: halves md matches in 16/16."
     },
     {
       "id": "datetime-picker-1",
@@ -2237,11 +2237,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-compact-button-size",
-      "status": "covered",
+      "status": "verified",
       "repro": "dynamic-page.spec.ts, the subheader toolbar buttons in data-density=compact: 32×26px instead of 24×24px (the button's compact: height, padding and min-width win over h-6 w-6 min-w-6 p-0).",
       "test": "dynamic-page.spec.ts › DynamicPage › the collapse and pin buttons are 24×24px in both densities",
-      "fix": "",
-      "notes": ""
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual dynamic-page: collapse and pin buttons match by pixels in 16/16 (background-color ignored: dynamic-page-2)."
     },
     {
       "id": "dynamic-page-2",
@@ -2264,11 +2264,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-oklab-gradient",
-      "status": "covered",
+      "status": "verified",
       "repro": "dynamic-page.spec.ts, the default page: the gradient lines on both sides of the header toolbar compute to 'linear-gradient(to left in oklab, …)'; fundamental-styles' have no interpolation space (sRGB).",
       "test": "dynamic-page.spec.ts › DynamicPage › the gradient lines next to the header buttons blend in sRGB, as fundamental-styles",
-      "fix": "",
-      "notes": ""
+      "fix": "9c597b7",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual dynamic-page: start and end gradients match by computed styles in 16/16."
     },
     {
       "id": "dynamic-page-4",
@@ -2317,11 +2317,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "covered",
+      "status": "verified",
       "repro": "micro-process-flow.spec.ts, three steps: each step icon's computed border-radius is 3.35544e+07px instead of 50%.",
       "test": "micro-process-flow.spec.ts › MicroProcessFlow › the step icons are rounded with 50%, as fundamental-styles",
-      "fix": "",
-      "notes": ""
+      "fix": "fc14b61",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "multi-combobox-1",
@@ -2487,11 +2487,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-compact-button-size",
-      "status": "covered",
+      "status": "verified",
       "repro": "flexible-column-layout.spec.ts, ThreeColumnsMidExpanded: the separator buttons are 32px wide and 26px high in cozy (data-density=compact on the button), against 24×32px in fundamental-styles.",
       "test": "flexible-column-layout.spec.ts › FlexibleColumnLayout › the separator buttons are 32×24px in cozy and 26×24px in compact density",
-      "fix": "",
-      "notes": ""
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual flexible-column-layout: the separator button matches by styles in 16/16 (24×32px cozy, 24×26px compact)."
     },
     {
       "id": "flexible-column-layout-2",
@@ -2501,11 +2501,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-oklab-gradient",
-      "status": "covered",
+      "status": "verified",
       "repro": "flexible-column-layout.spec.ts, ThreeColumnsMidExpanded: the separators' ::before/::after compute to 'linear-gradient(to top in oklab, …)' / 'to bottom in oklab'; fundamental-styles blends in sRGB.",
       "test": "flexible-column-layout.spec.ts › FlexibleColumnLayout › the separator gradient lines blend in sRGB, as fundamental-styles",
-      "fix": "",
-      "notes": ""
+      "fix": "9c597b7",
+      "notes": "Verified: the spec passes and pnpm check passes. Computed background-image checked by the spec; the visual tool does not compare pseudo-elements."
     },
     {
       "id": "flexible-column-layout-3",
@@ -2541,11 +2541,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-shadow-ring",
-      "status": "covered",
+      "status": "verified",
       "repro": "fixed-card-layout.spec.ts, dragging the first card past the threshold: the .cdk-drag-preview's computed box-shadow has four transparent ring layers before --sapContent_Shadow2.",
       "test": "fixed-card-layout.spec.ts › FixedCardLayout › the drag preview has the theme shadow without transparent ring layers",
-      "fix": "",
-      "notes": ""
+      "fix": "ab716d5",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "resizable-card-layout-1",
@@ -2633,11 +2633,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-synthetic-bold",
-      "status": "covered",
+      "status": "verified",
       "repro": "feed-list.spec.ts, an item with authorLink: the emphasized author link (72-Bold) inherits font-bold from the author span, computed font-weight 700; fundamental-styles has 400.",
       "test": "feed-list.spec.ts › FeedList › the author link uses the 72-Bold face with a normal weight, so no synthetic bold is added",
-      "fix": "",
-      "notes": ""
+      "fix": "7b1d61b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual feed-list: author link matches by styles in 16/16 (text-underline-offset ignored: link-1)."
     },
     {
       "id": "feed-list-4",
@@ -2699,11 +2699,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "covered",
+      "status": "verified",
       "repro": "grid-list.spec.ts, a navigation item with dir=rtl: the arrow's span has rtl:rotate-180 and Icon mirrors navigation-right-arrow again, two flips, so it points right.",
       "test": "grid-list.spec.ts › GridList parts › in RTL the navigation arrow is mirrored once, by the icon (it points left)",
-      "fix": "",
-      "notes": ""
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual grid-list: the item toolbar with the navigation arrow matches by pixels in 16/16, RTL included (min-height ignored, not a row)."
     },
     {
       "id": "carousel-1",
@@ -2739,11 +2739,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-compact-button-size",
-      "status": "covered",
+      "status": "verified",
       "repro": "carousel.spec.ts in data-density=compact: the previous/next buttons have 7px left and right padding (p-0 does not override compact:px-…).",
       "test": "carousel.spec.ts › Carousel › the navigation buttons have no padding in compact density either",
-      "fix": "",
-      "notes": ""
+      "fix": "89203cb",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "carousel-4",
@@ -2753,11 +2753,11 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-rounded-full",
-      "status": "covered",
+      "status": "verified",
       "repro": "carousel.spec.ts, the default carousel: the previous/next buttons and page dots have a computed border-radius of 3.35544e+07px instead of 50%. The missing minimum heights (second half) are not part of this pattern.",
       "test": "carousel.spec.ts › Carousel › the navigation buttons and page dots are rounded with 50%, as fundamental-styles",
-      "fix": "",
-      "notes": "The missing minimum heights (second half) are not part of the pattern."
+      "fix": "fc14b61",
+      "notes": "The missing minimum heights (second half) are not part of the pattern. Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "file-uploader-1",
@@ -2910,11 +2910,11 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-rtl-double-mirror",
-      "status": "covered",
+      "status": "verified",
       "repro": "settings.spec.ts with dir=rtl, after pushView: the back button's icon is navigation-right-arrow, which Icon mirrors, so it points left.",
       "test": "settings.spec.ts › SettingsContainer › in RTL the back button keeps the left arrow, mirrored once by the icon (it points right)",
-      "fix": "",
-      "notes": ""
+      "fix": "6fef05b",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: the back button appears only after pushView (no story state shows it); the spec checks the glyph and a single flip."
     },
     {
       "id": "content-density-1",
