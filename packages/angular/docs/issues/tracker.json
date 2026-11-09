@@ -566,11 +566,11 @@
       "source": "../../../react/docs/parity/components/bar.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "bar.spec.ts Host (default bar, 1000px): the bar is 44px high but its left, middle and right areas are 36px, 16px and 36px (their content height), because of items-center on the bar.",
       "test": "Bar issues > stretches the left, middle and right areas to the bar height (bar-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "b8f15a3",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual bar: the left area with a title, the right area and the footer actions match by computed style (as high as the bar) in all 16 combinations."
     },
     {
       "id": "message-strip-1",
@@ -1206,11 +1206,11 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "pagination.spec.ts Host (50 items, page 2): the 'Page 1' button and the current page button have an 8px inline padding instead of the button's cozy 9px, because of px-2 on both.",
       "test": "Pagination issues > keeps the cozy button padding on page and current page buttons (pagination-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "ab3f7e0",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual pagination: the page button (at rest and hovered) and the current page button match in all 16 combinations (Middle page story, fundamental-styles' Middle Page)."
     },
     {
       "id": "pagination-2",
@@ -1219,11 +1219,11 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "pagination.spec.ts Host (mobile): the 'Page:' and 'of 50' labels have a 0px inline end margin instead of the form label's 8px.",
       "test": "Pagination issues > gives the mobile \"Page:\" and \"of N\" labels the form label end margin (pagination-2)",
-      "fix": "",
-      "notes": ""
+      "fix": "f0cda78",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual pagination: the mobile nav, the 'Page:' label (with its margins) and the input match in all 16 combinations (Mobile reference story, fundamental-styles' Mobile)."
     },
     {
       "id": "pagination-3",
@@ -1232,11 +1232,11 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "pagination.spec.ts Host (50 items, no items per page options): the space before the nav is 445.6px and after it 461.6px (16px apart, the nav 8px off centre), because of gap-4 on the root.",
       "test": "Pagination issues > centres the nav in the space next to the results text (pagination-3)",
-      "fix": "",
-      "notes": ""
+      "fix": "ba59e0e",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual pagination: the whole paginations (more and fewer than nine pages) and the nav match by pixels in all 16 combinations."
     },
     {
       "id": "pagination-4",
@@ -1245,11 +1245,11 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "pagination.spec.ts Host: the items per page, 'Page:', 'of 50' and results labels have cursor auto instead of fundamental-styles' form label text cursor.",
       "test": "Pagination issues > shows a text cursor over the labels (pagination-4)",
-      "fix": "",
-      "notes": ""
+      "fix": "d17e6fd",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual pagination: the results label and the mobile 'Page:' label match by computed style, cursor included, in all 16 combinations."
     },
     {
       "id": "pagination-5",
@@ -1324,11 +1324,11 @@
       "source": "../../../react/docs/parity/components/overflow-layout.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "overflow-layout.spec.ts Host, 20px items, the width set to four items + gap + '9 more' + 2px: going to 14 items shows A-C and '11 more' (the row shrinks, so its ResizeObserver re-measures), but back to 12 items the stale '11 more' width (87px instead of 80px) keeps three items and '9 more' instead of four and '8 more': the more control was measured only when it appeared.",
       "test": "OverflowLayout issues > re-measures the \"more\" control when its label changes width (overflow-layout-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "de779f9",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; Behaviour: no visual case (the spec covers the re-measurement)."
     },
     {
       "id": "wizard-1",
@@ -1351,11 +1351,11 @@
       "source": "../../../react/docs/parity/components/wizard.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "wizard.spec.ts Host, seven steps in 300px, the fourth current: the connector of the stacked top step (the 64px step before the current one) is 16px wide instead of 5px (min-w-4), running past its step.",
       "test": "Wizard issues > keeps the connector of the stacked top step inside its 4rem step (wizard-2)",
-      "fix": "",
-      "notes": ""
+      "fix": "658529d",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual wizard: the stacked top step and its connector, and the rest of the stacked progress bar, match in all 16 combinations (new Stacked story, fundamental-styles' mobile example)."
     },
     {
       "id": "wizard-3",
@@ -1391,11 +1391,11 @@
       "source": "../../../react/docs/parity/components/tabs.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "tabs.spec.ts IssuesHost, three tabs in a tab list: item start margin, tab start margin and tab start padding are '0px 3px 0px' for every tab without a mode (each item is the first child of its overflow wrapper) instead of '4px 0px 12px' after the first, and in icon-only mode the first tab keeps its 12px start padding.",
       "test": "Tabs issues > gives only the first tab the first tab start spacing, in every mode (tabs-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "627754c",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual tabs: the first tab item and tab and the next ones, with their margins and paddings, and the first icon-only tab match by computed style in all 16 combinations."
     },
     {
       "id": "tabs-2",
@@ -1404,11 +1404,11 @@
       "source": "../../../react/docs/parity/components/tabs.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "tabs.spec.ts IssuesHost: an unselected tab's tag is rgb(85, 107, 130) (--sapContent_LabelColor) instead of rgb(19, 30, 41) (--sapTextColor) in Horizon.",
       "test": "Tabs issues > shows the tag in the text colour (tabs-2)",
-      "fix": "",
-      "notes": ""
+      "fix": "3e4de3c",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual tabs: the tab tag matches by computed style (colour) in all 16 combinations."
     },
     {
       "id": "tabs-3",
@@ -1445,11 +1445,11 @@
       "source": "../../../react/docs/parity/components/side-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "side-navigation.spec.ts Host with a 1.5 line height on the page (as Tailwind's preflight on html): the nav and its main area compute line-height 21px instead of fundamental-styles' fd-side-nav normal; the nav set only the font family.",
       "test": "SideNavigation issues > sets the normal line height on the nav, not the page one (side-navigation-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "96df7f3",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual side-navigation: the navigation (expanded and condensed) by computed style, and the main and utility lists by pixels, match in all 16 combinations."
     },
     {
       "id": "breadcrumb-1",
@@ -1458,11 +1458,11 @@
       "source": "../../../react/docs/parity/components/breadcrumb.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "breadcrumb.spec.ts Host at 16rem (items collapsed): the 'more' link holds only icons, so its leading-6 gives no line box and it is 21px high instead of fundamental-styles' 24px (--fdLink_Line_Height).",
       "test": "Breadcrumb issues > makes the \"more\" link 1.5rem high (breadcrumb-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "e91c595",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual breadcrumb: the 'more' link matches by computed style (24px high) in all 16 combinations; text-underline-offset is ignored (link-1)."
     },
     {
       "id": "breadcrumb-2",
@@ -1471,11 +1471,11 @@
       "source": "../../../react/docs/parity/components/breadcrumb.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "breadcrumb.spec.ts Host at 16rem: the first visible item starts 4px after the 'more' control and its separator (the overflow layout's gap-1) instead of right after it.",
       "test": "Breadcrumb issues > puts the first visible item right after the \"more\" separator (breadcrumb-2)",
-      "fix": "",
-      "notes": ""
+      "fix": "1edd1e5",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; No visual case: the 4px is between the 'more' control and the row, which the element cases do not measure; the spec measures it. Comparing the 'more' control as a whole differs by 9.8% because of the Link component's icon margins (fundamental-styles: 2px on both sides of the overflow icon; ours 2px after it and 2px before the arrow), outside this issue."
     },
     {
       "id": "breadcrumb-3",
@@ -1497,11 +1497,11 @@
       "source": "../../../react/docs/parity/components/shellbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "shellbar.spec.ts IssuesHost (1300px, actions with [user] and a product switch): the simple user menu ends at 1252px, after the product switch that starts at 1174px, because fd-shellbar-user-menu has order-1.",
       "test": "Shellbar issues > puts the simple user menu before the product switch (shellbar-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "a15177b",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; No visual case: fundamental-styles has no bar with the same actions to compare the order by pixels; the spec measures it."
     },
     {
       "id": "shellbar-2",
@@ -1524,11 +1524,11 @@
       "source": "../../../react/docs/parity/components/shellbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "shellbar.spec.ts IssuesHost: the search field computes background-image none (only bg-sap-shell-interactive-background) instead of the --sapField_BackgroundStyle bottom line gradient.",
       "test": "Shellbar issues > draws the search field bottom line with --sapField_BackgroundStyle (shellbar-3)",
-      "fix": "",
-      "notes": ""
+      "fix": "0061e23",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual shellbar: the search field at rest and hovered matches in Horizon and Horizon Dark cozy (4 of 16); in compact (8) fundamental-styles' Storybook compacts the shellbar, which stays cozy (as Angular and fundamental-ngx), and in HC (4) fundamental-styles' input draws its own 1px border inside the field (3.2-3.9% of the pixels), as in the React port."
     },
     {
       "id": "shellbar-4",
@@ -1537,11 +1537,11 @@
       "source": "../../../react/docs/parity/components/shellbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "shellbar.spec.ts IssuesHost in Horizon HC Black, the search input hovered: its background is rgb(121, 81, 0) (hc:hover:bg-sap-shell-hover-background) instead of transparent.",
       "test": "Shellbar issues > keeps the hovered search input transparent in high contrast (shellbar-4)",
-      "fix": "",
-      "notes": ""
+      "fix": "8910dde",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual shellbar: the hovered search input matches by computed style (transparent background) in all 16 combinations (its font, height and paddings ignored: fundamental-styles' input sets no font)."
     },
     {
       "id": "shellbar-5",
@@ -1578,11 +1578,11 @@
       "source": "../../../react/docs/parity/components/shellbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "shellbar.spec.ts IssuesHost at 319px, size s, with a logo, a product menu, three actions, a user and a product switch: the product menu keeps its 153px title, so the bar's content is 371px wide and the last button ends at 370.8px, past the 319px bar. fundamental-styles hides .fd-shellbar__title (the product menu's title too) at size s.",
       "test": "Shellbar issues > fits a small bar with a product menu, which shows only its arrow (shellbar-7)",
-      "fix": "",
-      "notes": ""
+      "fix": "d2aa533",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; No visual case: fundamental-styles has no small shellbar with a product menu; the spec measures the fit and the hidden name."
     },
     {
       "id": "toolbar-1",
@@ -1591,11 +1591,11 @@
       "source": "../../../react/docs/parity/components/toolbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "toolbar.spec.ts ActiveInfoHost (active info toolbar with a label and an icon): the label is rgb(85, 107, 130) (--sapContent_LabelColor) instead of the bar's text colour rgb(4, 108, 122) (--sapInfobar_TextColor) in Horizon.",
       "test": "Toolbar issues > shows the label of an active info toolbar in the info bar text colour (toolbar-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "ad3bd1c",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual toolbar: the labels of the info and active info toolbars match in all 16 combinations (new Info types story, fundamental-styles' Types)."
     },
     {
       "id": "toolbar-2",
@@ -1604,11 +1604,11 @@
       "source": "../../../react/docs/parity/components/toolbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "toolbar.spec.ts ActiveInfoHost: the icon is rgb(4, 108, 122) (--sapInfobar_TextColor) instead of fundamental-styles' rgb(19, 30, 41) (--sapList_TextColor) in Horizon.",
       "test": "Toolbar issues > keeps the list text colour on the icons of an active info toolbar (toolbar-2)",
-      "fix": "",
-      "notes": ""
+      "fix": "e4fb669",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual toolbar: the icon of the active info toolbar matches by computed style in all 16 combinations (styles only: in RTL our icon component mirrors the undo glyph); the whole toolbars match by pixels in all 16."
     },
     {
       "id": "toolbar-3",
@@ -1617,11 +1617,11 @@
       "source": "../../../react/docs/parity/components/toolbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "toolbar.spec.ts ActiveInfoHost, the toolbar focused: its ::after focus frame has top, right, bottom and left 2px (inset-0.5) instead of 1px.",
       "test": "Toolbar issues > insets the focus frame of an active info toolbar by 1px (toolbar-3)",
-      "fix": "",
-      "notes": ""
+      "fix": "35044bc",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual toolbar: the focused active info toolbar matches by pixels in all 16 combinations."
     },
     {
       "id": "inline-help-1",
@@ -1656,11 +1656,11 @@
       "source": "../../../react/docs/parity/components/product-switch.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "product-switch.spec.ts Host, opened, the second product focused: its outline-offset is -2px (the -outline-offset-2 of the active state) instead of fundamental-styles' -3px (-0.1875rem).",
       "test": "ProductSwitch issues > insets the focus frame of a product by 3px (product-switch-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "7ac7c0d",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual product-switch: the focused item matches (outline included) in all 16 combinations (new Open: reference story with fundamental-styles' Large texts)."
     },
     {
       "id": "product-switch-2",
@@ -1682,11 +1682,11 @@
       "source": "../../../react/docs/parity/components/split-button.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "split-button.spec.ts Host in Horizon HC Black: the main and arrow buttons compute background rgb(0, 0, 0) (HC_BUTTON's hc:bg-sap-button-background) instead of transparent over the pad (fundamental-styles' --fdButton_Split_Background_Color: transparent); same colour, not visible.",
       "test": "SplitButton issues > keeps both buttons transparent on the pad in high contrast (split-button-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "bc8f891",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual split-button: every variant and the main and arrow buttons match in all 16 combinations (new Variants story), except emphasized in HC (8): fundamental-styles' arrow is 38px wide, ours 36px, because its icon is 16px (1em) wide and ours as wide as its glyph (10px), which with the 2px HC emphasized borders exceeds the 36px minimum; an Icon difference."
     },
     {
       "id": "split-button-2",
@@ -1695,11 +1695,11 @@
       "source": "../../../react/docs/parity/components/split-button.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "split-button.spec.ts Host in Horizon HC Black, each button focused: the ::after focus frame has 4px top-left and top-right radii on both buttons instead of the 6px corner radius outside and 0px at the inner end where the buttons are square.",
       "test": "SplitButton issues > squares the inner corners of the focus frames in high contrast (split-button-2)",
-      "fix": "",
-      "notes": ""
+      "fix": "5ff3681",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual split-button: the focused main and arrow buttons match by pixels in all 16 combinations."
     },
     {
       "id": "user-menu-1",
@@ -2184,11 +2184,11 @@
       "source": "../../../react/docs/parity/components/vertical-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "vertical-navigation.spec.ts Host, Calendar expanded: the Overview icon has no end margin, so the first-level text starts 48px into its row and the second-level 'Today' text 52px: 4px out of line (fundamental-styles' markup has a space between icon and text).",
       "test": "VerticalNavigation issues > lines first-level texts up with the second-level ones, 0.25rem after the icon (vertical-navigation-1)",
-      "fix": "",
-      "notes": ""
+      "fix": "db78f8f",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual vertical-navigation: the items, item texts, second-level items and texts match in all 16 combinations."
     },
     {
       "id": "vertical-navigation-2",
@@ -2197,11 +2197,11 @@
       "source": "../../../react/docs/parity/components/vertical-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "vertical-navigation.spec.ts Host: the 'Services' group header is one bold body-font text (no title span) with 16px side padding and 8px bottom padding, instead of fundamental-styles' list group header (0.9375rem padding, a title in the header font, --sapFontHeader6Size, 2rem line height, --sapList_TableGroupHeaderTextColor).",
       "test": "VerticalNavigation issues > shows the group header as a list group header title (vertical-navigation-2)",
-      "fix": "",
-      "notes": ""
+      "fix": "d2dbf2c",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual vertical-navigation: the group header matches by pixels in all 16 combinations."
     },
     {
       "id": "vertical-navigation-3",
@@ -2210,11 +2210,11 @@
       "source": "../../../react/docs/parity/components/vertical-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "vertical-navigation.spec.ts Host, condensed, Calendar's panel open: the panel header has a 14px start padding (fundamental-styles: none, the icon 0.875rem in), its text is --sapFontLargeSize (16px) instead of --sapFontSize, the second-level rows keep the 8px start padding (texts 8px further in), the corners are --sapElement_BorderCornerRadius (12px) instead of the popover radius, and the header is 44px high instead of the row's 43px inner height.",
       "test": "VerticalNavigation issues > lays the condensed panel out as fundamental-styles (vertical-navigation-3)",
-      "fix": "",
-      "notes": ""
+      "fix": "358d852",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; Also 4e2f017 (the panel kept the pointer cursor of the row). pnpm visual vertical-navigation: the panel header text, list, item and item text match in all 16 combinations; the panel header differs by 4.3-8.7% of the pixels (fundamental-styles' header row takes the first-child top border, 1px lower) and in RTL Horizon and Dark by its 12px bottom-right corner (fundamental-styles' RTL rule uses --sapElement_BorderCornerRadius), both kept as in the React port."
     },
     {
       "id": "vertical-navigation-4",
@@ -2223,11 +2223,11 @@
       "source": "../../../react/docs/parity/components/vertical-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "vertical-navigation.spec.ts Host on a page with a 1.25rem, 1.5 line height, bold, red text style: the column takes 20px, 30px, 700 and red instead of fd-vertical-nav's --sapFontSize (14px), line-height normal, 400 and --sapTextColor; it set only the font family.",
       "test": "VerticalNavigation issues > sets the vertical nav text style on the column (vertical-navigation-4)",
-      "fix": "",
-      "notes": ""
+      "fix": "74111dd",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; pnpm visual vertical-navigation: the navigation column (expanded and condensed) matches by computed style in all 16 combinations."
     },
     {
       "id": "dynamic-page-1",
