@@ -58,6 +58,21 @@ export const Disabled: Story = {
     })
 };
 
+export const Text: Story = {
+    parameters: {
+        docs: {
+            description: { story: "fundamental-styles' switches with text, for the visual comparison: off and on." }
+        }
+    },
+    render: () => ({
+        template: `
+            <label fdFormLabel id="text-1">Switch with text, off</label>
+            <fd-switch id="text-1" activeText="On" inactiveText="Off" ariaLabelledBy="text-1" />
+            <label fdFormLabel id="text-2">Switch with text, on</label>
+            <fd-switch id="text-2" activeText="On" inactiveText="Off" checked ariaLabelledBy="text-2" />`
+    })
+};
+
 export const Semantic: Story = {
     render: () => ({
         template: `
