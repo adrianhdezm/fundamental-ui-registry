@@ -2527,9 +2527,9 @@
       "source": "../../../react/docs/parity/components/fixed-card-layout.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host): the layout's flex container computes align-items: flex-start; fundamental-styles' fixed card layout has center (computed only: the columns fill the width).",
+      "test": "fixed-card-layout.spec.ts › FixedCardLayout › the columns are centred, as fundamental-styles (align-items: center, computed style)",
       "fix": "",
       "notes": ""
     },

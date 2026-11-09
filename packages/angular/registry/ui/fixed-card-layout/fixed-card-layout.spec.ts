@@ -177,6 +177,11 @@ describe('FixedCardLayout', () => {
         await frame();
     });
 
+    it('the columns are centred, as fundamental-styles (align-items: center, computed style)', async () => {
+        const { layout } = await setup();
+        expect(getComputedStyle(layout.querySelector<HTMLElement>('[cdkDropListGroup]')!).alignItems).toBe('center');
+    });
+
     it('a larger cardMinimumWidth reduces the number of columns (never below 20rem)', async () => {
         const { host, stable, columns, columnLefts, items } = await setup();
         expect(columns()).toBe(3);

@@ -746,12 +746,12 @@ None.
 
 #### fixed-card-layout
 
-[React report](../../../react/docs/parity/components/fixed-card-layout.md) · ⬜ reported: 1 · ✅ verified: 1
+[React report](../../../react/docs/parity/components/fixed-card-layout.md) · 🧪 covered: 1 · ✅ verified: 1
 
-| ID                  | Issue                                                                                                                      | Kind          | Confirmed | Pattern             | Status      | Test                                                                                                                | Fix     | Notes                                            |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------ |
-| fixed-card-layout-1 | The fixed card layout has `align-items: flex-start`; fundamental-styles has `center` (computed only).                      | computed-only | rendered  |                     | ⬜ reported |                                                                                                                     |         |                                                  |
-| fixed-card-layout-2 | The fixed-card-layout drag preview's `shadow-sap-content-shadow2` adds Tailwind's transparent ring layers (computed only). | computed-only | rendered  | pattern-shadow-ring | ✅ verified | fixed-card-layout.spec.ts › FixedCardLayout › the drag preview has the theme shadow without transparent ring layers | ab716d5 | Verified: the spec passes and pnpm check passes. |
+| ID                  | Issue                                                                                                                      | Kind          | Confirmed | Pattern             | Status      | Test                                                                                                                               | Fix     | Notes                                            |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------ |
+| fixed-card-layout-1 | The fixed card layout has `align-items: flex-start`; fundamental-styles has `center` (computed only).                      | computed-only | rendered  |                     | 🧪 covered  | fixed-card-layout.spec.ts › FixedCardLayout › the columns are centred, as fundamental-styles (align-items: center, computed style) |         |                                                  |
+| fixed-card-layout-2 | The fixed-card-layout drag preview's `shadow-sap-content-shadow2` adds Tailwind's transparent ring layers (computed only). | computed-only | rendered  | pattern-shadow-ring | ✅ verified | fixed-card-layout.spec.ts › FixedCardLayout › the drag preview has the theme shadow without transparent ring layers                | ab716d5 | Verified: the spec passes and pnpm check passes. |
 
 #### resizable-card-layout
 
