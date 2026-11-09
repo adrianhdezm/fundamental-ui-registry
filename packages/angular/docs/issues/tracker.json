@@ -1669,11 +1669,11 @@
       "source": "../../../react/docs/parity/components/product-switch.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "not-reproducible",
-      "repro": "product-switch.spec.ts Host, opened: the product icon computes font-size 24px and line-height 24px (1), also on its ::before glyph. Its class has had 'text-[1.5rem] leading-none' since 115fbfa (pattern-leading-merge), which added leading-none after the size; before, the icon had no line height and kept normal. Kept as 'ProductSwitch issues > gives the product icon a line height of 1 (product-switch-2)', passing before any change.",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "product-switch.spec.ts Host, opened, with the product icon class as before 115fbfa ('text-[1.5rem]' without leading-none): the icon computes line-height normal against fundamental-styles' 1 (24px at 24px). On main the icon has 'text-[1.5rem] leading-none' since 115fbfa (pattern-leading-merge, which searched the package for the pattern beyond its rows).",
+      "test": "ProductSwitch issues › gives the product icon a line height of 1 (product-switch-2)",
+      "fix": "115fbfa",
+      "notes": "Fixed by 115fbfa, the pattern-leading-merge commit of the patterns batch (#41), before the navigation batch reached it; first recorded as not reproducible for that reason. Verified: the test fails with the class from before 115fbfa (line-height normal) and passes on main; computed-only, so no visual comparison."
     },
     {
       "id": "split-button-1",
