@@ -105,8 +105,8 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-leading-merge",
-      "status": "reported",
-      "repro": "",
+      "status": "reproduced",
+      "repro": "`pnpm visual icon` (components-icon--sizes, --colors against fundamental-styles icons-sap-icons--sizes, --colors), 16 of 16 combinations: the md icon box is 35px high with `line-height: normal` (fundamental-styles: 32px, line-height 32px); xxl 87px against 80px.",
       "test": "",
       "fix": "",
       "notes": ""
@@ -118,8 +118,8 @@
       "source": "../../../react/docs/parity/components/icon.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
+      "status": "reproduced",
+      "repro": "`pnpm visual icon`, case \"narrow glyph\" (components-icon--rtl, first icon), 16 of 16 combinations: 12px wide against fundamental-styles 32px (1em); the md lightbulb is 24px wide against 32px.",
       "test": "",
       "fix": "",
       "notes": ""
