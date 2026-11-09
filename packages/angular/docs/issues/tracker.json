@@ -1391,9 +1391,9 @@
       "source": "../../../react/docs/parity/components/tabs.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "tabs.spec.ts IssuesHost, three tabs in a tab list: item start margin, tab start margin and tab start padding are '0px 3px 0px' for every tab without a mode (each item is the first child of its overflow wrapper) instead of '4px 0px 12px' after the first, and in icon-only mode the first tab keeps its 12px start padding.",
+      "test": "Tabs issues > gives only the first tab the first tab start spacing, in every mode (tabs-1)",
       "fix": "",
       "notes": ""
     },
