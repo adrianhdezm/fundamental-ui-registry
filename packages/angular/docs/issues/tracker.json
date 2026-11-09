@@ -252,7 +252,7 @@
       "confirmed": "rendered",
       "status": "covered",
       "repro": "Spec (OptionsHost, resizable): the open body's resize handle has data-glyph=\"\", its ::after content is \"\" (no glyph); fundamental-styles shows SAP-icons' resize-corner.",
-      "test": "popover.spec.ts › … › the resize handle shows the resize-corner glyph",
+      "test": "popover.spec.ts › Popover › body options › the resize handle shows the resize-corner glyph",
       "fix": "",
       "notes": ""
     },
@@ -263,9 +263,9 @@
       "source": "../../../react/docs/parity/components/popover.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (OptionsHost, resizable, 300px down): with placements bottom-end, top-end, left-start and right-end the handle stays at the bottom-end corner (cursor se-resize; top-end with -rotate-90 above), on the trigger's side; fundamental-styles puts it in the corner away from the trigger.",
+      "test": "popover.spec.ts › Popover › body options › the resize handle sits in the corner away from the trigger, as in fundamental-styles",
       "fix": "",
       "notes": ""
     },

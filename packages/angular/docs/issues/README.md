@@ -139,12 +139,12 @@ None.
 
 #### popover
 
-[React report](../../../react/docs/parity/components/popover.md) · ⬜ reported: 1 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/popover.md) · 🧪 covered: 2
 
-| ID        | Issue                                                                                                                                                                                         | Kind   | Confirmed | Pattern | Status      | Test                                                                  | Fix | Notes |
-| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | --------------------------------------------------------------------- | --- | ----- |
-| popover-1 | The resize handle has an empty `data-glyph`, so no glyph shows.                                                                                                                               | visual | rendered  |         | 🧪 covered  | popover.spec.ts › … › the resize handle shows the resize-corner glyph |     |       |
-| popover-2 | The resize handle is always at the bottom-end (top-end when above) corner, even for left/right placements and end alignments; fundamental-styles puts it in the corner away from the trigger. | visual | rendered  |         | ⬜ reported |                                                                       |     |       |
+| ID        | Issue                                                                                                                                                                                         | Kind   | Confirmed | Pattern | Status     | Test                                                                                                                            | Fix | Notes |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| popover-1 | The resize handle has an empty `data-glyph`, so no glyph shows.                                                                                                                               | visual | rendered  |         | 🧪 covered | popover.spec.ts › Popover › body options › the resize handle shows the resize-corner glyph                                      |     |       |
+| popover-2 | The resize handle is always at the bottom-end (top-end when above) corner, even for left/right placements and end alignments; fundamental-styles puts it in the corner away from the trigger. | visual | rendered  |         | 🧪 covered | popover.spec.ts › Popover › body options › the resize handle sits in the corner away from the trigger, as in fundamental-styles |     |       |
 
 #### radio
 
