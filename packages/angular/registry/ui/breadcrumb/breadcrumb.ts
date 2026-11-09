@@ -144,7 +144,7 @@ abstract class Breadcrumb_ {
         <fd-overflow-layout
             showMorePosition="left"
             ariaRole="list"
-            class="justify-start"
+            class="justify-start gap-0"
             [reverseHiddenItems]="!reverse()"
             [enableKeyboardNavigation]="false"
             (visibleItemsCount)="visibleItemsCount.emit($event)"

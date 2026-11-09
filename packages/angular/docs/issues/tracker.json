@@ -1471,9 +1471,9 @@
       "source": "../../../react/docs/parity/components/breadcrumb.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "breadcrumb.spec.ts Host at 16rem: the first visible item starts 4px after the 'more' control and its separator (the overflow layout's gap-1) instead of right after it.",
+      "test": "Breadcrumb issues > puts the first visible item right after the \"more\" separator (breadcrumb-2)",
       "fix": "",
       "notes": ""
     },

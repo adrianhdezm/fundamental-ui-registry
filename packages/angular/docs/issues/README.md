@@ -462,13 +462,13 @@ None.
 
 #### breadcrumb
 
-[React report](../../../react/docs/parity/components/breadcrumb.md) · ⬜ reported: 1 · 🧪 covered: 1 · ➖ not reproducible: 1
+[React report](../../../react/docs/parity/components/breadcrumb.md) · 🧪 covered: 2 · ➖ not reproducible: 1
 
-| ID           | Issue                                                                                                     | Kind   | Confirmed | Pattern | Status              | Test                                                                 | Fix | Notes |
-| ------------ | --------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ------------------- | -------------------------------------------------------------------- | --- | ----- |
-| breadcrumb-1 | The breadcrumb "more" link holds only icons and is 21px high instead of 24px.                             | visual | rendered  |         | 🧪 covered          | Breadcrumb issues > makes the "more" link 1.5rem high (breadcrumb-1) |     |       |
-| breadcrumb-2 | The breadcrumb overflow layout's `gap-1` adds 4px between the "more" separator and the first item.        | visual | rendered  |         | ⬜ reported         |                                                                      |     |       |
-| breadcrumb-3 | Breadcrumb items' `py-px p-0` loses the 1px vertical padding to tailwind-merge, so items are 2px shorter. | visual | rendered  |         | ➖ not reproducible |                                                                      |     |       |
+| ID           | Issue                                                                                                     | Kind   | Confirmed | Pattern | Status              | Test                                                                                            | Fix | Notes |
+| ------------ | --------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ------------------- | ----------------------------------------------------------------------------------------------- | --- | ----- |
+| breadcrumb-1 | The breadcrumb "more" link holds only icons and is 21px high instead of 24px.                             | visual | rendered  |         | 🧪 covered          | Breadcrumb issues > makes the "more" link 1.5rem high (breadcrumb-1)                            |     |       |
+| breadcrumb-2 | The breadcrumb overflow layout's `gap-1` adds 4px between the "more" separator and the first item.        | visual | rendered  |         | 🧪 covered          | Breadcrumb issues > puts the first visible item right after the "more" separator (breadcrumb-2) |     |       |
+| breadcrumb-3 | Breadcrumb items' `py-px p-0` loses the 1px vertical padding to tailwind-merge, so items are 2px shorter. | visual | rendered  |         | ➖ not reproducible |                                                                                                 |     |       |
 
 #### shellbar
 

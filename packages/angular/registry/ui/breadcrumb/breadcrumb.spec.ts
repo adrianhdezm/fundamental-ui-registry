@@ -164,6 +164,13 @@ describe('Breadcrumb issues', () => {
         expect(el.querySelector('[data-breadcrumb-more]')!.getBoundingClientRect().height).toBe(24);
     });
 
+    it('puts the first visible item right after the "more" separator (breadcrumb-2)', async () => {
+        const { el } = await setup('16rem');
+        const more = el.querySelector('[data-breadcrumb-more]')!.parentElement!.getBoundingClientRect();
+        const row = el.querySelector('[role=list]')!.getBoundingClientRect();
+        expect(row.left - more.right).toBe(0);
+    });
+
     it('keeps the 1px vertical padding of the items (breadcrumb-3)', async () => {
         const { el } = await setup();
         const item = getComputedStyle(el.querySelector('fd-breadcrumb-item')!);
