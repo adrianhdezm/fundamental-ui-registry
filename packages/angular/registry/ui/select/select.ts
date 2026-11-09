@@ -648,10 +648,11 @@ export class Select<T = unknown> implements ControlValueAccessor {
             // the field shadow is drawn by a frame that the focus does not remove; value states keep theirs
             "shadow-none focus:shadow-none after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-sap-field-shadow after:content-['']",
             fieldStates[state],
-            'group/select my-0 flex cursor-pointer items-center justify-between gap-1 overflow-visible p-0 compact:my-0 compact:p-0',
+            // the arrow button is as high as the field: the field clips it inside its border, as fundamental-styles
+            'group/select my-0 flex cursor-pointer items-center justify-between gap-1 overflow-hidden p-0 compact:my-0 compact:p-0',
             'aria-expanded:outline-none',
-            // field button look of the arrow, as in input groups
-            '[--sapButton_Lite_Background:transparent] [--sapButton_Lite_Hover_Background:transparent] [--sapButton_Lite_Active_Background:transparent]',
+            // field button look of the arrow, as in input groups; high contrast keeps the lite button backgrounds
+            'not-hc:[--sapButton_Lite_Background:transparent] not-hc:[--sapButton_Lite_Hover_Background:transparent] not-hc:[--sapButton_Lite_Active_Background:transparent]',
             '[--sapButton_Lite_BorderColor:transparent] [--sapButton_Lite_Hover_BorderColor:transparent] [--sapButton_Lite_Active_BorderColor:transparent]',
             '[--sapButton_Lite_TextColor:var(--sapField_TextColor)] [--sapButton_Lite_Hover_TextColor:var(--sapField_TextColor)]',
             '[--sapButton_BorderCornerRadius:var(--sapField_BorderCornerRadius)]',
