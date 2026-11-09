@@ -162,7 +162,7 @@ const DROPDOWN_MAX_WIDTH = 640;
                 [glyphExpanded]="isOpen()"
                 [buttonFocusable]="buttonFocusable()"
                 [tokenizerLabel]="tokensLabel()"
-                [class]="glyphMirrored() ? '[&>div>button_fd-icon]:-scale-x-100' : ''"
+                [class]="tokenizerClass()"
                 (moreClickedEvent)="onMoreClicked()"
                 (addOnButtonClicked)="onAddOnButtonClick($event)"
             >
@@ -455,6 +455,14 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
     });
     protected readonly listShown = computed(() => !this.mobile() && this.open() && this.displayedOptions().length > 0);
     protected readonly glyphMirrored = computed(() => this.glyph() === 'value-help' && this.dir?.value === 'rtl');
+    /** Classes of the tokenizer field: fundamental-styles' multi input is an input group around a tokenizer. */
+    protected readonly tokenizerClass = computed(() =>
+        cn(
+            this.glyphMirrored() && '[&>div>button_fd-icon]:-scale-x-100',
+            // the input group's field hover shadow (value states keep their own)
+            (this.state() ?? 'default') === 'default' && 'hover:[box-shadow:var(--sapField_Hover_Shadow)]'
+        )
+    );
     protected readonly popoverMaxWidth = computed(() => {
         const max = this.bodyMaxWidth();
         // fundamental-styles' dropdown stops at 40rem, also on a wider field
