@@ -2184,9 +2184,9 @@
       "source": "../../../react/docs/parity/components/vertical-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "vertical-navigation.spec.ts Host, Calendar expanded: the Overview icon has no end margin, so the first-level text starts 48px into its row and the second-level 'Today' text 52px: 4px out of line (fundamental-styles' markup has a space between icon and text).",
+      "test": "VerticalNavigation issues > lines first-level texts up with the second-level ones, 0.25rem after the icon (vertical-navigation-1)",
       "fix": "",
       "notes": ""
     },

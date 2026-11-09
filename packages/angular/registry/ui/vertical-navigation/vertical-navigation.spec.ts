@@ -204,3 +204,29 @@ describe('VerticalNavigation', () => {
         expect(focusedName()).toBe('Calendar');
     });
 });
+
+describe('VerticalNavigation issues', () => {
+    afterEach(() => document.querySelectorAll('fd-vertical-navigation').forEach((el) => el.remove()));
+
+    /** The computed value of a theme variable for a CSS property. */
+    const themed = (property: 'color' | 'fontSize' | 'borderTopLeftRadius', value: string) => {
+        const probe = document.createElement('div');
+        probe.style[property] = value;
+        document.body.appendChild(probe);
+        const computed = getComputedStyle(probe)[property];
+        probe.remove();
+        return computed;
+    };
+    const text = (name: string) => item(name).querySelector<HTMLElement>('[fd-list-navigation-item-text]')!;
+    const textStart = (name: string) =>
+        text(name).getBoundingClientRect().left + parseFloat(getComputedStyle(text(name)).paddingLeft);
+
+    it('lines first-level texts up with the second-level ones, 0.25rem after the icon (vertical-navigation-1)', async () => {
+        const { fixture, host } = await setup();
+        host.expanded.set(true);
+        await fixture.whenStable();
+        const icon = item('Overview').querySelector('fd-icon')!;
+        expect(getComputedStyle(icon).marginInlineEnd).toBe('4px');
+        expect(textStart('Overview')).toBe(textStart('Today'));
+    });
+});

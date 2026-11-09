@@ -313,7 +313,9 @@ export class ListNavigationItem implements FocusableOption {
                 !condensed &&
                 'h-auto overflow-hidden ps-3 [&_ul]:-ms-3 [&_ul]:-me-4 [&_ul]:block [&_ul]:w-auto [&>div>div>fd-icon]:pe-2',
             !expanded && '[&_ul]:hidden',
-            condensed && 'w-[3.25rem] ps-0 pe-0 [&>div>div>fd-icon]:mx-2',
+            // 0.25rem to the text: the space between icon and text in fundamental-styles' markup, which lines the
+            // text up with the second-level texts; condensed, the icon is centred
+            condensed ? 'w-[3.25rem] ps-0 pe-0 [&>div>div>fd-icon]:mx-2' : '[&>div>div>fd-icon]:me-1',
             this.panelOpen() && 'overflow-visible'
         );
     });
