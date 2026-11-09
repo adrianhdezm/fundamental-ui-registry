@@ -149,7 +149,7 @@ class ShapeHost {
         <div style="width: 600px">
             <fd-avatar-group id="group" size="s" type="group">
                 @for (name of names; track name) {
-                    <fd-avatar *fdAvatarGroupItem circle size="s" colorAccent="2" [label]="name" />
+                    <fd-avatar *fdAvatarGroupItem circle size="s" [colorAccent]="2" [label]="name" />
                 }
             </fd-avatar-group>
         </div>
@@ -160,7 +160,7 @@ class ShapeHost {
                         *fdAvatarGroupItem="details; title: name"
                         circle
                         size="s"
-                        colorAccent="2"
+                        [colorAccent]="2"
                         [label]="name"
                     />
                 }
