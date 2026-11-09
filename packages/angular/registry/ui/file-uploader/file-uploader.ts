@@ -278,7 +278,7 @@ export class FileUploader implements ControlValueAccessor {
             fieldBase,
             fieldStates[this.state() ?? 'default'],
             // the field shows the file names: a caret-less, non-editable text
-            'my-0 min-w-0 flex-1 cursor-pointer text-transparent [text-shadow:0_0_0_var(--sapTextColor)] select-none placeholder:text-sap-text-color',
+            'min-w-0 flex-1 cursor-pointer text-transparent [text-shadow:0_0_0_var(--sapTextColor)] select-none placeholder:text-sap-text-color',
             this.validFiles().length && 'placeholder:not-italic',
             // a fixed width replaces the growing field
             this.width() && 'flex-none'

@@ -222,3 +222,38 @@ describe('FileUploader', () => {
         expect(host.drags()).toEqual(['enter', 'leave']);
     });
 });
+
+@Component({
+    imports: [FileUploader],
+    template: `
+        <fd-file-uploader id="cozy" ariaLabel="Cozy" />
+        <fd-file-uploader id="off" ariaLabel="Off" disabled />
+    `
+})
+class IssuesHost {}
+
+describe('FileUploader issues', () => {
+    async function render() {
+        const fixture = TestBed.createComponent(IssuesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        return fixture.nativeElement as HTMLElement;
+    }
+
+    it('keeps the cozy field margins, 44px high (file-uploader-1)', async () => {
+        const root = await render();
+        expect(root.querySelector('#cozy')!.getBoundingClientRect().height).toBe(44);
+    });
+
+    it('is no drop target while disabled (file-uploader-2)', async () => {
+        const root = await render();
+        const zone = root.querySelector<HTMLElement>('#off [fdFileDragnDrop], #off [fdfiledragndrop]')!;
+        const over = new DragEvent('dragover', { bubbles: true, cancelable: true, dataTransfer: new DataTransfer() });
+        zone.dispatchEvent(over);
+        expect(over.defaultPrevented).toBe(false);
+        const enabled = root.querySelector<HTMLElement>('#cozy [fdFileDragnDrop], #cozy [fdfiledragndrop]')!;
+        const accepted = new DragEvent('dragover', { bubbles: true, cancelable: true, dataTransfer: new DataTransfer() });
+        enabled.dispatchEvent(accepted);
+        expect(accepted.defaultPrevented).toBe(true);
+    });
+});

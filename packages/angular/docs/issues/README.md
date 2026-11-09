@@ -799,12 +799,12 @@ None.
 
 #### file-uploader
 
-[React report](../../../react/docs/parity/components/file-uploader.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/file-uploader.md) · 🧪 covered: 2
 
-| ID              | Issue                                                                                                                             | Kind      | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| file-uploader-1 | The file-uploader `my-0` removes the cozy field margins only, so the uploader is 36px instead of 44px in cozy.                    | visual    | rendered  |         | ⬜ reported |      |     |       |
-| file-uploader-2 | A disabled file uploader accepts the drag, then ignores the drop without `preventDefault`, so the browser opens the dropped file. | behaviour | rendered  |         | ⬜ reported |      |     |       |
+| ID              | Issue                                                                                                                             | Kind      | Confirmed | Pattern | Status     | Test                                                                            | Fix | Notes |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ---------- | ------------------------------------------------------------------------------- | --- | ----- |
+| file-uploader-1 | The file-uploader `my-0` removes the cozy field margins only, so the uploader is 36px instead of 44px in cozy.                    | visual    | rendered  |         | 🧪 covered | FileUploader issues > keeps the cozy field margins, 44px high (file-uploader-1) |     |       |
+| file-uploader-2 | A disabled file uploader accepts the drag, then ignores the drop without `preventDefault`, so the browser opens the dropped file. | behaviour | rendered  |         | 🧪 covered | FileUploader issues > is no drop target while disabled (file-uploader-2)        |     |       |
 
 #### upload-collection
 
