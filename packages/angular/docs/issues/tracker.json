@@ -1987,9 +1987,9 @@
       "source": "../../../react/docs/parity/components/progress-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "progress-indicator.spec.ts, value 42% in 400px: the label starts at the root's corner (inset-x-0, 0px from the track's left) and spans the whole root; fundamental-styles puts it 1px inside the track border, as wide as its text.",
+      "test": "progress-indicator.spec.ts › ProgressIndicator › the label sits 1px inside the track border and is as wide as its text",
       "fix": "",
       "notes": ""
     },

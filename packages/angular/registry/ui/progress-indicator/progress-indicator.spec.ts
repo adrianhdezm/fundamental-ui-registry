@@ -74,6 +74,14 @@ async function setup() {
 }
 
 describe('ProgressIndicator', () => {
+    it('the label sits 1px inside the track border and is as wide as its text', async () => {
+        const { root, bar } = await setup();
+        const label = root.querySelector<HTMLElement>('[aria-hidden=true]')!;
+        const track = bar.getBoundingClientRect();
+        expect(label.getBoundingClientRect().left - track.left).toBe(1);
+        expect(label.getBoundingClientRect().width).toBeLessThan(track.width / 2);
+    });
+
     it('the label has a normal line height, as fundamental-styles', async () => {
         const { root } = await setup();
         const label = root.querySelector<HTMLElement>('[aria-hidden=true]')!;

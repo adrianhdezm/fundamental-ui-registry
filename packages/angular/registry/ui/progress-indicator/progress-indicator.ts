@@ -103,7 +103,7 @@ const STATES: Record<ProgressIndicatorState | 'neutral', { vars: string; glyph: 
                 </fd-popover-body>
             </fd-popover>
         } @else {
-            <span #label aria-hidden="true" [class]="labelClass + ' absolute inset-x-0 top-0'">{{ text() }}</span>
+            <span #label aria-hidden="true" [class]="positionedLabelClass">{{ text() }}</span>
         }
         <div
             role="progressbar"
@@ -193,6 +193,12 @@ export class ProgressIndicator {
 
     protected readonly labelClass =
         'block max-w-full truncate text-sap-progress-font-size leading-[normal] text-sap-field-text-color select-none';
+
+    /** Above the track, inside its border as fundamental-styles: as wide as the text, at most the track. */
+    protected readonly positionedLabelClass = cn(
+        this.labelClass,
+        'absolute start-px top-px max-w-[calc(100%-1.25rem-2px)]'
+    );
 
     protected readonly iconClass =
         'absolute -end-5 -bottom-2.5 text-sap-font-large-size leading-none text-(--pi-icon) [&_*]:align-middle';

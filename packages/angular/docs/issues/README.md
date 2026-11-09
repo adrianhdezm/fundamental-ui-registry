@@ -606,14 +606,14 @@ None.
 
 #### progress-indicator
 
-[React report](../../../react/docs/parity/components/progress-indicator.md) · ⬜ reported: 3 · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/progress-indicator.md) · ⬜ reported: 2 · 🧪 covered: 2
 
-| ID                   | Issue                                                                                                                           | Kind   | Confirmed | Pattern | Status      | Test                                                                                                       | Fix | Notes |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---------------------------------------------------------------------------------------------------------- | --- | ----- |
-| progress-indicator-1 | The progress-indicator label uses `leading-normal` (1.5) instead of `normal`, so it sits 1px over the track.                    | visual | rendered  |         | 🧪 covered  | progress-indicator.spec.ts › ProgressIndicator › the label has a normal line height, as fundamental-styles |     |       |
-| progress-indicator-2 | The progress-indicator label spans the whole root; fundamental-styles puts it 1px inside the track border, as wide as its text. | visual | rendered  |         | ⬜ reported |                                                                                                            |     |       |
-| progress-indicator-3 | The progress-indicator bar sits 1px over the track border, has a 10px minimum width and is 2px wider at 100%.                   | visual | rendered  |         | ⬜ reported |                                                                                                            |     |       |
-| progress-indicator-4 | The progress-indicator icon box is 17px instead of 18px, with the glyph 1px higher.                                             | visual | rendered  |         | ⬜ reported |                                                                                                            |     |       |
+| ID                   | Issue                                                                                                                           | Kind   | Confirmed | Pattern | Status      | Test                                                                                                                   | Fix | Notes |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| progress-indicator-1 | The progress-indicator label uses `leading-normal` (1.5) instead of `normal`, so it sits 1px over the track.                    | visual | rendered  |         | 🧪 covered  | progress-indicator.spec.ts › ProgressIndicator › the label has a normal line height, as fundamental-styles             |     |       |
+| progress-indicator-2 | The progress-indicator label spans the whole root; fundamental-styles puts it 1px inside the track border, as wide as its text. | visual | rendered  |         | 🧪 covered  | progress-indicator.spec.ts › ProgressIndicator › the label sits 1px inside the track border and is as wide as its text |     |       |
+| progress-indicator-3 | The progress-indicator bar sits 1px over the track border, has a 10px minimum width and is 2px wider at 100%.                   | visual | rendered  |         | ⬜ reported |                                                                                                                        |     |       |
+| progress-indicator-4 | The progress-indicator icon box is 17px instead of 18px, with the glyph 1px higher.                                             | visual | rendered  |         | ⬜ reported |                                                                                                                        |     |       |
 
 #### formatted-text
 
