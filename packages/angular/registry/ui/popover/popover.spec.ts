@@ -721,6 +721,15 @@ describe('Popover', () => {
             near(rect(surface()).height, before.height + 40);
         });
 
+        it('the resize handle shows the resize-corner glyph', async () => {
+            const { stable, control, surface } = await setupOptions({ resizable: true });
+            await userEvent.click(control());
+            await stable();
+            const handle = surface().querySelector<HTMLElement>('[role="presentation"]')!;
+            // SAP-icons' resize-corner is U+E24F
+            expect(getComputedStyle(handle, '::after').content).toBe('"\ue24f"');
+        });
+
         it('disableScrollbar removes the scroll wrapper', async () => {
             const { fixture, host, stable, el, control, surface } = await setupOptions();
             await userEvent.click(control());

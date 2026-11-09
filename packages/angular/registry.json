@@ -165,7 +165,7 @@
       "title": "Popover",
       "description": "Overlay content anchored to a trigger, built on the CDK overlay: placements, triggers, arrow, focus handling, fill modes and resizing.",
       "dependencies": ["@angular/cdk", "rxjs"],
-      "registryDependencies": ["utils", "theme"],
+      "registryDependencies": ["utils", "theme", "icon"],
       "files": [
         {
           "path": "registry/ui/popover/popover.ts",

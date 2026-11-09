@@ -250,9 +250,9 @@
       "source": "../../../react/docs/parity/components/popover.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (OptionsHost, resizable): the open body's resize handle has data-glyph=\"\", its ::after content is \"\" (no glyph); fundamental-styles shows SAP-icons' resize-corner.",
+      "test": "popover.spec.ts › … › the resize handle shows the resize-corner glyph",
       "fix": "",
       "notes": ""
     },

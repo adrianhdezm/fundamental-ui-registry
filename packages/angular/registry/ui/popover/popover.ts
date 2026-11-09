@@ -46,6 +46,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, merge } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
 import { cn, type ClassValue } from '@/lib/utils';
+import { iconGlyphChar } from '@/ui/icon/icon';
 import {
     type ArrowAlign,
     type ArrowSide,
@@ -213,7 +214,7 @@ const ARROW_ALIGN_Y: Record<ArrowAlign, string> = {
                     role="presentation"
                     aria-hidden="true"
                     [class]="resizeHandleClass()"
-                    data-glyph=""
+                    [attr.data-glyph]="resizeGlyph"
                     (pointerdown)="startResize($event)"
                 ></span>
             }
@@ -290,6 +291,8 @@ export class PopoverBody {
             this.userClass()
         );
     });
+
+    protected readonly resizeGlyph = iconGlyphChar('resize-corner');
 
     protected readonly resizeHandleClass = computed(() =>
         cn(
