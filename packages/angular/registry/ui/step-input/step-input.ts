@@ -433,14 +433,15 @@ export class StepInput implements ControlValueAccessor {
     protected readonly inputClass = computed(() =>
         cn(
             'm-0 box-border h-full min-w-0 flex-1 appearance-none border-0 bg-transparent px-1 py-0 text-end rtl:text-start',
-            'font-sap-font-family text-sap-font-size text-sap-field-text-color shadow-none outline-none',
+            // regular in every state (the HC states make the field italic and bold), as fundamental-styles
+            'font-sap-font-family text-sap-font-size font-normal not-italic text-sap-field-text-color shadow-none outline-none',
             'placeholder:italic placeholder:text-sap-field-placeholder-text-color',
             (this.readonly() || !this.hasStepButtons()) && 'px-2.5 compact:px-2'
         )
     );
 
     protected readonly buttonClass =
-        'shrink-0 w-9 min-w-9 compact:w-8 compact:min-w-8 rounded-sap-field-border-corner-radius focus:after:hidden';
+        'shrink-0 w-9 min-w-9 compact:w-8 compact:min-w-8 rounded-sap-field-border-corner-radius font-normal not-italic focus:after:hidden';
 }
 
 function optionalNumber(value: unknown): number | undefined {

@@ -324,12 +324,12 @@ None.
 
 #### step-input
 
-[React report](../../../react/docs/parity/components/step-input.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/step-input.md) · 🧪 covered: 2
 
-| ID           | Issue                                                                                                                               | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| step-input-1 | In HC, error and warning fields show the value and buttons in bold italic (14px wider in cozy).                                     | visual | rendered  |         | ⬜ reported |      |     |       |
-| step-input-2 | A focused field with a value state loses its state shadow, and its buttons keep the field text colour (no active background in HC). | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID           | Issue                                                                                                                               | Kind   | Confirmed | Pattern | Status     | Test                                                                                                            | Fix | Notes |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | --------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| step-input-1 | In HC, error and warning fields show the value and buttons in bold italic (14px wider in cozy).                                     | visual | rendered  |         | 🧪 covered | StepInput states > keeps the value and buttons regular in high contrast error and warning fields (step-input-1) |     |       |
+| step-input-2 | A focused field with a value state loses its state shadow, and its buttons keep the field text colour (no active background in HC). | visual | rendered  |         | 🧪 covered | StepInput states > keeps the state shadow and colours the buttons of a focused state field (step-input-2)       |     |       |
 
 #### select
 
