@@ -589,11 +589,11 @@ None.
 
 #### scrollbar
 
-[React report](../../../react/docs/parity/components/scrollbar.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/scrollbar.md) · 🧪 covered: 1
 
-| ID          | Issue                                                                                                                              | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| scrollbar-1 | The scrollbar sets no typography; fundamental-styles' `.fd-scrollbar` sets the SAP font, size, normal line height and text colour. | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID          | Issue                                                                                                                              | Kind   | Confirmed | Pattern | Status     | Test                                                                                                                                                   | Fix | Notes |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --- | ----- |
+| scrollbar-1 | The scrollbar sets no typography; fundamental-styles' `.fd-scrollbar` sets the SAP font, size, normal line height and text colour. | visual | rendered  |         | 🧪 covered | scrollbar.spec.ts › Scrollbar typography › sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-scrollbar (computed style) |     |       |
 
 #### status-indicator
 

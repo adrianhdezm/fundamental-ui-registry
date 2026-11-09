@@ -1935,9 +1935,9 @@
       "source": "../../../react/docs/parity/components/scrollbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (TypographyHost: an fdScrollbar in a serif 20px/30px bold red ancestor): it computes serif, 20px, 30px, 700, red; fundamental-styles' .fd-scrollbar sets 72, 14px, normal line height, 400 and --sapTextColor.",
+      "test": "scrollbar.spec.ts › Scrollbar typography › sets the SAP text font, size, line height and colour, as fundamental-styles' .fd-scrollbar (computed style)",
       "fix": "",
       "notes": ""
     },
