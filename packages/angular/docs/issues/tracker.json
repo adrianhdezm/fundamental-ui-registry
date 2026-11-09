@@ -210,9 +210,9 @@
       "source": "../../../react/docs/parity/components/input.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "input.spec.ts CompactHost (data-density=compact): a rows=3 textarea is 26px high, as the compact input: textareaBase sets h-auto but the field's compact:h-* wins in compact.",
+      "test": "Input compact (input-1) > grows compact textareas with their rows",
       "fix": "",
       "notes": ""
     },

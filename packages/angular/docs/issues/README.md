@@ -122,11 +122,11 @@ None.
 
 #### input
 
-[React report](../../../react/docs/parity/components/input.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/input.md) · 🧪 covered: 1
 
-| ID      | Issue                                                                                                                                                   | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| input-1 | Compact textareas stay one line high (26px): `textareaBase` sets `h-auto` but not `compact:h-auto`, so the compact field height wins whatever the rows. | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID      | Issue                                                                                                                                                   | Kind   | Confirmed | Pattern | Status     | Test                                                              | Fix | Notes |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ----------------------------------------------------------------- | --- | ----- |
+| input-1 | Compact textareas stay one line high (26px): `textareaBase` sets `h-auto` but not `compact:h-auto`, so the compact field height wins whatever the rows. | visual | rendered  |         | 🧪 covered | Input compact (input-1) > grows compact textareas with their rows |     |       |
 
 #### layout-panel
 
