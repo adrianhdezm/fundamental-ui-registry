@@ -31,7 +31,7 @@ scripts/
   generate-tokens.mjs     regenerates styles/ and the icon glyph map from theming-base-content
   build-registry.mjs      builds public/r/*.json and checks each component's imports
   check-styles.mjs        compiles every class and flags unknown SAP tokens / broken var() names
-docs/                     Storybook introduction, foundations and testing pages; parity/ compares with upstream
+docs/                     Storybook introduction, foundations and testing pages; known-gaps.md lists what differs from upstream
 .storybook/, tests/       Storybook and Vitest setup
 ```
 

@@ -55,5 +55,7 @@ pnpm build-storybook && pnpm visual icon    # compare with fundamental-styles, 1
 - Every behaviour change comes with a browser test in the component's spec (see `docs/testing.mdx`). Test hosts keep
   state in signals; await `fixture.whenStable()` (plus a frame for overlays). No `it.todo` or `it.skip` left behind
   without a reason.
-- Stories cover the upstream docs examples. Stories named "Open: …" open their overlay in `play`, so the a11y run
-  checks it. A story may turn off an axe rule only where the SAP theme itself is the cause, with a comment.
+- Stories cover the upstream docs examples. `docs/known-gaps.md` lists the examples and behaviours of
+  `@fundamental-ngx/core` that are not covered yet and why; update it when a pull request closes or adds one.
+- Stories named "Open: …" open their overlay in `play`, so the a11y run checks it. A story may turn off an axe rule
+  only where the SAP theme itself is the cause, with a comment.
