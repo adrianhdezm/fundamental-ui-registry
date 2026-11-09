@@ -6,8 +6,10 @@ listed in [the React parity README](../../../react/docs/parity/README.md#angular
 (`packages/react/docs/parity/components/<name>.md`) has more detail and the React fix. This folder tracks each of them
 in the Angular package, from "reported" to "verified".
 
-[`tracker.json`](tracker.json) is the source of truth; `pnpm tracker` rewrites the tables below from it, and
-`pnpm check` (`pnpm tracker:check`) fails when they are out of date or an entry is incomplete for its status.
+[`tracker.json`](tracker.json) is the source of truth; `pnpm tracker` rewrites the tables below from it (and prints
+the totals, which are not in this file so that pull requests do not conflict), and `pnpm check` (`pnpm tracker:check`)
+fails when they are out of date or an entry is incomplete for its status. `pnpm issue set <id> --status … --repro …
+--test … --fix HEAD` updates an entry and the tables; `pnpm issue table <id> …` prints the table of a pull request body.
 
 ## Entries
 
@@ -48,20 +50,12 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
    issues get an assertion on the computed value. Record the test name in `test`.
 3. Fix it in the component (the React port is a read-only reference, never an import), one commit per issue or
    pattern, naming the ids. Record the commit in `fix`.
-4. Verify it: the test passes, `pnpm check` passes, and for visual issues `pnpm build-storybook && pnpm visual <name>`
-   (cases in `scripts/visual/<name>.mjs`) matches fundamental-styles in all 16 combinations. Then set `verified`.
-   Every pull request keeps this tracker in sync, and its body has a table of its issues with status, repro, test and
-   fix.
+4. Verify it, then set `verified`. Every pull request keeps this tracker in sync, and its body has a table of its
+   issues with status, repro, test and fix.
 
 ## Tracker
 
 <!-- tracker:start -->
-
-**Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
-
-Issues: ⬜ reported: 211 · 🔍 reproduced: 2 · ✅ verified: 1 · 🚫 won’t fix: 1.
-
-Patterns: ⬜ reported: 7.
 
 ### Patterns
 
