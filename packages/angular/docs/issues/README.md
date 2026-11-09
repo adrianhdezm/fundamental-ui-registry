@@ -496,12 +496,12 @@ None.
 
 #### inline-help
 
-[React report](../../../react/docs/parity/components/inline-help.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/inline-help.md) · ⬜ reported: 1 · ✅ verified: 1
 
-| ID            | Issue                                                                                                                    | Kind      | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------ | --------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| inline-help-1 | In a button trigger the inline help's off-screen copy becomes part of the button's name.                                 | a11y      | rendered  |         | ⬜ reported |      |     |       |
-| inline-help-2 | Clicking the form label's inline help icon focuses the field and closes the help again; on touch screens it never shows. | behaviour | rendered  |         | ⬜ reported |      |     |       |
+| ID            | Issue                                                                                                                    | Kind      | Confirmed | Pattern | Status      | Test                                                                                                       | Fix     | Notes                                                                                                                                                   |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------ | --------- | --------- | ------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| inline-help-1 | In a button trigger the inline help's off-screen copy becomes part of the button's name.                                 | a11y      | rendered  |         | ✅ verified | InlineHelp › the help text describes a button trigger and adds nothing to its name or to a label around it | 22f6d86 | Verified: the test fails before the fix and passes after; the spec of the copy (now hidden, next to the trigger) is updated; pnpm angular check passes. |
+| inline-help-2 | Clicking the form label's inline help icon focuses the field and closes the help again; on touch screens it never shows. | behaviour | rendered  |         | ⬜ reported |                                                                                                            |         |                                                                                                                                                         |
 
 #### product-switch
 
