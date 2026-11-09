@@ -2619,9 +2619,9 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (OptionsHost, borderLess): the last item computes padding-bottom 12px; [&+&]:py-3 has a higher specificity than last:pb-4, where fundamental-styles has 16px.",
+      "test": "feed-list.spec.ts › FeedList styles › the last item of a borderless list has a 16px bottom padding (computed style)",
       "fix": "",
       "notes": ""
     },

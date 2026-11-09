@@ -187,4 +187,13 @@ describe('FeedList styles', () => {
         const action = el('rtl-action').getBoundingClientRect();
         expect(action.left - item.left).toBeLessThan(item.right - action.right);
     });
+
+    it('the last item of a borderless list has a 16px bottom padding (computed style)', async () => {
+        const { fixture, host, root } = await setupOptions();
+        host.borderLess.set(true);
+        await fixture.whenStable();
+        const items = root.querySelectorAll<HTMLElement>('fd-feed-list-item');
+        expect(getComputedStyle(items[items.length - 1]).paddingBottom).toBe('16px');
+        expect(getComputedStyle(items[items.length - 1]).paddingTop).toBe('12px');
+    });
 });

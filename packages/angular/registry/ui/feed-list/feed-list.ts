@@ -228,7 +228,7 @@ export class FeedListItem {
             'm-0 box-border p-4',
             this.isMobile() ? 'block' : 'flex',
             borderless
-                ? 'pt-4 pb-3 [&+&]:py-3 last:pb-4'
+                ? 'pt-4 pb-3 [&+&]:pt-3 last:pb-4'
                 : '[&+&]:border-0 [&+&]:border-t [&+&]:border-solid [&+&]:border-sap-list-border-color [&+&]:last:border-b',
             this.userClass()
         );
