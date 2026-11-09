@@ -13,6 +13,7 @@ import {
     booleanAttribute,
     computed,
     contentChild,
+    effect,
     forwardRef,
     inject,
     input,
@@ -216,7 +217,7 @@ export class InputGroup implements ControlValueAccessor {
     protected readonly addOnId = `fd-input-group-addon-${nextId}`;
     protected readonly addOnButtonId = `fd-input-group-button-${nextId}`;
 
-    protected readonly disabledState = linkedSignal(() => this.disabled());
+    readonly disabledState = linkedSignal(() => this.disabled());
 
     /** The text or icon addon describes the input, e.g. "$": only while the group renders it (no projected addon). */
     protected readonly describedBy = computed(
@@ -303,6 +304,23 @@ export class InputGroup implements ControlValueAccessor {
 })
 export class InputGroupInput {
     readonly elementRef = inject<ElementRef<HTMLInputElement | HTMLTextAreaElement>>(ElementRef);
+    /** Disables the input; without it the input follows the group's disabled state. */
+    readonly disabled = input<boolean | undefined, unknown>(undefined, {
+        transform: (value: unknown) => (value === undefined || value === null ? undefined : booleanAttribute(value))
+    });
+    private readonly group = inject(forwardRef(() => InputGroup), { optional: true });
+    protected readonly disabledState = computed(() => this.disabled() ?? this.group?.disabledState() ?? false);
+
+    constructor() {
+        // written only when it disables or undoes its own disabling, so a form control's disabled state is kept
+        let applied = false;
+        effect(() => {
+            const disabled = this.disabledState();
+            if (!disabled && !applied && this.disabled() === undefined) return;
+            this.elementRef.nativeElement.disabled = disabled;
+            applied = disabled;
+        });
+    }
     readonly userClass = input<ClassValue>('', { alias: 'class' });
     protected readonly computedClass = computed(() =>
         cn(

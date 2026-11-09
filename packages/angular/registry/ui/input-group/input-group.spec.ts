@@ -221,16 +221,20 @@ describe('InputGroup', () => {
 });
 
 @Component({
-    imports: [InputGroup, InputGroupInput, InputGroupAddon],
+    imports: [InputGroup, InputGroupInput, InputGroupAddon, ReactiveFormsModule],
     template: `
         <fd-input-group id="text-button" ariaLabel="Search" addOnText="Go" button />
         <fd-input-group id="disabled-group" [disabled]="disabled()">
             <input fdInputGroupInput aria-label="Projected" />
             <input fdInputGroupInput aria-label="Own" [disabled]="ownDisabled()" />
         </fd-input-group>
+        <fd-input-group id="form-group">
+            <input fdInputGroupInput aria-label="Form" [formControl]="control" />
+        </fd-input-group>
     `
 })
 class IssuesHost {
+    readonly control = new FormControl({ value: 'x', disabled: true });
     readonly disabled = signal(true);
     readonly ownDisabled = signal<boolean | undefined>(undefined);
 }
@@ -284,5 +288,11 @@ describe('InputGroup issues', () => {
         await fixture.whenStable();
         expect(projected.disabled).toBe(false);
         expect(own.disabled).toBe(false);
+        // a form control's disabled state is its own
+        const form = root.querySelector<HTMLInputElement>('#form-group input')!;
+        expect(form.disabled).toBe(true);
+        host.control.enable();
+        await fixture.whenStable();
+        expect(form.disabled).toBe(false);
     });
 });
