@@ -485,4 +485,9 @@ describe('Toolbar issues', () => {
         const label = root.querySelector('[fd-toolbar-label]')!;
         expect(getComputedStyle(label).color).toBe(themed('var(--sapInfobar_TextColor)'));
     });
+
+    it('keeps the list text colour on the icons of an active info toolbar (toolbar-2)', async () => {
+        const { root } = await render(ActiveInfoHost);
+        expect(getComputedStyle(root.querySelector('fd-icon')!).color).toBe(themed('var(--sapList_TextColor)'));
+    });
 });

@@ -1604,9 +1604,9 @@
       "source": "../../../react/docs/parity/components/toolbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "toolbar.spec.ts ActiveInfoHost: the icon is rgb(4, 108, 122) (--sapInfobar_TextColor) instead of fundamental-styles' rgb(19, 30, 41) (--sapList_TextColor) in Horizon.",
+      "test": "Toolbar issues > keeps the list text colour on the icons of an active info toolbar (toolbar-2)",
       "fix": "",
       "notes": ""
     },
