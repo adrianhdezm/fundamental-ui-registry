@@ -2870,9 +2870,9 @@
       "source": "../../../react/docs/parity/components/notification.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (GroupHost): fd-notification-group-header computes border-bottom-width 0px; fundamental-styles' group header has a 1px (--sapList_BorderWidth) solid transparent bottom border.",
+      "test": "notification.spec.ts › Notification › the group header has fundamental-styles' transparent bottom border (computed style)",
       "fix": "",
       "notes": ""
     },
