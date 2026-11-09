@@ -103,13 +103,9 @@ const tally = (list) =>
         .join(' · ');
 
 const done = issues.filter((i) => ['verified', 'not-reproducible', 'wont-fix'].includes(i.status)).length;
+// no totals in the README: every pull request would change them, and two pull requests would conflict (or merge
+// into wrong totals); `pnpm tracker` prints them
 const generated = [
-    `**Progress:** ${done} of ${issues.length} issues closed (verified, not reproducible or won’t fix).`,
-    '',
-    `Issues: ${tally(issues)}.`,
-    '',
-    `Patterns: ${tally(patterns)}.`,
-    '',
     '### Patterns',
     '',
     table(
@@ -175,4 +171,6 @@ if (errors.length) {
     process.exit(1);
 }
 if (!checkOnly) writeFileSync(readmePath, updated);
-console.log(`tracker: ${done}/${issues.length} issues closed${checkOnly ? ', up to date' : ''}`);
+console.log(
+    `tracker: ${done}/${issues.length} issues closed${checkOnly ? ', up to date' : ''}\n  issues: ${tally(issues)}\n  patterns: ${tally(patterns)}`
+);

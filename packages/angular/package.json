@@ -15,6 +15,7 @@
     "registry:check": "node scripts/build-registry.mjs --check",
     "tracker": "node scripts/tracker.mjs",
     "tracker:check": "node scripts/tracker.mjs --check",
+    "issue": "node scripts/issue.mjs",
     "check": "pnpm typecheck && pnpm typecheck:tests && pnpm check:styles && pnpm registry:check && pnpm tracker:check && pnpm test && pnpm test:a11y",
     "test": "vitest run --project unit",
     "test:watch": "vitest --project unit",
