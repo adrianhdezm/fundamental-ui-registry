@@ -372,3 +372,87 @@ describe('Tokenizer', () => {
         expect(options().every((o) => o.getAttribute('tabindex') === '-1')).toBe(true);
     });
 });
+
+@Component({
+    imports: [Token, Tokenizer, TokenizerInput],
+    template: `
+        <fd-tokenizer id="plain">
+            <fd-token [selected]="true">Apple</fd-token>
+            <input fdTokenizerInput aria-label="Values" />
+        </fd-tokenizer>
+        <fd-tokenizer id="readonly" readonly>
+            <fd-token readOnly>Apple</fd-token>
+            <input fdTokenizerInput aria-label="Read-only values" readonly />
+        </fd-tokenizer>
+        <fd-tokenizer id="error" state="error">
+            <input fdTokenizerInput aria-label="Invalid values" />
+        </fd-tokenizer>
+        <div
+            id="probe"
+            class="[box-shadow:var(--sapField_Shadow)] [background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)]"
+        ></div>
+    `
+})
+class FieldHost {}
+
+describe('Tokenizer field styles', () => {
+    async function render() {
+        const fixture = TestBed.createComponent(FieldHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const field = (id: string) => root.querySelector<HTMLElement>(`#${id} > div`)!;
+        return { root, field, probe: getComputedStyle(root.querySelector('#probe')!) };
+    }
+
+    it('stretches the input to the field height (token-1)', async () => {
+        const { root, field } = await render();
+        const fieldBox = field('plain').getBoundingClientRect();
+        const input = root.querySelector<HTMLElement>('#plain input')!.getBoundingClientRect();
+        // the field is 36px with a 1px border: the input fills the 34px inside it
+        expect(input.height).toBeGreaterThanOrEqual(fieldBox.height - 4);
+    });
+
+    it('keeps the 1.5rem token line height and gives the field the text cursor and colour', async () => {
+        const { root, field } = await render();
+        expect(getComputedStyle(root.querySelector('#plain [role=option]')!).lineHeight).toBe('24px');
+        expect(getComputedStyle(field('plain')).cursor).toBe('text');
+        const probe = document.createElement('div');
+        probe.style.color = 'var(--sapField_TextColor)';
+        document.body.appendChild(probe);
+        expect(getComputedStyle(field('plain')).color).toBe(getComputedStyle(probe).color);
+        probe.remove();
+    });
+
+    it('has the read-only field background and keeps the field shadow (token-2)', async () => {
+        const { field, probe } = await render();
+        const style = getComputedStyle(field('readonly'));
+        expect(style.backgroundImage).toBe(probe.backgroundImage);
+        expect(style.backgroundColor).toBe(probe.backgroundColor);
+        expect(style.boxShadow).toBe(probe.boxShadow);
+    });
+
+    it('has no inset bottom line on selected tokens in high contrast (token-3)', async () => {
+        const { root } = await render();
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            expect(getComputedStyle(root.querySelector('#plain [role=option]')!).boxShadow).toBe('none');
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
+    it('drops the field shadow on hover (token-4)', async () => {
+        const { field, probe } = await render();
+        await userEvent.unhover(field('plain'));
+        expect(getComputedStyle(field('plain')).boxShadow).toBe(probe.boxShadow);
+        await userEvent.hover(field('plain'));
+        expect(getComputedStyle(field('plain')).boxShadow).toBe('none');
+        await userEvent.hover(field('readonly'));
+        expect(getComputedStyle(field('readonly')).boxShadow).toBe(probe.boxShadow);
+        // value states keep their own hover shadow
+        await userEvent.hover(field('error'));
+        expect(getComputedStyle(field('error')).boxShadow).not.toBe('none');
+        await userEvent.unhover(field('error'));
+    });
+});

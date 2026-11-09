@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, TemplateRef, inject, signal, viewChild } from '@angular/core';
+import { Component, TemplateRef, inject, input, signal, viewChild } from '@angular/core';
 import {
     FormControl as NgFormControl,
     FormGroup as NgFormGroup,
@@ -426,6 +426,90 @@ class StoryMultiComboboxDialog {
         });
     }
 }
+/*
+ * fundamental-styles' multi comboboxes are inline blocks as wide as their content; the reference stories take their
+ * rendered widths (cozy, then the compact and high contrast differences) for a pixel comparison
+ * (scripts/visual/multi-combobox.mjs).
+ */
+const AS_FORM_ITEM_WIDTH =
+    'max-w-full [--d:0px] compact:[--d:-30px] [--h:0px] hc:[--h:4px] w-[calc(519.359375px+var(--d)+var(--h))]';
+const REFERENCE_WIDTH =
+    'max-w-full [--d:0px] compact:[--d:-20px] [--h:0px] hc:[--h:4px] w-[calc(475.5px+var(--d)+var(--h))]';
+
+interface Produce {
+    name: string;
+    type: string;
+    code: string;
+}
+
+/** fundamental-styles' two-column and semantic examples: fruits and vegetables with a code. */
+const PRODUCE: Produce[] = [
+    { name: 'Apple', type: 'Fruits', code: 'A2' },
+    { name: 'Orange', type: 'Fruits', code: 'A1' },
+    { name: 'Banana', type: 'Fruits', code: 'A3' },
+    { name: 'Kiwi', type: 'Fruits', code: 'A1' },
+    { name: 'Lemon', type: 'Fruits', code: 'A2' },
+    { name: 'Onion', type: 'Vegetables', code: 'A3' },
+    { name: 'Tomato', type: 'Vegetables', code: 'A1' }
+];
+
+/** fundamental-styles' examples, for the visual comparison. */
+@Component({
+    selector: 'story-multi-combobox-reference',
+    imports: [MultiCombobox, FormItem, FormLabel],
+    template: `
+        @switch (example()) {
+            @case ('form-item') {
+                <div fdFormItem id="mcb-form-item">
+                    <label fdFormLabel for="formItemMultiCombobox">Multi Combobox as form item</label>
+                    <fd-multi-combobox
+                        inputId="formItemMultiCombobox"
+                        class="${AS_FORM_ITEM_WIDTH}"
+                        glyphAriaLabel="down arrow"
+                        ariaLabel="Fruits"
+                        [dataSource]="fruits"
+                        [(selectedItems)]="fruitsSelected"
+                    />
+                </div>
+            }
+            @case ('two-columns') {
+                <fd-multi-combobox
+                    inputId="referenceMultiCombobox"
+                    class="${REFERENCE_WIDTH}"
+                    glyphAriaLabel="down arrow"
+                    ariaLabel="Fruits"
+                    displayKey="name"
+                    lookupKey="name"
+                    secondaryKey="code"
+                    showSecondaryText
+                    [dataSource]="produce.slice(0, 3)"
+                    [(selectedItems)]="produceSelected"
+                />
+            }
+            @case ('semantic') {
+                <fd-multi-combobox
+                    inputId="referenceMultiCombobox"
+                    class="${REFERENCE_WIDTH}"
+                    glyphAriaLabel="down arrow"
+                    ariaLabel="Fruits"
+                    displayKey="name"
+                    lookupKey="name"
+                    state="success"
+                    stateMessage="Success Message"
+                    [dataSource]="produce.slice(0, 5)"
+                    [(selectedItems)]="produceSelected"
+                />
+            }
+        }
+    `
+})
+class StoryMultiComboboxReference {
+    readonly example = input<'form-item' | 'two-columns' | 'semantic'>('form-item');
+    protected readonly fruits = ['Apple', 'Orange', 'Banana', 'Kiwi', 'Lemon'];
+    protected readonly fruitsSelected = signal(['Apple', 'Orange', 'Kiwi', 'Banana']);
+    protected readonly produce = PRODUCE;
+    protected readonly produceSelected = signal(PRODUCE.slice(0, 3));
+}
 
 const meta: Meta<MultiCombobox> = {
     title: 'Components/Multi Combobox',
@@ -440,7 +524,8 @@ const meta: Meta<MultiCombobox> = {
                 StoryMultiComboboxForms,
                 StoryMultiComboboxMobile,
                 StoryMultiComboboxDynamic,
-                StoryMultiComboboxDialog
+                StoryMultiComboboxDialog,
+                StoryMultiComboboxReference
             ]
         })
     ],
@@ -506,6 +591,42 @@ async function openMultiCombobox(canvasElement: HTMLElement, inputId: string, po
     await waitFor(() => expect(combobox.querySelector('#' + inputId)!.getAttribute('aria-expanded')).toBe('true'));
 }
 
+export const AsFormItem: Story = {
+    name: 'As form item',
+    parameters: {
+        docs: { description: { story: "fundamental-styles' form item example, for the visual comparison." } }
+    },
+    render: () => ({ template: `<story-multi-combobox-reference />` })
+};
+export const OpenDefault: Story = {
+    name: 'Open: as form item',
+    tags: ['!autodocs'],
+    render: AsFormItem.render,
+    play: ({ canvasElement }) =>
+        openMultiCombobox(canvasElement, 'formItemMultiCombobox', '.cdk-overlay-container [role=listbox] [role=option]')
+};
+export const OpenTwoColumns: Story = {
+    name: 'Open: two columns (fundamental-styles)',
+    tags: ['!autodocs'],
+    render: () => ({ template: `<story-multi-combobox-reference example="two-columns" />` }),
+    play: ({ canvasElement }) =>
+        openMultiCombobox(
+            canvasElement,
+            'referenceMultiCombobox',
+            '.cdk-overlay-container [role=listbox] [role=option]'
+        )
+};
+export const OpenSemantic: Story = {
+    name: 'Open: semantic (fundamental-styles)',
+    tags: ['!autodocs'],
+    render: () => ({ template: `<story-multi-combobox-reference example="semantic" />` }),
+    play: ({ canvasElement }) =>
+        openMultiCombobox(
+            canvasElement,
+            'referenceMultiCombobox',
+            '.cdk-overlay-container [role=listbox] [role=option]'
+        )
+};
 export const OpenSelectAll: Story = {
     name: 'Open: select all',
     tags: ['!autodocs'],

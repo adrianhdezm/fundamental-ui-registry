@@ -357,6 +357,34 @@ class StorySelectMobile {
     protected readonly fruits = FRUITS;
     protected readonly value = signal<string | null | undefined>(undefined);
 }
+/** fundamental-styles' "2-column with icons" select, for the visual comparison (scripts/visual/select.mjs). */
+@Component({
+    selector: 'story-select-two-columns',
+    imports: [Select, SelectOption, ListIcon, ListTitle, ListSecondary, FormLabel],
+    template: `
+        <label fdFormLabel id="select-two-col-label">Choose an option</label>
+        <fd-select ariaLabelledBy="select-two-col-label" [(value)]="value">
+            @for (item of notebooks; track item.name; let i = $index) {
+                <li fd-option [value]="item.name">
+                    <i fd-list-icon [glyph]="icons[i]"></i>
+                    <span fd-list-title>{{ item.name }}</span>
+                    <span fd-list-secondary>{{ item.price }}</span>
+                </li>
+            }
+        </fd-select>
+    `
+})
+class StorySelectTwoColumns {
+    protected readonly notebooks = [
+        { name: 'Notebook Basic 1', price: '1000 EUR' },
+        { name: 'Notebook Basic 2', price: '1400 EUR' },
+        { name: 'Notebook Basic 3', price: '700 EUR' },
+        { name: 'Notebook Basic 4', price: '12000 EUR' },
+        { name: 'Notebook Basic 5', price: '40 EUR' }
+    ];
+    protected readonly icons = ['laptop', 'save', 'desktop-mobile', 'touch', 'sap-box'];
+    protected readonly value = signal<string | undefined>('Notebook Basic 2');
+}
 
 const meta: Meta<Select> = {
     title: 'Components/Select',
@@ -366,6 +394,7 @@ const meta: Meta<Select> = {
             imports: [
                 Select,
                 SelectOption,
+                StorySelectTwoColumns,
                 FormLabel,
                 StorySelectModes,
                 StorySelectStates,
@@ -456,6 +485,12 @@ export const OpenRich: Story = {
     name: 'Open: groups and icons',
     tags: ['!autodocs'],
     render: () => ({ template: `<story-select-rich />` }),
+    play: ({ canvasElement }) => openSelect(canvasElement, '[role=listbox] [role=option]')
+};
+export const OpenTwoColumns: Story = {
+    name: 'Open: two columns and icons',
+    tags: ['!autodocs'],
+    render: () => ({ template: `<story-select-two-columns />` }),
     play: ({ canvasElement }) => openSelect(canvasElement, '[role=listbox] [role=option]')
 };
 export const OpenMobile: Story = {
