@@ -1643,9 +1643,9 @@
       "source": "../../../react/docs/parity/components/inline-help.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (FormLabelHost: label for=\"vat\" with inlineHelpContent): a tap on the help icon (pointerdown, focus, click) opens the help on focus, the click's toggle closes it again, and the click activates the label, moving the focus to the field; no help shows.",
+      "test": "inline-help.spec.ts › InlineHelp in a form label › a press on the help icon shows the help and does not activate the label (also as a tap)",
       "fix": "",
       "notes": ""
     },

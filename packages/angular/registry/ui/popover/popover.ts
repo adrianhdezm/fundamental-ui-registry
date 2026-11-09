@@ -668,6 +668,14 @@ export class PopoverService implements PopoverBodyHost {
         this.removeListeners();
         if (!el) return;
         const hover = triggers.some((t) => t.trigger === 'mouseenter' || t.trigger === 'mouseleave');
+        // whether the popover was open when the current press started: a click that toggles keeps a popover the same
+        // press opened by focusing the trigger (a tap on a touch screen focuses, then clicks)
+        let openAtPress: boolean | null = null;
+        if (triggers.some((t) => t.trigger === 'click' && t.openAction && t.closeAction)) {
+            const press = () => (openAtPress = this.isOpen());
+            el.addEventListener('pointerdown', press, true);
+            this.listeners.push(() => el.removeEventListener('pointerdown', press, true));
+        }
         for (const t of triggers) {
             this.listeners.push(
                 this.renderer.listen(el, t.trigger, (event: Event) => {
@@ -677,7 +685,11 @@ export class PopoverService implements PopoverBodyHost {
                         if (!this.isOpen()) this.open();
                     } else if (hover && t.trigger === 'mouseleave' && t.closeAction) {
                         this.scheduleHoverClose();
+                    } else if (t.trigger === 'click' && openAtPress === false && this.isOpen()) {
+                        // opened by this press: keep it open
+                        openAtPress = null;
                     } else {
+                        if (t.trigger === 'click') openAtPress = null;
                         this.toggle(t.openAction, t.closeAction, t.trigger !== 'focusout');
                     }
                     if (t.stopPropagation) event.stopImmediatePropagation();
