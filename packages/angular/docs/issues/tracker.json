@@ -2794,9 +2794,9 @@
       "confirmed": "read from the code",
       "status": "verified",
       "repro": "Reproduced in Angular: upload-collection.spec.ts IssuesHost, an a[fdLink][fd-list-title][fd-upload-collection-title]: its computed colour is rgb(9, 66, 133) instead of --sapLinkColor rgb(0, 100, 217); the list title's colour and line height win over the link's (each directive binds its own class string).",
-      "test": "UploadCollection issues > shows a link title in the link colour on a 1rem line (upload-collection-1)",
-      "fix": "77b04a8",
-      "notes": "The React report says this was seen in the React port with the same classes, not checked in Angular itself: treated as read from the code. Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: colour and line height match in all 16 combinations; the cozy font size stays 14px against 16px (the link's size wins over the list title's; a fix needs the link's transition-all handled, left open as a note)."
+      "test": "UploadCollection issues › shows a link title in the link colour on a 1rem line (upload-collection-1)",
+      "fix": "2ddf98e",
+      "notes": "The React report says this was seen in the React port with the same classes, not checked in Angular itself: treated as read from the code. Verified: the spec fails before the fix and passes after; pnpm angular check passes; visual: colour and line height match in all 16 combinations. Completed in 2ddf98e: the link title now has the list title's font size (16px in cozy; the spec asserts it and failed with 14px), and only colour transitions; pnpm visual upload-collection matches 112/112, the title (font size included) 16/16."
     },
     {
       "id": "upload-collection-2",
