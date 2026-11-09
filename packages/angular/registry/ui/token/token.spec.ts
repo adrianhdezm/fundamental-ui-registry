@@ -384,6 +384,9 @@ describe('Tokenizer', () => {
             <fd-token readOnly>Apple</fd-token>
             <input fdTokenizerInput aria-label="Read-only values" readonly />
         </fd-tokenizer>
+        <fd-tokenizer id="error" state="error">
+            <input fdTokenizerInput aria-label="Invalid values" />
+        </fd-tokenizer>
         <div id="probe" class="[box-shadow:var(--sapField_Shadow)] [background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)]"></div>
     `
 })
@@ -427,9 +430,15 @@ describe('Tokenizer field styles', () => {
 
     it('drops the field shadow on hover (token-4)', async () => {
         const { field, probe } = await render();
+        await userEvent.unhover(field('plain'));
         expect(getComputedStyle(field('plain')).boxShadow).toBe(probe.boxShadow);
         await userEvent.hover(field('plain'));
         expect(getComputedStyle(field('plain')).boxShadow).toBe('none');
-        await userEvent.unhover(field('plain'));
+        await userEvent.hover(field('readonly'));
+        expect(getComputedStyle(field('readonly')).boxShadow).toBe(probe.boxShadow);
+        // value states keep their own hover shadow
+        await userEvent.hover(field('error'));
+        expect(getComputedStyle(field('error')).boxShadow).not.toBe('none');
+        await userEvent.unhover(field('error'));
     });
 });

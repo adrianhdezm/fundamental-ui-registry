@@ -353,6 +353,8 @@ export class Tokenizer {
             'rounded-sap-field-border-corner-radius border-width-sap-field-border-width [border-style:var(--sapField_BorderStyle)] border-sap-field-border-color [box-shadow:var(--sapField_Shadow)]',
             '[background:var(--sapField_BackgroundStyle)_var(--sapField_Background)]',
             'hover:[background:var(--sapField_Hover_BackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-hover-border-color',
+            // fundamental-styles drops the field shadow on hover; value states and read-only fields keep theirs
+            (this.state() ?? 'default') === 'default' && !this.readonly() && 'hover:[box-shadow:none]',
             this.tokenizerFocusable() && 'has-[input:focus]:outline-sap has-[input:focus]:-outline-offset-1',
             fieldStates[this.state() ?? 'default'],
             this.readonly() && [
