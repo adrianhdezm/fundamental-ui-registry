@@ -1,8 +1,9 @@
 # fundamental-ui-registry for React
 
 SAP Fiori Horizon components for React, as copy-paste source files. This is the React package of the
-[fundamental-ui-registry](../../README.md) workspace. **Work in progress:** see the
-[porting tracker](docs/parity/README.md) for the components available so far.
+[fundamental-ui-registry](../../README.md) workspace. All 94 components are ported: the 45 of fundamental-react and
+the other components of the Angular package. The [porting tracker](docs/parity/README.md) lists each component's
+sources, stories, tests and visual comparison.
 
 **Storybook:** https://adrianhdezm.github.io/fundamental-ui-registry/react/ (the registry is served from the same site
 under `/react/r/<name>.json`).
