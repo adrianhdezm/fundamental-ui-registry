@@ -367,3 +367,12 @@ describe('Bar', () => {
         expect(host.clicks).toEqual(['save', 'cancel']);
     });
 });
+
+describe('Bar issues', () => {
+    it('stretches the left, middle and right areas to the bar height (bar-1)', async () => {
+        const { bar, el } = await setup();
+        const height = rect(bar()).height;
+        expect(height).toBe(44);
+        expect(['left', 'middle', 'right'].map((id) => rect(el(id)).height)).toEqual([height, height, height]);
+    });
+});

@@ -566,9 +566,9 @@
       "source": "../../../react/docs/parity/components/bar.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "bar.spec.ts Host (default bar, 1000px): the bar is 44px high but its left, middle and right areas are 36px, 16px and 36px (their content height), because of items-center on the bar.",
+      "test": "Bar issues > stretches the left, middle and right areas to the bar height (bar-1)",
       "fix": "",
       "notes": ""
     },

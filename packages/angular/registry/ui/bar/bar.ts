@@ -82,7 +82,7 @@ export class Bar {
     protected readonly computedClass = computed(() => {
         const design = this.barDesign();
         return cn(
-            'relative z-[1] m-0 box-border flex items-center justify-between gap-2 p-0',
+            'relative z-[1] m-0 box-border flex justify-between gap-2 p-0',
             'min-h-(--bar-h) ps-(--bar-px) pe-(--bar-px) pt-(--bar-pt) pb-(--bar-pb)',
             'bg-(--bar-bg) [box-shadow:var(--bar-shadow)] font-sap-font-family text-sap-font-size text-sap-text-color',
             '[--bar-h:2.75rem] compact:[--bar-h:2.5rem] [--bar-px:1rem] [--bar-pt:0] [--bar-pb:0]',

@@ -219,11 +219,11 @@ None.
 
 #### bar
 
-[React report](../../../react/docs/parity/components/bar.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/bar.md) · 🧪 covered: 1
 
-| ID    | Issue                                                                                                                       | Kind          | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ----- | --------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| bar-1 | `items-center` keeps the left, middle and right areas at their content height instead of the bar's (computed heights only). | computed-only | rendered  |         | ⬜ reported |      |     |       |
+| ID    | Issue                                                                                                                       | Kind          | Confirmed | Pattern | Status     | Test                                                                              | Fix | Notes |
+| ----- | --------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ---------- | --------------------------------------------------------------------------------- | --- | ----- |
+| bar-1 | `items-center` keeps the left, middle and right areas at their content height instead of the bar's (computed heights only). | computed-only | rendered  |         | 🧪 covered | Bar issues > stretches the left, middle and right areas to the bar height (bar-1) |     |       |
 
 #### message-strip
 
