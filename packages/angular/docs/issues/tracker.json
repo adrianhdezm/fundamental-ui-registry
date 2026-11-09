@@ -605,9 +605,9 @@
       "source": "../../../react/docs/parity/components/message-strip.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (StylesHost): an <a> in strips with indication colour 1, 1b and type information computes margin-inline-start and padding-inline 0px, and on colour 1 the link colour instead of --sapContent_ContrastTextColor (1b: not --sapLink_SubtleColor); fundamental-styles' fd-message-strip--link has a 0.25rem start margin and padding and those colours.",
+      "test": "message-strip.spec.ts › MessageStrip styles › links get fundamental-styles' message strip link spacing and colours (computed style)",
       "fix": "",
       "notes": ""
     },

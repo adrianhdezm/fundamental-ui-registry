@@ -477,4 +477,16 @@ describe('MessageStrip styles', () => {
         expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
         expect(style.borderTopColor).toBe('rgba(0, 0, 0, 0)');
     });
+
+    it("links get fundamental-styles' message strip link spacing and colours (computed style)", async () => {
+        const { strip, colour } = await setupStyles();
+        const link = (id: string) => strip(id).querySelector<HTMLElement>('a')!;
+        for (const id of ['strong', 'light', 'plain']) {
+            expect(getComputedStyle(link(id)).marginInlineStart, id).toBe('4px');
+            expect(getComputedStyle(link(id)).paddingInlineStart, id).toBe('4px');
+            expect(getComputedStyle(link(id)).paddingInlineEnd, id).toBe('4px');
+        }
+        expect(getComputedStyle(link('strong')).color).toBe(colour('--sapContent_ContrastTextColor'));
+        expect(getComputedStyle(link('light')).color).toBe(colour('--sapLink_SubtleColor'));
+    });
 });
