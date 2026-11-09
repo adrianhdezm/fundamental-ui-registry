@@ -260,8 +260,15 @@ export class TimePicker<D> implements ControlValueAccessor, Validator {
         this.messageShown.set(false);
         afterNextRender(
             () => {
-                if (open) this.timeComponent()?.focusActiveColumn();
-                else this.field().nativeElement.focus();
+                if (open) {
+                    this.timeComponent()?.focusActiveColumn();
+                    return;
+                }
+                // back to the input, unless a press outside focused another element
+                const active = document.activeElement;
+                if (!active || active === document.body || this.host.contains(active)) {
+                    this.field().nativeElement.focus();
+                }
             },
             { injector: this.injector }
         );

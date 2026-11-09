@@ -380,12 +380,12 @@ None.
 
 #### time-picker
 
-[React report](../../../react/docs/parity/components/time-picker.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/time-picker.md) · ⬜ reported: 1 · 🧪 covered: 1
 
-| ID            | Issue                                                                                                | Kind      | Confirmed | Pattern | Status      | Test | Fix | Notes                                                                                                            |
-| ------------- | ---------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | ---- | --- | ---------------------------------------------------------------------------------------------------------------- |
-| time-picker-1 | The button glyph is `fob-watch`; fundamental-styles and UI5 use `time-entry-request`.                | visual    | rendered  |         | ⬜ reported |      |     | Decided: `time-entry-request`, as fundamental-styles and UI5 (and React). A visible change from fundamental-ngx. |
-| time-picker-2 | After a press outside, the focus goes back to the input even when the press focused another element. | behaviour | rendered  |         | ⬜ reported |      |     |                                                                                                                  |
+| ID            | Issue                                                                                                | Kind      | Confirmed | Pattern | Status      | Test                                                                                                                              | Fix | Notes                                                                                                            |
+| ------------- | ---------------------------------------------------------------------------------------------------- | --------- | --------- | ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------- | --- | ---------------------------------------------------------------------------------------------------------------- |
+| time-picker-1 | The button glyph is `fob-watch`; fundamental-styles and UI5 use `time-entry-request`.                | visual    | rendered  |         | ⬜ reported |                                                                                                                                   |     | Decided: `time-entry-request`, as fundamental-styles and UI5 (and React). A visible change from fundamental-ngx. |
+| time-picker-2 | After a press outside, the focus goes back to the input even when the press focused another element. | behaviour | rendered  |         | 🧪 covered  | time-picker.spec.ts › TimePicker › leaves the focus on the element a press outside focused, and returns it to the input otherwise |     |                                                                                                                  |
 
 #### multi-input
 

@@ -1128,9 +1128,9 @@
       "source": "../../../react/docs/parity/components/time-picker.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host: open the columns with the button, click the #after button outside: the columns close and the focus moves back to the input instead of staying on the pressed button.",
+      "test": "time-picker.spec.ts › TimePicker › leaves the focus on the element a press outside focused, and returns it to the input otherwise",
       "fix": "",
       "notes": ""
     },

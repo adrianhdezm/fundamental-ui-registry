@@ -181,6 +181,24 @@ describe('TimePicker', () => {
         expect(button.getAttribute('aria-expanded')).toBe('false');
     });
 
+    it('leaves the focus on the element a press outside focused, and returns it to the input otherwise', async () => {
+        const { root, input, button, stable } = await setup();
+        await userEvent.click(button);
+        await stable();
+        const after = root.querySelector<HTMLElement>('#after')!;
+        await userEvent.click(after);
+        await stable();
+        expect(document.querySelector('#tp-time-hours')).toBeNull();
+        expect(document.activeElement).toBe(after);
+        // a press on nothing focusable returns the focus to the input
+        await userEvent.click(button);
+        await stable();
+        await userEvent.click(document.body, { position: { x: 1, y: 1 } });
+        await stable();
+        expect(document.querySelector('#tp-time-hours')).toBeNull();
+        expect(document.activeElement).toBe(input);
+    });
+
     it('does not open when disabled', async () => {
         const { input, button, stable } = await setup((h) => h.disabled.set(true));
         expect(input.disabled).toBe(true);
