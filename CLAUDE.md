@@ -21,7 +21,8 @@ Each package has its own `CLAUDE.md` with its component and test rules; read it 
   is the component or area, e.g. `fix(menu): stop trapping focus in desktop menus`, `feat(date-picker): add today button`,
   `build: move pnpm settings to pnpm-workspace.yaml`. Mark breaking changes with `!` and a `BREAKING CHANGE:` footer.
   The body explains what changed and why.
-- Run `pnpm check` before pushing; it must pass.
+- Run `pnpm check` before pushing; it must pass. The "Check" workflow runs it on every pull request into `main`: merge
+  only after it succeeds on the latest commit.
 
 ## Layout
 
@@ -30,7 +31,7 @@ packages/angular/         the Angular registry (see packages/angular/CLAUDE.md)
 packages/react/           the React registry (see packages/react/CLAUDE.md)
 site/index.html           landing page at the site root
 scripts/build-site.mjs    assembles dist/site: the landing page and each package's Storybook under /<package>/
-.github/workflows/        GitHub Pages deployment of dist/site
+.github/workflows/        check.yml: `pnpm check` on pull requests; pages.yml: GitHub Pages deployment of dist/site
 ```
 
 ## Commands
