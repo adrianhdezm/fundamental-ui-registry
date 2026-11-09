@@ -522,3 +522,24 @@ describe('ResizableCardLayout', () => {
         expect(wide.querySelector('.cursor-ew-resize')).not.toBeNull();
     });
 });
+
+describe('ResizableCardLayout corner and RTL', () => {
+    /** Shows the corner of card A by hovering it; returns the corner box, its icon and the card's content area. */
+    async function corner(rtl = false) {
+        if (rtl) document.documentElement.setAttribute('dir', 'rtl');
+        const env = await setup();
+        await userEvent.hover(env.item('A').querySelector<HTMLElement>('.order-1')!);
+        await env.stable();
+        const icon = env.handle('A', 'nwse')!;
+        return { ...env, icon, box: icon.parentElement!, area: env.item('A').querySelector<HTMLElement>('.order-1')! };
+    }
+
+    it('the resize corner is a 1.5rem box at the bottom end, not as tall as the card', async () => {
+        const { box, area } = await corner();
+        const b = box.getBoundingClientRect();
+        const a = area.getBoundingClientRect();
+        expect(b.height).toBe(24);
+        expect(Math.round(b.bottom - a.bottom)).toBe(6);
+        expect(Math.round(a.right - b.right)).toBe(0);
+    });
+});

@@ -755,14 +755,14 @@ None.
 
 #### resizable-card-layout
 
-[React report](../../../react/docs/parity/components/resizable-card-layout.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/resizable-card-layout.md) · ⬜ reported: 3 · 🧪 covered: 1
 
-| ID                      | Issue                                                                                                                                           | Kind          | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ---- | --- | ----- |
-| resizable-card-layout-1 | The resizable-card-layout resize corner is as tall as the card (`[&>*]:h-full` applies to it), so its glyph sits in the middle of the end edge. | visual        | rendered  |         | ⬜ reported |      |     |       |
-| resizable-card-layout-2 | In RTL the resizable-card-layout corner sits on the right (`rtl:-start-0`); fundamental-styles puts it at the bottom left.                      | visual        | rendered  |         | ⬜ reported |      |     |       |
-| resizable-card-layout-3 | The RTL resizable-card-layout corner icon turns with `rotate` instead of `transform` (computed only).                                           | computed-only | rendered  |         | ⬜ reported |      |     |       |
-| resizable-card-layout-4 | In RTL the resizable-card-layout pointer direction is reversed, so cards never move down while a card grows.                                    | behaviour     | rendered  |         | ⬜ reported |      |     |       |
+| ID                      | Issue                                                                                                                                           | Kind          | Confirmed | Pattern | Status      | Test                                                                                                                                              | Fix | Notes |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| resizable-card-layout-1 | The resizable-card-layout resize corner is as tall as the card (`[&>*]:h-full` applies to it), so its glyph sits in the middle of the end edge. | visual        | rendered  |         | 🧪 covered  | resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › the resize corner is a 1.5rem box at the bottom end, not as tall as the card |     |       |
+| resizable-card-layout-2 | In RTL the resizable-card-layout corner sits on the right (`rtl:-start-0`); fundamental-styles puts it at the bottom left.                      | visual        | rendered  |         | ⬜ reported |                                                                                                                                                   |     |       |
+| resizable-card-layout-3 | The RTL resizable-card-layout corner icon turns with `rotate` instead of `transform` (computed only).                                           | computed-only | rendered  |         | ⬜ reported |                                                                                                                                                   |     |       |
+| resizable-card-layout-4 | In RTL the resizable-card-layout pointer direction is reversed, so cards never move down while a card grows.                                    | behaviour     | rendered  |         | ⬜ reported |                                                                                                                                                   |     |       |
 
 #### feed-list
 

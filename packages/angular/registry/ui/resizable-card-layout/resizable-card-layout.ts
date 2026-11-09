@@ -103,12 +103,14 @@ let nextId = 0;
                 (mouseleave)="hovered.set(false)"
             >
                 <div
-                    class="relative order-1 h-[calc(100%_-_0.0625rem)] flex-1 [&>*]:h-full [&>*]:overflow-hidden [&>*>*]:shrink-0"
+                    class="relative order-1 h-[calc(100%_-_0.0625rem)] flex-1 [&>:not([data-resize-corner])]:h-full [&>:not([data-resize-corner])]:overflow-hidden [&>:not([data-resize-corner])>*]:shrink-0"
                 >
                     <ng-content />
                     @if (resizable() && (hovered() || resizingNow())) {
+                        <!-- the corner keeps its own size: the card content fills the area, not the corner -->
                         <div
                             aria-hidden="true"
+                            data-resize-corner
                             class="absolute -end-0 -bottom-[0.35rem] z-2 flex size-6 items-start justify-start rtl:-start-0 rtl:-bottom-0.5"
                         >
                             <div

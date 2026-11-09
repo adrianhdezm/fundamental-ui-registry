@@ -2554,9 +2554,9 @@
       "source": "../../../react/docs/parity/components/resizable-card-layout.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host, hover card A): the resize corner box computes 159px high (the card area's [&>*]:h-full applies to it), so its glyph sits in the middle of the end edge; fundamental-styles' corner is 1.5rem at the bottom end.",
+      "test": "resizable-card-layout.spec.ts › ResizableCardLayout corner and RTL › the resize corner is a 1.5rem box at the bottom end, not as tall as the card",
       "fix": "",
       "notes": ""
     },
