@@ -109,8 +109,8 @@ export class Token {
         const selected = this.selected();
         const readOnly = this.readOnly();
         return cn(
-            'relative m-0 box-border flex h-(--tk-h) max-w-full min-w-(--tk-min-w) shrink-0 cursor-default items-center justify-center p-0 ps-(--tk-ps) text-center leading-6 whitespace-nowrap outline-none',
-            'font-sap-font-family text-sap-font-size text-(--tk-fg) rounded-[0.375rem] hc:rounded-[0.25rem] bg-(--tk-bg) border-width-sap-button-border-width border-solid border-(--tk-bc)',
+            'relative m-0 box-border flex h-(--tk-h) max-w-full min-w-(--tk-min-w) shrink-0 cursor-default items-center justify-center p-0 ps-(--tk-ps) text-center whitespace-nowrap outline-none',
+            'font-sap-font-family text-sap-font-size leading-6 text-(--tk-fg) rounded-[0.375rem] hc:rounded-[0.25rem] bg-(--tk-bg) border-width-sap-button-border-width border-solid border-(--tk-bc)',
             '[--tk-h:1.625rem] [--tk-min-w:3.625rem] [--tk-ps:0.3125rem] [--tk-close-w:1.75rem] [--tk-close-px:0.5rem] [--tk-close-py:0.25rem] [--tk-close:var(--sapContent_IconColor)]',
             'compact:[--tk-h:1.25rem] compact:[--tk-min-w:3rem] compact:[--tk-ps:0.25rem] compact:[--tk-close-w:1.25rem] compact:[--tk-close-px:0.25rem] compact:[--tk-close-py:0.125rem] compact:leading-[1.125rem]',
             '[--tk-fg:var(--sapTextColor)] [--tk-bg:var(--sapButton_TokenBackground)] [--tk-bc:var(--sapButton_TokenBorderColor)]',
@@ -122,7 +122,7 @@ export class Token {
                     '[--tk-fg:var(--sapButton_Selected_TextColor)] [--tk-bg:var(--sapButton_Selected_Background)] [--tk-bc:var(--sapButton_Selected_BorderColor)] [--tk-close:var(--sapButton_Selected_TextColor)]',
                     'hover:[--tk-bg:var(--sapButton_Selected_Hover_Background)] font-sap-font-semibold-duplex-family',
                     // a thicker bottom line
-                    'shadow-[inset_0_-0.0625rem_0_0_var(--sapButton_Selected_BorderColor)] focus:outline-sap-content-focus-color hc:focus:outline-sap-content-contrast-focus-color'
+                    '[box-shadow:inset_0_-0.0625rem_0_0_var(--sapButton_Selected_BorderColor)] hc:[box-shadow:none] focus:outline-sap-content-focus-color hc:focus:outline-sap-content-contrast-focus-color'
                 ],
             readOnly && [
                 '[--tk-fg:var(--sapContent_LabelColor)] [--tk-bc:var(--sapField_ReadOnly_BorderColor)] [--tk-ps:0.3125rem] pe-(--tk-ps) compact:[--tk-ps:0.25rem]',
@@ -168,7 +168,7 @@ export class Token {
 @Directive({
     selector: 'input[fdTokenizerInput], input[fd-tokenizer-input]',
     host: {
-        class: 'm-0 box-border h-full min-h-full min-w-12 flex-1 basis-full border-none bg-transparent px-[0.3125rem] py-0 shadow-none outline-none compact:min-w-8 compact:px-1 font-sap-font-family text-sap-font-size text-sap-field-text-color placeholder:italic placeholder:text-sap-field-placeholder-text-color hc:placeholder:not-italic  '
+        class: 'm-0 box-border min-w-12 flex-1 basis-full self-stretch rounded-sap-field-border-corner-radius border-none bg-transparent px-[0.3125rem] py-0 shadow-none outline-none compact:min-w-8 compact:px-1 font-sap-font-family text-sap-font-size text-sap-field-text-color placeholder:italic placeholder:text-sap-field-placeholder-text-color hc:placeholder:not-italic  '
     }
 })
 export class TokenizerInput {
@@ -349,14 +349,18 @@ export class Tokenizer {
 
     protected readonly fieldClass = computed(() =>
         cn(
-            'relative box-border flex w-full min-h-sap-element-height items-center overflow-hidden p-0 compact:min-h-sap-element-compact-height',
-            'rounded-sap-field-border-corner-radius border-width-sap-field-border-width [border-style:var(--sapField_BorderStyle)] border-sap-field-border-color shadow-sap-field-shadow',
+            'relative box-border flex w-full min-h-sap-element-height cursor-text items-center overflow-hidden p-0 text-sap-field-text-color compact:min-h-sap-element-compact-height',
+            'rounded-sap-field-border-corner-radius border-width-sap-field-border-width [border-style:var(--sapField_BorderStyle)] border-sap-field-border-color [box-shadow:var(--sapField_Shadow)]',
             '[background:var(--sapField_BackgroundStyle)_var(--sapField_Background)]',
             'hover:[background:var(--sapField_Hover_BackgroundStyle)_var(--sapField_Hover_Background)] hover:border-sap-field-hover-border-color',
+            // fundamental-styles drops the field shadow on hover; value states and read-only fields keep theirs
+            (this.state() ?? 'default') === 'default' && !this.readonly() && 'hover:[box-shadow:none]',
             this.tokenizerFocusable() && 'has-[input:focus]:outline-sap has-[input:focus]:-outline-offset-1',
             fieldStates[this.state() ?? 'default'],
-            this.readonly() &&
-                'border-dashed border-sap-field-read-only-border-color bg-sap-field-read-only-background shadow-none',
+            this.readonly() && [
+                '[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] border-sap-field-read-only-border-color',
+                'hover:[background:var(--sapField_ReadOnly_BackgroundStyle)_var(--sapField_ReadOnly_Background)] hover:border-sap-field-read-only-border-color'
+            ],
             this.disabled() &&
                 'pointer-events-none opacity-(--sapContent_DisabledOpacity) [&_:disabled]:opacity-100! [&_[aria-disabled=true]]:opacity-100!',
             this.userClass()
@@ -364,7 +368,7 @@ export class Tokenizer {
     );
     protected readonly innerClass = computed(() =>
         cn(
-            'flex h-full w-full items-center overflow-hidden px-[0.3125rem] whitespace-nowrap compact:px-1',
+            'flex w-full items-center self-stretch overflow-hidden px-[0.3125rem] whitespace-nowrap compact:px-1',
             '[&_fd-token]:me-[0.3125rem] compact:[&_fd-token]:me-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
             this.expanded() && 'overflow-x-auto'
         )

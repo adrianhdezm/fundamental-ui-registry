@@ -273,7 +273,12 @@ let nextId = 0;
                                 class="m-0 list-none p-0"
                                 [attr.aria-labelledby]="comboboxId() + '-group-' + g"
                             >
-                                <li fdListGroupHeader role="presentation" [id]="comboboxId() + '-group-' + g">
+                                <li
+                                    fdListGroupHeader
+                                    role="presentation"
+                                    class="cursor-default"
+                                    [id]="comboboxId() + '-group-' + g"
+                                >
                                     <span fdListTitle>{{ group.key }}</span>
                                 </li>
                                 @for (entry of group.items; track entry.index) {
@@ -537,7 +542,9 @@ export class Combobox<T = unknown> implements ControlValueAccessor {
         this.isOpen.set(true);
         this.openChange.emit(true);
         if (this.mobile()) {
-            this.snapshot = { text: this.inputText(), value: this.modelValue(), confirmed: this.confirmed };
+            // what Cancel goes back to; in immediate mode the choices are already applied, so they stay
+            if (this.approveMode())
+                this.snapshot = { text: this.inputText(), value: this.modelValue(), confirmed: this.confirmed };
             this.searchTerm.set('');
             this.openDialog();
         }
