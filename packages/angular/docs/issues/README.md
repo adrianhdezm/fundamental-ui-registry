@@ -57,7 +57,7 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 **Progress:** 1 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 213 · 🧪 covered: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 213 · 🔧 fixed: 1 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -841,10 +841,10 @@ None.
 
 #### content-density
 
-[React report](../../../react/docs/parity/components/content-density.md) · 🧪 covered: 1
+[React report](../../../react/docs/parity/components/content-density.md) · 🔧 fixed: 1
 
-| ID                | Issue                                                                                                                                                                                                    | Kind   | Confirmed | Pattern | Status     | Test                                                                                                | Fix | Notes                                                                           |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | --------------------------------------------------------------------------------------------------- | --- | ------------------------------------------------------------------------------- |
-| content-density-1 | The `compact` variant in `fundamental.css` stops at one level: a compact section inside a cozy island of a compact page stays cozy (Angular's own inheritance story shows it under the compact toolbar). | visual | rendered  |         | 🧪 covered | ContentDensity › the nearest density wins through alternating levels (compact, cozy, compact, cozy) |     | Shared styles (`registry/styles/fundamental.css`): every component is affected. |
+| ID                | Issue                                                                                                                                                                                                    | Kind   | Confirmed | Pattern | Status   | Test                                                                                                | Fix     | Notes                                                                                                                                                                                             |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | -------- | --------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| content-density-1 | The `compact` variant in `fundamental.css` stops at one level: a compact section inside a cozy island of a compact page stays cozy (Angular's own inheritance story shows it under the compact toolbar). | visual | rendered  |         | 🔧 fixed | ContentDensity › the nearest density wins through alternating levels (compact, cozy, compact, cozy) | daa80fc | Shared styles (`registry/styles/fundamental.css`): every component is affected. Fixed; to be verified against fundamental-styles in all 16 combinations once the visual comparison script exists. |
 
 <!-- tracker:end -->
