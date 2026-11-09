@@ -1022,9 +1022,9 @@
       "source": "../../../react/docs/parity/components/date-picker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec host: in compact density the date picker input (first of its group) computes padding-inline-start/end 10px (first:ps-2.5 wins over nothing); fundamental-styles has the compact field padding, 8px. In sap_horizon_hcb its ::placeholder computes font-style normal (hc:placeholder:not-italic); fundamental-styles keeps italic.",
+      "test": "date-picker.spec.ts › DatePicker › the input keeps the compact field padding and an italic placeholder in HC, as fundamental-styles (computed style)",
       "fix": "",
       "notes": "Decided: italic placeholder in HC, as fundamental-styles (and React); the compact padding (first half) is a plain fix."
     },

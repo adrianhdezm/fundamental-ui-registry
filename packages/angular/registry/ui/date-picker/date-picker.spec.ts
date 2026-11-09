@@ -204,6 +204,26 @@ describe('DatePicker', () => {
         }
     });
 
+    it('the input keeps the compact field padding and an italic placeholder in HC, as fundamental-styles (computed style)', async () => {
+        const { input } = await setup();
+        const style = getComputedStyle(input());
+        expect(style.paddingInlineStart).toBe('10px');
+        input().placeholder = 'm/d/yyyy';
+        const placeholder = () => getComputedStyle(input(), '::placeholder').fontStyle;
+        expect(placeholder()).toBe('italic');
+        try {
+            document.documentElement.setAttribute('data-density', 'compact');
+            expect(getComputedStyle(input()).paddingInlineStart).toBe('8px');
+            expect(getComputedStyle(input()).paddingInlineEnd).toBe('8px');
+            document.documentElement.removeAttribute('data-density');
+            document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+            expect(placeholder()).toBe('italic');
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     it('references the state and the message from aria-describedby', async () => {
         const { host, input, stable } = await setup();
         expect(input().hasAttribute('aria-describedby')).toBe(false);
