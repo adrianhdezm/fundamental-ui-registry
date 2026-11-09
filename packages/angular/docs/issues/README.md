@@ -279,12 +279,12 @@ None.
 
 #### form
 
-[React report](../../../react/docs/parity/components/form.md) · ⬜ reported: 2
+[React report](../../../react/docs/parity/components/form.md) · 🧪 covered: 2
 
-| ID     | Issue                                                                                                               | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ------ | ------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| form-1 | The form header line is 3px and the group header border 1px in the HC themes; fundamental-styles uses 2px for both. | visual | rendered  |         | ⬜ reported |      |     |       |
-| form-2 | `static` messages use `w-auto`, which still fills a block container (`w-fit` needed).                               | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID     | Issue                                                                                                               | Kind   | Confirmed | Pattern | Status     | Test                                                                            | Fix | Notes |
+| ------ | ------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ------------------------------------------------------------------------------- | --- | ----- |
+| form-1 | The form header line is 3px and the group header border 1px in the HC themes; fundamental-styles uses 2px for both. | visual | rendered  |         | 🧪 covered | Form issues > draws 2px header and group header lines in high contrast (form-1) |     |       |
+| form-2 | `static` messages use `w-auto`, which still fills a block container (`w-fit` needed).                               | visual | rendered  |         | 🧪 covered | Form issues > makes static messages as wide as their text (form-2)              |     |       |
 
 #### menu
 

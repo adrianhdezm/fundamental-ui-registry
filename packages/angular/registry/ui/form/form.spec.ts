@@ -459,3 +459,41 @@ describe('Form', () => {
         });
     });
 });
+
+@Component({
+    imports: [FormHeader, FormGroup, FormGroupHeader, FormMessage],
+    template: `
+        <div fdFormHeader id="header">Form</div>
+        <fd-form-group><div fdFormGroupHeader id="group-header">Group</div></fd-form-group>
+        <div style="width: 30rem"><fd-form-message id="static" static>Short</fd-form-message></div>
+    `
+})
+class IssuesHost {}
+
+describe('Form issues', () => {
+    async function render() {
+        const fixture = TestBed.createComponent(IssuesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        return (id: string) => root.querySelector<HTMLElement>(`#${id}`)!;
+    }
+
+    it('draws 2px header and group header lines in high contrast (form-1)', async () => {
+        const el = await render();
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            expect(getComputedStyle(el('header')).boxShadow).toMatch(/^rgb\([^)]*\) 0px 2px 0px 0px$/);
+            expect(getComputedStyle(el('group-header')).borderBottomWidth).toBe('2px');
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+        expect(getComputedStyle(el('header')).boxShadow).toMatch(/^rgb\([^)]*\) 0px 1px 0px 0px$/);
+        expect(getComputedStyle(el('group-header')).borderBottomWidth).toBe('1px');
+    });
+
+    it('makes static messages as wide as their text (form-2)', async () => {
+        const el = await render();
+        expect(el('static').getBoundingClientRect().width).toBeLessThan(200);
+    });
+});
