@@ -721,6 +721,8 @@ const BAR = '[--bar-px:var(--dlg-px)] shrink-0';
 /**
  * Header of a dialog. Projects an `[fd-title]` at the start and the full-screen and close buttons
  * at the end; put `fd-bar-left`/`fd-bar-middle`/`fd-bar-right` areas directly inside for a custom header.
+ * Renders a `<div>`: a `<header>` (as a `<footer>` in the footer) is a landmark of the whole page even inside a
+ * dialog, so two open dialogs would add duplicate banners.
  */
 @Component({
     selector: 'fd-dialog-header',
@@ -729,7 +731,7 @@ const BAR = '[--bar-px:var(--dlg-px)] shrink-0';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: { class: 'block' },
     template: `
-        <header data-dialog-header>
+        <div data-dialog-header>
             <div
                 fd-bar
                 role="group"
@@ -764,7 +766,7 @@ const BAR = '[--bar-px:var(--dlg-px)] shrink-0';
                 </div>
             }
             <ng-content />
-        </header>
+        </div>
     `
 })
 export class DialogHeader {
@@ -835,7 +837,7 @@ export class DialogBody {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: { class: 'block' },
     template: `
-        <footer>
+        <div data-dialog-footer>
             <div
                 fd-bar
                 barDesign="footer"
@@ -850,7 +852,7 @@ export class DialogBody {
                     <div fd-bar-right><ng-content /></div>
                 }
             </div>
-        </footer>
+        </div>
     `
 })
 export class DialogFooter {

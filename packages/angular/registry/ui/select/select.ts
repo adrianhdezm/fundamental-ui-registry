@@ -568,8 +568,8 @@ export class Select<T = unknown> implements ControlValueAccessor {
             event.preventDefault();
             this.keyManager.activeItem.selectViaInteraction();
         } else if (key === 'Tab') {
-            if (this.mobile()) event.preventDefault();
-            else this.close(true);
+            // in the mobile dialog Tab moves on to its buttons (the dialog keeps the focus inside)
+            if (!this.mobile()) this.close(true);
         } else {
             this.keyManager.onKeydown(event);
         }

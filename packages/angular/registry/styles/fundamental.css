@@ -52,8 +52,10 @@
 }
 
 /* compact: content density. Applies inside [data-density=compact|condensed] unless a nested
- * [data-density=cozy] resets it (condensed is a denser compact, used by tables and lists). */
-@custom-variant compact (&:where([data-density='compact'], [data-density='compact'] *, [data-density='condensed'], [data-density='condensed'] *):not(:where(:is([data-density='compact'], [data-density='condensed']) [data-density='cozy'], :is([data-density='compact'], [data-density='condensed']) [data-density='cozy'] *)));
+ * [data-density=cozy] resets it (condensed is a denser compact, used by tables and lists). The nearest density
+ * wins through four alternating levels (compact, cozy, compact, cozy); every selector stays inside :where(), so the
+ * variant adds no specificity. */
+@custom-variant compact (&:where([data-density='compact'], [data-density='compact'] *, [data-density='condensed'], [data-density='condensed'] *):not(:where(:is([data-density='compact'], [data-density='condensed']) [data-density='cozy'], :is([data-density='compact'], [data-density='condensed']) [data-density='cozy'] *):not(:where(:is([data-density='compact'], [data-density='condensed']) [data-density='cozy'] :is([data-density='compact'], [data-density='condensed']), :is([data-density='compact'], [data-density='condensed']) [data-density='cozy'] :is([data-density='compact'], [data-density='condensed']) *):not(:where(:is([data-density='compact'], [data-density='condensed']) [data-density='cozy'] :is([data-density='compact'], [data-density='condensed']) [data-density='cozy'], :is([data-density='compact'], [data-density='condensed']) [data-density='cozy'] :is([data-density='compact'], [data-density='condensed']) [data-density='cozy'] *)))));
 
 /* condensed: the table/list density below compact. */
 @custom-variant condensed (&:where([data-density='condensed'], [data-density='condensed'] *));

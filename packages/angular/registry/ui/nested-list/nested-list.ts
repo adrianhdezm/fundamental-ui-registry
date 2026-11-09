@@ -407,12 +407,14 @@ export class NestedLink {
     protected readonly standalone = computed(() => !this.content && !this.item?.content());
 
     readonly title = computed(() => this.titleEl()[0]?.text() ?? '');
-    /** The last group header above the item describes it. */
+    /** The last group header before the item describes it (the headers are in document order). */
     protected readonly headerId = computed(() => {
         const list = this.item?.list;
         if (!list) return null;
-        const header = list.header();
-        return header.length ? header[header.length - 1].id() : null;
+        const before = list
+            .header()
+            .filter((h) => h.el.compareDocumentPosition(this.el) & Node.DOCUMENT_POSITION_FOLLOWING);
+        return before.at(-1)?.id() ?? null;
     });
     protected readonly ariaLabel = computed(() => {
         const list = this.item?.list;
@@ -496,6 +498,7 @@ let nextHeaderId = 0;
 })
 export class NestedListHeader {
     readonly id = input(`fd-nested-list-group-header-${nextHeaderId++}`);
+    readonly el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
     /** Condensed navigations have no room for headers. */
     protected readonly state = inject(NestedListState, { optional: true });
     protected readonly headerClass =

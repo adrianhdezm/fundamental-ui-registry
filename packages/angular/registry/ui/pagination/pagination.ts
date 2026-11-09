@@ -101,7 +101,7 @@ let nextId = 0;
                 <nav
                     [class]="navClass()"
                     [attr.aria-label]="ariaLabel()"
-                    [attr.aria-describedby]="displayTotalItems() ? id + '-total' : null"
+                    [attr.aria-describedby]="displayTotalItems() && !compact() ? id + '-total' : null"
                     (keydown)="onNavKeydown($event)"
                     (focusin)="onFocusin($event)"
                 >

@@ -37,7 +37,7 @@ let nextId = 0;
 
 /**
  * Inline help: a tooltip-like popover with help text, shown on hover and focus.
- * The text is also rendered off-screen inside the trigger for screen readers.
+ * The text is also rendered as a hidden copy after the trigger, which describes it for screen readers.
  *
  * ```html
  * <fd-icon glyph="question-mark" fdInlineHelp="Explains the field" tabindex="0" />
@@ -80,7 +80,6 @@ export class InlineHelp implements OnDestroy {
     private readonly renderer = inject(Renderer2);
     private readonly isIcon = this.elementRef.nativeElement.tagName === 'FD-ICON';
     /** Void elements such as <input> cannot hold the off-screen text; it goes right after them. */
-    private readonly isVoid = ['INPUT', 'IMG', 'TEXTAREA', 'SELECT'].includes(this.elementRef.nativeElement.tagName);
     private srElement: HTMLElement | null = null;
     private srView: EmbeddedViewRef<unknown> | null = null;
 
@@ -132,7 +131,11 @@ export class InlineHelp implements OnDestroy {
         this.srView?.destroy();
     }
 
-    /** Keeps an off-screen copy of the help text inside the trigger for assistive technology. */
+    /**
+     * Keeps a hidden copy of the help text right after the trigger for its aria-describedby. Hidden, not off-screen,
+     * and outside the trigger: aria-describedby reads hidden elements, and a hidden copy adds nothing to the name of
+     * the trigger (a button's name comes from its content) or of a label around it.
+     */
     private renderScreenReaderText(content: string | TemplateRef<unknown> | null | undefined): void {
         this.srView?.destroy();
         this.srView = null;
@@ -147,11 +150,9 @@ export class InlineHelp implements OnDestroy {
             if (node instanceof HTMLElement) el = node;
             else el.textContent = node?.textContent ?? '';
         }
-        el.classList.add('sr-only-sap');
+        el.hidden = true;
         el.id = `${this.bodyId()}-text`;
-        const host = this.elementRef.nativeElement;
-        if (this.isVoid) host.after(el);
-        else this.renderer.appendChild(host, el);
+        this.elementRef.nativeElement.after(el);
         this.srElement = el;
     }
 }

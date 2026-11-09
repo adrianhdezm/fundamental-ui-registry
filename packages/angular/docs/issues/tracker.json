@@ -342,11 +342,11 @@
       "source": "../../../react/docs/parity/components/switch.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec host with <fd-switch semantic>Approved</fd-switch> and <fd-switch semantic ariaLabel=\"Release\" />: getByRole(\"switch\", { name: \"Decline\", exact: true }) finds both inputs (aria-labelledby points at the state text only); <fd-switch ariaLabel=\"Wi-Fi\" /> has aria-label on the <label>, not on the input.",
+      "test": "Switch › names a semantic switch by its label content or ariaLabel, then the state, with ariaLabel on the input",
+      "fix": "0f269c5",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check (a11y included) passes."
     },
     {
       "id": "info-label-1",
@@ -670,11 +670,11 @@
       "source": "../../../react/docs/parity/components/dialog.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: two dialogs opened with hasBackdrop: false (both aria-modal=\"true\"); axe-core with landmark-no-duplicate-banner, landmark-no-duplicate-contentinfo and landmark-unique reports 3 violations: each dialog header is a <header> (banner) and each footer a <footer> (content info).",
+      "test": "Dialog › adds no page landmarks: two dialogs without backdrop have no banner or content info",
+      "fix": "98bb868",
+      "notes": "Verified: the test fails before the fix (3 violations) and passes after; pnpm angular check (a11y included) passes."
     },
     {
       "id": "dialog-3",
@@ -787,11 +787,11 @@
       "source": "../../../react/docs/parity/components/input-group.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: <fd-input-group addOnText=\"$\" ariaDescribedBy=\"hint\"> with a projected <span fdInputGroupAddon>€</span>: the generated addon is not rendered, but the input has aria-describedby=\"hint fd-input-group-addon-1\", an id that does not exist.",
+      "test": "InputGroup › is described only by addons it renders: a projected addon replaces the generated one",
+      "fix": "8f2c7a1",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "form-1",
@@ -853,11 +853,11 @@
       "source": "../../../react/docs/parity/components/calendar.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure."
+      "status": "verified",
+      "repro": "Spec: open the month view (\"March, Select month\"); the cells read Jan, Feb, Mar, … while each cell is named \"January 2024\", …; axe-core label-content-name-mismatch flags 11 of the 12 cells (#cal-month-view-month-0, …; only May has the same short and long name).",
+      "test": "Calendar › shows long month names in the month view, matching the cell names (axe label-content-name-mismatch)",
+      "fix": "4a4f004",
+      "notes": "Decided: long month names, as fundamental-styles (and React); this also fixes the axe failure. Verified: the test fails before the fix (11 cells) and passes after; the long names fit their cells; pnpm angular check passes."
     },
     {
       "id": "calendar-2",
@@ -983,11 +983,11 @@
       "source": "../../../react/docs/parity/components/select.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a mobile select (title, Save and Cancel) opened with a click; the listbox has the focus; a real Tab key press leaves the focus on the listbox (handleOpenKeydown calls preventDefault on Tab in mobile mode), so Save and Cancel cannot be reached with the keyboard.",
+      "test": "Select › mobile: Tab moves from the list to the dialog buttons, which stay in the dialog",
+      "fix": "8168436",
+      "notes": "Verified: the test fails before the fix and passes after; Tab cycles inside the dialog; pnpm angular check passes."
     },
     {
       "id": "date-picker-1",
@@ -1075,11 +1075,11 @@
       "source": "../../../react/docs/parity/components/combobox.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a mobile combobox opened with a click: the dialog search field has aria-expanded=\"false\" while the dialog list shows (its expanded state followed listShown(), which is false in mobile mode). A combobox 60rem wide with noDropDownMaxWidth opened from its button: the list has max-width 640px.",
+      "test": "Combobox › mobile › the search field of the dialog is expanded while its list shows; Combobox › noDropDownMaxWidth lets the list fill a field wider than 40rem",
+      "fix": "89dc82a",
+      "notes": "Verified: both tests fail before the fix and pass after; pnpm angular check passes."
     },
     {
       "id": "nested-list-1",
@@ -1088,11 +1088,11 @@
       "source": "../../../react/docs/parity/components/nested-list.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a list with a row (Start), a header (Overview), a row (Home), a header (Support) and a row (Help): every row has aria-describedby=\"support\", the list's last header, also Start (no header before it) and Home (under Overview).",
+      "test": "NestedList › describes each row by the last group header before it",
+      "fix": "6a292ef",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "nested-list-2",
@@ -1258,11 +1258,11 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a pagination of 500 items; in the desktop layout the nav is described by the results text (<id>-total); switched to mobile, the nav keeps aria-describedby=\"<id>-total\" while that element is no longer rendered (getElementById returns null).",
+      "test": "Pagination › describes the nav by the results text only where it is shown",
+      "fix": "6d9d3de",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "action-sheet-1",
@@ -1378,11 +1378,11 @@
       "source": "../../../react/docs/parity/components/wizard.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a 600px wizard of 7 steps on step 4, the first step stacked and its indicator showing only a glyph: its role=button container has no accessible name (axe-core aria-command-name violation), because the label container of a stacked step is display: none. With a number in the indicator the step is named \"1\" instead of by its label \"A\".",
+      "test": "Wizard › keeps the labels of stacked steps for assistive technology, also when the indicator shows a glyph",
+      "fix": "30a6b47",
+      "notes": "Verified: the test fails before the fix (aria-command-name) and passes after; pnpm angular check passes."
     },
     {
       "id": "tabs-1",
@@ -1630,11 +1630,11 @@
       "source": "../../../react/docs/parity/components/inline-help.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: <button fdButton label=\"Click me\" fdInlineHelp=\"Explains the action\"> is named \"Click me Explains the action\" (the off-screen copy is inside the button); a <label>Name <span fdInlineHelp=\"Your full name\">?</span></label> reads \"Name ? Your full name\".",
+      "test": "InlineHelp › the help text describes a button trigger and adds nothing to its name or to a label around it",
+      "fix": "22f6d86",
+      "notes": "Verified: the test fails before the fix and passes after; the spec of the copy (now hidden, next to the trigger) is updated; pnpm angular check passes."
     },
     {
       "id": "inline-help-2",
@@ -2421,11 +2421,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a mobile multi-combobox with stateMessage \"Pick at least one\", dialog opened: two elements with id <id>-message (the control template, which holds the description, is rendered for the page field and for the dialog field).",
+      "test": "MultiCombobox › mobile › renders the state message description once for the page and the dialog field",
+      "fix": "dc26309",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "multi-combobox-9",
@@ -2434,11 +2434,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a multi-combobox without a state message has no aria-live element; setting stateMessage creates <span aria-live=\"polite\"> together with its text (the region is inside @if (currentStateMessage() && !isOpen())), which screen readers often do not announce.",
+      "test": "MultiCombobox › keeps the polite live region mounted, so a state message that appears is announced",
+      "fix": "5d1a4e0",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "facets-1",
@@ -2725,11 +2725,11 @@
       "source": "../../../react/docs/parity/components/carousel.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: a carousel of 4 slides announces \"Displaying item 1 of 4\"; with its slides set to [] the live region reads \"Displaying item 1 of 0\".",
+      "test": "Carousel › announces the shown item, and nothing without slides",
+      "fix": "954c022",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "carousel-3",
@@ -2883,11 +2883,11 @@
       "source": "../../../react/docs/parity/components/notification.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec: <ul fd-notification-list> with two <fd-notification>s straight inside (no group): axe-core reports aria-required-children on the ul (the directive makes it role=list, and its fd-notification children have no role). A list of groups passes (fd-notification-group is a listitem).",
+      "test": "Notification › makes notifications and groups the list items of a notification list (axe list rules)",
+      "fix": "a6e1bc7",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "settings-1",
@@ -2923,11 +2923,11 @@
       "source": "../../../react/docs/parity/components/content-density.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Shared styles (`registry/styles/fundamental.css`): every component is affected."
+      "status": "fixed",
+      "repro": "Spec: a button in compact > cozy > compact > cozy sections (fdCompact/fdCozy) measures 26, 36, 36, 36px instead of 26, 36, 26, 36px: the compact section inside the cozy island stays cozy. Storybook: components-content-density--directives under a compact global density shows the same.",
+      "test": "ContentDensity › the nearest density wins through alternating levels (compact, cozy, compact, cozy)",
+      "fix": "daa80fc",
+      "notes": "Shared styles (`registry/styles/fundamental.css`): every component is affected. Fixed; to be verified against fundamental-styles in all 16 combinations once the visual comparison script exists."
     }
   ]
 }
