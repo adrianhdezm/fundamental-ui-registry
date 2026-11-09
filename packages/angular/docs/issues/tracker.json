@@ -118,11 +118,11 @@
       "source": "../../../react/docs/parity/components/icon.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "`pnpm visual icon`, case \"narrow glyph\" (components-icon--rtl, first icon), 16 of 16 combinations: 12px wide against fundamental-styles 32px (1em); the md lightbulb is 24px wide against 32px.",
       "test": "icon.spec.ts › Icon › a narrow glyph gets a 1em box, as wide as the font size",
-      "fix": "",
-      "notes": ""
+      "fix": "744ad67",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual icon: 96/96 (narrow glyph box 32px wide at md; the other cases by styles, other glyphs)."
     },
     {
       "id": "link-1",
@@ -131,11 +131,11 @@
       "source": "../../../react/docs/parity/components/link.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "link.spec.ts, the default link: computed text-underline-offset auto; fundamental-styles has 0.125rem (2px).",
       "test": "link.spec.ts › Link › the underline sits 0.125rem below the text, as fundamental-styles",
-      "fix": "",
-      "notes": ""
+      "fix": "12f8a24",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual link: emphasized and subtle 32/32 (styles; text-underline-offset 2px)."
     },
     {
       "id": "busy-indicator-1",
@@ -144,11 +144,11 @@
       "source": "../../../react/docs/parity/components/busy-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "busy-indicator.spec.ts: the dots compute to --sapContent_BusyColor, rgb(0, 100, 217) in Horizon, against fundamental-styles' --fdBusy_Indicator_Dot_Color #0070f2 (rgb(0, 112, 242)) in Horizon and Dark.",
       "test": "busy-indicator.spec.ts › BusyIndicator › the dots use fundamental-styles' dot colour (#0070f2 in Horizon and Horizon Dark, the busy colour in HC)",
-      "fix": "",
-      "notes": "Decided: fundamental-styles’ `--fdBusy_Indicator_Dot_Color` (as React)."
+      "fix": "aae7d67",
+      "notes": "Decided: fundamental-styles’ `--fdBusy_Indicator_Dot_Color` (as React). Verified: the spec passes and pnpm check passes. pnpm visual busy-indicator: dots s, m, l 48/48."
     },
     {
       "id": "layout-grid-1",
@@ -355,11 +355,11 @@
       "source": "../../../react/docs/parity/components/info-label.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "info-label.spec.ts: computed vertical-align middle (align-middle), which moves inline labels 0.3px down; fundamental-styles keeps baseline.",
       "test": "info-label.spec.ts › InfoLabel › sits on the baseline as fundamental-styles (no align-middle)",
-      "fix": "",
-      "notes": ""
+      "fix": "1bf7354",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual info-label: colours 1, 2, 6, 10 64/64 (styles, vertical-align)."
     },
     {
       "id": "avatar-1",
@@ -368,11 +368,11 @@
       "source": "../../../react/docs/parity/components/avatar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "avatar.spec.ts, border with transparent, tile or placeholder: the computed border colour is the lite/tile/placeholder one (transparent in Horizon) instead of --sapGroup_ContentBorderColor, and --av-hover-border is their icon colour instead of --sapAvatar_Hover_BorderColor; tailwind-merge keeps their later --av-border.",
       "test": "avatar.spec.ts › Avatar › border wins over the transparent, tile and placeholder borders, with the avatar hover border",
-      "fix": "",
-      "notes": ""
+      "fix": "38ad191",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual avatar: border xs and xl (transparent with border) 32/32 by styles."
     },
     {
       "id": "avatar-2",
@@ -381,11 +381,11 @@
       "source": "../../../react/docs/parity/components/avatar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "avatar.spec.ts, an image that loads: the avatar keeps the accent 6 background and border (e.g. a light blue ring in Horizon); fundamental-styles' thumbnail uses --sapAvatar_Lite_Background and --sapAvatar_Lite_BorderColor.",
       "test": "avatar.spec.ts › Avatar image loading › a loaded image takes the lite background and border instead of the accent colours",
-      "fix": "",
-      "notes": ""
+      "fix": "ca03994",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual avatar: image xl 16/16 by styles (lite background and border)."
     },
     {
       "id": "avatar-3",
@@ -394,11 +394,11 @@
       "source": "../../../react/docs/parity/components/avatar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "avatar.spec.ts, each valueState: the badge border computes to the state border colour (e.g. --sapErrorBorderColor #e90b0b) instead of the state text colour (#aa0808), as fundamental-styles.",
       "test": "avatar.spec.ts › Avatar › value state badges have a border in the state text colour",
-      "fix": "",
-      "notes": ""
+      "fix": "6be8ab1",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual avatar: the four value state badges 64/64 by colours and borders."
     },
     {
       "id": "avatar-4",
@@ -461,11 +461,11 @@
       "source": "../../../react/docs/parity/components/object-status.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "object-status.spec.ts: an icon-only positive status is 24px wide (min-w-6) instead of 16px, an inverted one 24px instead of 22px.",
       "test": "object-status.spec.ts › ObjectStatus variants › an icon-only status is as wide as its icon (16px), an inverted one 22px",
-      "fix": "",
-      "notes": ""
+      "fix": "083943c",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual object-status: icon only and inverted icon only 32/32."
     },
     {
       "id": "object-status-2",
@@ -474,11 +474,11 @@
       "source": "../../../react/docs/parity/components/object-status.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "object-status.spec.ts, an inverted large status: computed font-family 72-Semibold; fundamental-styles uses the regular 72 (6px narrower).",
       "test": "object-status.spec.ts › ObjectStatus variants › a large inverted status uses the regular 72 font",
-      "fix": "",
-      "notes": ""
+      "fix": "5cc1d75",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual object-status: large inverted 16/16 by styles (font-family)."
     },
     {
       "id": "object-status-3",
@@ -487,11 +487,11 @@
       "source": "../../../react/docs/parity/components/object-status.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "object-status.spec.ts, sap_horizon_hcb, a focused clickable positive status: computed colour --sapContent_ContrastTextColor instead of --sapPositiveTextColor; hcFocus() built its hc:focus: classes at runtime, so Tailwind never generated them.",
       "test": "object-status.spec.ts › ObjectStatus variants › in high contrast a focused clickable status keeps its status colour",
-      "fix": "",
-      "notes": ""
+      "fix": "a65b034",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual object-status: clickable negative focus 16/16 by styles, HC included."
     },
     {
       "id": "object-status-4",
@@ -618,11 +618,11 @@
       "source": "../../../react/docs/parity/components/tile.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "tile.spec.ts, a hovered line tile in sap_horizon_hcb: computed box-shadow is --sapContent_Shadow2 instead of the 0 0 0 0.125rem --sapTile_BorderColor ring of the other tiles (fundamental-styles' --fdTile_Hover_Box_Shadow).",
       "test": "tile.spec.ts › Tile › a hovered line tile shows the 0.125rem border ring in high contrast, as the other tiles",
-      "fix": "",
-      "notes": ""
+      "fix": "17e18ef",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual tile: line tile hover 16/16 by styles (box-shadow)."
     },
     {
       "id": "tile-2",
@@ -631,11 +631,11 @@
       "source": "../../../react/docs/parity/components/tile.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "tile.spec.ts, a launch tile in action mode, sap_horizon_hcb: the action close and indicator buttons have no border (border-0); fundamental-styles' compact transparent buttons have the 1px --sapButton_Lite_BorderColor border, a ring in HC.",
       "test": "tile.spec.ts › Tile › the action close and indicator buttons have the 1px lite button border (a ring in high contrast)",
-      "fix": "",
-      "notes": ""
+      "fix": "a8e366f",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual tile: action close and indicator 32/32 by styles (borders)."
     },
     {
       "id": "tile-3",
@@ -644,11 +644,11 @@
       "source": "../../../react/docs/parity/components/tile.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "tile.spec.ts: the KPI value's computed font-weight is 300 (font-light) where fundamental-styles has lighter (100 under a 400 parent); the page dots have min-height/min-width 0 instead of 6px, and the active dot has the 0.063rem shadow instead of 0.125rem.",
       "test": "tile.spec.ts › Tile › the KPI value is lighter (100) and every page dot has 6px minimum sizes and the 0.125rem shadow",
-      "fix": "",
-      "notes": ""
+      "fix": "51d36ed",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual tile: kpi value, page dot and active page dot 48/48 by styles."
     },
     {
       "id": "dialog-1",
@@ -1722,11 +1722,11 @@
       "source": "../../../react/docs/parity/components/object-marker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "object-marker.spec.ts, dir=rtl, a marker with the mirrored request glyph and a label: the icon's pe-1 gap is inside its box, which rtl:-scale-x-100 flips to the outer side, so no gap is left between the icon and the label.",
       "test": "object-marker.spec.ts › ObjectMarker layout › keeps a 0.25rem gap between a mirrored glyph and the label in RTL",
-      "fix": "",
-      "notes": ""
+      "fix": "70b5a5b",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual object-marker: icon and text request matches in LTR (16 by styles, 8 by pixels); in RTL the boxes match and the pixels differ by 6%: our icon mirrors the request glyph (UI5), fundamental-styles draws it unmirrored, as the React report keeps."
     },
     {
       "id": "object-marker-2",
@@ -1735,11 +1735,11 @@
       "source": "../../../react/docs/parity/components/object-marker.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "object-marker.spec.ts, a clickable marker: computed line-height 16px (the root's leading-none) instead of normal, 1–2px shorter than fundamental-styles' link markers.",
       "test": "object-marker.spec.ts › ObjectMarker layout › a clickable marker has a normal line height, as fundamental-styles' link markers",
-      "fix": "",
-      "notes": ""
+      "fix": "660b93f",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual object-marker: clickable 16/16 by styles (line-height normal)."
     },
     {
       "id": "object-number-1",
@@ -1842,11 +1842,11 @@
       "source": "../../../react/docs/parity/components/generic-tag.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "generic-tag.spec.ts, an error tag, with generic-tag.ts as before 115fbfa (pattern-leading-merge): the status icon's computed line-height is 24px (text-base's 1.5rem) instead of 16px. Already fixed by pattern-leading-merge (leading-none after text-base).",
       "test": "generic-tag.spec.ts › GenericTag › the status icon keeps a 1rem line height",
-      "fix": "",
-      "notes": ""
+      "fix": "115fbfa",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual generic-tag: error icon 16/16."
     },
     {
       "id": "generic-tag-2",
@@ -1855,11 +1855,11 @@
       "source": "../../../react/docs/parity/components/generic-tag.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "generic-tag.spec.ts: in the generated CSS the active: rule setting --gt-bg to --sapList_Active_Background comes before the enabled-hover: one, so a pressed (hovered) tag keeps the hover background (#eaecee instead of #dee2e5 in Horizon).",
       "test": "generic-tag.spec.ts › GenericTag › the pressed background rule comes after the hover rule, so a pressed (hovered) tag shows it",
-      "fix": "",
-      "notes": ""
+      "fix": "c9dbb19",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual generic-tag: error hover 16/16; the visual tool cannot press, the pressed rule order is covered by the spec."
     },
     {
       "id": "text-1",
@@ -1868,11 +1868,11 @@
       "source": "../../../react/docs/parity/components/text.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "text.spec.ts: the paragraph's ::selection background is --sapContent_Selected_Background (white in Horizon, #1d232a in Dark), the same as the page, so selected text in the contrast colour is invisible; fundamental-styles uses --sapSelectedColor.",
       "test": "text.spec.ts › Text › selected text takes --sapSelectedColor with the contrast text colour, as fundamental-styles",
-      "fix": "",
-      "notes": ""
+      "fix": "62baefe",
+      "notes": "Verified: the spec passes and pnpm check passes. No visual case: ::selection is not captured by the visual tool; the spec checks the computed selection colours."
     },
     {
       "id": "text-2",
@@ -1881,11 +1881,11 @@
       "source": "../../../react/docs/parity/components/text.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "text.spec.ts, maxLines 2, expandable, isCollapsed false from the start: no toggle is shown (overflow was measured only while collapsed); a text changed while expanded kept its old measurement.",
       "test": "text.spec.ts › Text › a text that starts expanded shows the Less toggle, and is measured again when it changes",
-      "fix": "",
-      "notes": ""
+      "fix": "3f19e95",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "panel-1",
@@ -1948,11 +1948,11 @@
       "source": "../../../react/docs/parity/components/status-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "status-indicator.spec.ts: the root has --sapFontSmallSize, no line height and --sapContent_LabelColor, so a neutral label is grey; fundamental-styles has --sapFontSize, line-height normal and --sapTextColor.",
       "test": "status-indicator.spec.ts › StatusIndicator › the root has fundamental-styles' typography: text colour, font size and a normal line height",
-      "fix": "",
-      "notes": ""
+      "fix": "51307a4",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual status-indicator: neutral root 16/16 by styles (colour, font size, line height)."
     },
     {
       "id": "status-indicator-2",
@@ -1961,11 +1961,11 @@
       "source": "../../../react/docs/parity/components/status-indicator.md",
       "kind": "test",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "The Clickable story (components-status-indicator--clickable) with a play function that focuses it and presses Enter once: the value goes from 20% to 60%, its own keydown.enter and the component's activation both add 20%.",
       "test": "status-indicator.stories.ts › Clickable (play: one Enter adds 20% once), run by the a11y projects",
-      "fix": "",
-      "notes": "A story bug, not a component bug."
+      "fix": "a54e681",
+      "notes": "A story bug, not a component bug. Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "progress-indicator-1",
@@ -1974,11 +1974,11 @@
       "source": "../../../react/docs/parity/components/progress-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "progress-indicator.spec.ts: the label's computed line-height is 1.5 (leading-normal, 21px) instead of normal (16px), so its last line sits 1px over the track.",
       "test": "progress-indicator.spec.ts › ProgressIndicator › the label has a normal line height, as fundamental-styles",
-      "fix": "",
-      "notes": ""
+      "fix": "4b383e8",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual progress-indicator: labels 42% and 100% 32/32."
     },
     {
       "id": "progress-indicator-2",
@@ -1987,11 +1987,11 @@
       "source": "../../../react/docs/parity/components/progress-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "progress-indicator.spec.ts, value 42% in 400px: the label starts at the root's corner (inset-x-0, 0px from the track's left) and spans the whole root; fundamental-styles puts it 1px inside the track border, as wide as its text.",
       "test": "progress-indicator.spec.ts › ProgressIndicator › the label sits 1px inside the track border and is as wide as its text",
-      "fix": "",
-      "notes": ""
+      "fix": "d23e3fc",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual progress-indicator: labels 42% and 100% 32/32 (position and width)."
     },
     {
       "id": "progress-indicator-3",
@@ -2000,11 +2000,11 @@
       "source": "../../../react/docs/parity/components/progress-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "progress-indicator.spec.ts: the bar starts 1px left of the track's inner edge (-start-px), is 2px wider than the inside at 100% (end-[-0.0625rem]) and at least 10px wide (min-w-2.5) at 1%.",
       "test": "progress-indicator.spec.ts › ProgressIndicator › the bar sits inside the track border, as wide as its share of it",
-      "fix": "",
-      "notes": ""
+      "fix": "2fe77a3",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual progress-indicator: the five state bars 80/80 by styles (width ignored: our stories are 576px wide)."
     },
     {
       "id": "progress-indicator-4",
@@ -2013,11 +2013,11 @@
       "source": "../../../react/docs/parity/components/progress-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "progress-indicator.spec.ts, state positive: the icon box is 16px high (17px before pattern-leading-merge) instead of fundamental-styles' 18px (a 14px normal line with the 16px glyph middle-aligned), so the glyph sits 1px higher.",
       "test": "progress-indicator.spec.ts › ProgressIndicator › the state icon box is 18px high, as fundamental-styles",
-      "fix": "",
-      "notes": ""
+      "fix": "a2f11d0",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual progress-indicator: the four state icons 64/64."
     },
     {
       "id": "formatted-text-1",
@@ -2026,11 +2026,11 @@
       "source": "../../../react/docs/parity/components/formatted-text.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "formatted-text.spec.ts, a link in the content: text-underline-offset auto (fundamental-styles 2px) and the link colour kept on hover (fundamental-styles --sapLink_Hover_Color); focus showed the browser ring.",
       "test": "formatted-text.spec.ts › FormattedText › links have fundamental-styles' underline offset and hover colour",
-      "fix": "",
-      "notes": ""
+      "fix": "ed58452",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual formatted-text: link and link hover 32/32 by styles."
     },
     {
       "id": "quick-view-1",
@@ -2052,11 +2052,11 @@
       "source": "../../../react/docs/parity/components/avatar-group.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "avatar-group.spec.ts, size s with maxVisibleItems 2: the overflow button has avatar 1 colours (yellow in Horizon), font-weight 700 and the --sapFontSize text in a fixed square; fundamental-styles' fd-avatar--overflow has button colours, weight 400, the avatar's 1.125rem font and is as wide as its count.",
       "test": "avatar-group.spec.ts › AvatarGroup › the overflow button is an avatar with button colours, the avatar font size and as wide as its count",
-      "fix": "",
-      "notes": ""
+      "fix": "2bec927",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual avatar-group: overflow button at rest and hovered 32/32 by styles (radius and width ignored: square against circle, other count)."
     },
     {
       "id": "avatar-group-2",
@@ -2065,11 +2065,11 @@
       "source": "../../../react/docs/parity/components/avatar-group.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "avatar-group.spec.ts, an individual group of accent-2 avatars with details: hovering an avatar's trigger leaves its background unchanged (fundamental-styles' avatar buttons take their hover colours), and the keyboard focus frame is 0.25rem out (-4px) instead of 0.3125rem.",
       "test": "avatar-group.spec.ts › AvatarGroup › an individual avatar with details hovers with its own hover colours and has its focus frame 0.3125rem out",
-      "fix": "",
-      "notes": ""
+      "fix": "d717d93",
+      "notes": "Verified: the spec passes and pnpm check passes. Verified by the spec; the visual tool cannot pair our avatar triggers with fundamental-styles' avatars (other stories)."
     },
     {
       "id": "avatar-group-3",
@@ -2078,11 +2078,11 @@
       "source": "../../../react/docs/parity/components/avatar-group.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "avatar-group.spec.ts, a group-type group of accent-2 avatars, hovered: each avatar takes --sapAvatar_6_Hover_Background instead of its own --sapAvatar_2_Hover_Background.",
       "test": "avatar-group.spec.ts › AvatarGroup › a group-type group hovers each avatar with its own hover background",
-      "fix": "",
-      "notes": ""
+      "fix": "c2b649d",
+      "notes": "Verified: the spec passes and pnpm check passes. Verified by the spec (group hover); no fundamental-styles hover state for group avatars to compare."
     },
     {
       "id": "avatar-group-4",
@@ -2091,11 +2091,11 @@
       "source": "../../../react/docs/parity/components/avatar-group.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "avatar-group.spec.ts, three avatars in a 800px flex row (the group hugs them): after a few measures the group shows fewer avatars and an overflow button; every measured width counts a gap, the last one too, so the avatars no longer fit the width they set.",
       "test": "avatar-group.spec.ts › AvatarGroup › a group that hugs its avatars (in a flex row) keeps them all",
-      "fix": "",
-      "notes": ""
+      "fix": "7c6fa3e",
+      "notes": "Verified: the spec passes and pnpm check passes."
     },
     {
       "id": "slider-1",
@@ -2118,11 +2118,11 @@
       "source": "../../../react/docs/parity/components/rating-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "covered",
+      "status": "verified",
       "repro": "rating-indicator.spec.ts, sap_horizon_hcb: the focus frame element keeps rounded-[0.5rem] (8px); fundamental-styles' corner radius is 0 in the HC themes.",
       "test": "rating-indicator.spec.ts › RatingIndicator › in high contrast the focus frame has square corners",
-      "fix": "",
-      "notes": ""
+      "fix": "40988a3",
+      "notes": "Verified: the spec passes and pnpm check passes. pnpm visual rating-indicator: lg focus 16/16, HC included."
     },
     {
       "id": "rating-indicator-2",
