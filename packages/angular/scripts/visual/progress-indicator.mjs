@@ -15,26 +15,32 @@ const ref = (story, nth, inner = '') => ({
 
 const VALUES = ['0%', '42%', '69%', '100%', '80 of 100 MB'];
 const STATES = ['neutral', 'informative', 'positive', 'critical', 'negative'];
+/** Our stories are 576px wide, fundamental-styles' fill the page: root, track and bar compare without width. */
+const WIDE = { pixels: false, ignore: ['width'] };
 
 export default [
     ...VALUES.map((label, nth) => ({
         label: `value ${label}`,
+        ...WIDE,
         ours: ours('values', nth),
         ref: ref('layout', nth),
         props: ['margin-top', 'margin-bottom']
     })),
     ...STATES.map((label, nth) => ({
         label: `state ${label}`,
+        ...WIDE,
         ours: ours('states', nth),
         ref: ref('value-states', nth)
     })),
     ...STATES.map((label, nth) => ({
         label: `state ${label} track`,
+        ...WIDE,
         ours: ours('states', nth, ' >> [role=progressbar]'),
         ref: ref('value-states', nth, ' >> .fd-progress-indicator__container')
     })),
     ...STATES.map((label, nth) => ({
         label: `state ${label} bar`,
+        ...WIDE,
         ours: ours('states', nth, ' >> [role=progressbar] > div'),
         ref: ref('value-states', nth, ' >> .fd-progress-indicator__progress-bar')
     })),
