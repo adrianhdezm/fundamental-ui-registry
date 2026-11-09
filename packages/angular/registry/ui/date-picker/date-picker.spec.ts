@@ -186,6 +186,44 @@ describe('DatePicker', () => {
         expect(document.querySelector('#dp-calendar')).toBeNull();
     });
 
+    it("the today footer has the popover's bottom corners and a decisive (4rem) button, in both densities (computed style)", async () => {
+        const { button, stable } = await setup((h) => h.today.set(true));
+        await userEvent.click(button());
+        await stable();
+        const today = [...document.querySelectorAll('button')].find((b) => b.textContent!.trim() === 'Today')!;
+        const bar = today.closest<HTMLElement>('[fd-bar]')!;
+        expect(getComputedStyle(bar).borderBottomLeftRadius).toBe('8px');
+        expect(getComputedStyle(bar).borderBottomRightRadius).toBe('8px');
+        expect(getComputedStyle(today).minWidth).toBe('64px');
+        document.documentElement.setAttribute('data-density', 'compact');
+        try {
+            expect(getComputedStyle(today).minWidth).toBe('64px');
+            expect(today.getBoundingClientRect().width).toBeGreaterThanOrEqual(64);
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
+    it('the input keeps the compact field padding and an italic placeholder in HC, as fundamental-styles (computed style)', async () => {
+        const { input } = await setup();
+        const style = getComputedStyle(input());
+        expect(style.paddingInlineStart).toBe('10px');
+        input().placeholder = 'm/d/yyyy';
+        const placeholder = () => getComputedStyle(input(), '::placeholder').fontStyle;
+        expect(placeholder()).toBe('italic');
+        try {
+            document.documentElement.setAttribute('data-density', 'compact');
+            expect(getComputedStyle(input()).paddingInlineStart).toBe('8px');
+            expect(getComputedStyle(input()).paddingInlineEnd).toBe('8px');
+            document.documentElement.removeAttribute('data-density');
+            document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+            expect(placeholder()).toBe('italic');
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
     it('references the state and the message from aria-describedby', async () => {
         const { host, input, stable } = await setup();
         expect(input().hasAttribute('aria-describedby')).toBe(false);
@@ -530,5 +568,48 @@ describe('DatePicker multiple forms', () => {
         expect(host.dates.valid).toBe(true);
         await userEvent.type(dates, '7/4/2024, 7/5/2024');
         expect(host.dates.value!.map((d) => d.toDateString())).toEqual(['2024-07-04', '2024-07-05']);
+    });
+});
+
+@Component({
+    imports: [DatePicker],
+    template: `<fd-date-picker id="mo" dateRangeFormat="month" [(selectedDate)]="date" />`
+})
+class MonthHost {
+    readonly date = signal<unknown>(new FdDate(2024, 3, 9));
+}
+
+describe('DatePicker dateRangeFormat', () => {
+    it('picks months of a single date with dateRangeFormat', async () => {
+        const fixture = TestBed.createComponent(MonthHost);
+        document.body.appendChild(fixture.nativeElement);
+        const stable = async () => {
+            await fixture.whenStable();
+            await new Promise((resolve) => requestAnimationFrame(resolve));
+            await fixture.whenStable();
+        };
+        await stable();
+        const root = fixture.nativeElement as HTMLElement;
+        const input = root.querySelector<HTMLInputElement>('input')!;
+        const open = async () => {
+            await userEvent.click(root.querySelector<HTMLButtonElement>('button[aria-label="Open picker"]')!);
+            await stable();
+        };
+        const month = (n: number) =>
+            document.querySelector<HTMLElement>(`#mo-calendar [data-fd-calendar-month="${n}"]`)!;
+        await open();
+        await userEvent.click(month(6));
+        await stable();
+        // the first pick is the date: the first day of the month, not a range
+        expect(fixture.componentInstance.date()).toBeInstanceOf(FdDate);
+        expect((fixture.componentInstance.date() as FdDate).toDateString()).toBe('2024-06-01');
+        expect(input.value).toBe('6/1/2024');
+        // and the next pick replaces it, also before the first
+        if (!document.querySelector('#mo-calendar')) await open();
+        await userEvent.click(month(2));
+        await stable();
+        expect(fixture.componentInstance.date()).toBeInstanceOf(FdDate);
+        expect((fixture.componentInstance.date() as FdDate).toDateString()).toBe('2024-02-01');
+        expect(input.value).toBe('2/1/2024');
     });
 });

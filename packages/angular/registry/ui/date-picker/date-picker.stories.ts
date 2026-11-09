@@ -482,3 +482,41 @@ export const OpenMobile: Story = {
     }),
     play: ({ canvasElement }) => openPicker(canvasElement, 'input')
 };
+
+const REFERENCE_TEMPLATE = `
+    <div class="h-[30rem]">
+        <!-- as fundamental-styles, the label and the field share a box as wide as the label -->
+        <div class="inline-block">
+            <label fd-form-label for="todaySelectionDateInput">en-US DatePicker with today selection</label>
+            <fd-date-picker
+                class="block"
+                inputId="todaySelectionDateInput"
+                placeholder="Pick a date"
+                showTodayButton
+                [selectedDate]="null"
+                [labels]="{ toggleLabel: 'Choose Date' }"
+            />
+        </div>
+    </div>
+`;
+
+export const Reference: Story = {
+    name: 'fundamental-styles reference',
+    tags: ['!autodocs'],
+    parameters: {
+        docs: {
+            description: {
+                story: "fundamental-styles' Today Selection Button pattern, for the visual comparison (scripts/visual/date-picker.mjs)."
+            }
+        }
+    },
+    decorators: [moduleMetadata({ imports: [FormLabel] })],
+    render: () => ({ template: REFERENCE_TEMPLATE })
+};
+export const ReferenceOpen: Story = {
+    name: 'Open: fundamental-styles reference',
+    tags: ['!autodocs'],
+    decorators: [moduleMetadata({ imports: [FormLabel] })],
+    render: () => ({ template: REFERENCE_TEMPLATE }),
+    play: ({ canvasElement }) => openPicker(canvasElement)
+};

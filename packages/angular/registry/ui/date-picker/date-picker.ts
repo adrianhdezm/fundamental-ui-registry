@@ -276,10 +276,17 @@ let nextId = 0;
                 (selectedMultipleDateRangesChange)="pickRanges($event)"
             />
             @if (showTodayButton()) {
-                <div fd-bar barDesign="footer" class="overflow-hidden">
+                <!-- the popover's bottom corners, and a decisive (4rem) button, as fundamental-styles' footer -->
+                <div
+                    fd-bar
+                    barDesign="footer"
+                    [class]="
+                        mobile() ? 'overflow-hidden' : 'overflow-hidden rounded-b-sap-popover-border-corner-radius'
+                    "
+                >
                     <div fd-bar-right>
                         <fd-bar-element>
-                            <button fdButton [label]="todayButtonLabel()" (click)="selectToday()"></button>
+                            <button fdButton decisive [label]="todayButtonLabel()" (click)="selectToday()"></button>
                         </fd-bar-element>
                     </div>
                 </div>
@@ -534,6 +541,13 @@ export class DatePicker<D> implements ControlValueAccessor, Validator {
     }
 
     protected pickRange(range: DateRange<D> | null | undefined): void {
+        // months or years of a single date picker: the calendar picks ranges, the picker takes their start, and
+        // each pick starts a new one
+        if (this.type() === 'single') {
+            this.calendar()?.selectedRangeDate.set(null);
+            if (range?.start) this.pickDate(range.start);
+            return;
+        }
         // the first click only starts the range
         if (!range?.end) return;
         if (this.sameValue(range, this.selectedRangeDate())) return;

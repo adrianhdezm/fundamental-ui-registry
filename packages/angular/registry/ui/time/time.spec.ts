@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { FdDate } from '@/lib/datetime';
 import { Time } from './time';
@@ -290,5 +290,31 @@ describe('Time forms', () => {
         root.querySelector<HTMLElement>('#after')!.focus();
         await fixture.whenStable();
         expect(control.touched).toBe(true);
+    });
+
+    describe('styles', () => {
+        afterEach(() => document.documentElement.removeAttribute('data-sap-theme'));
+
+        it('the selected value has the working background in HC, as fundamental-styles (computed style)', async () => {
+            const { column } = await setup();
+            const current = () => column('hours').querySelector<HTMLElement>('[data-displayed-value="14"]')!;
+            for (const [theme, colour] of [
+                ['sap_horizon_hcb', 'rgb(46, 46, 46)'],
+                ['sap_horizon_hcw', 'rgb(217, 217, 217)']
+            ]) {
+                document.documentElement.setAttribute('data-sap-theme', theme);
+                expect(getComputedStyle(current()).backgroundColor).toBe(colour);
+            }
+        });
+
+        it('the collapsed value has the default cursor and the column label the text cursor (computed style)', async () => {
+            const { root, column } = await setup();
+            const collapsed = column('minutes').querySelector<HTMLElement>('span')!;
+            expect(collapsed.textContent!.trim()).toBe('30');
+            expect(getComputedStyle(collapsed).cursor).toBe('default');
+            const label = root.querySelector<HTMLElement>('#t-minutes-label')!;
+            expect(label.textContent!.trim()).toBe('Min');
+            expect(getComputedStyle(label).cursor).toBe('text');
+        });
     });
 });

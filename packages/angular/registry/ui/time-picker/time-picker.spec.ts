@@ -106,6 +106,12 @@ describe('TimePicker', () => {
         expect(document.activeElement).toBe(input);
     });
 
+    it("the button shows fundamental-styles' and UI5's time-entry-request glyph", async () => {
+        const { button } = await setup();
+        // the icon shows the glyph's character (SAP-icons' time-entry-request is U+E0A4)
+        expect(button.querySelector('[data-glyph]')!.getAttribute('data-glyph')).toBe('\ue0a4');
+    });
+
     it('opens with Alt+Down', async () => {
         const { input, stable } = await setup();
         input.focus();
@@ -179,6 +185,24 @@ describe('TimePicker', () => {
         await stable();
         expect(document.querySelector('#tp-time-hours')).toBeNull();
         expect(button.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('leaves the focus on the element a press outside focused, and returns it to the input otherwise', async () => {
+        const { root, input, button, stable } = await setup();
+        await userEvent.click(button);
+        await stable();
+        const after = root.querySelector<HTMLElement>('#after')!;
+        await userEvent.click(after);
+        await stable();
+        expect(document.querySelector('#tp-time-hours')).toBeNull();
+        expect(document.activeElement).toBe(after);
+        // a press on nothing focusable returns the focus to the input
+        await userEvent.click(button);
+        await stable();
+        await userEvent.click(document.body, { position: { x: 1, y: 1 } });
+        await stable();
+        expect(document.querySelector('#tp-time-hours')).toBeNull();
+        expect(document.activeElement).toBe(input);
     });
 
     it('does not open when disabled', async () => {
