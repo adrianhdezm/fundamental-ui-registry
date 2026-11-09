@@ -919,4 +919,12 @@ describe('Card styles', () => {
         expect(style(q('#banner')).boxShadow).toMatch(/0px 0px 0px 1px/);
         expect(style(q('#image-card')).boxShadow).toBe('none');
     });
+
+    it('an overlay banner has a full-width image, and its text is 80% − 3rem below 1024px', async () => {
+        await page.viewport(900, 800);
+        const { q } = await render(OverlayHost);
+        const media = rect(q('fd-card-media'));
+        expect(rect(q('[fd-card-media-image-container]')).width).toBeCloseTo(media.width, 0);
+        expect(rect(q('[fd-card-media-content-container]')).width).toBeCloseTo(media.width * 0.8 - 48, 0);
+    });
 });

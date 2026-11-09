@@ -1829,9 +1829,9 @@
       "source": "../../../react/docs/parity/components/card.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (OverlayHost: a banner with isOverlay text over an image, viewport 900px): the image container is 50% of the media (banner's has-image rule; 20% below 1024px) and the text 50% − 3rem; fundamental-styles' overlay rule gives the image the whole width and the text 80% − 3rem below 1024px.",
+      "test": "card.spec.ts › Card styles › an overlay banner has a full-width image, and its text is 80% − 3rem below 1024px",
       "fix": "",
       "notes": ""
     },

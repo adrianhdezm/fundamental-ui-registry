@@ -734,7 +734,9 @@ export class CardMedia {
                 '[--cm-cw:80%] [--cm-cp:3rem] has-[[data-card-media-image]]:[--cm-cw:50%] has-[[data-card-media-image]]:[--cm-iw:50%]',
                 'max-lg:has-[[data-card-media-image]]:[--cm-cw:80%] max-lg:has-[[data-card-media-image]]:[--cm-iw:20%]',
                 'max-sm:[--cm-cw:100%] max-sm:has-[[data-card-media-image]]:[--cm-dir:column-reverse] max-sm:has-[[data-card-media-image]]:[--cm-iw:100%]',
-                'max-sm:has-[[data-card-media-image]]:[--cm-cw:100%] max-sm:has-[[data-card-media-image]]:[--cm-ih:10rem] max-sm:has-[[data-card-media-image]]:[--cm-ch:auto]'
+                'max-sm:has-[[data-card-media-image]]:[--cm-cw:100%] max-sm:has-[[data-card-media-image]]:[--cm-ih:10rem] max-sm:has-[[data-card-media-image]]:[--cm-ch:auto]',
+                // text over the image: the image takes the whole width
+                'has-[[data-card-media-overlay]]:has-[[data-card-media-image]]:[--cm-iw:100%]'
             ]
         );
     });
@@ -755,7 +757,7 @@ export class CardMediaImage {}
 /** Text block of a media card, optionally overlaying the image. */
 @Directive({
     selector: '[fd-card-media-content-container], [fdCardMediaContentContainer]',
-    host: { '[class]': 'computedClass()' }
+    host: { '[class]': 'computedClass()', '[attr.data-card-media-overlay]': 'isOverlay() ? "" : null' }
 })
 export class CardMediaContentContainer {
     /** Positions the text over the image. */
@@ -769,7 +771,7 @@ export class CardMediaContentContainer {
             'relative z-[3] m-0 box-border flex h-(--cm-ch) max-h-full w-(--cm-cw) flex-col items-start justify-center gap-4',
             'bg-(--cm-cbg) px-(--cm-cp) py-(--cm-cp)',
             this.isOverlay() &&
-                'absolute start-12 top-1/2 h-fit w-[calc(50%_-_3rem)] -translate-y-1/2 max-sm:end-12 max-sm:w-auto max-sm:p-4',
+                'absolute start-12 top-1/2 h-fit w-[calc(50%_-_3rem)] -translate-y-1/2 max-lg:w-[calc(80%_-_3rem)] max-sm:end-12 max-sm:w-auto max-sm:p-4',
             shell && CONTAINER_SHELL_COLOR[shell],
             legend && CONTAINER_LEGEND_COLOR[legend]
         );
