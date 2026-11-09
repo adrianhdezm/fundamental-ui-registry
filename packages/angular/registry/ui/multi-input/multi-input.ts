@@ -815,7 +815,8 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
 
     protected readonly listClass = computed(() =>
         cn(
-            'relative m-0 box-border block min-w-20 list-none overflow-auto bg-sap-list-background p-0 outline-none scrollbar-sap',
+            // no background of its own: the options draw it, as fundamental-styles' multi input list
+            'relative m-0 box-border block min-w-20 list-none overflow-auto p-0 outline-none scrollbar-sap',
             this.mobile() ? 'w-full' : 'w-full max-w-[40rem] rounded-[inherit]'
         )
     );
