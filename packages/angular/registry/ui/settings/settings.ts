@@ -4,7 +4,6 @@
  * Modified for fundamental-ui-registry: rewritten with Angular signals, the Angular CDK and Tailwind CSS.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { Directionality } from '@angular/cdk/bidi';
 import { NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -267,7 +266,7 @@ export class SettingsDialogContent {}
                                     fdButton
                                     fd-settings-header-button
                                     variant="transparent"
-                                    [glyph]="rtl() ? 'navigation-right-arrow' : 'navigation-left-arrow'"
+                                    glyph="navigation-left-arrow"
                                     [ariaLabel]="backBtnAriaLabel()"
                                     [attr.title]="backBtnAriaLabel()"
                                     (click)="onHeaderBackClick()"
@@ -303,7 +302,6 @@ export class SettingsContainer {
 
     private readonly items = contentChildren(SettingsListItem, { descendants: true });
     private readonly el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
-    private readonly direction = inject(Directionality, { optional: true });
     private readonly injector = inject(Injector);
     private readonly width = signal(typeof window === 'undefined' ? 1280 : window.innerWidth);
     private readonly viewStack = signal<SettingsStackedView[]>([]);
@@ -311,7 +309,6 @@ export class SettingsContainer {
     private readonly detailOpen = signal(false);
     readonly activeItem = signal<SettingsListItem | null>(null);
 
-    readonly rtl = computed(() => this.direction?.valueSignal() === 'rtl');
     /** lg from 1024px, md from 600px, sm below (window width). */
     readonly viewMode = computed<SettingsViewMode>(() => {
         const width = this.width();

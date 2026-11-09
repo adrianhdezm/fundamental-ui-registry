@@ -16,6 +16,7 @@ import {
     UserMenuSubline,
     UserMenuUserName
 } from './user-menu';
+import { iconGlyphChar } from '@/ui/icon/icon';
 
 @Component({
     imports: [
@@ -103,7 +104,34 @@ class TextHost {
     readonly name = NAME;
 }
 
+/** -1 when the element and its ancestors flip it horizontally an odd number of times (scaleX(-1), rotate(180deg)). */
+const horizontalFlip = (el: Element | null) => {
+    let sign = 1;
+    for (; el; el = el.parentElement) {
+        // Tailwind v4 flips with the scale and rotate properties, older code with transform
+        const { transform, scale, rotate } = getComputedStyle(el);
+        if (transform !== 'none' && new DOMMatrixReadOnly(transform).a < 0) sign = -sign;
+        if (scale !== 'none' && parseFloat(scale) < 0) sign = -sign;
+        if (rotate !== 'none' && Math.abs(Math.abs(parseFloat(rotate)) - 180) < 1) sign = -sign;
+    }
+    return sign;
+};
+
 describe('UserMenu', () => {
+    it('in RTL the mobile back button keeps the left arrow, mirrored once by the icon (it points right)', async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        const { control } = await setup(true);
+        await userEvent.click(control);
+        await wait(300);
+        await userEvent.click(item('Language'));
+        await wait(200);
+        const icon = document.querySelector<HTMLElement>('[aria-label="Go back"] fd-icon')!;
+        expect(icon.dataset['glyph']).toBe(iconGlyphChar('navigation-left-arrow'));
+        expect(horizontalFlip(icon)).toBe(-1);
+        await userEvent.click(document.querySelector<HTMLElement>('[aria-label="Close"]')!);
+        await wait(300);
+    });
+
     afterEach(() => document.documentElement.removeAttribute('dir'));
 
     it('opens from the control in a popover labelled by the user name and focuses the first item', async () => {

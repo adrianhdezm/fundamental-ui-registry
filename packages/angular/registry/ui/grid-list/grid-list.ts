@@ -423,7 +423,7 @@ export class GridListItemFooterBar {}
                     }
                     @if (type() === 'navigation') {
                         <span
-                            class="-me-4 flex w-10 items-center justify-center text-sap-content-non-interactive-icon-color rtl:rotate-180"
+                            class="-me-4 flex w-10 items-center justify-center text-sap-content-non-interactive-icon-color"
                         >
                             <fd-icon glyph="navigation-right-arrow" />
                         </span>

@@ -11,6 +11,7 @@ import {
     SettingsListItem,
     SettingsSpacing
 } from './settings';
+import { iconGlyphChar } from '@/ui/icon/icon';
 
 @Component({
     imports: [
@@ -73,7 +74,34 @@ async function setup() {
     return { fixture, host: fixture.componentInstance, root: fixture.nativeElement as HTMLElement };
 }
 
+/** -1 when the element and its ancestors flip it horizontally an odd number of times (scaleX(-1), rotate(180deg)). */
+const horizontalFlip = (el: Element | null) => {
+    let sign = 1;
+    for (; el; el = el.parentElement) {
+        // Tailwind v4 flips with the scale and rotate properties, older code with transform
+        const { transform, scale, rotate } = getComputedStyle(el);
+        if (transform !== 'none' && new DOMMatrixReadOnly(transform).a < 0) sign = -sign;
+        if (scale !== 'none' && parseFloat(scale) < 0) sign = -sign;
+        if (rotate !== 'none' && Math.abs(Math.abs(parseFloat(rotate)) - 180) < 1) sign = -sign;
+    }
+    return sign;
+};
+
 describe('SettingsContainer', () => {
+    it('in RTL the back button keeps the left arrow, mirrored once by the icon (it points right)', async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        try {
+            const { host } = await setup();
+            host.container().pushView(host.detail(), 'Details');
+            await wait();
+            const icon = back()!.querySelector<HTMLElement>('fd-icon')!;
+            expect(icon.dataset['glyph']).toBe(iconGlyphChar('navigation-left-arrow'));
+            expect(horizontalFlip(icon)).toBe(-1);
+        } finally {
+            document.documentElement.removeAttribute('dir');
+        }
+    });
+
     afterEach(async () => {
         await page.viewport(1280, 800);
         window.dispatchEvent(new Event('resize'));

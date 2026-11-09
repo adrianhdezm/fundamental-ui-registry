@@ -156,7 +156,7 @@ const COLLAPSIBLE = 'data-shellbar-collapsible';
                     <button
                         fdButton
                         variant="transparent"
-                        [glyph]="rtl() ? 'slim-arrow-right' : 'nav-back'"
+                        glyph="nav-back"
                         [ariaLabel]="backButtonLabel()"
                         [attr.title]="backButtonLabel()"
                         (click)="backButtonClicked.emit($event)"

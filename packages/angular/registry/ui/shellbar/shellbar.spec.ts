@@ -17,6 +17,7 @@ import {
     type ShellbarSize,
     type ShellbarUserMenuItem
 } from './shellbar';
+import { iconGlyphChar } from '@/ui/icon/icon';
 
 @Component({
     imports: [
@@ -132,7 +133,32 @@ const ringLayers = (root: Element) =>
         getComputedStyle(el).boxShadow.includes('rgba(0, 0, 0, 0) 0px 0px 0px 0px')
     );
 
+/** -1 when the element and its ancestors flip it horizontally an odd number of times (scaleX(-1), rotate(180deg)). */
+const horizontalFlip = (el: Element | null) => {
+    let sign = 1;
+    for (; el; el = el.parentElement) {
+        // Tailwind v4 flips with the scale and rotate properties, older code with transform
+        const { transform, scale, rotate } = getComputedStyle(el);
+        if (transform !== 'none' && new DOMMatrixReadOnly(transform).a < 0) sign = -sign;
+        if (scale !== 'none' && parseFloat(scale) < 0) sign = -sign;
+        if (rotate !== 'none' && Math.abs(Math.abs(parseFloat(rotate)) - 180) < 1) sign = -sign;
+    }
+    return sign;
+};
+
 describe('Shellbar', () => {
+    it('in RTL the back button keeps the nav-back glyph, mirrored once by the icon (it points right)', async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        try {
+            const { button } = await setup();
+            const icon = button(/^Back$/)!.querySelector<HTMLElement>('fd-icon')!;
+            expect(icon.dataset['glyph']).toBe(iconGlyphChar('nav-back'));
+            expect(horizontalFlip(icon)).toBe(-1);
+        } finally {
+            document.documentElement.removeAttribute('dir');
+        }
+    });
+
     it('the bar and search shadows have no transparent ring layers', async () => {
         const { root } = await setup();
         const shadows = [...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).boxShadow !== 'none');

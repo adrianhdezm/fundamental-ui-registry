@@ -529,11 +529,8 @@ export class NestedListExpandIcon {
         return !!list?.state.condensed() && list.level() === 1 && !list.inPopover;
     });
     protected readonly glyph = computed(() =>
-        this.item?.expanded()
-            ? 'navigation-down-arrow'
-            : this.item?.rtl()
-              ? 'navigation-left-arrow'
-              : 'navigation-right-arrow'
+        // the icon mirrors the right arrow in RTL by itself
+        this.item?.expanded() ? 'navigation-down-arrow' : 'navigation-right-arrow'
     );
 
     protected onClick(event: MouseEvent): void {
