@@ -80,6 +80,25 @@ function cssColor(variable: string): string {
 }
 
 describe('FlexibleColumnLayout', () => {
+    it('the separator buttons are 32×24px in cozy and 26×24px in compact density', async () => {
+        const { buttons } = await setup('ThreeColumnsMidExpanded');
+        expect(buttons()).toHaveLength(2);
+        try {
+            for (const [density, height] of [
+                ['cozy', 32],
+                ['compact', 26]
+            ] as const) {
+                document.documentElement.setAttribute('data-density', density);
+                for (const button of buttons()) {
+                    const { width, height: h } = button.getBoundingClientRect();
+                    expect([width, h]).toEqual([24, height]);
+                }
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
     afterEach(() => {
         document.documentElement.removeAttribute('dir');
         document.documentElement.removeAttribute('data-sap-theme');

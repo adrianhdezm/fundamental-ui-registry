@@ -107,6 +107,19 @@ const hugeRadius = (root: Element) =>
     [root, ...root.querySelectorAll('*')].filter((el) => getComputedStyle(el).borderTopLeftRadius.includes('e+'));
 
 describe('Carousel', () => {
+    it('the navigation buttons have no padding in compact density either', async () => {
+        const { previous, next } = await setup();
+        document.documentElement.setAttribute('data-density', 'compact');
+        try {
+            for (const button of [previous(), next()]) {
+                expect(getComputedStyle(button).paddingLeft).toBe('0px');
+                expect(getComputedStyle(button).paddingRight).toBe('0px');
+            }
+        } finally {
+            document.documentElement.removeAttribute('data-density');
+        }
+    });
+
     it('the navigation buttons and page dots are rounded with 50%, as fundamental-styles', async () => {
         const { root, previous, next } = await setup();
         for (const button of [previous(), next()]) expect(getComputedStyle(button).borderTopLeftRadius).toBe('50%');

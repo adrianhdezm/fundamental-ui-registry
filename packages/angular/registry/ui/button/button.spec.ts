@@ -86,6 +86,15 @@ async function setup() {
     };
 }
 
+@Component({
+    imports: [Button],
+    template: `
+        <button fdButton id="decisive" decisive label="OK"></button>
+        <div style="width: 300px"><button fdButton id="full" fullWidth label="Wide"></button></div>
+    `
+})
+class SizeHost {}
+
 describe('Button', () => {
     afterEach(() => document.documentElement.removeAttribute('data-density'));
 
@@ -414,6 +423,22 @@ describe('Button', () => {
         document.documentElement.setAttribute('data-density', 'compact');
         expect(getComputedStyle(badge).position).toBe('static');
         expect(getComputedStyle(dot).position).toBe('absolute');
+    });
+
+    it('decisive and fullWidth keep their minimum widths in compact density', async () => {
+        const fixture = TestBed.createComponent(SizeHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const decisive = root.querySelector<HTMLElement>('#decisive')!;
+        const full = root.querySelector<HTMLElement>('#full')!;
+        for (const density of ['cozy', 'compact']) {
+            document.documentElement.setAttribute('data-density', density);
+            expect(getComputedStyle(decisive).minWidth).toBe('64px');
+            expect(decisive.getBoundingClientRect().width).toBeGreaterThanOrEqual(64);
+            expect(getComputedStyle(full).minWidth).toBe('100%');
+        }
+        fixture.nativeElement.remove();
     });
 
     it('compact density shrinks height via data-density', async () => {

@@ -137,7 +137,6 @@ const END_SEPARATOR_NEXT: Partial<Record<FlexibleColumnLayout, FlexibleColumnLay
                 <button
                     fdButton
                     variant="transparent"
-                    data-density="compact"
                     [glyph]="'slim-arrow-' + direction"
                     [ariaLabel]="separatorLabel(direction, collapseTitleStartBtn(), expandTitleStartBtn())"
                     [attr.title]="separatorLabel(direction, collapseTitleStartBtn(), expandTitleStartBtn())"
@@ -158,7 +157,6 @@ const END_SEPARATOR_NEXT: Partial<Record<FlexibleColumnLayout, FlexibleColumnLay
                 <button
                     fdButton
                     variant="transparent"
-                    data-density="compact"
                     [glyph]="'slim-arrow-' + direction"
                     [ariaLabel]="separatorLabel(direction, collapseTitleEndBtn(), expandTitleEndBtn())"
                     [attr.title]="separatorLabel(direction, collapseTitleEndBtn(), expandTitleEndBtn())"
@@ -309,7 +307,7 @@ export class FlexibleColumnLayoutComponent {
     }
 
     protected readonly buttonClass =
-        'absolute start-1/2 top-1/2 z-2 h-8 w-6 min-w-6 -translate-1/2 justify-center p-0 rtl:translate-x-1/2';
+        'absolute start-1/2 top-1/2 z-2 h-8 w-6 min-w-6 -translate-1/2 justify-center p-0 rtl:translate-x-1/2 compact:min-w-6 compact:px-0';
 
     protected columnClass(width: number): string {
         return cn(

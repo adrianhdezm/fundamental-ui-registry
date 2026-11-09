@@ -385,8 +385,10 @@ export class DynamicPageSubheader {
         this.pinned.update((pinned) => !pinned);
     }
 
+    // the size in both densities: the button's compact height, padding and minimum width are compact: variants
     protected readonly buttonClass =
-        "relative mx-1 my-0 h-6 w-6 min-w-6 p-0 before:absolute before:inset-x-0 before:-inset-y-1 before:content-['']";
+        "relative mx-1 my-0 h-6 w-6 min-w-6 p-0 before:absolute before:inset-x-0 before:-inset-y-1 before:content-[''] " +
+        'compact:h-6 compact:max-h-6 compact:w-6 compact:min-w-6 compact:px-0';
 
     protected readonly contentClass = computed(() =>
         cn(

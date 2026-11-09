@@ -844,7 +844,7 @@ export class Carousel {
 
     protected buttonClass(inContent: boolean, which: 'previous' | 'next'): string {
         return cn(
-            'm-1 size-[2.125rem] min-w-0 shrink-0 rounded-[50%] p-0 focus:after:rounded-[50%] [&+button]:ms-2',
+            'm-1 size-[2.125rem] min-w-0 shrink-0 rounded-[50%] p-0 compact:p-0 focus:after:rounded-[50%] [&+button]:ms-2',
             inContent && [
                 'absolute z-1 m-0 hidden [box-shadow:var(--sapContent_Shadow0)] group-hover/carousel:flex',
                 this.vertical()
