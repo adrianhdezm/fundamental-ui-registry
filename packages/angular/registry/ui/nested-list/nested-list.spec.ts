@@ -63,6 +63,27 @@ class Host {
     readonly settingsSelected = signal(false);
 }
 
+/** Two groups of rows, each under its header. */
+@Component({
+    imports: [...NESTED],
+    template: `
+        <ul fd-nested-list>
+            <li fd-nested-list-item>
+                <a fd-nested-list-link id="start"><span fd-nested-list-title>Start</span></a>
+            </li>
+            <li fd-nested-list-header id="overview">Overview</li>
+            <li fd-nested-list-item>
+                <a fd-nested-list-link id="home"><span fd-nested-list-title>Home</span></a>
+            </li>
+            <li fd-nested-list-header id="support">Support</li>
+            <li fd-nested-list-item>
+                <a fd-nested-list-link id="help"><span fd-nested-list-title>Help</span></a>
+            </li>
+        </ul>
+    `
+})
+class GroupsHost {}
+
 /** A condensed list, without a side navigation: the state is provided by the host. */
 @Component({
     imports: [...NESTED, NestedListPopover],
@@ -121,6 +142,16 @@ async function setup() {
 }
 
 describe('NestedList', () => {
+    it('describes each row by the last group header before it', async () => {
+        const fixture = TestBed.createComponent(GroupsHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const describedBy = (id: string) => document.getElementById(id)!.getAttribute('aria-describedby');
+        expect(describedBy('start')).toBeNull();
+        expect(describedBy('home')).toBe('overview');
+        expect(describedBy('help')).toBe('support');
+    });
+
     it('wraps ArrowUp on the first row to the last and ArrowDown on the last row to the first', async () => {
         const { host } = await setup();
         row('Home').focus();
