@@ -328,7 +328,7 @@ export class PopoverBody {
 
     protected readonly resizeHandleClass = computed(() =>
         cn(
-            'absolute flex size-6 items-start overflow-hidden text-sap-button-lite-text-color',
+            'absolute flex size-6 items-start overflow-hidden text-[1rem] leading-4 text-sap-button-lite-text-color',
             'after:flex after:size-4 after:justify-center after:font-sap-content-icon-font-family after:text-[1rem] after:leading-4 after:content-[attr(data-glyph)]',
             RESIZE_CORNERS[this.resizeCorner()]
         )
