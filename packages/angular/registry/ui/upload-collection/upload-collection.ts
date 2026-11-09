@@ -233,7 +233,9 @@ export class UploadCollectionTextSeparator {}
 /** Statuses of a file, e.g. upload state and approval. */
 @Directive({
     selector: '[fd-upload-collection-status-group], [fdUploadCollectionStatusGroup]',
-    host: { class: 'm-0 mt-1.5 box-border flex min-w-0 items-center truncate p-0 text-sap-font-size leading-4' }
+    host: {
+        class: 'm-0 mt-1.5 box-border flex min-w-0 items-center truncate p-0 text-sap-font-size leading-4 text-sap-content-label-color'
+    }
 })
 export class UploadCollectionStatusGroup {}
 
