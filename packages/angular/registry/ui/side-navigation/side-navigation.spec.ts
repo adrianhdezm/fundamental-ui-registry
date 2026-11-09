@@ -287,3 +287,16 @@ describe('SideNavigation', () => {
         expect(focused()).toBe('Home');
     });
 });
+
+describe('SideNavigation issues', () => {
+    it('sets the normal line height on the nav, not the page one (side-navigation-1)', async () => {
+        const fixture = TestBed.createComponent(Host);
+        // a page line height, as Tailwind's preflight sets on the html element
+        (fixture.nativeElement as HTMLElement).style.lineHeight = '1.5';
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const nav = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('nav')!;
+        expect(getComputedStyle(nav).lineHeight).toBe('normal');
+        expect(getComputedStyle(nav.querySelector('[fd-side-nav-main]')!).lineHeight).toBe('normal');
+    });
+});

@@ -454,11 +454,11 @@ None.
 
 #### side-navigation
 
-[React report](../../../react/docs/parity/components/side-navigation.md) · ⬜ reported: 1
+[React report](../../../react/docs/parity/components/side-navigation.md) · 🧪 covered: 1
 
-| ID                | Issue                                                                                                                | Kind   | Confirmed | Pattern | Status      | Test | Fix | Notes |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ---- | --- | ----- |
-| side-navigation-1 | The side-navigation `<nav>` sets only the font family, so its lists take the page's line height instead of `normal`. | visual | rendered  |         | ⬜ reported |      |     |       |
+| ID                | Issue                                                                                                                | Kind   | Confirmed | Pattern | Status     | Test                                                                                                 | Fix | Notes |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ---------- | ---------------------------------------------------------------------------------------------------- | --- | ----- |
+| side-navigation-1 | The side-navigation `<nav>` sets only the font family, so its lists take the page's line height instead of `normal`. | visual | rendered  |         | 🧪 covered | SideNavigation issues > sets the normal line height on the nav, not the page one (side-navigation-1) |     |       |
 
 #### breadcrumb
 

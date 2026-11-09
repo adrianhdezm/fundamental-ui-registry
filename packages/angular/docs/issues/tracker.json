@@ -1445,9 +1445,9 @@
       "source": "../../../react/docs/parity/components/side-navigation.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "side-navigation.spec.ts Host with a 1.5 line height on the page (as Tailwind's preflight on html): the nav and its main area compute line-height 21px instead of fundamental-styles' fd-side-nav normal; the nav set only the font family.",
+      "test": "SideNavigation issues > sets the normal line height on the nav, not the page one (side-navigation-1)",
       "fix": "",
       "notes": ""
     },

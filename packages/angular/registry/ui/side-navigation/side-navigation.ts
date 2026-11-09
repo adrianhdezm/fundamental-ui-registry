@@ -106,7 +106,7 @@ export class SideNavigation {
 
     protected readonly navClass = computed(() =>
         cn(
-            'm-0 box-border flex h-full max-h-full flex-col bg-sap-list-background p-0 font-sap-font-family',
+            'm-0 box-border flex h-full max-h-full flex-col bg-sap-list-background p-0 font-sap-font-family text-sap-font-size leading-[normal] font-normal text-sap-text-color',
             this.isCondensed() ? 'w-16' : 'w-full',
             this.userClass()
         )
