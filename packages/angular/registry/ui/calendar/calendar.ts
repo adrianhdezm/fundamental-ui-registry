@@ -747,7 +747,8 @@ export class Calendar<D> implements ControlValueAccessor, Validator {
         this.adapter.locale();
         const year = this.displayed().year;
         const today = this.adapter.today();
-        const names = this.adapter.getMonthNames(this.dateRangeFormat() === 'month' ? 'long' : 'short');
+        // long names, as fundamental-styles: a short visible name ("Jan") would not match the cell's name (axe)
+        const names = this.adapter.getMonthNames('long');
         const cells = names.map((label, index) => {
             const month = index + 1;
             const date = this.adapter.createDate(year, month, 1);
