@@ -1088,9 +1088,9 @@
       "source": "../../../react/docs/parity/components/nested-list.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: a list with a row (Start), a header (Overview), a row (Home), a header (Support) and a row (Help): every row has aria-describedby=\"support\", the list's last header, also Start (no header before it) and Home (under Overview).",
+      "test": "NestedList › describes each row by the last group header before it",
       "fix": "",
       "notes": ""
     },
