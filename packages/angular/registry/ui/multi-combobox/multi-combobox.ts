@@ -109,6 +109,9 @@ let nextId = 0;
  * <fd-multi-combobox inputId="fruits" displayKey="name" lookupKey="id" [dataSource]="fruits" [(selectedItems)]="chosen" />
  * ```
  */
+/** The dropdown width of fundamental-styles (40rem): the most the popup takes from a wider field. */
+const DROPDOWN_MAX_WIDTH = 640;
+
 @Component({
     selector: 'fd-multi-combobox',
     exportAs: 'fdMultiCombobox',
@@ -151,7 +154,7 @@ let nextId = 0;
                 [noArrow]="true"
                 [disabled]="disabledState() || readonly()"
                 [closeOnEscapeKey]="false"
-                [fillControlMode]="fillControlMode()"
+                [fillControlMode]="popoverFill()"
                 [maxWidth]="popoverMaxWidth()"
                 [focusTrapped]="false"
                 [focusAutoCapture]="false"
@@ -163,7 +166,7 @@ let nextId = 0;
                 <fd-popover-control>
                     <ng-container [ngTemplateOutlet]="controlTpl" [ngTemplateOutletContext]="{ dialog: false }" />
                 </fd-popover-control>
-                <fd-popover-body>
+                <fd-popover-body [minWidth]="popoverMinWidth()">
                     <ng-container [ngTemplateOutlet]="listTpl" [ngTemplateOutletContext]="{ dialog: false }" />
                 </fd-popover-body>
             </fd-popover>
@@ -190,6 +193,7 @@ let nextId = 0;
                 [glyphExpanded]="isOpen()"
                 [buttonFocusable]="buttonFocusable()"
                 [tokenizerLabel]="tokensLabel()"
+                [class]="tokenizerClass()"
                 (moreClickedEvent)="onMoreClicked()"
                 (addOnButtonClicked)="onAddOnButtonClick($event)"
             >
@@ -341,7 +345,7 @@ let nextId = 0;
                         />
                     } @else {
                         @let parts = highlight(entry.suggestion.label);
-                        <span class="min-w-0 flex-auto truncate" [attr.title]="entry.suggestion.label"
+                        <span [class]="titleClass()" [attr.title]="entry.suggestion.label"
                             >{{ parts[0] }}<b class="font-bold">{{ parts[1] }}</b
                             >{{ parts[2] }}</span
                         >
@@ -586,9 +590,22 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
     });
     protected readonly popoverMaxWidth = computed(() => {
         const max = this.bodyMaxWidth();
-        if (max === 'none') return null;
+        // fundamental-styles' dropdown stops at 40rem, also on a wider field
+        if (max === 'none') return DROPDOWN_MAX_WIDTH;
         if (typeof max === 'number') return max;
         return this.elementRef.nativeElement.getBoundingClientRect().width;
+    });
+
+    /** The popover fills the field itself, unless the list is as wide as the field (`bodyMaxWidth="container"`). */
+    protected readonly popoverFill = computed(() =>
+        this.fillControlMode() === 'at-least' && this.bodyMaxWidth() !== 'container' ? null : this.fillControlMode()
+    );
+    /** fundamental-styles' dropdown fill: at least the field width less two group borders, up to the maximum width. */
+    protected readonly popoverMinWidth = computed(() => {
+        if (this.fillControlMode() !== 'at-least' || this.popoverFill() !== null || !this.listShown()) return null;
+        const fill = `calc(${this.elementRef.nativeElement.getBoundingClientRect().width}px - 2 * var(--sapGroup_BorderWidth))`;
+        const max = this.popoverMaxWidth();
+        return max === null ? fill : `min(${fill}, ${max}px)`;
     });
 
     constructor() {
@@ -962,7 +979,9 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
         this.selectionChange.emit({ selectedItems: items });
     }
 
+    /** Sets the input text; a new text forgets the Shift click anchor (the list changes). */
     private setText(text: string): void {
+        if (text === this.inputText()) return;
         this.inputText.set(text);
         this.anchor = null;
     }
@@ -1031,26 +1050,55 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
 
     protected readonly computedClass = computed(() => cn('block', this.userClass()));
 
-    protected readonly listClass = computed(() =>
+    /** Classes of the tokenizer field: fundamental-styles' multi combobox is an input group around a tokenizer. */
+    protected readonly tokenizerClass = computed(() =>
         cn(
-            'relative m-0 box-border block min-w-20 list-none overflow-auto bg-sap-list-background p-0 outline-none scrollbar-sap',
-            this.mobile() ? 'w-full' : 'w-full max-w-[37.5rem]'
+            // in high contrast the addon button is as high as the field, over its border (an input group button)
+            'hc:[&>button]:-my-(--sapField_BorderWidth)',
+            // the input group's field hover shadow (value states keep their own); no shadow when read-only
+            this.readonly()
+                ? '[box-shadow:none] hover:[box-shadow:none]'
+                : (this.currentState() ?? 'default') === 'default' && 'hover:[box-shadow:var(--sapField_Hover_Shadow)]'
         )
     );
 
-    protected readonly optionClass = computed(() => cn(LIST_DROPDOWN_ITEM, 'gap-x-2 ps-3', this.byline() && 'py-2'));
+    protected readonly listClass = computed(() =>
+        cn(
+            'relative m-0 box-border block min-w-20 list-none overflow-auto bg-sap-list-background p-0 outline-none scrollbar-sap',
+            this.mobile() ? 'w-full' : 'w-full max-w-[40rem]'
+        )
+    );
+
+    protected readonly optionClass = computed(() =>
+        cn(
+            LIST_DROPDOWN_ITEM,
+            // a list item of fundamental-styles' multi combobox list: 2.75rem high in cozy, plus the selection line of
+            // a selected item
+            'min-h-11 gap-x-2 ps-3 pe-4 aria-selected:min-h-[2.8125rem] compact:aria-selected:min-h-[2.0625rem]',
+            this.byline() && 'py-2'
+        )
+    );
+
+    /** The title shares the row with the secondary text (at most 24rem), as fundamental-styles' dropdown list. */
+    protected readonly titleClass = computed(() =>
+        cn('min-w-0 flex-auto truncate', this.showSecondaryText() && 'max-w-96')
+    );
 
     protected readonly secondaryClass = computed(() =>
         cn(
-            'ms-auto max-w-[40%] shrink-0 truncate ps-4 text-sap-content-label-color',
+            // fundamental-styles' dropdown list secondary text: neutral, sharing the row with the title (at most 16rem)
+            'ms-auto min-w-0 max-w-64 flex-auto truncate ps-4 text-sap-font-size leading-[normal] text-sap-neutral-text-color',
             this.secondaryTextAlignment() === 'right' ? 'text-end' : 'text-start'
         )
     );
 
     protected readonly messageClass = computed(() => {
         const state = this.currentState() ?? 'default';
+        // fundamental-styles' list message is a truncated 2rem line; this one wraps (decided: truncation hides text),
+        // with the same 2rem height and text position for one line and 0.5rem padding around wrapped lines, as UI5's
+        // value state header
         return cn(
-            'box-border min-h-8 px-2 py-2 font-sap-font-family text-sap-font-small-size leading-normal text-sap-text-color',
+            'box-border min-h-8 px-2 py-2 font-sap-font-family text-sap-font-small-size leading-4 break-words whitespace-normal text-sap-text-color',
             {
                 default: 'bg-sap-neutral-background',
                 error: 'bg-sap-error-background',

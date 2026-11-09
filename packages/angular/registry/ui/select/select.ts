@@ -66,6 +66,18 @@ export interface SelectMobileConfig {
 let nextId = 0;
 
 /**
+ * The parts of an option as fundamental-styles' dropdown list: no gap (the icon box and the secondary padding space
+ * them), 1.125rem icons (1rem compact) on a 1rem line, titles with a one-line minimum height that wrap, and secondary
+ * texts up to 16rem.
+ */
+const OPTION_PARTS = [
+    'gap-x-0',
+    '[--li-ifs:1.125rem] compact:[--li-ifs:1rem] [&_[fd-list-icon]]:leading-4 [&_[fdListIcon]]:leading-4',
+    '[&_[data-list-title]]:min-h-4 compact:[&_[data-list-title]]:min-h-3.5 [&_[data-list-title]]:flex-auto [&_[data-list-title]]:whitespace-normal',
+    '[&_[fd-list-secondary]]:flex-auto [&_[fd-list-secondary]]:max-w-64 [&_[fdListSecondary]]:flex-auto [&_[fdListSecondary]]:max-w-64'
+].join(' ');
+
+/**
  * An option of a select. Plain text is shown as the title; add `fdListTitle`, `fdListSecondary`
  * and `fdListIcon` parts for richer options.
  */
@@ -89,7 +101,7 @@ let nextId = 0;
         @if (hasTitle()) {
             <ng-container [ngTemplateOutlet]="plain" />
         } @else {
-            <span class="min-w-0 flex-auto whitespace-normal">
+            <span class="min-h-4 min-w-0 flex-auto whitespace-normal compact:min-h-3.5">
                 <ng-container [ngTemplateOutlet]="plain" />
             </span>
         }
@@ -138,7 +150,7 @@ export class SelectOption<T = unknown> implements Highlightable {
         if (!this.isDisabled()) this.select?.selectOption(this, true);
     }
 
-    protected readonly computedClass = computed(() => cn(LIST_DROPDOWN_ITEM, this.userClass()));
+    protected readonly computedClass = computed(() => cn(LIST_DROPDOWN_ITEM, OPTION_PARTS, this.userClass()));
 }
 
 /**
@@ -636,10 +648,11 @@ export class Select<T = unknown> implements ControlValueAccessor {
             // the field shadow is drawn by a frame that the focus does not remove; value states keep theirs
             "[box-shadow:none] focus:[box-shadow:none] after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:[box-shadow:var(--sapField_Shadow)] after:content-['']",
             fieldStates[state],
-            'group/select my-0 flex cursor-pointer items-center justify-between gap-1 overflow-visible p-0 compact:my-0 compact:p-0',
+            // the arrow button is as high as the field: the field clips it inside its border, as fundamental-styles
+            'group/select my-0 flex cursor-pointer items-center justify-between gap-1 overflow-hidden p-0 compact:my-0 compact:p-0',
             'aria-expanded:outline-none',
-            // field button look of the arrow, as in input groups
-            '[--sapButton_Lite_Background:transparent] [--sapButton_Lite_Hover_Background:transparent] [--sapButton_Lite_Active_Background:transparent]',
+            // field button look of the arrow, as in input groups; high contrast keeps the lite button backgrounds
+            'not-hc:[--sapButton_Lite_Background:transparent] not-hc:[--sapButton_Lite_Hover_Background:transparent] not-hc:[--sapButton_Lite_Active_Background:transparent]',
             '[--sapButton_Lite_BorderColor:transparent] [--sapButton_Lite_Hover_BorderColor:transparent] [--sapButton_Lite_Active_BorderColor:transparent]',
             '[--sapButton_Lite_TextColor:var(--sapField_TextColor)] [--sapButton_Lite_Hover_TextColor:var(--sapField_TextColor)]',
             '[--sapButton_BorderCornerRadius:var(--sapField_BorderCornerRadius)]',

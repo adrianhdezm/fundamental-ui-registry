@@ -696,11 +696,11 @@
       "source": "../../../react/docs/parity/components/token.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "token.spec.ts FieldHost (default tokenizer, cozy): the input is 16px high in a 36px field (getBoundingClientRect).",
+      "test": "Tokenizer field styles > stretches the input to the field height (token-1)",
+      "fix": "105ba4b",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; token visual cases 'tokenizer input' and 'tokenizer with tokens' match in Horizon and Dark (16/16 height); the HC border difference is fundamental-styles' own (border: none on .fd-tokenizer)."
     },
     {
       "id": "token-2",
@@ -709,11 +709,11 @@
       "source": "../../../react/docs/parity/components/token.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "token.spec.ts FieldHost (readonly tokenizer): computed background-image is the field's 0deg gradient instead of --sapField_ReadOnly_BackgroundStyle (90deg dashes), box-shadow has Tailwind's transparent ring layers instead of --sapField_Shadow (shadow-none would drop it).",
+      "test": "Tokenizer field styles > has the read-only field background and keeps the field shadow (token-2)",
+      "fix": "d8a5825",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'tokenizer read-only' matches except the dashed read-only bottom line in Horizon/Dark and the HC border, both kept (fundamental-styles uses the normal field style for read-only tokenizers; Horizon's read-only field style is dashed, as the read-only input)."
     },
     {
       "id": "token-3",
@@ -722,11 +722,11 @@
       "source": "../../../react/docs/parity/components/token.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "token.spec.ts FieldHost, data-sap-theme=sap_horizon_hcb: the selected token's computed box-shadow keeps the inset 0 -1px line.",
+      "test": "Tokenizer field styles > has no inset bottom line on selected tokens in high contrast (token-3)",
+      "fix": "1c7c09a",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'token selected' and 'token selected focus' match in HC (all 4 HC combinations)."
     },
     {
       "id": "token-4",
@@ -735,11 +735,11 @@
       "source": "../../../react/docs/parity/components/token.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "token.spec.ts FieldHost: after userEvent.hover the field's computed box-shadow is still the field shadow (with Tailwind's ring layers).",
+      "test": "Tokenizer field styles > drops the field shadow on hover (token-4)",
+      "fix": "808be40",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'tokenizer hover' has no box-shadow difference in any combination (only the kept HC border)."
     },
     {
       "id": "input-group-1",
@@ -957,11 +957,11 @@
       "source": "../../../react/docs/parity/components/select.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "select.spec.ts PartsHost, list open: an option with icon, title and secondary text has column-gap 16px (LIST_DROPDOWN_ITEM gap-x-4), a 14px icon on a normal line (no --li-ifs outside List), a title without min-height that truncates, and a secondary text capped at 40%.",
+      "test": "Select styles > lays out option icons, titles and secondary texts as fundamental-styles (select-1)",
+      "fix": "bea1734",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'item with icon', 'item title' and 'item secondary' match 16/16; 'item icon' differs only in one pixel column outside the option in LTR Horizon/Dark (4.5%, fundamental-styles' popup edge, kept as React)."
     },
     {
       "id": "select-2",
@@ -970,11 +970,11 @@
       "source": "../../../react/docs/parity/components/select.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "select.spec.ts PartsHost: the control's computed overflow is visible (the 36px arrow button covers the HC field border), and with data-sap-theme=sap_horizon_hcb --sapButton_Lite_Background is transparent on the control, so the arrow has no lite button background.",
+      "test": "Select styles > keeps the lite button background of the arrow in high contrast, inside the field border (select-2)",
+      "fix": "ebf9e9a",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'arrow button' matches 16/16 and 'arrow button hover' in pixels everywhere (only Tailwind's transparent shadow layers differ)."
     },
     {
       "id": "select-3",
@@ -1049,11 +1049,11 @@
       "source": "../../../react/docs/parity/components/combobox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "combobox.spec.ts GroupHost, list opened with Alt+Down: the group header's computed cursor is auto (a text cursor over its text) instead of default.",
+      "test": "Combobox issues > shows the default cursor on group headers (combobox-1)",
+      "fix": "e585850",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'group header' matches 16/16 (cursor included)."
     },
     {
       "id": "combobox-2",
@@ -1062,11 +1062,11 @@
       "source": "../../../react/docs/parity/components/combobox.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "combobox.spec.ts OptionsHost, mobile with only cancelButtonText and closeOnSelect false: choose Banana (the form value is Banana), then Cancel, the close button or Escape: the field shows '' again while the form value stays Banana.",
+      "test": "Combobox issues > keeps the immediate choice in the field and the form on Cancel (combobox-2) (also on Close and Escape)",
+      "fix": "df61f62",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; spec passes for Cancel, the close button and Escape; behaviour only."
     },
     {
       "id": "combobox-3",
@@ -1141,11 +1141,11 @@
       "source": "../../../react/docs/parity/components/multi-input.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-input.spec.ts SignalHost at 1200px, list opened with the addon button: the overlay pane is 1200px wide (bodyMaxWidth 'none' sets no maximum) and the list stops at 600px (max-w-[37.5rem]).",
+      "test": "MultiInput styles > caps the popup and its list at 40rem on a wide field (multi-input-1)",
+      "fix": "eb45ebc",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; the open popup's width matches in all 16 combinations (only the popover's transparent Tailwind shadow layers differ, same pixels); 'list' matches 16/16."
     },
     {
       "id": "multi-input-2",
@@ -1154,11 +1154,11 @@
       "source": "../../../react/docs/parity/components/multi-input.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-input.spec.ts SignalHost, list open: options are 40px high (LIST_DROPDOWN_ITEM min-h-10), the selected one too.",
+      "test": "MultiInput styles > has 44px options, 45px when selected (multi-input-2)",
+      "fix": "8770db1",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'option', 'selected option' and their hover cases match 16/16."
     },
     {
       "id": "multi-input-3",
@@ -1167,11 +1167,11 @@
       "source": "../../../react/docs/parity/components/multi-input.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-input.spec.ts SignalHost: the hovered field's computed box-shadow is none instead of --sapField_Hover_Shadow.",
+      "test": "MultiInput styles > shows the field hover shadow on hover (multi-input-3)",
+      "fix": "8c67aab",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'field hover' matches in 12/16; the other 4 are HC compact, the kept difference of fundamental-styles' input height inside the 2px border."
     },
     {
       "id": "multi-input-4",
@@ -1180,11 +1180,11 @@
       "source": "../../../react/docs/parity/components/multi-input.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-input.spec.ts SignalHost with data-sap-theme=sap_horizon_hcb: the field is 40px high (36px addon button inside the 2px field border), 36px in Horizon.",
+      "test": "MultiInput styles > keeps the field 36px high with the addon button in high contrast (multi-input-4)",
+      "fix": "4844c1c",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'field' matches in HC cozy; HC compact keeps fundamental-styles' taller input row (kept, as React)."
     },
     {
       "id": "multi-input-5",
@@ -1193,11 +1193,11 @@
       "source": "../../../react/docs/parity/components/multi-input.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-input.spec.ts SignalHost, list open: the list's computed background-color is rgb(255, 255, 255) (bg-sap-list-background).",
+      "test": "MultiInput styles > gives the list no background of its own (multi-input-5)",
+      "fix": "c935b9f",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'list' matches 16/16 (no background)."
     },
     {
       "id": "pagination-1",
@@ -2330,11 +2330,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-combobox.spec.ts StyleHost, list opened with the addon button: at 400px the overlay pane is 400px wide (fundamental-styles: the field less two --sapGroup_BorderWidth, 398px); at 1200px the pane is 1200px wide and the list stops at 600px.",
+      "test": "MultiCombobox styles and check boxes > makes the popup the field width less two group borders, at most 40rem (multi-combobox-1)",
+      "fix": "b53bba5",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; the popup width matches in all 16 combinations (box-shadow differs only by transparent layers); spec measures 398px at 400px and at most 640px at 1200px."
     },
     {
       "id": "multi-combobox-2",
@@ -2343,11 +2343,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-combobox.spec.ts StyleHost, list open: options are 40px high, the selected one too (LIST_DROPDOWN_ITEM min-h-10).",
+      "test": "MultiCombobox styles and check boxes > has 44px options, 45px when selected (multi-combobox-2)",
+      "fix": "2ed5b82",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'option', 'selected option' and their hover cases match 16/16."
     },
     {
       "id": "multi-combobox-3",
@@ -2356,11 +2356,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-combobox.spec.ts StyleHost: the hovered field's computed box-shadow is none instead of --sapField_Hover_Shadow.",
+      "test": "MultiCombobox styles and check boxes > shows the field hover shadow, and no shadow when read-only (multi-combobox-3)",
+      "fix": "430420d",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'field hover' matches in Horizon, Dark and HC cozy; compact Horizon is anti-aliasing of the hover shadow (3.7%), HC compact the kept input height."
     },
     {
       "id": "multi-combobox-4",
@@ -2369,11 +2369,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-combobox.spec.ts StyleHost with data-sap-theme=sap_horizon_hcb: the field is 40px high (36px in Horizon).",
+      "test": "MultiCombobox styles and check boxes > keeps the field 36px high with the addon button in high contrast (multi-combobox-4)",
+      "fix": "fd297be",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'field' matches in HC cozy; HC compact keeps fundamental-styles' taller input row (kept, as React)."
     },
     {
       "id": "multi-combobox-5",
@@ -2382,11 +2382,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-combobox.spec.ts StyleHost with showSecondaryText: the secondary text's computed colour is rgb(85, 107, 130) (--sapContent_LabelColor) instead of --sapNeutralTextColor rgb(19, 30, 41), max-width 40%; the title has no maximum.",
+      "test": "MultiCombobox styles and check boxes > shows the secondary text in the neutral colour, sharing the row with the title (multi-combobox-5)",
+      "fix": "a3003a9",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'secondary text' matches 16/16."
     },
     {
       "id": "multi-combobox-6",
@@ -2395,11 +2395,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": "Decided: keep a wrapping message (truncation hides text); align the rest of the box with fundamental-styles where it does not prevent wrapping. Check UI5 in the multi-combobox PR."
+      "status": "verified",
+      "repro": "multi-combobox.spec.ts StyleHost, error state with a message: the message box is 34px high (py-2 around a normal line height) instead of fundamental-styles' 2rem line.",
+      "test": "MultiCombobox styles and check boxes > shows the state message on a 2rem line with a start padding, wrapping (multi-combobox-6)",
+      "fix": "0c88709",
+      "notes": "Decided: keep a wrapping message (truncation hides text); align the rest of the box with fundamental-styles where it does not prevent wrapping. Check UI5 in the multi-combobox PR. Verified: the spec fails before the fix and passes after; pnpm angular check passes; 'list message' pixels match in all 16 combinations (0.0%); its padding and line height differ on purpose (decided: the message wraps, 0.5rem padding as UI5's value state header)."
     },
     {
       "id": "multi-combobox-7",
@@ -2408,11 +2408,11 @@
       "source": "../../../react/docs/parity/components/multi-combobox.md",
       "kind": "behaviour",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "multi-combobox.spec.ts StyleHost: click the first check box, then Shift click the third: only Apple and Red Pepper are selected (onCheckClick calls setText(''), which clears the anchor every time).",
+      "test": "MultiCombobox styles and check boxes > selects a range with a Shift click on the check boxes (multi-combobox-7)",
+      "fix": "b1d53e5",
+      "notes": "Verified: the spec fails before the fix and passes after; pnpm angular check passes; spec passes; behaviour only."
     },
     {
       "id": "multi-combobox-8",

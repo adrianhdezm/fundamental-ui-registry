@@ -84,6 +84,9 @@ let nextId = 0;
  * <fd-multi-input ariaLabel="Fruits" placeholder="Search" [dropdownValues]="fruits" [(selected)]="chosen" />
  * ```
  */
+/** The dropdown width of fundamental-styles (40rem): the most the popup takes from a wider field. */
+const DROPDOWN_MAX_WIDTH = 640;
+
 @Component({
     selector: 'fd-multi-input',
     exportAs: 'fdMultiInput',
@@ -159,7 +162,7 @@ let nextId = 0;
                 [glyphExpanded]="isOpen()"
                 [buttonFocusable]="buttonFocusable()"
                 [tokenizerLabel]="tokensLabel()"
-                [class]="glyphMirrored() ? '[&>div>button_fd-icon]:-scale-x-100' : ''"
+                [class]="tokenizerClass()"
                 (moreClickedEvent)="onMoreClicked()"
                 (addOnButtonClicked)="onAddOnButtonClick($event)"
             >
@@ -365,7 +368,7 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
     readonly buttonFocusable = input(false, { transform: booleanAttribute });
     readonly maxHeight = input('300px');
     readonly fillControlMode = input<PopoverFillMode | null>('at-least');
-    /** Maximum width of the list: none, the width of the field or pixels. */
+    /** Maximum width of the list: `none` (its content, up to 40rem), the width of the field (`container`) or pixels. */
     readonly bodyMaxWidth = input<'none' | 'container' | number>('none');
     readonly placement = input<'top' | 'bottom'>('bottom');
     /** A link under a filtered list that shows all items again; `{count}` is the number of items. */
@@ -452,9 +455,20 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
     });
     protected readonly listShown = computed(() => !this.mobile() && this.open() && this.displayedOptions().length > 0);
     protected readonly glyphMirrored = computed(() => this.glyph() === 'value-help' && this.dir?.value === 'rtl');
+    /** Classes of the tokenizer field: fundamental-styles' multi input is an input group around a tokenizer. */
+    protected readonly tokenizerClass = computed(() =>
+        cn(
+            this.glyphMirrored() && '[&>div>button_fd-icon]:-scale-x-100',
+            // in high contrast the addon button is as high as the field, over its border (an input group button)
+            'hc:[&>button]:-my-(--sapField_BorderWidth)',
+            // the input group's field hover shadow (value states keep their own)
+            (this.state() ?? 'default') === 'default' && 'hover:[box-shadow:var(--sapField_Hover_Shadow)]'
+        )
+    );
     protected readonly popoverMaxWidth = computed(() => {
         const max = this.bodyMaxWidth();
-        if (max === 'none') return null;
+        // fundamental-styles' dropdown stops at 40rem, also on a wider field
+        if (max === 'none') return DROPDOWN_MAX_WIDTH;
         if (typeof max === 'number') return max;
         return this.elementRef.nativeElement.getBoundingClientRect().width;
     });
@@ -801,12 +815,21 @@ export class MultiInput<T = unknown, V = unknown> implements ControlValueAccesso
 
     protected readonly listClass = computed(() =>
         cn(
-            'relative m-0 box-border block min-w-20 list-none overflow-auto bg-sap-list-background p-0 outline-none scrollbar-sap',
-            this.mobile() ? 'w-full' : 'w-full max-w-[37.5rem] rounded-[inherit]'
+            // no background of its own: the options draw it, as fundamental-styles' multi input list
+            'relative m-0 box-border block min-w-20 list-none overflow-auto p-0 outline-none scrollbar-sap',
+            this.mobile() ? 'w-full' : 'w-full max-w-[40rem] rounded-[inherit]'
         )
     );
 
     protected readonly computedClass = computed(() => cn('block', this.userClass()));
 
-    protected readonly optionClass = computed(() => cn(LIST_DROPDOWN_ITEM, 'gap-x-2 ps-3', this.byline() && 'py-2'));
+    protected readonly optionClass = computed(() =>
+        cn(
+            LIST_DROPDOWN_ITEM,
+            // a list item of fundamental-styles' multi input list: 2.75rem high in cozy, plus the selection line of a
+            // selected item
+            'min-h-11 gap-x-2 ps-3 pe-4 aria-selected:min-h-[2.8125rem] compact:aria-selected:min-h-[2.0625rem]',
+            this.byline() && 'py-2'
+        )
+    );
 }

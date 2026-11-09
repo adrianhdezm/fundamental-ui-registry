@@ -482,3 +482,144 @@ describe('MultiCombobox', () => {
         expect(ref.isClosed()).toBe(true);
     });
 });
+
+@Component({
+    imports: [MultiCombobox],
+    template: `
+        <div [style.width.px]="width()">
+            <fd-multi-combobox
+                ariaLabel="Food"
+                displayKey="name"
+                lookupKey="id"
+                secondaryKey="type"
+                [showSecondaryText]="secondary()"
+                [state]="state()"
+                [stateMessage]="message()"
+                [readonly]="readonly()"
+                [dataSource]="items"
+                [(selectedItems)]="selected"
+            />
+        </div>
+    `
+})
+class StyleHost {
+    readonly items = ITEMS;
+    readonly width = signal(400);
+    readonly secondary = signal(false);
+    readonly state = signal<'default' | 'error'>('default');
+    readonly message = signal<string | null>(null);
+    readonly readonly = signal(false);
+    readonly selected = signal<Item[]>([]);
+}
+
+describe('MultiCombobox styles and check boxes', () => {
+    async function render(configure: (host: StyleHost) => void = () => {}) {
+        const fixture = TestBed.createComponent(StyleHost);
+        configure(fixture.componentInstance);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const stable = async () => {
+            await fixture.whenStable();
+            await new Promise((r) => requestAnimationFrame(r));
+            await fixture.whenStable();
+        };
+        const open = async () => {
+            await userEvent.click(root.querySelector<HTMLElement>('button[aria-haspopup]')!);
+            await stable();
+        };
+        const field = () => root.querySelector<HTMLElement>('fd-tokenizer > div')!;
+        return { fixture, host: fixture.componentInstance, root, open, field, stable };
+    }
+    const list = () => document.querySelector<HTMLElement>('.cdk-overlay-container ul[role=listbox]')!;
+    const pane = () => list().closest<HTMLElement>('.cdk-overlay-pane')!;
+    const opts = () => [...list().querySelectorAll<HTMLElement>('[role=option]')];
+    const probe = (style: string, property: 'boxShadow' | 'color') => {
+        const el = document.createElement('div');
+        el.setAttribute('style', style);
+        document.body.appendChild(el);
+        const value = getComputedStyle(el)[property];
+        el.remove();
+        return value;
+    };
+
+    it('makes the popup the field width less two group borders, at most 40rem (multi-combobox-1)', async () => {
+        const narrow = await render();
+        await narrow.open();
+        expect(pane().getBoundingClientRect().width).toBe(398);
+        narrow.fixture.destroy();
+        const wide = await render((h) => h.width.set(1200));
+        await wide.open();
+        expect(pane().getBoundingClientRect().width).toBeLessThanOrEqual(640);
+        expect(list().getBoundingClientRect().width).toBeGreaterThan(600);
+        expect(list().getBoundingClientRect().width).toBeLessThanOrEqual(640);
+    });
+
+    it('has 44px options, 45px when selected (multi-combobox-2)', async () => {
+        const { open } = await render((h) => h.selected.set([ITEMS[1]]));
+        await open();
+        expect(opts()[0].getBoundingClientRect().height).toBe(44);
+        expect(opts()[1].getAttribute('aria-selected')).toBe('true');
+        expect(opts()[1].getBoundingClientRect().height).toBe(45);
+    });
+
+    it('shows the field hover shadow, and no shadow when read-only (multi-combobox-3)', async () => {
+        const { field, host, fixture } = await render();
+        await userEvent.hover(field());
+        expect(getComputedStyle(field()).boxShadow).toBe(
+            probe('box-shadow: var(--sapField_Hover_Shadow)', 'boxShadow')
+        );
+        await userEvent.unhover(field());
+        host.readonly.set(true);
+        await fixture.whenStable();
+        expect(getComputedStyle(field()).boxShadow).toBe('none');
+    });
+
+    it('keeps the field 36px high with the addon button in high contrast (multi-combobox-4)', async () => {
+        const { field } = await render();
+        expect(field().getBoundingClientRect().height).toBe(36);
+        document.documentElement.setAttribute('data-sap-theme', 'sap_horizon_hcb');
+        try {
+            expect(field().getBoundingClientRect().height).toBe(36);
+        } finally {
+            document.documentElement.removeAttribute('data-sap-theme');
+        }
+    });
+
+    it('shows the secondary text in the neutral colour, sharing the row with the title (multi-combobox-5)', async () => {
+        const { open } = await render((h) => h.secondary.set(true));
+        await open();
+        const [title, secondary] = [...opts()[0].querySelectorAll<HTMLElement>(':scope > span:not([aria-hidden])')];
+        expect(secondary.textContent?.trim()).toBe('Fruit');
+        expect(getComputedStyle(secondary).color).toBe(probe('color: var(--sapNeutralTextColor)', 'color'));
+        expect(getComputedStyle(secondary).maxWidth).toBe('256px');
+        expect(getComputedStyle(title).maxWidth).toBe('384px');
+    });
+
+    it('shows the state message on a 2rem line with a start padding, wrapping (multi-combobox-6)', async () => {
+        const { open } = await render((h) => {
+            h.state.set('error');
+            h.message.set('Invalid entry');
+        });
+        await open();
+        const message = list().previousElementSibling as HTMLElement;
+        expect(message.textContent?.trim()).toBe('Invalid entry');
+        const style = getComputedStyle(message);
+        expect(message.getBoundingClientRect().height).toBe(32);
+        expect(style.lineHeight).toBe('16px');
+        expect(style.paddingInlineStart).toBe('8px');
+        expect(style.whiteSpace).toBe('normal');
+    });
+
+    it('selects a range with a Shift click on the check boxes (multi-combobox-7)', async () => {
+        const { open, host, stable } = await render();
+        await open();
+        await userEvent.click(opts()[0].querySelector<HTMLElement>('[aria-hidden=true]')!);
+        await stable();
+        await userEvent.keyboard('{Shift>}');
+        await userEvent.click(opts()[2].querySelector<HTMLElement>('[aria-hidden=true]')!);
+        await userEvent.keyboard('{/Shift}');
+        await stable();
+        expect(host.selected().map((i) => i.name)).toEqual(['Apple', 'Banana', 'Red Pepper']);
+    });
+});
