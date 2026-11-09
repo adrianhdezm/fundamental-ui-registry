@@ -315,9 +315,9 @@
       "source": "../../../react/docs/parity/components/switch.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "switch.spec.ts NamesHost (#plain): hovering the label leaves the track at --sapButton_Track_Background rgb(120, 143, 166) instead of --sapButton_Track_Hover_Background rgb(99, 125, 151): group-hover/sw: sits on the group/sw element itself and only matches descendants.",
+      "test": "Switch hover (switch-1) > changes the track colour on hover, off and on",
       "fix": "",
       "notes": ""
     },
