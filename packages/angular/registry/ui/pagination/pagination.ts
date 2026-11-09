@@ -218,7 +218,7 @@ let nextId = 0;
             @if (displayTotalItems() && !compact()) {
                 <span
                     [id]="id + '-total'"
-                    class="shrink-0 font-sap-font-family text-sap-font-size text-sap-content-label-color"
+                    class="shrink-0 cursor-text font-sap-font-family text-sap-font-size text-sap-content-label-color"
                 >
                     <ng-container
                         [ngTemplateOutlet]="displayTextTemplate() ?? totalTpl"
@@ -256,7 +256,7 @@ let nextId = 0;
             @if (!compact()) {
                 <span
                     [id]="id + '-per-page'"
-                    class="shrink-0 font-sap-font-family text-sap-font-size text-sap-content-label-color"
+                    class="shrink-0 cursor-text font-sap-font-family text-sap-font-size text-sap-content-label-color"
                     >{{ itemsPerPageLabel() }}</span
                 >
             }
@@ -460,7 +460,7 @@ export class Pagination {
     /** "Page:" and "of N" around the page input, form labels visible in the compact layout only (as fundamental-styles). */
     protected readonly inputLabelClass = computed(() =>
         cn(
-            'me-2 shrink-0 font-sap-font-family text-sap-font-size text-sap-content-label-color',
+            'me-2 shrink-0 cursor-text font-sap-font-family text-sap-font-size text-sap-content-label-color',
             !this.compact() && 'hidden'
         )
     );

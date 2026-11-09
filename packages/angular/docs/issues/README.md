@@ -401,14 +401,14 @@ None.
 
 #### pagination
 
-[React report](../../../react/docs/parity/components/pagination.md) · ⬜ reported: 1 · 🧪 covered: 3 · ✅ verified: 1
+[React report](../../../react/docs/parity/components/pagination.md) · 🧪 covered: 4 · ✅ verified: 1
 
 | ID           | Issue                                                                                                                 | Kind   | Confirmed | Pattern | Status      | Test                                                                                                    | Fix     | Notes                                                                                |
 | ------------ | --------------------------------------------------------------------------------------------------------------------- | ------ | --------- | ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
 | pagination-1 | Cozy pagination page buttons are 2px narrower because of `px-2` on page and current-page buttons.                     | visual | rendered  |         | 🧪 covered  | Pagination issues > keeps the cozy button padding on page and current page buttons (pagination-1)       |         |                                                                                      |
 | pagination-2 | The mobile pagination "Page:" and "of N" labels lack the form-label end margin (the nav is 16px narrower).            | visual | rendered  |         | 🧪 covered  | Pagination issues > gives the mobile "Page:" and "of N" labels the form label end margin (pagination-2) |         |                                                                                      |
 | pagination-3 | The pagination root `gap-4` moves the nav 8px off centre.                                                             | visual | rendered  |         | 🧪 covered  | Pagination issues > centres the nav in the space next to the results text (pagination-3)                |         |                                                                                      |
-| pagination-4 | The pagination labels have no text cursor.                                                                            | visual | rendered  |         | ⬜ reported |                                                                                                         |         |                                                                                      |
+| pagination-4 | The pagination labels have no text cursor.                                                                            | visual | rendered  |         | 🧪 covered  | Pagination issues > shows a text cursor over the labels (pagination-4)                                  |         |                                                                                      |
 | pagination-5 | In the mobile pagination layout the nav's `aria-describedby` points at the results text, which is not rendered there. | a11y   | rendered  |         | ✅ verified | Pagination › describes the nav by the results text only where it is shown                               | 6d9d3de | Verified: the test fails before the fix and passes after; pnpm angular check passes. |
 
 #### action-sheet

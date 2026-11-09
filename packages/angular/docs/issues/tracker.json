@@ -1245,9 +1245,9 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "pagination.spec.ts Host: the items per page, 'Page:', 'of 50' and results labels have cursor auto instead of fundamental-styles' form label text cursor.",
+      "test": "Pagination issues > shows a text cursor over the labels (pagination-4)",
       "fix": "",
       "notes": ""
     },

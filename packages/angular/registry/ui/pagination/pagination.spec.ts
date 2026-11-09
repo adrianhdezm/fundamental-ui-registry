@@ -300,4 +300,13 @@ describe('Pagination issues', () => {
         const total = root.querySelector('nav + span')!.getBoundingClientRect();
         expect(nav.left - (outer.left + 16)).toBeCloseTo(total.left - nav.right, 0);
     });
+
+    it('shows a text cursor over the labels (pagination-4)', async () => {
+        const { fixture, host, root } = await setup();
+        const labels = () => [...root.querySelectorAll<HTMLElement>('fd-pagination span[id]')];
+        expect(labels().map((el) => getComputedStyle(el).cursor)).toEqual(['text', 'text', 'text', 'text']);
+        host.mobile.set(true);
+        await fixture.whenStable();
+        expect(labels().map((el) => getComputedStyle(el).cursor)).toEqual(['text', 'text']);
+    });
 });
