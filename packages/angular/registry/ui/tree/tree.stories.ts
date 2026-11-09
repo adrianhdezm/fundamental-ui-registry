@@ -352,7 +352,14 @@ const meta: Meta<Tree> = {
     component: Tree,
     decorators: [
         moduleMetadata({
-            imports: [StoryTreeBasic, StoryTreeCustomization, StoryTreeStates, StoryTreeSelection, StoryTreeLazy]
+            imports: [
+                ...PARTS,
+                StoryTreeBasic,
+                StoryTreeCustomization,
+                StoryTreeStates,
+                StoryTreeSelection,
+                StoryTreeLazy
+            ]
         })
     ],
     parameters: {
@@ -378,4 +385,29 @@ export const Selection: Story = { render: () => ({ template: `<story-tree-select
 export const LazyLoading: Story = {
     name: 'Lazy loading',
     render: () => ({ template: `<story-tree-lazy />` })
+};
+
+/** fundamental-styles' wrapping item (`wrapContent`): the text wraps at the item's line height, without extra padding. */
+export const WrappingItem: Story = {
+    name: 'Wrapping item',
+    render: () => ({
+        template: `
+            <fd-tree ariaLabel="Wrapping item">
+                <fd-tree-item><span fdTreeItemText>Level 1</span></fd-tree-item>
+                <fd-tree-item wrapContent>
+                    <span fdTreeItemText>Level 1 with very long text and wrapping behaviour ... perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</span>
+                </fd-tree-item>
+            </fd-tree>`
+    })
+};
+
+/** A tree without data shows its "No data" row. */
+export const Empty: Story = {
+    name: 'No data',
+    render: () => ({
+        template: `
+            <fd-tree ariaLabel="Empty" [dataSource]="[]">
+                <fd-tree-item *fdTreeItemDef="let item"><span fdTreeItemText>-</span></fd-tree-item>
+            </fd-tree>`
+    })
 };

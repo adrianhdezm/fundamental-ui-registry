@@ -133,3 +133,23 @@ export const FooterVariations: Story = {
             </div>`
     })
 };
+
+/** A panel in a narrow (10rem) column: the head keeps room for the title, which wraps instead of running under the actions. */
+export const Narrow: Story = {
+    name: 'Narrow column',
+    render: () => ({
+        template: `
+            <div class="w-40">
+                <fd-layout-panel>
+                    <fd-layout-panel-header>
+                        <fd-layout-panel-head>
+                            <h3 fd-layout-panel-title>Layout panel title</h3>
+                            <fd-layout-panel-description>Layout panel description</fd-layout-panel-description>
+                        </fd-layout-panel-head>
+                        <fd-layout-panel-actions>Actions</fd-layout-panel-actions>
+                    </fd-layout-panel-header>
+                    <fd-layout-panel-body>Layout panel body</fd-layout-panel-body>
+                </fd-layout-panel>
+            </div>`
+    })
+};

@@ -287,3 +287,13 @@ export const OpenMobile: Story = {
     render: () => ({ template: `<story-user-menu [mobile]="true" [count]="2" />` }),
     play: openMenu
 };
+export const OpenMobileSubmenu: Story = {
+    name: 'Open: mobile submenu',
+    tags: ['!autodocs'],
+    render: () => ({ template: `<story-user-menu [mobile]="true" [count]="2" />` }),
+    play: async (context) => {
+        await openMenu(context);
+        await userEvent.click(await screen.findByText('Menu Item'));
+        await screen.findByRole('button', { name: 'Go back' });
+    }
+};

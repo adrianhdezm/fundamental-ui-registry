@@ -82,6 +82,23 @@ export const Group: Story = {
     })
 };
 
+/** fundamental-styles' Group Type Interaction States: accent colours, icons and images; hovering the group hovers each avatar with its own colours. */
+export const GroupAccents: Story = {
+    name: 'Group type with accent colours',
+    render: () => ({
+        template: `
+            <div class="max-w-md">
+                <fd-avatar-group type="group" size="m" overflowPopoverTitle="Team members">
+                    <fd-avatar *fdAvatarGroupItem="''; title: 'Wendy Wallace'" circle size="m" [colorAccent]="1" label="Wendy Wallace" ariaLabel="Wendy Wallace" />
+                    <fd-avatar *fdAvatarGroupItem="''; title: 'Simon Doe'" circle size="m" [colorAccent]="2" glyph="person-placeholder" ariaLabel="Simon Doe" />
+                    <fd-avatar *fdAvatarGroupItem="''; title: 'Ben Johnson'" circle size="m" image="assets/person.svg" ariaLabel="Ben Johnson" />
+                    <fd-avatar *fdAvatarGroupItem="''; title: 'Endy Wallace'" circle size="m" [colorAccent]="3" label="Endy Wallace" ariaLabel="Endy Wallace" />
+                    <fd-avatar *fdAvatarGroupItem="''; title: 'Whitney Copper'" circle border size="m" glyph="person-placeholder" ariaLabel="Whitney Copper" />
+                </fd-avatar-group>
+            </div>`
+    })
+};
+
 export const MaxVisibleAndVertical: Story = {
     name: 'Max visible, square overflow button and vertical',
     render: () => ({

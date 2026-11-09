@@ -1,4 +1,4 @@
-import { Component, afterNextRender, input, signal, viewChild } from '@angular/core';
+import { Component, afterNextRender, input, linkedSignal, signal, viewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { moduleMetadata, type Meta, type StoryObj } from '@analogjs/storybook-angular';
@@ -414,7 +414,9 @@ class StoryMenuDynamic {
 })
 class StoryMenuExtended {
     readonly autoOpen = input(false);
-    protected readonly toggle = signal(false);
+    /** Starts with the toggle on (its checkmark shown). */
+    readonly toggleOn = input(false);
+    protected readonly toggle = linkedSignal(() => this.toggleOn());
     protected readonly sort = signal<'asc' | 'desc' | null>('asc');
     protected readonly text = signal('');
 }
@@ -434,7 +436,7 @@ class StoryMenuExtended {
             <li fd-menu-item>
                 <a fd-menu-interactive>
                     <span fd-menu-title>Save</span>
-                    <span fd-menu-shortcut>Ctrl + S</span>
+                    <span fd-menu-shortcut [hideOnMobile]="!shortcuts()">Ctrl + S</span>
                 </a>
             </li>
             <li fd-menu-item>
@@ -453,6 +455,8 @@ class StoryMenuExtended {
 })
 class StoryMenuMobile {
     readonly autoOpen = input(false);
+    /** Shows the shortcuts, hidden in mobile mode by default. */
+    readonly shortcuts = input(false);
     private readonly menu = viewChild.required<Menu>('menu');
     constructor() {
         afterNextRender(() => this.autoOpen() && this.menu().open());
@@ -766,6 +770,16 @@ export const OpenMobile: Story = {
     name: 'Open: mobile',
     tags: ['!autodocs'],
     render: () => ({ template: `<story-menu-mobile [autoOpen]="true" />` })
+};
+export const OpenToggled: Story = {
+    name: 'Open: toggled item',
+    tags: ['!autodocs'],
+    render: () => ({ template: `<story-menu-extended [autoOpen]="true" [toggleOn]="true" />` })
+};
+export const OpenMobileShortcuts: Story = {
+    name: 'Open: mobile with shortcuts',
+    tags: ['!autodocs'],
+    render: () => ({ template: `<story-menu-mobile [autoOpen]="true" [shortcuts]="true" />` })
 };
 export const OpenScrollbar: Story = {
     name: 'Open: scrollbar',

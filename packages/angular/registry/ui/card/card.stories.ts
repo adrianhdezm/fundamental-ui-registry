@@ -428,6 +428,26 @@ export const Banner: Story = {
     })
 };
 
+/** fundamental-styles' "Media as Banner with content overlay": the text over a full-width image (80% − 3rem wide below 1024px). */
+export const OverlayBanner: Story = {
+    name: 'Banner with content overlay',
+    render: () => ({
+        template: `
+            <div class="h-[400px] w-full">
+                <fd-card cardType="banner">
+                    <fd-card-media>
+                        <div fd-card-media-content-container isOverlay>
+                            <div fd-card-media-heading>Get Ready for the AI Learning Days!</div>
+                            <p fd-card-media-text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat quo delectus deleniti excepturi tempora impedit nobis nulla sint qui quae consequuntur reprehenderit, accusamus amet nihil esse quia doloribus praesentium quidem?</p>
+                            <button fdButton label="Register"></button>
+                        </div>
+                        <div fd-card-media-image-container><img fd-card-media-image src="assets/landscape.svg" alt="" /></div>
+                    </fd-card-media>
+                </fd-card>
+            </div>`
+    })
+};
+
 export const ExtendedHeader: Story = {
     name: 'Extended header and header interaction',
     render: () => ({
