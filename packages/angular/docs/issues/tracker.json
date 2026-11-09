@@ -1258,9 +1258,9 @@
       "source": "../../../react/docs/parity/components/pagination.md",
       "kind": "a11y",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec: a pagination of 500 items; in the desktop layout the nav is described by the results text (<id>-total); switched to mobile, the nav keeps aria-describedby=\"<id>-total\" while that element is no longer rendered (getElementById returns null).",
+      "test": "Pagination › describes the nav by the results text only where it is shown",
       "fix": "",
       "notes": ""
     },
