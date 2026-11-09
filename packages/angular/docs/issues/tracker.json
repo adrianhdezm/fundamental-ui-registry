@@ -89,9 +89,9 @@
       "cause": "Tailwind v4's `bg-linear-to-*` interpolates `in oklab`; fundamental-styles' gradients use the default sRGB.",
       "rule": "Use `bg-linear-[to_top,…]`-style arbitrary gradients (sRGB) or `bg-linear-to-*/srgb`.",
       "issues": ["dynamic-page-3", "flexible-column-layout-2"],
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Each row's spec reads the computed background-image of the gradient lines: 'in oklab' before the fix.",
+      "test": "The spec of each row (dynamic-page, flexible-column-layout), each failing before the fix.",
       "fix": "",
       "notes": ""
     }
@@ -2264,9 +2264,9 @@
       "kind": "computed-only",
       "confirmed": "rendered",
       "pattern": "pattern-oklab-gradient",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "dynamic-page.spec.ts, the default page: the gradient lines on both sides of the header toolbar compute to 'linear-gradient(to left in oklab, …)'; fundamental-styles' have no interpolation space (sRGB).",
+      "test": "dynamic-page.spec.ts › DynamicPage › the gradient lines next to the header buttons blend in sRGB, as fundamental-styles",
       "fix": "",
       "notes": ""
     },
@@ -2501,9 +2501,9 @@
       "kind": "visual",
       "confirmed": "rendered",
       "pattern": "pattern-oklab-gradient",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "flexible-column-layout.spec.ts, ThreeColumnsMidExpanded: the separators' ::before/::after compute to 'linear-gradient(to top in oklab, …)' / 'to bottom in oklab'; fundamental-styles blends in sRGB.",
+      "test": "flexible-column-layout.spec.ts › FlexibleColumnLayout › the separator gradient lines blend in sRGB, as fundamental-styles",
       "fix": "",
       "notes": ""
     },

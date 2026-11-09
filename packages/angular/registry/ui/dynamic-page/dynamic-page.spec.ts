@@ -245,6 +245,18 @@ async function scroll(fixture: { whenStable(): Promise<unknown> }, element: HTML
 }
 
 describe('DynamicPage', () => {
+    it('the gradient lines next to the header buttons blend in sRGB, as fundamental-styles', async () => {
+        const { root } = await setup();
+        const toolbar = root.querySelector<HTMLElement>('[role=toolbar]')!;
+        const lines = [toolbar.previousElementSibling!, toolbar.nextElementSibling!].map(
+            (el) => getComputedStyle(el).backgroundImage
+        );
+        for (const line of lines) {
+            expect(line).toMatch(/^linear-gradient\(to (left|right), /);
+            expect(line).not.toContain('oklab');
+        }
+    });
+
     it('the collapse and pin buttons are 24×24px in both densities', async () => {
         const { root } = await setup();
         const buttons = [...root.querySelectorAll<HTMLElement>('[role=toolbar] button')];

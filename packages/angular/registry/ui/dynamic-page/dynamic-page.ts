@@ -310,7 +310,7 @@ export class DynamicPageHeader {
         @if (collapsible()) {
             <div [class]="visibilityClass()">
                 <div
-                    class="h-px w-16 bg-linear-to-l from-sap-object-header-border-color to-transparent rtl:bg-linear-to-r"
+                    class="h-px w-16 [background-image:linear-gradient(to_left,var(--sapObjectHeader_BorderColor),transparent)] rtl:[background-image:linear-gradient(to_right,var(--sapObjectHeader_BorderColor),transparent)]"
                 ></div>
                 <div
                     role="toolbar"
@@ -340,7 +340,7 @@ export class DynamicPageHeader {
                     }
                 </div>
                 <div
-                    class="h-px w-16 bg-linear-to-r from-sap-object-header-border-color to-transparent rtl:bg-linear-to-l"
+                    class="h-px w-16 [background-image:linear-gradient(to_right,var(--sapObjectHeader_BorderColor),transparent)] rtl:[background-image:linear-gradient(to_left,var(--sapObjectHeader_BorderColor),transparent)]"
                 ></div>
             </div>
         }

@@ -80,6 +80,17 @@ function cssColor(variable: string): string {
 }
 
 describe('FlexibleColumnLayout', () => {
+    it('the separator gradient lines blend in sRGB, as fundamental-styles', async () => {
+        const { separators } = await setup('ThreeColumnsMidExpanded');
+        for (const separator of separators()) {
+            for (const pseudo of ['::before', '::after']) {
+                const image = getComputedStyle(separator, pseudo).backgroundImage;
+                expect(image).toMatch(/^linear-gradient\(/);
+                expect(image).not.toContain('oklab');
+            }
+        }
+    });
+
     it('the separator buttons are 32×24px in cozy and 26×24px in compact density', async () => {
         const { buttons } = await setup('ThreeColumnsMidExpanded');
         expect(buttons()).toHaveLength(2);

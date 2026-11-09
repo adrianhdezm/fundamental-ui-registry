@@ -325,8 +325,9 @@ export class FlexibleColumnLayoutComponent {
             design === 'solid' && 'bg-sap-content-foreground-color',
             design === 'translucent' && 'bg-sap-group-content-background hc:bg-sap-background-color',
             design === 'transparent' && 'bg-transparent hc:bg-sap-background-color',
-            "before:absolute before:start-1/2 before:bottom-[calc(50%_+_1rem)] before:block before:h-16 before:w-px before:-translate-x-1/2 before:bg-linear-to-t before:from-sap-highlight-color before:to-transparent before:transition-all before:duration-100 before:ease-in before:content-[''] rtl:before:translate-x-1/2",
-            "after:absolute after:start-1/2 after:top-[calc(50%_+_1rem)] after:block after:h-16 after:w-px after:-translate-x-1/2 after:bg-linear-to-b after:from-sap-highlight-color after:to-transparent after:transition-all after:duration-100 after:ease-in after:content-[''] rtl:after:translate-x-1/2",
+            // gradient lines above and below the button, in sRGB as fundamental-styles' linear-gradient
+            "before:absolute before:start-1/2 before:bottom-[calc(50%_+_1rem)] before:block before:h-16 before:w-px before:-translate-x-1/2 before:[background-image:linear-gradient(to_top,var(--sapHighlightColor),transparent)] before:transition-all before:duration-100 before:ease-in before:content-[''] rtl:before:translate-x-1/2",
+            "after:absolute after:start-1/2 after:top-[calc(50%_+_1rem)] after:block after:h-16 after:w-px after:-translate-x-1/2 after:[background-image:linear-gradient(to_bottom,var(--sapHighlightColor),transparent)] after:transition-all after:duration-100 after:ease-in after:content-[''] rtl:after:translate-x-1/2",
             'hover:before:h-28 hover:after:h-28'
         );
     });
