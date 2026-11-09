@@ -224,7 +224,8 @@ export class UploadCollectionDescription {}
         '[fd-upload-collection-text-separator], fd-upload-collection-text-separator, [fdUploadCollectionTextSeparator]',
     host: {
         'aria-hidden': 'true',
-        class: "m-0 p-0 leading-none text-sap-content-label-color before:content-['•']"
+        // the bullet has the 1em line height (fundamental-styles), the separator keeps the line of its row
+        class: "m-0 p-0 text-sap-content-label-color before:leading-none before:content-['•']"
     }
 })
 export class UploadCollectionTextSeparator {}
