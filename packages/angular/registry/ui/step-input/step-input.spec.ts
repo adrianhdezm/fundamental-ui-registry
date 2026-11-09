@@ -463,6 +463,7 @@ describe('StepInput states', () => {
 
     it('keeps the state shadow and colours the buttons of a focused state field (step-input-2)', async () => {
         const { field } = await render();
+        await userEvent.unhover(field('error'));
         const shadow = getComputedStyle(field('error')).boxShadow;
         expect(shadow).not.toBe('none');
         field('error').querySelector('input')!.focus();

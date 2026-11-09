@@ -27,7 +27,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { cn, type ClassValue } from '@/lib/utils';
 import { Button } from '@/ui/button/button';
 import { fieldBase, fieldStates, type FormState } from '@/ui/input/input';
-import { INPUT_GROUP_BUTTON_VARS, STATE_FOCUS_COLOR } from '@/ui/input-group/input-group';
+import { INPUT_GROUP_BUTTON_VARS, STATE_BUTTON_VARS, STATE_FOCUS_COLOR } from '@/ui/input-group/input-group';
 
 let nextId = 0;
 
@@ -49,6 +49,21 @@ const INVALID = Symbol('invalid');
  * <fd-step-input inputId="qty" [min]="0" [max]="10" [(value)]="quantity" />
  * ```
  */
+/**
+ * While the input has the focus: a field without state loses its shadow; a field with a state keeps its state shadow,
+ * and its buttons take the state colour and, in the HC themes, the active background (fundamental-styles).
+ */
+const FOCUS_STATE: Record<FormState, string> = {
+    default: 'has-[input:focus]:[box-shadow:none]',
+    success:
+        'has-[input:focus]:[--sapButton_Lite_TextColor:var(--igBtnFocusColor)] has-[input:focus]:[&_button]:bg-sap-button-lite-active-background',
+    error: 'has-[input:focus]:[--sapButton_Lite_TextColor:var(--igBtnFocusColor)] has-[input:focus]:[&_button]:bg-sap-button-lite-active-background',
+    warning:
+        'has-[input:focus]:[--sapButton_Lite_TextColor:var(--igBtnFocusColor)] has-[input:focus]:[&_button]:bg-sap-button-lite-active-background',
+    information:
+        'has-[input:focus]:[--sapButton_Lite_TextColor:var(--igBtnFocusColor)] has-[input:focus]:[&_button]:bg-sap-button-lite-active-background'
+};
+
 @Component({
     selector: 'fd-step-input',
     exportAs: 'fdStepInput',
@@ -413,9 +428,11 @@ export class StepInput implements ControlValueAccessor {
             fieldBase,
             'flex w-auto items-center overflow-hidden p-0 compact:p-0',
             fieldStates[state],
+            STATE_BUTTON_VARS[state],
             INPUT_GROUP_BUTTON_VARS,
             // focus frame around the whole field while the input has the focus
-            'has-[input:focus]:[background:var(--sapField_Focus_Background)] has-[input:focus]:shadow-none',
+            'has-[input:focus]:[background:var(--sapField_Focus_Background)] has-[input:focus]:hover:[background:var(--sapField_Focus_Background)] has-[input:focus]:hover:[box-shadow:none]',
+            FOCUS_STATE[state],
             "after:pointer-events-none after:absolute after:inset-0 after:hidden after:content-[''] has-[input:focus]:after:block hc:after:inset-px",
             'after:rounded-sap-field-border-corner-radius after:border-(length:--sapContent_FocusWidth) after:[border-style:var(--sapContent_FocusStyle)]',
             STATE_FOCUS_COLOR[state],
