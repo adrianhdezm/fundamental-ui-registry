@@ -137,7 +137,8 @@ export class TreeItemText {}
 /** An action button at the end of a tree item. */
 @Directive({
     selector: '[fdTreeItemButton]',
-    host: { class: 'ms-(--fdList_Button_Spacing,0.125rem) shrink-0' }
+    // no start margin: fundamental-styles' --fdTree_Button_Spacing is a list variable, undefined in a tree
+    host: { class: 'shrink-0' }
 })
 export class TreeItemButton {}
 
@@ -202,7 +203,7 @@ function forwardTree(): typeof Tree {
             @if (expandable()) {
                 <span
                     aria-hidden="true"
-                    class="flex min-h-(--tree-exp) min-w-(--tree-exp) shrink-0 cursor-pointer items-center justify-center text-sap-button-icon-color"
+                    class="flex min-h-(--tree-exp) min-w-(--tree-exp) shrink-0 cursor-pointer items-center justify-center rounded-sap-button-border-corner-radius text-sap-button-icon-color"
                     [style.margin-inline-start]="placement() === 'left' ? null : indent()"
                     (click)="toggle($event)"
                 >
@@ -444,7 +445,6 @@ export class TreeItem<T = unknown> {
                 'cursor-pointer hover:bg-sap-list-hover-background active:border-sap-list-active-background active:bg-sap-list-active-background',
                 selected && 'hover:bg-sap-list-hover-selection-background'
             ],
-            this.wrapContent() && 'py-1',
             this.state() && HIGHLIGHT[this.state() as TreeItemState],
             this.userClass()
         );
@@ -516,7 +516,9 @@ const ROOT_ROW =
                 }
             } @else {
                 <div role="treeitem" aria-level="1" class="${ROOT_ROW} justify-center">
-                    <span class="text-(length:--tree-font) text-sap-list-text-color">{{ noDataText() }}</span>
+                    <span class="text-(length:--tree-font) leading-(--tree-h) text-sap-list-text-color">{{
+                        noDataText()
+                    }}</span>
                 </div>
             }
         } @else {

@@ -435,11 +435,11 @@
       "source": "../../../react/docs/parity/components/list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ThumbnailHost): an fd-list-icon in a byline thumbnail computes font-size 18px (the list icon size) and an fd-icon 16px; fundamental-styles' thumbnail icons are 2rem.",
+      "test": "list.spec.ts › List styles › icons in a thumbnail take its 2rem size (computed style)",
+      "fix": "ccd3559",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual list: the thumbnail icon (the same activate glyph) matches fundamental-styles' Byline Standard story by computed style (32px) in all 16 combinations; pnpm angular check passes."
     },
     {
       "id": "list-3",
@@ -448,11 +448,11 @@
       "source": "../../../react/docs/parity/components/list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ThumbnailHost): a hovered fd-list-link computes border-bottom-color rgba(0, 0, 0, 0); fundamental-styles' hovered link shows the list border colour (rgb(229, 229, 229) in Horizon).",
+      "test": "list.spec.ts › List styles › a hovered link shows the list border colour at its bottom (computed style)",
+      "fix": "a37b2c2",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual list: the hovered link matches fundamental-styles' Navigation story by computed style (bottom border colour) in all 16; pnpm angular check passes."
     },
     {
       "id": "object-status-1",
@@ -514,11 +514,11 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (WrapHost): an item with wrapContent computes padding-top and -bottom 4px (py-1), so wrapping rows are 8px taller; fundamental-styles pads only rows of an fd-tree--wrap tree, not an item's fd-tree__content--wrap.",
+      "test": "tree.spec.ts › Tree styles › wrapping items have no extra block padding (computed style)",
+      "fix": "93f40e6",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (a wrapping item shows in no reference story: covered by the spec)"
     },
     {
       "id": "tree-2",
@@ -527,11 +527,11 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (FeaturesHost): the fdTreeItemButton of item B computes margin-inline-start 2px (ms-(--fdList_Button_Spacing,0.125rem)); fundamental-styles' --fdTree_Button_Spacing is var(--fdList_Button_Spacing), undefined in a tree, so 0.",
+      "test": "tree.spec.ts › Tree styles › item buttons have no start margin, as fundamental-styles (computed style)",
+      "fix": "7348d50",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual tree: the item button matches fundamental-styles' Borderless story by computed style (margins) in all 16; pnpm angular check passes."
     },
     {
       "id": "tree-3",
@@ -540,11 +540,11 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (DataHost, empty data): the No data row is 44px high (its text has a normal line height); fundamental-styles' text takes the item height, plus the 1px border: 45px (33px compact).",
+      "test": "tree.spec.ts › Tree styles › the No data row is as high as an item plus its border (45px)",
+      "fix": "c6c73ee",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no Angular story shows an empty tree: covered by the spec)"
     },
     {
       "id": "tree-4",
@@ -553,11 +553,11 @@
       "source": "../../../react/docs/parity/components/tree.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (FeaturesHost): the expander of item A computes border-radius 0px; fundamental-styles' expander has the button corner radius (8px in Horizon), visible with a focus outline.",
+      "test": "tree.spec.ts › Tree styles › the expander has the button corner radius, for its focus outline (computed style)",
+      "fix": "071e2a9",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual tree: the expander matches fundamental-styles' Primary story by computed style (radius) in all 16; pnpm angular check passes."
     },
     {
       "id": "bar-1",
@@ -826,11 +826,11 @@
       "source": "../../../react/docs/parity/components/menu.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (ConfigHost, mobile, hideOnMobile false) in compact density: the shortcut computes padding-inline-end 16px; MOBILE_VARS sets [--mi-sc-pr:1rem]! for every density, where fundamental-styles' compact mobile shortcut has 0.5rem.",
+      "test": "menu.spec.ts › Menu options › a mobile shortcut keeps the compact end padding in compact density (computed style)",
+      "fix": "534684f",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no story shows a mobile shortcut, hidden on mobile by default: covered by the spec)"
     },
     {
       "id": "menu-2",
@@ -2447,11 +2447,11 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): the form facet's title computes margin-bottom 0px, so the content sits right on it; fundamental-styles' title has a 1rem bottom margin (on the subtitle of a rating facet).",
+      "test": "facets.spec.ts › Facets › the title (or a rating facet's subtitle) has a 1rem bottom margin above the content (computed style)",
+      "fix": "7c74f48",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual facets: the form facet title matches fundamental-styles' Combined story by computed style (1rem bottom margin) in all 16; pnpm angular check passes."
     },
     {
       "id": "facets-2",
@@ -2460,11 +2460,11 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): a form facet row computes column-gap 4px (gap-1) on top of the label's or icon's 0.5rem end margin; fundamental-styles' rows have no gap. The existing spec asserted the 4px gap.",
+      "test": "facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin",
+      "fix": "1b5ad8a",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual facets: the form facet row matches by computed style (no gap) in all 16; pnpm angular check passes."
     },
     {
       "id": "facets-3",
@@ -2473,11 +2473,11 @@
       "source": "../../../react/docs/parity/components/facets.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (Host): form facet rows compute align-items baseline (items-baseline), which makes icon rows 18px high and puts links 2px below their icon; fundamental-styles' rows stretch. The existing spec asserted baseline.",
+      "test": "facets.spec.ts › Facets › form facet rows space evenly and icons get an end margin",
+      "fix": "3887b2b",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual facets: the form facet row matches by computed style (align-items) in all 16; pnpm angular check passes."
     },
     {
       "id": "flexible-column-layout-1",
@@ -2606,11 +2606,11 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost, dir=rtl): the desktop action sits 540px from the item's left edge, at the right (start); rtl:float-start is added on top of float-end, which Tailwind v4 already compiles to the logical float: inline-end.",
+      "test": "feed-list.spec.ts › FeedList styles › in RTL the desktop actions sit at the end (left)",
+      "fix": "9815476",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes."
     },
     {
       "id": "feed-list-2",
@@ -2619,11 +2619,11 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (OptionsHost, borderLess): the last item computes padding-bottom 12px; [&+&]:py-3 has a higher specificity than last:pb-4, where fundamental-styles has 16px.",
+      "test": "feed-list.spec.ts › FeedList styles › the last item of a borderless list has a 16px bottom padding (computed style)",
+      "fix": "5ed187c",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual feed-list: the borderless last item matches fundamental-styles' Borderless story by computed style (16px bottom padding) in all 16; pnpm angular check passes."
     },
     {
       "id": "feed-list-3",
@@ -2646,11 +2646,11 @@
       "source": "../../../react/docs/parity/components/feed-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (StylesHost): a footer with a Reply fdLink is 22px high (the link keeps its 1rem line height) and the date byline computes 9.6px (preflight's small at 80%); fundamental-styles' footer is 17px and its bylines 10px (smaller).",
+      "test": "feed-list.spec.ts › FeedList styles › a footer with a Reply link is 17px high and the bylines are 10px (computed style)",
+      "fix": "628dd97",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm angular check passes. (no Angular story has a Reply link in the footer: covered by the spec)"
     },
     {
       "id": "grid-list-1",
@@ -2659,11 +2659,11 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (GroupsHost): the grid list item title computes font-family 72-Bold (font-sap-font-header-family); fundamental-styles' item title is in --sapFontFamily (72), weight normal.",
+      "test": "grid-list.spec.ts › GridList styles › the item title uses the regular SAP font, as fundamental-styles (computed style)",
+      "fix": "db22e7d",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual grid-list: the item title matches fundamental-styles' States story by computed style (72) in all 16; pnpm angular check passes."
     },
     {
       "id": "grid-list-2",
@@ -2672,11 +2672,11 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (GroupsHost): the title bar heading computes color rgb(85, 107, 130) (the toolbar label colour, --sapContent_LabelColor); fundamental-styles' title bar text is plain toolbar text in --sapTextColor, rgb(19, 30, 41).",
+      "test": "grid-list.spec.ts › GridList styles › the title bar text has the text colour (computed style)",
+      "fix": "2a8adf6",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual grid-list: the title bar title matches fundamental-styles' multi-select story by computed style (text colour) in all 16; pnpm angular check passes."
     },
     {
       "id": "grid-list-3",
@@ -2685,11 +2685,11 @@
       "source": "../../../react/docs/parity/components/grid-list.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
-      "fix": "",
-      "notes": ""
+      "status": "verified",
+      "repro": "Spec (GroupsHost): the group header after an item computes margin-top 0px; fundamental-styles' group headers have a 0.75rem top margin except the first (--no-margin).",
+      "test": "grid-list.spec.ts › GridList styles › group headers after items have a 0.75rem top margin, the first one none (computed style)",
+      "fix": "457e720",
+      "notes": "Verified: the test fails before the fix and passes after; pnpm visual grid-list: the group header after items matches fundamental-styles' States story (0.75rem top margin) in all 16; pnpm angular check passes."
     },
     {
       "id": "grid-list-4",

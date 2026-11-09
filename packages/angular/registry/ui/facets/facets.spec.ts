@@ -111,12 +111,22 @@ describe('Facets', () => {
         expect(getComputedStyle(image).marginBottom).toBe('0px');
     });
 
+    it("the title (or a rating facet's subtitle) has a 1rem bottom margin above the content (computed style)", async () => {
+        const { el } = await setup();
+        const title = (id: string) => el(id).querySelector<HTMLElement>(':scope > div')!;
+        expect(getComputedStyle(title('form')).marginBottom).toBe('16px');
+        expect(getComputedStyle(title('rating')).marginBottom).toBe('0px');
+        expect(getComputedStyle(el('rating').querySelector<HTMLElement>(':scope > span')!).marginBottom).toBe('16px');
+    });
+
     it('form facet rows space evenly and icons get an end margin', async () => {
         const { el } = await setup();
         const rows = ['row1', 'row2', 'row3'].map(el);
         expect(rows.map((r) => getComputedStyle(r).marginBottom)).toEqual(['8px', '8px', '0px']);
-        expect(rows.map((r) => getComputedStyle(r).alignItems)).toEqual(['baseline', 'baseline', 'baseline']);
-        expect(getComputedStyle(rows[0]).columnGap).toBe('4px');
+        // the rows stretch, as fundamental-styles (no baseline alignment)
+        expect(rows.map((r) => getComputedStyle(r).alignItems)).toEqual(['normal', 'normal', 'normal']);
+        // no gap on top of the label's (or icon's) end margin, as fundamental-styles
+        expect(getComputedStyle(rows[0]).columnGap).toBe('normal');
         const gaps = [
             rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().bottom,
             rows[2].getBoundingClientRect().top - rows[1].getBoundingClientRect().bottom

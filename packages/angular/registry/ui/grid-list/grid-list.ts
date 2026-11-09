@@ -441,7 +441,7 @@ export class GridListItemFooterBar {}
                             <div
                                 role="heading"
                                 [attr.aria-level]="titleLevel()"
-                                class="m-0 mt-0.5 p-0 font-sap-font-header-family text-sap-font-large-size leading-[normal] whitespace-normal text-sap-list-text-color"
+                                class="m-0 mt-0.5 p-0 font-sap-font-family text-sap-font-large-size leading-[normal] whitespace-normal text-sap-list-text-color"
                             >
                                 {{ title() }}
                             </div>
@@ -743,7 +743,10 @@ export class GridListTitleBar {
     readonly headingLevel = input(2);
     readonly userClass = input<ClassValue>('', { alias: 'class' });
     protected readonly roles = rowRoles();
-    protected readonly computedClass = computed(() => cn(FULL_ROW, this.userClass()));
+    // the title in the text colour, as fundamental-styles' plain toolbar text (not a toolbar label's colour)
+    protected readonly computedClass = computed(() =>
+        cn(FULL_ROW, '[&_[fd-toolbar-label]]:text-sap-text-color', this.userClass())
+    );
 }
 
 /** Pushes the following title bar content to the end. */
@@ -782,6 +785,8 @@ export class GridListGroupHeader {
         cn(
             FULL_ROW,
             'm-0 flex h-8 items-center truncate p-0 text-sap-font-header5-size leading-8 font-bold text-sap-list-group-header-text-color',
+            // after items, as fundamental-styles' group headers without --no-margin
+            '[:not(fd-grid-list-title-bar,fd-grid-list-filter-bar,fd-grid-list-group-header)+&]:mt-3',
             this.userClass()
         )
     );

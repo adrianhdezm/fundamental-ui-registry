@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { Link } from '@/ui/link/link';
 import { FeedList, FeedListAction, FeedListFooter, FeedListFooterByline, FeedListItem } from './feed-list';
 
 const TEXT = 'x'.repeat(40);
@@ -146,5 +147,59 @@ describe('FeedList', () => {
         host.borderLess.set(true);
         await fixture.whenStable();
         expect(getComputedStyle(second).borderTopWidth).toBe('0px');
+    });
+});
+
+@Component({
+    imports: [FeedList, FeedListItem, FeedListAction, FeedListFooter, FeedListFooterByline, Link],
+    template: `
+        <div dir="rtl" style="width: 600px">
+            <fd-feed-list ariaLabel="RTL">
+                <fd-feed-list-item authorTitle="Jane" text="Text">
+                    <fd-feed-list-action><button type="button" id="rtl-action">Act</button></fd-feed-list-action>
+                </fd-feed-list-item>
+            </fd-feed-list>
+        </div>
+        <fd-feed-list ariaLabel="Footer">
+            <fd-feed-list-item authorTitle="Jane" text="Text">
+                <fd-feed-list-footer id="footer"
+                    ><small fd-item-footer-byline id="date">Aug 20</small
+                    ><small fd-item-footer-byline><a fdLink href="#reply">Reply</a></small></fd-feed-list-footer
+                >
+            </fd-feed-list-item>
+        </fd-feed-list>
+    `
+})
+class StylesHost {}
+
+describe('FeedList styles', () => {
+    async function setupStyles() {
+        const fixture = TestBed.createComponent(StylesHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        return { root, el: (id: string) => root.querySelector<HTMLElement>(`#${id}`)! };
+    }
+
+    it('in RTL the desktop actions sit at the end (left)', async () => {
+        const { el } = await setupStyles();
+        const item = el('rtl-action').closest('fd-feed-list-item')!.getBoundingClientRect();
+        const action = el('rtl-action').getBoundingClientRect();
+        expect(action.left - item.left).toBeLessThan(item.right - action.right);
+    });
+
+    it('the last item of a borderless list has a 16px bottom padding (computed style)', async () => {
+        const { fixture, host, root } = await setupOptions();
+        host.borderLess.set(true);
+        await fixture.whenStable();
+        const items = root.querySelectorAll<HTMLElement>('fd-feed-list-item');
+        expect(getComputedStyle(items[items.length - 1]).paddingBottom).toBe('16px');
+        expect(getComputedStyle(items[items.length - 1]).paddingTop).toBe('12px');
+    });
+
+    it('a footer with a Reply link is 17px high and the bylines are 10px (computed style)', async () => {
+        const { el } = await setupStyles();
+        expect(el('footer').getBoundingClientRect().height).toBe(17);
+        expect(getComputedStyle(el('date')).fontSize).toBe('10px');
     });
 });

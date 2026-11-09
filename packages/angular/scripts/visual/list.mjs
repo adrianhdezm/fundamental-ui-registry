@@ -29,5 +29,34 @@ export default [
         label: 'byline unread dot',
         ours: { story: 'components-list--byline-unread', selector: '[fd-list-item] > fd-icon >> nth=0' },
         ref: { story: `${FS}list-byline--unread-notification`, selector: `${refItem(1)} .fd-list__notification` }
+    },
+    {
+        // the thumbnail's icon at 2rem (list-2); another glyph than fundamental-styles' avatar, so by computed style
+        label: 'thumbnail icon',
+        pixels: false,
+        props: ['font-size'],
+        // fundamental-styles' thumbnail rounds its icon element too (4px): no background, nothing shows
+        ignore: [
+            'width',
+            'height',
+            'line-height',
+            'color',
+            'font-family',
+            'border-top-left-radius',
+            'border-top-right-radius',
+            'border-bottom-right-radius',
+            'border-bottom-left-radius'
+        ],
+        ours: { story: 'components-list--byline-borderless', selector: '[fd-list-thumbnail] > [data-glyph] >> nth=0' },
+        ref: { story: `${FS}list-byline--standard`, selector: '.fd-list__thumbnail > i >> nth=0' }
+    },
+    {
+        // the list border colour under a hovered link (list-3); the texts differ, so by computed style
+        label: 'link hover',
+        hover: true,
+        pixels: false,
+        ignore: ['width'],
+        ours: { story: 'components-list--navigation', selector: 'a[fd-list-link] >> nth=0' },
+        ref: { story: `${FS}list-standard--navigation`, selector: `${refItem(1)} a` }
     }
 ];

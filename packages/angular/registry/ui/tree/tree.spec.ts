@@ -419,3 +419,48 @@ describe('Tree', () => {
         });
     });
 });
+
+@Component({
+    imports: [Tree, TreeItem, TreeItemText],
+    template: `
+        <fd-tree ariaLabel="Wrap" style="width: 200px">
+            <fd-tree-item value="W" wrapContent
+                ><span fdTreeItemText>A long item text that wraps over two lines at least</span></fd-tree-item
+            >
+        </fd-tree>
+    `
+})
+class WrapHost {}
+
+describe('Tree styles', () => {
+    it('wrapping items have no extra block padding (computed style)', async () => {
+        const { rows } = await render(WrapHost);
+        const style = getComputedStyle(rows()[0]);
+        expect([style.paddingTop, style.paddingBottom]).toEqual(['0px', '0px']);
+    });
+
+    it('item buttons have no start margin, as fundamental-styles (computed style)', async () => {
+        const { root } = await render(FeaturesHost);
+        const button = [...root.querySelectorAll<HTMLElement>('[fdTreeItemButton]')][0];
+        expect(getComputedStyle(button).marginInlineStart).toBe('0px');
+    });
+
+    it('the No data row is as high as an item plus its border (45px)', async () => {
+        const { root } = await render(DataHost);
+        const row = root.querySelector<HTMLElement>('[role=treeitem]')!;
+        expect(row.textContent!.trim()).toBe('No data');
+        expect(row.getBoundingClientRect().height).toBe(45);
+    });
+
+    it('the expander has the button corner radius, for its focus outline (computed style)', async () => {
+        const { root } = await render(FeaturesHost);
+        const expander = itemRow(root, 'A').querySelector<HTMLElement>(
+            ':scope span[aria-hidden="true"].cursor-pointer'
+        )!;
+        const probe = document.createElement('div');
+        probe.style.borderRadius = 'var(--sapButton_BorderCornerRadius)';
+        document.body.appendChild(probe);
+        expect(getComputedStyle(expander).borderTopLeftRadius).toBe(getComputedStyle(probe).borderTopLeftRadius);
+        probe.remove();
+    });
+});
