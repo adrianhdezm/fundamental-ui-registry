@@ -581,3 +581,20 @@ describe('Calendar forms, all modes', () => {
         expect(host.dates.value!.map((d) => d.day)).toEqual([9]);
     });
 });
+
+describe('Calendar header', () => {
+    it('the next arrow has a 0.25rem start margin, as fundamental-styles (computed style)', async () => {
+        const { root } = await setup();
+        const next = root.querySelector<HTMLElement>('#cal-header-right-arrow')!.parentElement!;
+        expect(getComputedStyle(next).marginInlineStart).toBe('4px');
+        const month = root.querySelector<HTMLElement>('button[data-fd-calendar-month]')!;
+        const year = root.querySelector<HTMLElement>('button[data-fd-calendar-year]')!;
+        // the month and year buttons share the rest of the header: 4px margins on each side of each
+        const header = month.closest('fd-calendar > div')!.getBoundingClientRect();
+        const arrows = 2 * root.querySelector<HTMLElement>('#cal-header-right-arrow')!.getBoundingClientRect().width;
+        expect(month.getBoundingClientRect().width + year.getBoundingClientRect().width).toBeCloseTo(
+            header.width - arrows - 6 * 4,
+            0
+        );
+    });
+});

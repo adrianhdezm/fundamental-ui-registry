@@ -416,7 +416,7 @@ export class CalendarCloseButton {
                     ></button>
                 </div>
             }
-            <div class="m-0 ms-auto grow-0 p-0">
+            <div class="m-0 ms-1 grow-0 p-0">
                 <button
                     fdButton
                     type="button"

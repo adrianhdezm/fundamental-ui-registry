@@ -866,9 +866,9 @@
       "source": "../../../react/docs/parity/components/calendar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "components-calendar--single (and the spec host): the next arrow's wrapper computes margin-inline-start 0px (ms-auto with nothing to push), fundamental-styles 0.25rem; the month and year buttons share 2×2px more.",
+      "test": "calendar.spec.ts › Calendar header › the next arrow has a 0.25rem start margin, as fundamental-styles (computed style)",
       "fix": "",
       "notes": ""
     },
