@@ -74,6 +74,23 @@ async function setup() {
 }
 
 describe('ProgressIndicator', () => {
+    it('the bar sits inside the track border, as wide as its share of it', async () => {
+        const { fixture, host, root, bar: track } = await setup();
+        const fill = () => root.querySelector<HTMLElement>('[role=progressbar] > div')!.getBoundingClientRect();
+        const inner = () => {
+            const t = track.getBoundingClientRect();
+            return { left: t.left + 1, width: t.width - 2 };
+        };
+        expect(fill().left).toBe(inner().left);
+        host.value.set(100);
+        await fixture.whenStable();
+        expect(fill().width).toBeCloseTo(inner().width, 1);
+        host.value.set(1);
+        await fixture.whenStable();
+        // no 10px minimum: 1% of the track
+        expect(fill().width).toBeLessThan(10);
+    });
+
     it('the label sits 1px inside the track border and is as wide as its text', async () => {
         const { root, bar } = await setup();
         const label = root.querySelector<HTMLElement>('[aria-hidden=true]')!;

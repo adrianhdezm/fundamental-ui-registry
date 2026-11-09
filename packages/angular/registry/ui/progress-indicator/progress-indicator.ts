@@ -116,7 +116,7 @@ const STATES: Record<ProgressIndicatorState | 'neutral', { vars: string; glyph: 
             [class]="trackClass()"
         >
             @if (percent() > 0) {
-                <div [class]="barClass()" [style.width.%]="percent()"></div>
+                <div [class]="barClass()" [style.width.%]="percent()" [style.min-width.%]="percent()"></div>
             }
             @if (glyph(); as glyph) {
                 <fd-icon [glyph]="glyph" [class]="iconClass" />
@@ -183,10 +183,10 @@ export class ProgressIndicator {
         )
     );
 
+    /** A flex item inside the track border, as fundamental-styles' bar (its minimum width is its width). */
     protected readonly barClass = computed(() =>
         cn(
-            'absolute -start-px -bottom-[0.1875rem] box-border h-2.5 min-w-2.5 rounded-[0.5rem] border border-solid border-(--pi-bar-border) bg-(--pi-bar)',
-            this.percent() >= 100 && 'end-[-0.0625rem] w-auto!',
+            '-my-[0.1875rem] box-border h-2.5 shrink-0 rounded-[0.5rem] border border-solid border-(--pi-bar-border) bg-(--pi-bar)',
             this.animate() && 'transition-[width,min-width] duration-500 ease-in-out'
         )
     );

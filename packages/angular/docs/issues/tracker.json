@@ -2000,9 +2000,9 @@
       "source": "../../../react/docs/parity/components/progress-indicator.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "progress-indicator.spec.ts: the bar starts 1px left of the track's inner edge (-start-px), is 2px wider than the inside at 100% (end-[-0.0625rem]) and at least 10px wide (min-w-2.5) at 1%.",
+      "test": "progress-indicator.spec.ts › ProgressIndicator › the bar sits inside the track border, as wide as its share of it",
       "fix": "",
       "notes": ""
     },
