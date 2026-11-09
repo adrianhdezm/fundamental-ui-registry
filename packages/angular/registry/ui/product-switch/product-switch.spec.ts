@@ -314,3 +314,15 @@ describe('ProductSwitch', () => {
         expect(titles(host.products())).toEqual(before);
     });
 });
+
+describe('ProductSwitch issues', () => {
+    afterEach(() => document.querySelector('.cdk-overlay-container')?.replaceChildren());
+
+    it('gives the product icon a line height of 1 (product-switch-2)', async () => {
+        await open();
+        const icon = items()[0].querySelector<HTMLElement>('fd-icon')!;
+        const style = getComputedStyle(icon);
+        expect([style.fontSize, style.lineHeight]).toEqual(['24px', '24px']);
+        expect(getComputedStyle(icon, '::before').lineHeight).toBe('24px');
+    });
+});

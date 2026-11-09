@@ -1669,8 +1669,8 @@
       "source": "../../../react/docs/parity/components/product-switch.md",
       "kind": "computed-only",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
+      "status": "not-reproducible",
+      "repro": "product-switch.spec.ts Host, opened: the product icon computes font-size 24px and line-height 24px (1), also on its ::before glyph. Its class has had 'text-[1.5rem] leading-none' since 115fbfa (pattern-leading-merge), which added leading-none after the size; before, the icon had no line height and kept normal. Kept as 'ProductSwitch issues > gives the product icon a line height of 1 (product-switch-2)', passing before any change.",
       "test": "",
       "fix": "",
       "notes": ""
