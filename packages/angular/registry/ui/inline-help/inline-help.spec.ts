@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { Icon } from '@/ui/icon/icon';
 import type { Placement } from '@/ui/popover/popover';
 import { Button } from '@/ui/button/button';
+import { FormLabel } from '@/ui/form/form';
 import { InlineHelp } from './inline-help';
 
 @Component({
@@ -374,5 +375,52 @@ describe('InlineHelp', () => {
         document.body.appendChild(reference);
         expect(getComputedStyle(surface).backgroundColor).toBe(getComputedStyle(reference).backgroundColor);
         reference.remove();
+    });
+});
+
+@Component({
+    imports: [FormLabel],
+    template: `
+        <div style="padding: 100px">
+            <label fdFormLabel for="vat" inlineHelpContent="Country code and 9-12 digits">VAT number</label>
+            <input id="vat" />
+        </div>
+    `
+})
+class FormLabelHost {}
+
+describe('InlineHelp in a form label', () => {
+    afterEach(() =>
+        document.querySelectorAll('[role=tooltip]').forEach((el) => el.closest('.cdk-overlay-pane')?.remove())
+    );
+
+    it('a press on the help icon shows the help and does not activate the label (also as a tap)', async () => {
+        const fixture = TestBed.createComponent(FormLabelHost);
+        document.body.appendChild(fixture.nativeElement);
+        await fixture.whenStable();
+        const root = fixture.nativeElement as HTMLElement;
+        const icon = root.querySelector<HTMLElement>('label fd-icon')!;
+        const help = () => document.querySelector('[role=tooltip]');
+        const settle = async () => {
+            await fixture.whenStable();
+            await frame();
+            await fixture.whenStable();
+            await wait(150);
+        };
+        // a tap: no hover; the press focuses the icon, then clicks it
+        icon.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch', isPrimary: true }));
+        icon.focus();
+        icon.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch', isPrimary: true }));
+        icon.click();
+        await settle();
+        expect(help()?.textContent).toContain('Country code');
+        // the click does not move the focus to the field
+        expect(document.activeElement).toBe(icon);
+        // the next tap closes it
+        icon.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch', isPrimary: true }));
+        icon.click();
+        await settle();
+        expect(help()).toBeNull();
+        expect(document.activeElement).toBe(icon);
     });
 });

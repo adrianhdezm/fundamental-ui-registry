@@ -93,7 +93,7 @@ export class MessagePageTitle {}
 @Directive({
     selector: 'fd-message-page-subtitle',
     host: {
-        class: 'm-0 mb-8 box-border block max-w-[30rem] p-0 text-center text-sap-font-header5-size text-sap-content-label-color'
+        class: 'm-0 mb-8 box-border block max-w-[30rem] p-0 text-sap-font-header5-size text-sap-content-label-color'
     }
 })
 export class MessagePageSubtitle {}

@@ -46,6 +46,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, merge } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
 import { cn, type ClassValue } from '@/lib/utils';
+import { iconGlyphChar } from '@/ui/icon/icon';
 import {
     type ArrowAlign,
     type ArrowSide,
@@ -172,6 +173,16 @@ const ARROW_ALIGN_Y: Record<ArrowAlign, string> = {
     end: 'after:bottom-[calc(var(--fd-arrow-anchor-h)*0.5_-_var(--fd-arrow)_-_var(--fdPopover_Border_Width))] before:bottom-[calc(var(--fd-arrow-anchor-h)*0.5_-_var(--fd-arrow))]'
 };
 
+type ResizeCorner = 'bottom-right' | 'top-right' | 'bottom-left' | 'top-left';
+
+/** Corner positions of the resize handle; the glyph (pointing to the bottom right) turns to point at its corner. */
+const RESIZE_CORNERS: Record<ResizeCorner, string> = {
+    'bottom-right': '-right-2 -bottom-2 cursor-se-resize',
+    'top-right': '-top-2 -right-2 -rotate-90 cursor-ne-resize',
+    'bottom-left': '-bottom-2 -left-2 rotate-90 cursor-sw-resize',
+    'top-left': '-top-2 -left-2 rotate-180 cursor-nw-resize'
+};
+
 /**
  * The visual container of popover content: SAP popover surface, shadow, optional arrow, scrolling,
  * focus trap and optional resize handle. Rendered inside the overlay of `<fd-popover>`.
@@ -209,11 +220,14 @@ const ARROW_ALIGN_Y: Record<ArrowAlign, string> = {
                 <ng-container [ngTemplateOutlet]="content" />
             }
             @if (resizable()) {
+                <!-- physical corners and rotations: the glyph sits in the top left of the box in either direction -->
                 <span
                     role="presentation"
                     aria-hidden="true"
+                    dir="ltr"
                     [class]="resizeHandleClass()"
-                    data-glyph=""
+                    [attr.data-corner]="resizeCorner()"
+                    [attr.data-glyph]="resizeGlyph"
                     (pointerdown)="startResize($event)"
                 ></span>
             }
@@ -291,12 +305,32 @@ export class PopoverBody {
         );
     });
 
+    protected readonly resizeGlyph = iconGlyphChar('resize-corner');
+
+    /**
+     * The corner of the resize handle, away from the trigger as in fundamental-styles: below or above the trigger
+     * it is on the side the body grows to (the inline end, or the start for an `end` alignment); beside the trigger
+     * it is on the outer edge, at the bottom (the top for an `end` alignment).
+     */
+    protected readonly resizeCorner = computed<ResizeCorner>(() => {
+        const side = this.arrowSide();
+        const align = this.arrowAlign();
+        const rtl = (this.dir?.valueSignal() ?? 'ltr') === 'rtl';
+        if (side === 'start' || side === 'end') {
+            // the arrow at the body's start: the body is after the trigger
+            const right = (side === 'start') !== rtl;
+            return `${align === 'end' ? 'top' : 'bottom'}-${right ? 'right' : 'left'}`;
+        }
+        // the arrow at the bottom: the body is above the trigger
+        const right = (align === 'end') === rtl;
+        return `${side === 'bottom' ? 'top' : 'bottom'}-${right ? 'right' : 'left'}`;
+    });
+
     protected readonly resizeHandleClass = computed(() =>
         cn(
-            'absolute -bottom-2 -end-2 flex size-6 cursor-se-resize items-start overflow-hidden text-sap-button-lite-text-color',
-            'after:flex after:size-4 after:font-sap-content-icon-font-family after:text-[1rem] after:leading-4 after:content-[attr(data-glyph)]',
-            'rtl:cursor-sw-resize rtl:after:-scale-x-100',
-            this.arrowSide() === 'bottom' && 'top-[-0.5rem] bottom-auto -rotate-90 cursor-ne-resize'
+            'absolute flex size-6 items-start overflow-hidden text-[1rem] leading-4 text-sap-button-lite-text-color',
+            'after:flex after:size-4 after:justify-center after:font-sap-content-icon-font-family after:text-[1rem] after:leading-4 after:content-[attr(data-glyph)]',
+            RESIZE_CORNERS[this.resizeCorner()]
         )
     );
 
@@ -357,14 +391,15 @@ export class PopoverBody {
         event.preventDefault();
         const surface = this.surface().nativeElement;
         const rect = surface.getBoundingClientRect();
-        const rtl = this.dir?.value === 'rtl';
+        const corner = this.resizeCorner();
         const startX = event.clientX;
         const startY = event.clientY;
         const handle = event.target as HTMLElement;
         handle.setPointerCapture(event.pointerId);
         const move = (e: PointerEvent) => {
-            const dx = (e.clientX - startX) * (rtl ? -1 : 1);
-            const dy = (e.clientY - startY) * (this.arrowSide() === 'bottom' ? -1 : 1);
+            // the body grows towards the handle
+            const dx = (e.clientX - startX) * (corner.endsWith('left') ? -1 : 1);
+            const dy = (e.clientY - startY) * (corner.startsWith('top') ? -1 : 1);
             this.resizedWidth.set(`${Math.max(rect.width + dx, 48)}px`);
             this.resizedHeight.set(`${Math.max(rect.height + dy, 48)}px`);
         };
@@ -633,6 +668,14 @@ export class PopoverService implements PopoverBodyHost {
         this.removeListeners();
         if (!el) return;
         const hover = triggers.some((t) => t.trigger === 'mouseenter' || t.trigger === 'mouseleave');
+        // whether the popover was open when the current press started: a click that toggles keeps a popover the same
+        // press opened by focusing the trigger (a tap on a touch screen focuses, then clicks)
+        let openAtPress: boolean | null = null;
+        if (triggers.some((t) => t.trigger === 'click' && t.openAction && t.closeAction)) {
+            const press = () => (openAtPress = this.isOpen());
+            el.addEventListener('pointerdown', press, true);
+            this.listeners.push(() => el.removeEventListener('pointerdown', press, true));
+        }
         for (const t of triggers) {
             this.listeners.push(
                 this.renderer.listen(el, t.trigger, (event: Event) => {
@@ -642,7 +685,11 @@ export class PopoverService implements PopoverBodyHost {
                         if (!this.isOpen()) this.open();
                     } else if (hover && t.trigger === 'mouseleave' && t.closeAction) {
                         this.scheduleHoverClose();
+                    } else if (t.trigger === 'click' && openAtPress === false && this.isOpen()) {
+                        // opened by this press: keep it open
+                        openAtPress = null;
                     } else {
+                        if (t.trigger === 'click') openAtPress = null;
                         this.toggle(t.openAction, t.closeAction, t.trigger !== 'focusout');
                     }
                     if (t.stopPropagation) event.stopImmediatePropagation();

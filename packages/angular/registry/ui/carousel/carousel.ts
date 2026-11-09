@@ -11,6 +11,7 @@ import {
     DestroyRef,
     Directive,
     ElementRef,
+    Injector,
     afterNextRender,
     booleanAttribute,
     computed,
@@ -645,6 +646,7 @@ export class Carousel {
 
     constructor() {
         const destroyRef = inject(DestroyRef);
+        const injector = inject(Injector);
         afterNextRender(() => {
             const engine = new CarouselEngine<CarouselItem>(this.slidesElement().nativeElement);
             engine.onActiveChange = (event) => this.onSwipe(event);
@@ -680,6 +682,8 @@ export class Carousel {
                 const last = Math.max(0, this.pages() - 1);
                 if (!this.loop() && this.start() > last) this.moveTo(last);
                 this.notify('None');
+                // the slides take their new size in the next render: move the offset with them
+                afterNextRender(() => this.onResize(), { injector });
             });
         });
         // new slides: back to the first
@@ -788,6 +792,11 @@ export class Carousel {
             this.start.set(start);
             this.engine?.goToItem(slides[start]);
             if (this.engine) this.engine.active = slides[start];
+        } else if (slides.length && this.engine) {
+            // a fixed count: the offset is in pixels, so move it to the shown slide at the new slide size
+            const start = slides[this.start()] ?? slides[0];
+            this.engine.goToItem(start);
+            this.engine.active = start;
         }
     }
 
