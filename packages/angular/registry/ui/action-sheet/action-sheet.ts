@@ -162,7 +162,9 @@ export class ActionSheetBody {
         cn(
             'm-0 box-border w-full list-none p-0 px-2 py-1 compact:px-[0.375rem] compact:py-[0.1875rem]',
             this.sheet?.mobile() &&
-                'relative z-[1] w-[calc(100%_-_0.125rem)] ms-px overflow-auto rounded-sap-popover-border-corner-radius bg-sap-group-content-background shadow-sap-content-shadow1 [[data-sheet-bar]+&]:rounded-t-none'
+                'relative z-[1] w-[calc(100%_-_0.125rem)] ms-px overflow-auto rounded-sap-popover-border-corner-radius bg-sap-group-content-background shadow-sap-content-shadow1',
+            // square top corners under the title bar (the list is inside fd-action-sheet-body, not next to the bar)
+            this.sheet?.mobile() && this.sheet.controlTitle() && 'rounded-t-none'
         )
     );
 

@@ -413,14 +413,14 @@ None.
 
 #### action-sheet
 
-[React report](../../../react/docs/parity/components/action-sheet.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/action-sheet.md) · ⬜ reported: 3 · 🧪 covered: 1
 
-| ID             | Issue                                                                                                                                                          | Kind          | Confirmed | Pattern             | Status      | Test | Fix | Notes |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ---- | --- | ----- |
-| action-sheet-1 | The mobile action-sheet list keeps rounded top corners under the title bar: `[[data-sheet-bar]+&]` never matches, the list sits inside `fd-action-sheet-body`. | visual        | rendered  |                     | ⬜ reported |      |     |       |
-| action-sheet-2 | The action-sheet title bar is raised (`z-[2]`) over the list, so its shadow falls on the first action; in fundamental-styles the list is on top.               | visual        | rendered  |                     | ⬜ reported |      |     |       |
-| action-sheet-3 | The action-sheet `shadow-sap-content-shadow1/2` utilities add transparent ring layers.                                                                         | computed-only | rendered  | pattern-shadow-ring | ⬜ reported |      |     |       |
-| action-sheet-4 | The action-sheet popover list has no corner radius, unlike fundamental-styles.                                                                                 | visual        | rendered  |                     | ⬜ reported |      |     |       |
+| ID             | Issue                                                                                                                                                          | Kind          | Confirmed | Pattern             | Status      | Test                                                                                                                    | Fix | Notes |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | ------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------- | --- | ----- |
+| action-sheet-1 | The mobile action-sheet list keeps rounded top corners under the title bar: `[[data-sheet-bar]+&]` never matches, the list sits inside `fd-action-sheet-body`. | visual        | rendered  |                     | 🧪 covered  | action-sheet.spec.ts › ActionSheet styles › the mobile list under the title bar has square top corners (computed style) |     |       |
+| action-sheet-2 | The action-sheet title bar is raised (`z-[2]`) over the list, so its shadow falls on the first action; in fundamental-styles the list is on top.               | visual        | rendered  |                     | ⬜ reported |                                                                                                                         |     |       |
+| action-sheet-3 | The action-sheet `shadow-sap-content-shadow1/2` utilities add transparent ring layers.                                                                         | computed-only | rendered  | pattern-shadow-ring | ⬜ reported |                                                                                                                         |     |       |
+| action-sheet-4 | The action-sheet popover list has no corner radius, unlike fundamental-styles.                                                                                 | visual        | rendered  |                     | ⬜ reported |                                                                                                                         |     |       |
 
 #### overflow-layout
 

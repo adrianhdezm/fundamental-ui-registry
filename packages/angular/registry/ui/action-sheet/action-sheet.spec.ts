@@ -113,3 +113,16 @@ describe('ActionSheet', () => {
         expect(document.querySelector('[data-sheet-bar]')).toBeNull();
     });
 });
+
+describe('ActionSheet styles', () => {
+    const list = () => document.querySelector<HTMLElement>('[role=menu]')!;
+    const radius = (el: HTMLElement) => {
+        const style = getComputedStyle(el);
+        return [style.borderTopLeftRadius, style.borderTopRightRadius, style.borderBottomLeftRadius];
+    };
+
+    it('the mobile list under the title bar has square top corners (computed style)', async () => {
+        await setup(true, (h) => h.title.set('Pick an action'));
+        expect(radius(list())).toEqual(['0px', '0px', '8px']);
+    });
+});

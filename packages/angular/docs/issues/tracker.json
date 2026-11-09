@@ -1271,9 +1271,9 @@
       "source": "../../../react/docs/parity/components/action-sheet.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "Spec (Host, mobile with controlTitle): the list computes border-top-left/right-radius 8px under the title bar: its [[data-sheet-bar]+&]:rounded-t-none never matches, the list being inside fd-action-sheet-body, not the bar's sibling.",
+      "test": "action-sheet.spec.ts › ActionSheet styles › the mobile list under the title bar has square top corners (computed style)",
       "fix": "",
       "notes": ""
     },
