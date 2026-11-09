@@ -979,7 +979,9 @@ export class MultiCombobox<T = unknown> implements ControlValueAccessor {
         this.selectionChange.emit({ selectedItems: items });
     }
 
+    /** Sets the input text; a new text forgets the Shift click anchor (the list changes). */
     private setText(text: string): void {
+        if (text === this.inputText()) return;
         this.inputText.set(text);
         this.anchor = null;
     }
