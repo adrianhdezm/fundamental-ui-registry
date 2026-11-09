@@ -57,7 +57,7 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
 
 **Progress:** 2 of 215 issues closed (verified, not reproducible or won’t fix).
 
-Issues: ⬜ reported: 213 · ✅ verified: 1 · 🚫 won’t fix: 1.
+Issues: ⬜ reported: 212 · 🧪 covered: 1 · ✅ verified: 1 · 🚫 won’t fix: 1.
 
 Patterns: ⬜ reported: 7.
 
@@ -790,14 +790,14 @@ None.
 
 #### carousel
 
-[React report](../../../react/docs/parity/components/carousel.md) · ⬜ reported: 4
+[React report](../../../react/docs/parity/components/carousel.md) · ⬜ reported: 3 · 🧪 covered: 1
 
-| ID         | Issue                                                                                                                                             | Kind          | Confirmed | Pattern                     | Status      | Test | Fix | Notes                                                                  |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------------- | ----------- | ---- | --- | ---------------------------------------------------------------------- |
-| carousel-1 | After a resize or a `visibleSlidesCount` change, a fixed-count carousel keeps its old pixel offset and shows another slide than the selected one. | behaviour     | rendered  |                             | ⬜ reported |      |     |                                                                        |
-| carousel-2 | The carousel live region announces "Displaying item 1 of 0" when there are no slides.                                                             | a11y          | rendered  |                             | ⬜ reported |      |     |                                                                        |
-| carousel-3 | Compact carousel navigation buttons keep the button's 7px side padding: `p-0` does not override `compact:px-…` (computed only).                   | computed-only | rendered  | pattern-compact-button-size | ⬜ reported |      |     |                                                                        |
-| carousel-4 | Carousel dots and buttons use `rounded-full` instead of 50% and lack minimum heights (computed only).                                             | computed-only | rendered  | pattern-rounded-full        | ⬜ reported |      |     | The missing minimum heights (second half) are not part of the pattern. |
+| ID         | Issue                                                                                                                                             | Kind          | Confirmed | Pattern                     | Status      | Test                                                            | Fix | Notes                                                                  |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | --------- | --------------------------- | ----------- | --------------------------------------------------------------- | --- | ---------------------------------------------------------------------- |
+| carousel-1 | After a resize or a `visibleSlidesCount` change, a fixed-count carousel keeps its old pixel offset and shows another slide than the selected one. | behaviour     | rendered  |                             | ⬜ reported |                                                                 |     |                                                                        |
+| carousel-2 | The carousel live region announces "Displaying item 1 of 0" when there are no slides.                                                             | a11y          | rendered  |                             | 🧪 covered  | Carousel › announces the shown item, and nothing without slides |     |                                                                        |
+| carousel-3 | Compact carousel navigation buttons keep the button's 7px side padding: `p-0` does not override `compact:px-…` (computed only).                   | computed-only | rendered  | pattern-compact-button-size | ⬜ reported |                                                                 |     |                                                                        |
+| carousel-4 | Carousel dots and buttons use `rounded-full` instead of 50% and lack minimum heights (computed only).                                             | computed-only | rendered  | pattern-rounded-full        | ⬜ reported |                                                                 |     | The missing minimum heights (second half) are not part of the pattern. |
 
 #### file-uploader
 
