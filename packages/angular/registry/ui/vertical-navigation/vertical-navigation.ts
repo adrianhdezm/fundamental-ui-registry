@@ -285,7 +285,7 @@ export class ListNavigationItem implements FocusableOption {
     );
 
     /** As fundamental-styles' popover: the header as high as the row, the popover radius. */
-    protected readonly panelClass = 'absolute start-[0.325rem] top-0 z-[3] flex h-full cursor-default flex-col';
+    protected readonly panelClass = 'absolute start-[0.325rem] top-0 z-[3] flex h-full flex-col';
     /** The icon starts 0.875rem in, with 0.75rem to the text. */
     protected readonly panelHeaderClass =
         'box-border flex h-full min-h-0 w-[14.325rem] shrink-0 items-start whitespace-nowrap rounded-t-sap-popover-border-corner-radius rounded-es-sap-popover-border-corner-radius bg-sap-list-alternating-background [box-shadow:var(--sapContent_Shadow1)] [&>fd-icon]:ms-0! [&>fd-icon]:me-3! [&>fd-icon]:ps-[0.875rem]';

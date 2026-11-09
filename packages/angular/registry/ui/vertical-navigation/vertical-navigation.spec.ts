@@ -262,6 +262,18 @@ describe('VerticalNavigation issues', () => {
         expect(header.getBoundingClientRect().height).toBe(43);
     });
 
+    it('keeps the pointer cursor of the row in the condensed panel (vertical-navigation-3)', async () => {
+        const { fixture, host } = await setup(true);
+        host.expanded.set(true);
+        await fixture.whenStable();
+        await wait();
+        const header = item('Calendar').querySelector<HTMLElement>(':scope > div > div')!;
+        expect([getComputedStyle(header).cursor, getComputedStyle(text('Calendar')).cursor]).toEqual([
+            'pointer',
+            'pointer'
+        ]);
+    });
+
     it('sets the vertical nav text style on the column (vertical-navigation-4)', async () => {
         const fixture = TestBed.createComponent(Host);
         const root = fixture.nativeElement as HTMLElement;
