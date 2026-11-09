@@ -372,4 +372,15 @@ describe('Shellbar issues', () => {
         const productSwitch = root.querySelector('fd-product-switch')!.getBoundingClientRect();
         expect(user.right).toBeLessThanOrEqual(productSwitch.left);
     });
+
+    it('draws the search field bottom line with --sapField_BackgroundStyle (shellbar-3)', async () => {
+        const root = await render();
+        const field = getComputedStyle(root.querySelector('fd-shellbar-search')!);
+        const style = 'var(--sapField_BackgroundStyle)';
+        expect(themed('backgroundImage', style)).not.toBe('none');
+        expect([field.backgroundImage, field.backgroundSize]).toEqual([
+            themed('backgroundImage', style),
+            themed('backgroundSize', style)
+        ]);
+    });
 });

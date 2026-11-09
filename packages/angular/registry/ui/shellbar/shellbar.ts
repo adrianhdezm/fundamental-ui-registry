@@ -589,11 +589,12 @@ export class ShellbarSearch {
         const size = this.shellbar?.size();
         const center = this.shellbar?.searchInCenter();
         return cn(
-            'relative m-0 box-border flex h-sap-element-height items-center border-none p-0',
+            'relative m-0 box-border flex h-sap-element-height cursor-text items-center border-none p-0 text-sap-field-text-color',
             '[--sb-btn-w:1.75rem] [--sb-btn-h:var(--sapElement_Compact_Height)] [--sb-btn-r:1.063rem] hc:[--sb-btn-w:2.25rem] hc:[--sb-btn-h:var(--sapElement_Height)] hc:[--sb-btn-r:var(--sapButton_BorderCornerRadius)]',
-            'rounded-[1.125rem] bg-sap-shell-interactive-background [box-shadow:var(--sapField_Shadow)] hc:rounded-none',
-            'hover:bg-sap-shell-hover-background hover:[box-shadow:var(--sapField_Hover_Shadow)] hc:hover:bg-transparent',
-            'has-[input:focus]:bg-transparent has-[input:focus]:[box-shadow:0_0_0_0.125rem_var(--sapButton_Lite_Active_BorderColor)] hc:has-[input:focus]:[box-shadow:none]',
+            // the field's bottom border line comes with the background style, as fundamental-styles'
+            'rounded-[1.125rem] [background:var(--sapField_BackgroundStyle)_var(--sapShell_InteractiveBackground)] [box-shadow:var(--sapField_Shadow)] hc:rounded-none',
+            'hover:[background:var(--sapField_Hover_BackgroundStyle)_var(--sapShell_Hover_Background)] hover:[box-shadow:var(--sapField_Hover_Shadow)] hc:hover:[background:transparent]',
+            'has-[input:focus]:[background:transparent] has-[input:focus]:[box-shadow:0_0_0_0.125rem_var(--sapButton_Lite_Active_BorderColor)] hc:has-[input:focus]:[box-shadow:none]',
             size === 's'
                 ? 'w-full max-w-full'
                 : center

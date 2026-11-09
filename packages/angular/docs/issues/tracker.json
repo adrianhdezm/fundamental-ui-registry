@@ -1524,9 +1524,9 @@
       "source": "../../../react/docs/parity/components/shellbar.md",
       "kind": "visual",
       "confirmed": "rendered",
-      "status": "reported",
-      "repro": "",
-      "test": "",
+      "status": "covered",
+      "repro": "shellbar.spec.ts IssuesHost: the search field computes background-image none (only bg-sap-shell-interactive-background) instead of the --sapField_BackgroundStyle bottom line gradient.",
+      "test": "Shellbar issues > draws the search field bottom line with --sapField_BackgroundStyle (shellbar-3)",
       "fix": "",
       "notes": ""
     },
