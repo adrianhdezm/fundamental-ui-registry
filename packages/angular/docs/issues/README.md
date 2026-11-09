@@ -50,8 +50,10 @@ Side exits: **not-reproducible** (the evidence in `repro`), **wont-fix** (the re
    issues get an assertion on the computed value. Record the test name in `test`.
 3. Fix it in the component (the React port is a read-only reference, never an import), one commit per issue or
    pattern, naming the ids. Record the commit in `fix`.
-4. Verify it, then set `verified`. Every pull request keeps this tracker in sync, and its body has a table of its
-   issues with status, repro, test and fix.
+4. Verify it: the test passes, `pnpm check` passes, and for visual issues `pnpm build-storybook && pnpm visual <name>`
+   (cases in `scripts/visual/<name>.mjs`) matches fundamental-styles in all 16 combinations. Then set `verified`.
+   Every pull request keeps this tracker in sync, and its body has a table of its issues with status, repro, test and
+   fix.
 
 ## Tracker
 
